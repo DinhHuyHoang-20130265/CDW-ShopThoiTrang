@@ -27,4 +27,6 @@ public class Role {
     )
     private Set<Permission> permissions = new HashSet<>();
 
+    @OneToMany(mappedBy = "role", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    private Set<User> users;
 }
