@@ -8,4 +8,6 @@ import vn.edu.hcmuaf.cdw.ShopThoiTrang.entity.User;
 public interface UserRepository extends JpaRepository<User, Long>{
 
     User findByUsername(String username);
+
+    boolean existsByUsername(String email);
 }
