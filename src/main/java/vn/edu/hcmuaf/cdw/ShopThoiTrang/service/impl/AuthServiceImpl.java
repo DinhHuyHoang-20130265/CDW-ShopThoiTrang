@@ -23,13 +23,13 @@ public class AuthServiceImpl implements AuthService {
     @Override
     public ResponseEntity<?> login(LoginDto loginDto) {
         if (userRepository.existsByUsername(loginDto.getEmail())) {
-            User user = userRepository.findBy(loginDto.());
+            User user = userRepository.findByName(loginDto.getFullName());
             if (user.isEnabled()) {
                 LoginDto response = new LoginDto();
                 response.setId(user.getId());
                 response.setEmail(user.getUserInfo().getEmail());
                 response.setFullName(user.getUserInfo().getFullName());
-                response.setAdmin(null);
+                response.setAdmin(true);
                 response.setPassword(loginDto.getPassword());
                 if (passwordEncoder.matches(loginDto.getPassword(), user.getPassword())) {
                     return new ResponseEntity<>(response, HttpStatus.OK);
