@@ -9,8 +9,4 @@ import vn.edu.hcmuaf.cdw.ShopThoiTrang.service.UserService;
 @RequestMapping("/user")
 public class UserController {
 
-    @Autowired
-    private UserService userService;
-
-
 }
