@@ -64,6 +64,8 @@ public class SecurityConfiguration {
                 .authorizeHttpRequests(auth ->
                         auth.requestMatchers("/api/auth/**").permitAll()
                                 .requestMatchers("/api/test/**").permitAll()
+                                .requestMatchers("/api/user/forgot-password").permitAll()
+                                .requestMatchers("/api/user/forgot-password-confirmation").permitAll()
                                 .anyRequest().authenticated()
                 );
 

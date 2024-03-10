@@ -1,15 +1,18 @@
 package vn.edu.hcmuaf.cdw.ShopThoiTrang.controller;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+import vn.edu.hcmuaf.cdw.ShopThoiTrang.reponsitory.UserInfoRepository;
 
 @CrossOrigin(origins = "*", maxAge = 3600)
 @RestController
 @RequestMapping("/api/test")
 public class TestController {
+
+    @Autowired
+    UserInfoRepository userInfoRepository;
     @GetMapping("/all")
     public String allAccess() {
         return "Public Content.";
