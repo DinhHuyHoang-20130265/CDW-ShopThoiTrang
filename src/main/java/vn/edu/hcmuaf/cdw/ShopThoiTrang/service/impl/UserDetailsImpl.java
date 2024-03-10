@@ -2,7 +2,6 @@ package vn.edu.hcmuaf.cdw.ShopThoiTrang.service.impl;
 
 import java.io.Serial;
 import java.util.*;
-import java.util.stream.Collectors;
 
 import lombok.Getter;
 import org.springframework.security.core.GrantedAuthority;
@@ -10,7 +9,6 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import vn.edu.hcmuaf.cdw.ShopThoiTrang.entity.Role;
 import vn.edu.hcmuaf.cdw.ShopThoiTrang.entity.User;
 
 public class UserDetailsImpl implements UserDetails {
