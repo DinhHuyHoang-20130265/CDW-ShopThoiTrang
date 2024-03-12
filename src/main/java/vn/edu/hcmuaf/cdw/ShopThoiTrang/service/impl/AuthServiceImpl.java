@@ -12,7 +12,6 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import vn.edu.hcmuaf.cdw.ShopThoiTrang.JWT.JwtUtils;
 import vn.edu.hcmuaf.cdw.ShopThoiTrang.entity.RefreshToken;
-import vn.edu.hcmuaf.cdw.ShopThoiTrang.entity.Role;
 import vn.edu.hcmuaf.cdw.ShopThoiTrang.entity.User;
 import vn.edu.hcmuaf.cdw.ShopThoiTrang.entity.UserInfo;
 import vn.edu.hcmuaf.cdw.ShopThoiTrang.exception.TokenRefreshException;
@@ -51,6 +50,8 @@ public class AuthServiceImpl implements AuthService {
     @Autowired
     RefreshTokenService refreshTokenService;
     private final Map<String, String> otpMap = new HashMap<>();
+
+    private final Map<String, String> otpMapForgot = new HashMap<>();
 
     @Override
     public ResponseEntity<?> login(LoginDto loginDto) {
@@ -98,6 +99,38 @@ public class AuthServiceImpl implements AuthService {
     }
 
     @Override
+    public ResponseEntity<?> forgotPassword(ForgotPasswordRequest forgotPasswordRequest) {
+        if (userInfoRepository.existsByEmail(forgotPasswordRequest.getEmail())) {
+            String otp = generateOTP();
+            otpMapForgot.put(forgotPasswordRequest.getEmail(), otp);
+
+            scheduleOTPCleanup(forgotPasswordRequest.getEmail(), otpMapForgot);
+            System.out.println(otpMapForgot);
+
+            emailService.sendResetPasswordEmail(forgotPasswordRequest.getEmail(), otp, "Reset password");
+            return new ResponseEntity<>("OTP for forgot password has sent to your email", HttpStatus.OK);
+        }
+        return new ResponseEntity<>("Email doesn't Exits", HttpStatus.NOT_FOUND);
+    }
+
+    @Override
+    public ResponseEntity<?> forgotPasswordConfirmation(ForgotPasswordRequest forgotPasswordRequest) {
+        if (otpMapForgot.isEmpty() || !isOTPValid(forgotPasswordRequest.getEmail(), otpMapForgot)) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("OTP has expired.");
+        }
+
+        if (!otpMapForgot.get(forgotPasswordRequest.getEmail()).equals(forgotPasswordRequest.getOtp())) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Invalid OTP.");
+        }
+        User user = userInfoRepository.findByEmail(forgotPasswordRequest.getEmail()).getUser();
+        user.setPasswordEncrypted(passwordEncoder.encode(forgotPasswordRequest.getNewPassword()));
+        userRepository.save(user);
+
+        otpMapForgot.remove(forgotPasswordRequest.getEmail());
+        return ResponseEntity.ok("Password changed successful.");
+    }
+
+    @Override
     public ResponseEntity<?> signup(SignupDto signupDto) {
         if (userInfoRepository.existsByEmail(signupDto.getEmail())) {
             return new ResponseEntity<>("Email already exists", HttpStatus.BAD_REQUEST);
@@ -105,7 +138,7 @@ public class AuthServiceImpl implements AuthService {
         String otp = generateOTP();
         otpMap.put(signupDto.getEmail(), otp);
 
-        scheduleOTPCleanup(signupDto.getEmail());
+        scheduleOTPCleanup(signupDto.getEmail(), otpMap);
         System.out.println(otpMap);
 
         emailService.sendEmail(signupDto.getEmail(), otp, "OTP for registration");
@@ -117,24 +150,24 @@ public class AuthServiceImpl implements AuthService {
         return String.format("%06d", new Random().nextInt(999999));
     }
 
-    private void scheduleOTPCleanup(String email) {
+    private void scheduleOTPCleanup(String email, Map<String, String> otp) {
         new Thread(() -> {
             try {
                 TimeUnit.MINUTES.sleep(3);
-                otpMap.remove(email);
+                otp.remove(email);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
         }).start();
     }
 
-    private boolean isOTPValid(String email) {
-        return otpMap.containsKey(email);
+    private boolean isOTPValid(String email, Map<String, String> otp) {
+        return otp.containsKey(email);
     }
 
     @Override
     public ResponseEntity<?> isValidEmail(SignupDto signupDto) {
-        if (otpMap.isEmpty() || !isOTPValid(signupDto.getEmail())) {
+        if (otpMap.isEmpty() || !isOTPValid(signupDto.getEmail(), otpMap)) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("OTP has expired.");
         }
 

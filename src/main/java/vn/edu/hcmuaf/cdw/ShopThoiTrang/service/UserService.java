@@ -8,7 +8,4 @@ import vn.edu.hcmuaf.cdw.ShopThoiTrang.model.dto.ForgotPasswordRequest;
 public interface UserService {
     User getUserById(Long id);
 
-    ResponseEntity<?> forgotPassword(ForgotPasswordRequest forgotPasswordRequest);
-
-    ResponseEntity<?> forgotPasswordConfirmation(ForgotPasswordRequest forgotPasswordRequest);
 }
