@@ -1,17 +1,18 @@
 package vn.edu.hcmuaf.cdw.ShopThoiTrang.JWT;
 
-import java.security.Key;
 import java.util.Date;
 
+import jakarta.servlet.http.Cookie;
+import jakarta.servlet.http.HttpServletRequest;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.security.core.Authentication;
+import org.springframework.http.ResponseCookie;
 import org.springframework.stereotype.Component;
 
 import io.jsonwebtoken.*;
-import io.jsonwebtoken.io.Decoders;
-import io.jsonwebtoken.security.Keys;
+import org.springframework.web.util.WebUtils;
+import vn.edu.hcmuaf.cdw.ShopThoiTrang.entity.User;
 import vn.edu.hcmuaf.cdw.ShopThoiTrang.service.impl.UserDetailsImpl;
 
 @Component
@@ -24,8 +25,40 @@ public class JwtUtils {
     @Value("600000")
     private int jwtExpirationMs;
 
-    public String generateJwtToken(UserDetailsImpl userPrincipal) {
-        return generateTokenFromUsername(userPrincipal.getUsername());
+    @Value("shop2h")
+    private String jwtCookie;
+
+    @Value("shop2h_refresh")
+    private String jwtRefreshCookie;
+
+    public String getJwtFromCookies(HttpServletRequest request) {
+        return getCookieValueByName(request, jwtCookie);
+    }
+
+    public String getJwtRefreshFromCookies(HttpServletRequest request) {
+        return getCookieValueByName(request, jwtRefreshCookie);
+    }
+
+    public ResponseCookie generateJwtCookie(UserDetailsImpl userPrincipal) {
+        String jwt = generateTokenFromUsername(userPrincipal.getUsername());
+        return ResponseCookie.from(jwtCookie, jwt).path("/api").maxAge(24 * 60 * 60).httpOnly(true).build();
+    }
+
+    public ResponseCookie generateJwtCookie(User user) {
+        String jwt = generateTokenFromUsername(user.getUsername());
+        return generateCookie(jwtCookie, jwt, "/api");
+    }
+
+    public ResponseCookie generateRefreshJwtCookie(String refreshToken) {
+        return generateCookie(jwtRefreshCookie, refreshToken, "/api/auth/refresh-token");
+    }
+
+    private ResponseCookie generateCookie(String name, String value, String path) {
+        return ResponseCookie.from(name, value).path(path).maxAge(24 * 60 * 60).httpOnly(true).build();
+    }
+
+    public ResponseCookie getCleanJwtCookie() {
+        return ResponseCookie.from(jwtCookie, null).path("/api").build();
     }
 
     public String generateTokenFromUsername(String username) {
@@ -55,5 +88,18 @@ public class JwtUtils {
         }
 
         return false;
+    }
+
+    public ResponseCookie getCleanJwtRefreshCookie() {
+        return ResponseCookie.from(jwtRefreshCookie, null).path("/api/auth/refresh-token").build();
+    }
+
+    private String getCookieValueByName(HttpServletRequest request, String name) {
+        Cookie cookie = WebUtils.getCookie(request, name);
+        if (cookie != null) {
+            return cookie.getValue();
+        } else {
+            return null;
+        }
     }
 }
