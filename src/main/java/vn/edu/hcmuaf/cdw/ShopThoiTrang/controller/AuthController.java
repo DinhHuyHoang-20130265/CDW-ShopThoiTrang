@@ -5,7 +5,6 @@ import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import vn.edu.hcmuaf.cdw.ShopThoiTrang.entity.User;
 import vn.edu.hcmuaf.cdw.ShopThoiTrang.model.dto.ForgotPasswordRequest;
 import vn.edu.hcmuaf.cdw.ShopThoiTrang.model.dto.LoginDto;
 import vn.edu.hcmuaf.cdw.ShopThoiTrang.model.dto.SignupDto;
@@ -34,6 +33,7 @@ public class AuthController {
     public ResponseEntity<?> refreshToken(@Valid @RequestBody TokenRefreshRequest request) {
         return ResponseEntity.ok(authService.refreshToken(request));
     }
+
     // register
     @PostMapping("/signup")
     public ResponseEntity<?> signup(@RequestBody SignupDto signupDto) {
@@ -54,5 +54,10 @@ public class AuthController {
     @PostMapping("/forgot-password-confirmation")
     public ResponseEntity<?> forgotPasswordConfirmation(@RequestBody ForgotPasswordRequest forgotPasswordRequest) {
         return ResponseEntity.ok(authService.forgotPasswordConfirmation(forgotPasswordRequest));
+    }
+
+    @PostMapping("/sign-out")
+    public ResponseEntity<?> logoutUser() {
+        return ResponseEntity.ok(authService.logout());
     }
 }

@@ -18,4 +18,6 @@ public interface AuthService {
     ResponseEntity<?> forgotPassword(ForgotPasswordRequest forgotPasswordRequest);
 
     ResponseEntity<?> forgotPasswordConfirmation(ForgotPasswordRequest forgotPasswordRequest);
+
+    ResponseEntity<?> logout();
 }
