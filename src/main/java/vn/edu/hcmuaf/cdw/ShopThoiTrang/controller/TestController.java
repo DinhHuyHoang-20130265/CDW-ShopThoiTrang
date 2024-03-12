@@ -1,7 +1,6 @@
 package vn.edu.hcmuaf.cdw.ShopThoiTrang.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import vn.edu.hcmuaf.cdw.ShopThoiTrang.reponsitory.UserInfoRepository;

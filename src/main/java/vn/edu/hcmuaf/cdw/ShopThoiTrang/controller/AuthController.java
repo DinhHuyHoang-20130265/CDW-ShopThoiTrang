@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import vn.edu.hcmuaf.cdw.ShopThoiTrang.entity.User;
+import vn.edu.hcmuaf.cdw.ShopThoiTrang.model.dto.ForgotPasswordRequest;
 import vn.edu.hcmuaf.cdw.ShopThoiTrang.model.dto.LoginDto;
 import vn.edu.hcmuaf.cdw.ShopThoiTrang.model.dto.SignupDto;
 import vn.edu.hcmuaf.cdw.ShopThoiTrang.model.dto.TokenRefreshRequest;
@@ -45,4 +46,13 @@ public class AuthController {
         return ResponseEntity.ok(authService.isValidEmail(signupDto));
     }
 
+    @PostMapping("/forgot-password")
+    public ResponseEntity<?> forgotPassword(@RequestBody ForgotPasswordRequest forgotPasswordRequest) {
+        return ResponseEntity.ok(authService.forgotPassword(forgotPasswordRequest));
+    }
+
+    @PostMapping("/forgot-password-confirmation")
+    public ResponseEntity<?> forgotPasswordConfirmation(@RequestBody ForgotPasswordRequest forgotPasswordRequest) {
+        return ResponseEntity.ok(authService.forgotPasswordConfirmation(forgotPasswordRequest));
+    }
 }
