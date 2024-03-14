@@ -1,16 +1,36 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import './index.css';
-import App from './App';
 import reportWebVitals from './reportWebVitals';
+import {RouterProvider} from "react-router-dom";
+import {webRouter} from "./router/router";
+import {Provider} from "react-redux";
+import {thunk} from "redux-thunk";
+import {save, load} from "redux-localstorage-simple";
+
+import {fetchProducts} from "./store/actions/productActions";
+import {applyMiddleware, legacy_createStore} from "redux";
+import rootReducer from "./store/reducers/rootReducer";
+import {composeWithDevTools} from "@redux-devtools/extension";
+import products from "./data_sample/products";
+import "./assets/scss/style.scss";
+
+const store = legacy_createStore(
+    rootReducer,
+    load(),
+    composeWithDevTools(applyMiddleware(thunk, save()))
+);
+
+store.dispatch(fetchProducts(products));
 
 const root = ReactDOM.createRoot(
-  document.getElementById('root') as HTMLElement
+    document.getElementById('root') as HTMLElement
 );
 root.render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>
+    <React.StrictMode>
+        <Provider store={store}>
+            <RouterProvider router={webRouter}/>
+        </Provider>
+    </React.StrictMode>
 );
 
 // If you want to start measuring performance in your app, pass a function
