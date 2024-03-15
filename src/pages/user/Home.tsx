@@ -1,26 +1,20 @@
-import React, {Fragment} from "react";
-import LayoutUser from "../layout/layoutUser";
+import React from "react";
 import Slider from "../../wrappers/Slider";
 
 const Home = () => {
     return (
-        <Fragment>
-            <LayoutUser
-                headerContainerClass="container-fluid"
-                headerPaddingClass="header-padding-1">
+        <div>
+            <Slider/>
 
-                <Slider/>
+            {/*/!* featured icon *!/*/}
+            {/*<FeatureIcon spaceTopClass="pt-100" spaceBottomClass="pb-60" />*/}
 
-                {/*/!* featured icon *!/*/}
-                {/*<FeatureIcon spaceTopClass="pt-100" spaceBottomClass="pb-60" />*/}
+            {/*/!* tab product *!/*/}
+            {/*<TabProduct spaceBottomClass="pb-60" category="fashion" />*/}
 
-                {/*/!* tab product *!/*/}
-                {/*<TabProduct spaceBottomClass="pb-60" category="fashion" />*/}
-
-                {/*/!* blog featured *!/*/}
-                {/*<BlogFeatured spaceBottomClass="pb-55" />*/}
-            </LayoutUser>
-        </Fragment>
+            {/*/!* blog featured *!/*/}
+            {/*<BlogFeatured spaceBottomClass="pb-55" />*/}
+        </div>
     );
 };
 
