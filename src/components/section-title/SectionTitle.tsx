@@ -16,13 +16,4 @@ const SectionTitle = ({titleText, subtitleText, subtitleColorClass, positionClas
     );
 };
 
-SectionTitle.propTypes = {
-    borderClass: PropTypes.string,
-    positionClass: PropTypes.string,
-    spaceClass: PropTypes.string,
-    subtitleText: PropTypes.string,
-    subtitleColorClass: PropTypes.string,
-    titleText: PropTypes.string
-};
-
 export default SectionTitle;
