@@ -18,7 +18,7 @@ const NavMenu = ({categories, menuWhiteClass, sidebarMenu}: any) => {
                         </Link>
                     </li>
                     <li>
-                        <Link to={process.env.PUBLIC_URL + "/shop-grid-standard"}>
+                        <Link to={process.env.PUBLIC_URL + "/shop"}>
                             {["categories"]}
                             {sidebarMenu ? (
                                 <span>
