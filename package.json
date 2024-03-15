@@ -16,6 +16,7 @@
     "lightgallery": "^2.7.2",
     "lightgallery.js": "^1.4.0",
     "react": "^18.2.0",
+    "react-bootstrap": "^2.10.1",
     "react-breadcrumbs-dynamic": "^1.2.1",
     "react-dom": "^18.2.0",
     "react-id-swiper": "^4.0.0",
@@ -24,6 +25,7 @@
     "react-router": "^6.22.3",
     "react-router-dom": "^6.22.3",
     "react-scripts": "5.0.1",
+    "react-scroll": "^1.9.0",
     "react-toast-notifications": "^2.5.1",
     "redux": "^5.0.1",
     "redux-localstorage-simple": "^2.5.1",
@@ -59,8 +61,9 @@
     ]
   },
   "devDependencies": {
+    "@babel/plugin-proposal-private-property-in-object": " ^7.16.7",
     "@types/react-breadcrumbs-dynamic": "^1.0.7",
-    "@babel/plugin-proposal-private-property-in-object":" ^7.16.7",
+    "@types/react-scroll": "^1.8.10",
     "bootstrap": "^5.3.3",
     "sass": "^1.72.0"
   }
