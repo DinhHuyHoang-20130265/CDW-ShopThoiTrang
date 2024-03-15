@@ -16,11 +16,10 @@ const ProductGridItem = ({
                          }: any) => {
     const [modalShow, setModalShow] = useState(false);
     const {addToast} = useToasts();
-    console.log(product)
 
     const discountedPrice = getDiscountPrice(product.price, product.discount);
     const finalProductPrice = (product.price).toFixed(2);
-    const finalDiscountedPrice = discountedPrice !== null ? discountedPrice.toFixed(2) : 0;
+    const finalDiscountedPrice = discountedPrice !== null ? +(discountedPrice).toFixed(2) : 0;
 
     return (
         <Fragment>

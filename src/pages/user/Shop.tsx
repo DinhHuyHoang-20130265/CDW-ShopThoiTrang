@@ -11,7 +11,7 @@ import ShopProducts from "../../components/shop/ShopProducts";
 import Paginator from "react-hooks-paginator";
 
 
-const Shop = (params : any) => {
+const Shop = (params: any) => {
     const [layout, setLayout] = useState('grid three-column');
     const [sortType, setSortType] = useState('');
     const [sortValue, setSortValue] = useState('');
@@ -22,27 +22,25 @@ const Shop = (params : any) => {
     const [currentData, setCurrentData] = useState([]);
     const [sortedProducts, setSortedProducts] = useState([]);
 
-    console.log(params);
     const pageLimit = 15;
 
-    const getLayout = (layout : any) => {
+    const getLayout = (layout: any) => {
         setLayout(layout)
     }
 
-    const getSortParams = (sortType : any , sortValue : any) => {
+    const getSortParams = (sortType: any, sortValue: any) => {
         setSortType(sortType);
         setSortValue(sortValue);
     }
 
-    const getFilterSortParams = (sortType : any, sortValue : any) => {
+    const getFilterSortParams = (sortType: any, sortValue: any) => {
         setFilterSortType(sortType);
         setFilterSortValue(sortValue);
     }
 
     useEffect(() => {
-        let sortedProducts :any = getSortedProducts(params.products, sortType, sortValue);
-        const filterSortedProducts = getSortedProducts(sortedProducts, filterSortType, filterSortValue);
-        sortedProducts = filterSortedProducts;
+        let sortedProducts: any = getSortedProducts(params.products, sortType, sortValue);
+        sortedProducts = getSortedProducts(sortedProducts, filterSortType, filterSortValue);
         setSortedProducts(sortedProducts);
         setCurrentData(sortedProducts.slice(offset, offset + pageLimit));
     }, [offset, params.products, sortType, sortValue, filterSortType, filterSortValue]);
@@ -56,17 +54,18 @@ const Shop = (params : any) => {
             {/* breadcrumb */}
             <Breadcrumb/>
 
-            <div className="shop-area pt-95 pb-100">
+            {currentData.length > 1 ? <div className="shop-area pt-95 pb-100">
                 <div className="container">
                     <div className="row">
                         <div className="col-lg-3 order-2 order-lg-1">
                             {/* shop sidebar */}
-                            <ShopSidebar products={params.products} getSortParams={getSortParams} sideSpaceClass="mr-30"/>
+                            <ShopSidebar products={params.products} getSortParams={getSortParams}
+                                         sideSpaceClass="mr-30"/>
                         </div>
                         <div className="col-lg-9 order-1 order-lg-2">
                             {/* shop topbar default */}
                             <ShopTopbar getLayout={getLayout} getFilterSortParams={getFilterSortParams}
-                                        productCount={params.products.length} sortedProductCount={currentData.length}/>
+                                        productCount={sortedProducts.length} sortedProductCount={currentData.length}/>
 
                             {/* shop page content default */}
                             <ShopProducts layout={layout} products={currentData}/>
@@ -88,7 +87,7 @@ const Shop = (params : any) => {
                         </div>
                     </div>
                 </div>
-            </div>
+            </div> : ""}
         </Fragment>
     )
 }
@@ -98,7 +97,7 @@ Shop.propTypes = {
     products: PropTypes.array
 }
 
-const mapStateToProps = (state : any) => {
+const mapStateToProps = (state: any) => {
     return {
         products: state.productData.products
     }
