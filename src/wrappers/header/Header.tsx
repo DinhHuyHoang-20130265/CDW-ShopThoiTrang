@@ -49,7 +49,6 @@ const Header = ({
                         </div>
                     </div>
                 </div>
-                {/* mobile menu */}
                 <MobileMenu/>
             </div>
         </header>
