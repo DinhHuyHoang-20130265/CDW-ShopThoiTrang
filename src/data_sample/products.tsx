@@ -633,7 +633,6 @@ export const products = [
         "category": ["fashion", "women"],
         "tag": ["fashion", "women", "top", "sleeveless"],
         "stock": 5,
-        "affiliateLink": "//www.amazon.com",
         "image": [
             "/assets/img/product/fashion/9.jpg",
             "/assets/img/product/fashion/7.jpg",
