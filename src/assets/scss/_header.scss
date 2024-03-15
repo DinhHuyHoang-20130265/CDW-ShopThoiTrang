@@ -451,27 +451,21 @@
   line-height: 75px;
 }
 
-.stick .logo,
-.stick .header-right-wrap {
-  margin-top: 22px;
-  @media #{$md-layout} {
-    margin-top: 0;
-  }
-  @media #{$xs-layout} {
-    margin-top: 0;
-  }
-  @media #{$md-layout} {
-    margin-top: 0;
-  }
+.stick > .container-fluid > .row {
+  align-items: center;
 }
 
+.stick .logo,
 .stick .header-right-wrap {
-
+  margin-top: 0;
+  @media #{$md-layout} {
+    margin-top: 0;
+  }
   @media #{$xs-layout} {
-    margin-top: 30px;
+    margin-top: 0;
   }
   @media #{$md-layout} {
-    margin-top: 30px;
+    margin-top: 0;
   }
 }
 
