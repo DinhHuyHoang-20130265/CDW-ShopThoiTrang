@@ -40,8 +40,7 @@ const Shop = (params: any) => {
 
     useEffect(() => {
         let sortedProducts: any = getSortedProducts(params.products, sortType, sortValue);
-        const filterSortedProducts = getSortedProducts(sortedProducts, filterSortType, filterSortValue);
-        sortedProducts = filterSortedProducts;
+        sortedProducts = getSortedProducts(sortedProducts, filterSortType, filterSortValue);
         setSortedProducts(sortedProducts);
         setCurrentData(sortedProducts.slice(offset, offset + pageLimit));
     }, [offset, params.products, sortType, sortValue, filterSortType, filterSortValue]);
