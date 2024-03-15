@@ -1,12 +1,12 @@
 import PropTypes from "prop-types";
 import React from "react";
-import ProductgridList from "./ProductgridList";
+import ProductGrid from "../../wrappers/product/ProductGrid";
 
 const ShopProducts = ({ products , layout } : any) => {
     return (
         <div className="shop-bottom-area mt-35">
             <div className={`row ${layout ? layout : ""}`}>
-                <ProductgridList products={products} spaceBottomClass="mb-25" />
+                <ProductGrid products={products} spaceBottomClass="mb-25" />
             </div>
         </div>
     );

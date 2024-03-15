@@ -7,10 +7,11 @@ import {getSortedProducts} from "../../helpers/product";
 import ShopTopbar from "../../components/shop/ShopTopbar";
 import PropTypes from "prop-types";
 import ShopProducts from "../../components/shop/ShopProducts";
-// import Paginator from 'react-hooks-paginator';
+// @ts-ignore
+import Paginator from "react-hooks-paginator";
 
 
-const Shop = ({location, products} : any) => {
+const Shop = (params : any) => {
     const [layout, setLayout] = useState('grid three-column');
     const [sortType, setSortType] = useState('');
     const [sortValue, setSortValue] = useState('');
@@ -21,8 +22,8 @@ const Shop = ({location, products} : any) => {
     const [currentData, setCurrentData] = useState([]);
     const [sortedProducts, setSortedProducts] = useState([]);
 
+    console.log(params);
     const pageLimit = 15;
-    const {pathname} = location;
 
     const getLayout = (layout : any) => {
         setLayout(layout)
@@ -39,18 +40,18 @@ const Shop = ({location, products} : any) => {
     }
 
     useEffect(() => {
-        let sortedProducts :any = getSortedProducts(products, sortType, sortValue);
+        let sortedProducts :any = getSortedProducts(params.products, sortType, sortValue);
         const filterSortedProducts = getSortedProducts(sortedProducts, filterSortType, filterSortValue);
         sortedProducts = filterSortedProducts;
         setSortedProducts(sortedProducts);
         setCurrentData(sortedProducts.slice(offset, offset + pageLimit));
-    }, [offset, products, sortType, sortValue, filterSortType, filterSortValue]);
+    }, [offset, params.products, sortType, sortValue, filterSortType, filterSortValue]);
 
     return (
         <Fragment>
 
             <BreadcrumbsItem to={process.env.PUBLIC_URL + '/'}>Home</BreadcrumbsItem>
-            <BreadcrumbsItem to={process.env.PUBLIC_URL + pathname}>Shop</BreadcrumbsItem>
+            <BreadcrumbsItem to={process.env.PUBLIC_URL + '/shop'}>Shop</BreadcrumbsItem>
 
             {/* breadcrumb */}
             <Breadcrumb/>
@@ -60,29 +61,29 @@ const Shop = ({location, products} : any) => {
                     <div className="row">
                         <div className="col-lg-3 order-2 order-lg-1">
                             {/* shop sidebar */}
-                            <ShopSidebar products={products} getSortParams={getSortParams} sideSpaceClass="mr-30"/>
+                            <ShopSidebar products={params.products} getSortParams={getSortParams} sideSpaceClass="mr-30"/>
                         </div>
                         <div className="col-lg-9 order-1 order-lg-2">
                             {/* shop topbar default */}
                             <ShopTopbar getLayout={getLayout} getFilterSortParams={getFilterSortParams}
-                                        productCount={products.length} sortedProductCount={currentData.length}/>
+                                        productCount={params.products.length} sortedProductCount={currentData.length}/>
 
                             {/* shop page content default */}
                             <ShopProducts layout={layout} products={currentData}/>
 
                             {/* shop product pagination */}
                             <div className="pro-pagination-style text-center mt-30">
-                                {/*<Paginator*/}
-                                {/*    totalRecords={sortedProducts.length}*/}
-                                {/*    pageLimit={pageLimit}*/}
-                                {/*    pageNeighbours={2}*/}
-                                {/*    setOffset={setOffset}*/}
-                                {/*    currentPage={currentPage}*/}
-                                {/*    setCurrentPage={setCurrentPage}*/}
-                                {/*    pageContainerClass="mb-0 mt-0"*/}
-                                {/*    pagePrevText="«"*/}
-                                {/*    pageNextText="»"*/}
-                                {/*/>*/}
+                                <Paginator
+                                    totalRecords={sortedProducts.length}
+                                    pageLimit={pageLimit}
+                                    pageNeighbours={2}
+                                    setOffset={setOffset}
+                                    currentPage={currentPage}
+                                    setCurrentPage={setCurrentPage}
+                                    pageContainerClass="mb-0 mt-0"
+                                    pagePrevText="«"
+                                    pageNextText="»"
+                                />
                             </div>
                         </div>
                     </div>
