@@ -2,7 +2,9 @@ import {createBrowserRouter} from "react-router-dom";
 import App from "../App";
 import Home from "../pages/user/Home";
 import About from "../pages/user/About";
+import Shop from "../pages/user/Shop";
 import DashBoard from "../pages/admin/DashBoard";
+import React from "react";
 
 export const webRouter = createBrowserRouter([
     {
@@ -18,6 +20,9 @@ export const webRouter = createBrowserRouter([
             }, {
                 path: "about",
                 element: <About/>,
+            }, {
+                path: "shop",
+                element: <Shop/>,
             }, {
                 path: "admin",
                 element: <DashBoard/>,
