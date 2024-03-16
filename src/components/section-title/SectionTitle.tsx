@@ -1,4 +1,3 @@
-import PropTypes from "prop-types";
 import React from "react";
 
 const SectionTitle = ({titleText, subtitleText, subtitleColorClass, positionClass, spaceClass, borderClass}: any) => {

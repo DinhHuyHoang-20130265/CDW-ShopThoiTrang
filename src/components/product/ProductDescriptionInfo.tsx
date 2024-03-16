@@ -1,4 +1,4 @@
-import {Fragment, useState} from "react";
+import {Fragment, Key, useState} from "react";
 import {getProductCartQuantity} from "../../helpers/product";
 import ProductRating from "../../wrappers/product/sub-components/ProductRating";
 import {Link} from "react-router-dom";
@@ -35,7 +35,6 @@ const ProductDescriptionInfo = ({
         selectedProductColor,
         selectedProductSize
     );
-
     return (
         <div className="product-details-content ml-70">
             <h2>{product.name}</h2>
@@ -54,7 +53,7 @@ const ProductDescriptionInfo = ({
             {product.rating && product.rating > 0 ? (
                 <div className="pro-details-rating-wrap">
                     <div className="pro-details-rating">
-                        <ProductRating ratingValue={product.rating} />
+                        <ProductRating ratingValue={product.rating}/>
                     </div>
                 </div>
             ) : (
@@ -69,7 +68,7 @@ const ProductDescriptionInfo = ({
                     <div className="pro-details-color-wrap">
                         <span>Color</span>
                         <div className="pro-details-color-content">
-                            {product.variation.map((single : any, key : any) => {
+                            {product.variation.map((single: any, key: any) => {
                                 return (
                                     <label
                                         className={`pro-details-color-content--single ${single.color}`}
@@ -97,9 +96,10 @@ const ProductDescriptionInfo = ({
                         <span>Size</span>
                         <div className="pro-details-size-content">
                             {product.variation &&
-                                product.variation.map((single : any) => {
+                                product.variation.map((single: any) => {
                                     return single.color === selectedProductColor
-                                        ? single.size.map(({singleSize, key} : any) => {
+                                        ? single.size.map((singleSize: any, key: any) => {
+                                            console.log(key)
                                             return (
                                                 <label
                                                     className={`pro-details-size-content--single`}
@@ -131,90 +131,76 @@ const ProductDescriptionInfo = ({
             ) : (
                 ""
             )}
-            {product.affiliateLink ? (
-                <div className="pro-details-quality">
-                    <div className="pro-details-cart btn-hover ml-0">
-                        <a
-                            href={product.affiliateLink}
-                            rel="noopener noreferrer"
-                            target="_blank"
-                        >
-                            Buy Now
-                        </a>
-                    </div>
+            <div className="pro-details-quality">
+                <div className="cart-plus-minus">
+                    <button
+                        onClick={() =>
+                            setQuantityCount(quantityCount > 1 ? quantityCount - 1 : 1)
+                        }
+                        className="dec qtybutton"
+                    >
+                        -
+                    </button>
+                    <input
+                        className="cart-plus-minus-box"
+                        type="text"
+                        value={quantityCount}
+                        readOnly
+                    />
+                    <button
+                        onClick={() =>
+                            setQuantityCount(
+                                quantityCount < productStock - productCartQty
+                                    ? quantityCount + 1
+                                    : quantityCount
+                            )
+                        }
+                        className="inc qtybutton"
+                    >
+                        +
+                    </button>
                 </div>
-            ) : (
-                <div className="pro-details-quality">
-                    <div className="cart-plus-minus">
+                <div className="pro-details-cart btn-hover">
+                    {productStock && productStock > 0 ? (
                         <button
                             onClick={() =>
-                                setQuantityCount(quantityCount > 1 ? quantityCount - 1 : 1)
-                            }
-                            className="dec qtybutton"
-                        >
-                            -
-                        </button>
-                        <input
-                            className="cart-plus-minus-box"
-                            type="text"
-                            value={quantityCount}
-                            readOnly
-                        />
-                        <button
-                            onClick={() =>
-                                setQuantityCount(
-                                    quantityCount < productStock - productCartQty
-                                        ? quantityCount + 1
-                                        : quantityCount
+                                addToCart(
+                                    product,
+                                    addToast,
+                                    quantityCount,
+                                    selectedProductColor,
+                                    selectedProductSize
                                 )
                             }
-                            className="inc qtybutton"
+                            disabled={productCartQty >= productStock}
                         >
-                            +
+                            {" "}
+                            Add To Cart{" "}
                         </button>
-                    </div>
-                    <div className="pro-details-cart btn-hover">
-                        {productStock && productStock > 0 ? (
-                            <button
-                                onClick={() =>
-                                    addToCart(
-                                        product,
-                                        addToast,
-                                        quantityCount,
-                                        selectedProductColor,
-                                        selectedProductSize
-                                    )
-                                }
-                                disabled={productCartQty >= productStock}
-                            >
-                                {" "}
-                                Add To Cart{" "}
-                            </button>
-                        ) : (
-                            <button disabled>Out of Stock</button>
-                        )}
-                    </div>
-                    <div className="pro-details-wishlist">
-                        <button
-                            className={wishlistItem !== undefined ? "active" : ""}
-                            disabled={wishlistItem !== undefined}
-                            title={
-                                wishlistItem !== undefined
-                                    ? "Added to wishlist"
-                                    : "Add to wishlist"
-                            }
-                            onClick={() => addToWishlist(product, addToast)}
-                        >
-                            <i className="pe-7s-like" />
-                        </button>
-                    </div>
+                    ) : (
+                        <button disabled>Out of Stock</button>
+                    )}
                 </div>
-            )}
+                <div className="pro-details-wishlist">
+                    <button
+                        className={wishlistItem !== undefined ? "active" : ""}
+                        disabled={wishlistItem !== undefined}
+                        title={
+                            wishlistItem !== undefined
+                                ? "Added to wishlist"
+                                : "Add to wishlist"
+                        }
+                        onClick={() => addToWishlist(product, addToast)}
+                    >
+                        <i className="pe-7s-like"/>
+                    </button>
+                </div>
+            </div>
             {product.category ? (
                 <div className="pro-details-meta">
                     <span>Categories :</span>
                     <ul>
-                        {product.category.map(({single, key} : any) => {
+                        {product.category.map(({single, key}: any) => {
                             return (
                                 <li key={key}>
                                     <Link to={process.env.PUBLIC_URL + "/shop-grid-standard"}>
@@ -232,7 +218,7 @@ const ProductDescriptionInfo = ({
                 <div className="pro-details-meta">
                     <span>Tags :</span>
                     <ul>
-                        {product.tag.map(({single, key} : any) => {
+                        {product.tag.map(({single, key}: any) => {
                             return (
                                 <li key={key}>
                                     <Link to={process.env.PUBLIC_URL + "/shop-grid-standard"}>
@@ -251,27 +237,27 @@ const ProductDescriptionInfo = ({
                 <ul>
                     <li>
                         <a href="//facebook.com">
-                            <i className="fa fa-facebook" />
+                            <i className="fa fa-facebook"/>
                         </a>
                     </li>
                     <li>
                         <a href="//dribbble.com">
-                            <i className="fa fa-dribbble" />
+                            <i className="fa fa-dribbble"/>
                         </a>
                     </li>
                     <li>
                         <a href="//pinterest.com">
-                            <i className="fa fa-pinterest-p" />
+                            <i className="fa fa-pinterest-p"/>
                         </a>
                     </li>
                     <li>
                         <a href="//twitter.com">
-                            <i className="fa fa-twitter" />
+                            <i className="fa fa-twitter"/>
                         </a>
                     </li>
                     <li>
                         <a href="//linkedin.com">
-                            <i className="fa fa-linkedin" />
+                            <i className="fa fa-linkedin"/>
                         </a>
                     </li>
                 </ul>
@@ -280,22 +266,7 @@ const ProductDescriptionInfo = ({
     );
 };
 
-ProductDescriptionInfo.propTypes = {
-    addToCart: PropTypes.func,
-    addToCompare: PropTypes.func,
-    addToWishlist: PropTypes.func,
-    addToast: PropTypes.func,
-    cartItems: PropTypes.array,
-    compareItem: PropTypes.array,
-    currency: PropTypes.object,
-    discountedPrice: PropTypes.number,
-    finalDiscountedPrice: PropTypes.number,
-    finalProductPrice: PropTypes.number,
-    product: PropTypes.object,
-    wishlistItem: PropTypes.object
-};
-
-const mapDispatchToProps = (dispatch : any) => {
+const mapDispatchToProps = (dispatch: any) => {
     return {
         addToCart: (
             {
@@ -304,7 +275,7 @@ const mapDispatchToProps = (dispatch : any) => {
                 quantityCount,
                 selectedProductColor,
                 selectedProductSize
-            } : any
+            }: any
         ) => {
             dispatch(
                 addToCart(
@@ -316,7 +287,7 @@ const mapDispatchToProps = (dispatch : any) => {
                 )
             );
         },
-        addToWishlist: ({item, addToast} : any) => {
+        addToWishlist: ({item, addToast}: any) => {
             dispatch(addToWishlist(item, addToast));
         }
     };

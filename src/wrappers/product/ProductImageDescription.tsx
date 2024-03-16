@@ -2,24 +2,20 @@ import {useToasts} from "react-toast-notifications";
 import {getDiscountPrice} from "../../helpers/product";
 import React from "react";
 import ProductImageGallerySideThumb from "../../components/product/ProductImageGallerySideThumb";
-import ProductImageFixed from "../../components/product/ProductImageFixed";
-import ProductImageGallery from "../../components/product/ProductImageGallery";
 import ProductDescriptionInfo from "../../components/product/ProductDescriptionInfo";
-import PropTypes from "prop-types";
 import {connect} from "react-redux";
 
 const ProductImageDescription = ({
                                      spaceTopClass,
                                      spaceBottomClass,
-                                     galleryType,
                                      product,
                                      cartItems,
                                      wishlistItems
-                                 } : any) => {
+                                 }: any) => {
     const wishlistItem = wishlistItems.filter(
-        (wishlistItem : any) => wishlistItem.id === product.id
+        (wishlistItem: any) => wishlistItem.id === product.id
     )[0];
-    const { addToast } = useToasts();
+    const {addToast} = useToasts();
 
     const discountedPrice = getDiscountPrice(product.price, product.discount);
     const finalProductPrice = +(product.price).toFixed(2);
@@ -36,19 +32,10 @@ const ProductImageDescription = ({
             <div className="container">
                 <div className="row">
                     <div className="col-lg-6 col-md-6">
-                        {/* product image gallery */}
-                        {galleryType === "leftThumb" ? (
-                            <ProductImageGallerySideThumb
-                                product={product}
-                                thumbPosition="left"
-                            />
-                        ) : galleryType === "rightThumb" ? (
-                            <ProductImageGallerySideThumb product={product} />
-                        ) : galleryType === "fixedImage" ? (
-                            <ProductImageFixed product={product} />
-                        ) : (
-                            <ProductImageGallery product={product} />
-                        )}
+                        <ProductImageGallerySideThumb
+                            product={product}
+                            thumbPosition="left"
+                        />
                     </div>
                     <div className="col-lg-6 col-md-6">
                         {/* product description info */}
@@ -68,23 +55,10 @@ const ProductImageDescription = ({
     );
 };
 
-ProductImageDescription.propTypes = {
-    cartItems: PropTypes.array,
-    compareItems: PropTypes.array,
-    currency: PropTypes.object,
-    galleryType: PropTypes.string,
-    product: PropTypes.object,
-    spaceBottomClass: PropTypes.string,
-    spaceTopClass: PropTypes.string,
-    wishlistItems: PropTypes.array
-};
-
-const mapStateToProps = (state : any) => {
+const mapStateToProps = (state: any) => {
     return {
-        currency: state.currencyData,
         cartItems: state.cartData,
         wishlistItems: state.wishlistData,
-        compareItems: state.compareData
     };
 };
 
