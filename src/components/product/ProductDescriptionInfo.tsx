@@ -1,8 +1,7 @@
-import {Fragment, Key, useState} from "react";
+import {Fragment, useState} from "react";
 import {getProductCartQuantity} from "../../helpers/product";
 import ProductRating from "../../wrappers/product/sub-components/ProductRating";
 import {Link} from "react-router-dom";
-import PropTypes from "prop-types";
 import {addToCart} from "../../store/actions/cartActions";
 import {addToWishlist} from "../../store/actions/wishlistActions";
 import {connect} from "react-redux";

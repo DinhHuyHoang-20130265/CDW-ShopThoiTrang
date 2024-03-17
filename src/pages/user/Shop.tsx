@@ -2,16 +2,14 @@ import React, {Fragment, useEffect, useState} from "react";
 import {BreadcrumbsItem} from "react-breadcrumbs-dynamic";
 import ShopSidebar from "../../components/shop/ShopSidebar";
 import Breadcrumb from "../../wrappers/breadcrumb/Breadcrumb";
-import {connect} from "react-redux";
 import {getSortedProducts} from "../../helpers/product";
 import ShopTopbar from "../../components/shop/ShopTopbar";
-import PropTypes from "prop-types";
 import ShopProducts from "../../components/shop/ShopProducts";
+import {connect} from "react-redux";
 // @ts-ignore
 import Paginator from "react-hooks-paginator";
 
-
-const Shop = (params: any) => {
+const Shop = ({products}: any) => {
     const [layout, setLayout] = useState('grid three-column');
     const [sortType, setSortType] = useState('');
     const [sortValue, setSortValue] = useState('');
@@ -39,11 +37,11 @@ const Shop = (params: any) => {
     }
 
     useEffect(() => {
-        let sortedProducts: any = getSortedProducts(params.products, sortType, sortValue);
+        let sortedProducts: any = getSortedProducts(products, sortType, sortValue);
         sortedProducts = getSortedProducts(sortedProducts, filterSortType, filterSortValue);
         setSortedProducts(sortedProducts);
         setCurrentData(sortedProducts.slice(offset, offset + pageLimit));
-    }, [offset, params.products, sortType, sortValue, filterSortType, filterSortValue]);
+    }, [offset, products, sortType, sortValue, filterSortType, filterSortValue]);
 
     return (
         <Fragment>
@@ -59,7 +57,7 @@ const Shop = (params: any) => {
                     <div className="row">
                         <div className="col-lg-3 order-2 order-lg-1">
                             {/* shop sidebar */}
-                            <ShopSidebar products={params.products} getSortParams={getSortParams}
+                            <ShopSidebar products={products} getSortParams={getSortParams}
                                          sideSpaceClass="mr-30"/>
                         </div>
                         <div className="col-lg-9 order-1 order-lg-2">
@@ -92,15 +90,9 @@ const Shop = (params: any) => {
     )
 }
 
-Shop.propTypes = {
-    location: PropTypes.object,
-    products: PropTypes.array
-}
-
 const mapStateToProps = (state: any) => {
     return {
         products: state.productData.products
     }
 }
-
-export default connect(mapStateToProps)(Shop);
+export default connect(mapStateToProps)(Shop)
