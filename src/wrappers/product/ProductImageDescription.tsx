@@ -3,15 +3,10 @@ import {getDiscountPrice} from "../../helpers/product";
 import React from "react";
 import ProductImageGallerySideThumb from "../../components/product/ProductImageGallerySideThumb";
 import ProductDescriptionInfo from "../../components/product/ProductDescriptionInfo";
-import {connect} from "react-redux";
+import {connect, useSelector} from "react-redux";
 
-const ProductImageDescription = ({
-                                     spaceTopClass,
-                                     spaceBottomClass,
-                                     product,
-                                     cartItems,
-                                     wishlistItems
-                                 }: any) => {
+const ProductImageDescription = ({spaceTopClass, spaceBottomClass, product, cartItems, wishlistItems,}: any) => {
+
     const wishlistItem = wishlistItems.filter(
         (wishlistItem: any) => wishlistItem.id === product.id
     )[0];
