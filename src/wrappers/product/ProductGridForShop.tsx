@@ -1,4 +1,3 @@
-import PropTypes from "prop-types";
 import React, {Fragment} from "react";
 import {connect} from "react-redux";
 import ProductGridForShopItem from "../../components/product/ProductGridForShopItem";
@@ -7,10 +6,13 @@ import {addToWishlist} from "../../store/actions/wishlistActions";
 
 const ProductGridForShop = ({
                                 products,
+                                currency,
                                 addToCart,
                                 addToWishlist,
+                                addToCompare,
                                 cartItems,
                                 wishlistItems,
+                                compareItems,
                                 sliderClassName,
                                 spaceBottomClass
                             }: any) => {
@@ -22,8 +24,10 @@ const ProductGridForShop = ({
                         sliderClassName={sliderClassName}
                         spaceBottomClass={spaceBottomClass}
                         product={product}
+                        currency={currency}
                         addToCart={addToCart}
                         addToWishlist={addToWishlist}
+                        addToCompare={addToCompare}
                         cartItem={
                             cartItems.filter((cartItem: any) => cartItem.id === product.id)[0]
                         }
@@ -32,26 +36,12 @@ const ProductGridForShop = ({
                                 (wishlistItem: any) => wishlistItem.id === product.id
                             )[0]
                         }
-
                         key={product.id}
                     />
                 );
             })}
         </Fragment>
     );
-};
-
-ProductGridForShop.propTypes = {
-    addToCart: PropTypes.func,
-    addToCompare: PropTypes.func,
-    addToWishlist: PropTypes.func,
-    cartItems: PropTypes.array,
-    compareItems: PropTypes.array,
-    currency: PropTypes.object,
-    products: PropTypes.array,
-    sliderClassName: PropTypes.string,
-    spaceBottomClass: PropTypes.string,
-    wishlistItems: PropTypes.array
 };
 
 const mapStateToProps = (state: any) => {

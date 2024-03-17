@@ -5,7 +5,7 @@ import About from "../pages/user/About";
 import Shop from "../pages/user/Shop";
 import DashBoard from "../pages/admin/DashBoard";
 import React from "react";
-import ProductDetailRoute from "./ProductDetailRoute";
+import ProductDetail, {loadId} from "../pages/user/ProductDetail";
 
 export const webRouter = createBrowserRouter([
     {
@@ -28,10 +28,8 @@ export const webRouter = createBrowserRouter([
             }
             , {
                 path: "product/:id",
-                element: <ProductDetailRoute/>,
-                loader: async (routeProps: any) => {
-                    return routeProps;
-                }
+                element: <ProductDetail/>,
+                loader: loadId
             }
             , {
                 path: "admin",
