@@ -13,10 +13,8 @@ const ProductDetail = ({match, product}: any) => {
         <>
             {product ? (<Fragment>
 
-                    <BreadcrumbsItem to={process.env.PUBLIC_URL + "/"}>Home</BreadcrumbsItem>
-                    <BreadcrumbsItem to={process.env.PUBLIC_URL + "/"}>
-                        Shop Product
-                    </BreadcrumbsItem>
+                    <BreadcrumbsItem to={process.env.PUBLIC_URL + "/"}>Trang chủ</BreadcrumbsItem>
+                    <BreadcrumbsItem to={process.env.PUBLIC_URL + "/"}></BreadcrumbsItem>
 
                     {/* breadcrumb */}
                     <Breadcrumb/>

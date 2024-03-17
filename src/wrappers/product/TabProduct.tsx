@@ -10,7 +10,7 @@ const TabProduct = ({spaceTopClass, spaceBottomClass, bgColorClass, category}: a
         <div
             className={`product-area ${spaceTopClass ? spaceTopClass : ""} ${spaceBottomClass ? spaceBottomClass : ""} ${bgColorClass ? bgColorClass : ""}`}>
             <div className="container">
-                <SectionTitle titleText="DAILY DEALS!" positionClass="text-center"/>
+                <SectionTitle titleText="ƯU ĐÃI!" positionClass="text-center"/>
                 <Tab.Container defaultActiveKey="bestSeller">
                     <Nav
                         variant="pills"
@@ -18,17 +18,17 @@ const TabProduct = ({spaceTopClass, spaceBottomClass, bgColorClass, category}: a
                     >
                         <Nav.Item>
                             <Nav.Link eventKey="newArrival">
-                                <h4>New Arrivals</h4>
+                                <h4>Sản phẩm mới</h4>
                             </Nav.Link>
                         </Nav.Item>
                         <Nav.Item>
                             <Nav.Link eventKey="bestSeller">
-                                <h4>Best Sellers</h4>
+                                <h4>Bán chạy</h4>
                             </Nav.Link>
                         </Nav.Item>
                         <Nav.Item>
                             <Nav.Link eventKey="saleItems">
-                                <h4>Sale Items</h4>
+                                <h4>Giảm giá</h4>
                             </Nav.Link>
                         </Nav.Item>
                     </Nav>

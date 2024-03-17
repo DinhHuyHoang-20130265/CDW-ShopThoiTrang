@@ -6,6 +6,7 @@ import Shop from "../pages/user/Shop";
 import DashBoard from "../pages/admin/DashBoard";
 import React from "react";
 import ProductDetailRoute from "./ProductDetailRoute";
+import ShoppingCart from "../pages/user/ShoppingCart";
 
 export const webRouter = createBrowserRouter([
     {
@@ -25,6 +26,9 @@ export const webRouter = createBrowserRouter([
                 path: "shop",
                 element: <Shop/>,
 
+            }, {
+                path: "shopping-cart",
+                element: <ShoppingCart/>,
             }
             , {
                 path: "product/:id",

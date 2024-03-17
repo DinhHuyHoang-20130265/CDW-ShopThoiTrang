@@ -5,7 +5,7 @@ import {setActiveSort} from "../../helpers/product";
 const ShopCategories = ({ categories, getSortParams } : any) => {
     return (
         <div className="sidebar-widget">
-            <h4 className="pro-sidebar-title">Categories </h4>
+            <h4 className="pro-sidebar-title">Danh mục </h4>
             <div className="sidebar-widget-list mt-30">
                 {categories ? (
                     <ul>
@@ -17,7 +17,7 @@ const ShopCategories = ({ categories, getSortParams } : any) => {
                                         setActiveSort(e);
                                     }}
                                 >
-                                    <span className="checkmark" /> All Categories
+                                    <span className="checkmark" /> Tất cả
                                 </button>
                             </div>
                         </li>
@@ -40,7 +40,7 @@ const ShopCategories = ({ categories, getSortParams } : any) => {
                         })}
                     </ul>
                 ) : (
-                    "No categories found"
+                    "Không tìm thấy danh mục"
                 )}
             </div>
         </div>
