@@ -8,6 +8,7 @@ import React from "react";
 import ProductDetail, {loadId} from "../pages/user/ProductDetail";
 import ShoppingCart from "../pages/user/ShoppingCart";
 import Checkout from "../pages/user/Checkout";
+import MyAccount from "../pages/user/MyAccount";
 
 export const webRouter = createBrowserRouter([
     {
@@ -33,7 +34,10 @@ export const webRouter = createBrowserRouter([
             }, {
                 path: "checkout",
                 element: <Checkout/>,
-            },{
+            }, {
+                path: "my-account",
+                element: <MyAccount/>,
+            }, {
                 path: "product/:id",
                 element: <ProductDetail/>,
                 loader: loadId
