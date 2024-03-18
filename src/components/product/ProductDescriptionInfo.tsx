@@ -65,7 +65,7 @@ const ProductDescriptionInfo = ({
             {product.variation ? (
                 <div className="pro-details-size-color">
                     <div className="pro-details-color-wrap">
-                        <span>Color</span>
+                        <span>Màu sắc</span>
                         <div className="pro-details-color-content">
                             {product.variation.map((single: any, key: any) => {
                                 return (
@@ -92,7 +92,7 @@ const ProductDescriptionInfo = ({
                         </div>
                     </div>
                     <div className="pro-details-size">
-                        <span>Size</span>
+                        <span>Kích thước</span>
                         <div className="pro-details-size-content">
                             {product.variation &&
                                 product.variation.map((single: any) => {
@@ -174,10 +174,10 @@ const ProductDescriptionInfo = ({
                             disabled={productCartQty >= productStock}
                         >
                             {" "}
-                            Add To Cart{" "}
+                            Thêm vào giỏ hàng{" "}
                         </button>
                     ) : (
-                        <button disabled>Out of Stock</button>
+                        <button disabled>Hết hàng</button>
                     )}
                 </div>
                 <div className="pro-details-wishlist">
@@ -197,7 +197,7 @@ const ProductDescriptionInfo = ({
             </div>
             {product.category ? (
                 <div className="pro-details-meta">
-                    <span>Categories :</span>
+                    <span>Danh mục :</span>
                     <ul>
                         {product.category.map(({single, key}: any) => {
                             return (
@@ -213,24 +213,7 @@ const ProductDescriptionInfo = ({
             ) : (
                 ""
             )}
-            {product.tag ? (
-                <div className="pro-details-meta">
-                    <span>Tags :</span>
-                    <ul>
-                        {product.tag.map(({single, key}: any) => {
-                            return (
-                                <li key={key}>
-                                    <Link to={process.env.PUBLIC_URL + "/shop-grid-standard"}>
-                                        {single}
-                                    </Link>
-                                </li>
-                            );
-                        })}
-                    </ul>
-                </div>
-            ) : (
-                ""
-            )}
+
 
             <div className="pro-details-social">
                 <ul>

@@ -82,7 +82,7 @@ const MenuCart = ({cartData, deleteFromCart}: any) => {
                         </h4>
                     </div>
                     <div className="shopping-cart-btn btn-hover text-center">
-                        <Link className="default-btn" to={process.env.PUBLIC_URL + "/cart"}>
+                        <Link className="default-btn" to={process.env.PUBLIC_URL + "/shopping-cart"}>
                             view cart
                         </Link>
                         <Link

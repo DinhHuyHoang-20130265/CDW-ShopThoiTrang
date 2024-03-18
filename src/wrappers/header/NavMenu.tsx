@@ -14,12 +14,13 @@ const NavMenu = ({categories, menuWhiteClass, sidebarMenu}: any) => {
                     <li>
                         <Link to={process.env.PUBLIC_URL + "/"}> Trang chủ {sidebarMenu ? (
                                 <span> <i className="fa fa-angle-right"></i> </span>)
-                            : (<i className="fa fa-angle-down"/>)}
+                            : ("")}
                         </Link>
                     </li>
                     <li>
                         <Link to={process.env.PUBLIC_URL + "/shop"}>
-                            {["categories"]}
+                            Sản phẩm
+                            {/*{["categories"]}*/}
                             {sidebarMenu ? (
                                 <span>
                   <i className="fa fa-angle-right"></i>
@@ -224,7 +225,7 @@ const NavMenu = ({categories, menuWhiteClass, sidebarMenu}: any) => {
                     </li>
                     <li>
                         <Link to={process.env.PUBLIC_URL + "/blog-standard"}>
-                            {["blog"]}
+                            Blog
                             {sidebarMenu ? (
                                 <span>
                   <i className="fa fa-angle-right"></i>
@@ -258,7 +259,7 @@ const NavMenu = ({categories, menuWhiteClass, sidebarMenu}: any) => {
                     </li>
                     <li>
                         <Link to={process.env.PUBLIC_URL + "/contact"}>
-                            {["contact_us"]}
+                            Liên hệ
                         </Link>
                     </li>
                 </ul>

@@ -46,8 +46,8 @@ const Shop = ({products}: any) => {
     return (
         <Fragment>
 
-            <BreadcrumbsItem to={process.env.PUBLIC_URL + '/'}>Home</BreadcrumbsItem>
-            <BreadcrumbsItem to={process.env.PUBLIC_URL + '/shop'}>Shop</BreadcrumbsItem>
+            <BreadcrumbsItem to={process.env.PUBLIC_URL + '/'}>Trang chủ</BreadcrumbsItem>
+            <BreadcrumbsItem to={process.env.PUBLIC_URL + '/shop'}>Sản phẩm</BreadcrumbsItem>
 
             {/* breadcrumb */}
             <Breadcrumb/>

@@ -5,7 +5,7 @@ import {setActiveSort} from "../../helpers/product";
 const ShopSize = ({ sizes, getSortParams } : any) => {
     return (
         <div className="sidebar-widget mt-40">
-            <h4 className="pro-sidebar-title">Size </h4>
+            <h4 className="pro-sidebar-title">Kích thước </h4>
             <div className="sidebar-widget-list mt-20">
                 {sizes ? (
                     <ul>
@@ -17,7 +17,7 @@ const ShopSize = ({ sizes, getSortParams } : any) => {
                                         setActiveSort(e);
                                     }}
                                 >
-                                    <span className="checkmark" /> All Sizes{" "}
+                                    <span className="checkmark" /> Tất cả{" "}
                                 </button>
                             </div>
                         </li>
@@ -42,7 +42,7 @@ const ShopSize = ({ sizes, getSortParams } : any) => {
                         })}
                     </ul>
                 ) : (
-                    "No sizes found"
+                    "Không tim thấy size"
                 )}
             </div>
         </div>

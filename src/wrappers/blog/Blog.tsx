@@ -43,7 +43,7 @@ const Blog = ({spaceTopClass, spaceBottomClass}: any) => {
         >
             <div className="container">
                 <SectionTitle
-                    titleText="OUR BLOG"
+                    titleText="BLOG"
                     positionClass="text-center"
                     spaceClass="mb-55"
                 />
