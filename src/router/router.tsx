@@ -9,6 +9,7 @@ import ProductDetail, {loadId} from "../pages/user/ProductDetail";
 import ShoppingCart from "../pages/user/ShoppingCart";
 import Checkout from "../pages/user/Checkout";
 import MyAccount from "../pages/user/MyAccount";
+import LoginRegister from "../pages/user/LoginRegister";
 
 export const webRouter = createBrowserRouter([
     {
@@ -37,6 +38,9 @@ export const webRouter = createBrowserRouter([
             }, {
                 path: "my-account",
                 element: <MyAccount/>,
+            }, {
+                path: "login-register",
+                element: <LoginRegister/>,
             }, {
                 path: "product/:id",
                 element: <ProductDetail/>,
