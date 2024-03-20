@@ -1,5 +1,4 @@
 import React, {Fragment} from "react";
-import {BreadcrumbsItem} from "react-breadcrumbs-dynamic";
 import {useSelector} from "react-redux";
 import Breadcrumb from "../../wrappers/breadcrumb/Breadcrumb";
 import RelatedProductSlider from "../../wrappers/product/RelatedProductSlider";
@@ -20,13 +19,6 @@ const ProductDetail = () => {
 
     return (
         <Fragment>
-
-            <BreadcrumbsItem to={process.env.PUBLIC_URL + "/"}>Home</BreadcrumbsItem>
-            <BreadcrumbsItem to={process.env.PUBLIC_URL + "/shop"}>
-                Shop Product
-            </BreadcrumbsItem>
-
-            {/* breadcrumb */}
             <Breadcrumb/>
 
             {/* product description with image */}
