@@ -1,5 +1,4 @@
 import React, {Fragment, useEffect, useState} from "react";
-import {BreadcrumbsItem} from "react-breadcrumbs-dynamic";
 import ShopSidebar from "../../components/shop/ShopSidebar";
 import Breadcrumb from "../../wrappers/breadcrumb/Breadcrumb";
 import {getSortedProducts} from "../../helpers/product";
@@ -45,11 +44,6 @@ const Shop = ({products}: any) => {
 
     return (
         <Fragment>
-
-            <BreadcrumbsItem to={process.env.PUBLIC_URL + '/'}>Trang chủ</BreadcrumbsItem>
-            <BreadcrumbsItem to={process.env.PUBLIC_URL + '/shop'}>Sản phẩm</BreadcrumbsItem>
-
-            {/* breadcrumb */}
             <Breadcrumb/>
 
             {currentData.length > 1 ? <div className="shop-area pt-95 pb-100">

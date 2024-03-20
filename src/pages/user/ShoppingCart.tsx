@@ -2,7 +2,6 @@ import PropTypes from "prop-types";
 import React, {Fragment, useState} from "react";
 import {Link} from "react-router-dom";
 import {useToasts} from "react-toast-notifications";
-import {BreadcrumbsItem} from "react-breadcrumbs-dynamic";
 import {connect} from "react-redux";
 import {getDiscountPrice} from "../../helpers/product";
 import {
@@ -15,26 +14,18 @@ import {
 import Breadcrumb from "../../wrappers/breadcrumb/Breadcrumb";
 
 const ShoppingCart = ({
-                  location,
-                  cartItems,
-                  decreaseQuantity,
-                  addToCart,
-                  deleteFromCart,
-                  deleteAllFromCart
-              }: any) => {
+                          cartItems,
+                          decreaseQuantity,
+                          addToCart,
+                          deleteFromCart,
+                          deleteAllFromCart
+                      }: any) => {
     const [quantityCount] = useState(1);
     const {addToast} = useToasts();
     let cartTotalPrice = 0;
 
     return (
         <Fragment>
-
-            <BreadcrumbsItem to={process.env.PUBLIC_URL + "/"}>Trang chủ</BreadcrumbsItem>
-            <BreadcrumbsItem to={process.env.PUBLIC_URL + "/shopping-cart"}>
-                Giỏ hàng
-            </BreadcrumbsItem>
-
-            {/* breadcrumb */}
             <Breadcrumb/>
             <div className="cart-main-area pt-90 pb-100">
                 <div className="container">
@@ -56,8 +47,8 @@ const ShoppingCart = ({
                                             </tr>
                                             </thead>
                                             <tbody>
-                                            {cartItems.map((cartItem : any, key: any) => {
-                                                const discountedPrice : any = getDiscountPrice(
+                                            {cartItems.map((cartItem: any, key: any) => {
+                                                const discountedPrice: any = getDiscountPrice(
                                                     cartItem.price,
                                                     cartItem.discount
                                                 );
@@ -309,22 +300,22 @@ ShoppingCart.propTypes = {
     deleteFromCart: PropTypes.func
 };
 
-const mapStateToProps = (state : any) => {
+const mapStateToProps = (state: any) => {
     return {
         cartItems: state.cartData,
         currency: state.currencyData
     };
 };
 
-const mapDispatchToProps = (dispatch : any) => {
+const mapDispatchToProps = (dispatch: any) => {
     return {
-        addToCart: ({item, addToast, quantityCount} : any) => {
-            dispatch( addToCart(item, addToast, quantityCount , null, null));
+        addToCart: ({item, addToast, quantityCount}: any) => {
+            dispatch(addToCart(item, addToast, quantityCount, null, null));
         },
-        decreaseQuantity: ({item, addToast} : any) => {
+        decreaseQuantity: ({item, addToast}: any) => {
             dispatch(decreaseQuantity(item, addToast));
         },
-        deleteFromCart: ({item, addToast} : any) => {
+        deleteFromCart: ({item, addToast}: any) => {
             dispatch(deleteFromCart(item, addToast));
         },
         deleteAllFromCart: (addToast: any) => {
