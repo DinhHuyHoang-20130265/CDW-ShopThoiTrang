@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/.idea/CDW-ShopThoiTrang-FrontEnd.iml" filepath="$PROJECT_DIR$/.idea/CDW-ShopThoiTrang-FrontEnd.iml" />
+      <module fileurl="file://$PROJECT_DIR$/ShopThoiTrang.iml" filepath="$PROJECT_DIR$/ShopThoiTrang.iml" />
     </modules>
   </component>
 </project>
