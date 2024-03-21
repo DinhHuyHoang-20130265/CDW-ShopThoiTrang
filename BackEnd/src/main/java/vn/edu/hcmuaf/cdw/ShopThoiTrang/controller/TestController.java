@@ -14,7 +14,7 @@ public class TestController {
     UserInfoRepository userInfoRepository;
     @GetMapping("/all")
     public String allAccess() {
-        return "Public Content.";
+        return "This is Public Content.";
     }
 
     @GetMapping("/user")
