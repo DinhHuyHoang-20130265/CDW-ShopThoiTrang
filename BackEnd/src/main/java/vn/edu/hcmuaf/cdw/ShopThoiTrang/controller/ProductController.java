@@ -15,8 +15,8 @@ public class ProductController {
     private ProductService productService;
 
     @GetMapping
-    public ResponseEntity<?> getAllProducts() {
-        return ResponseEntity.ok(productService.getAllProducts());
+    public ResponseEntity<?> getProductsStatusTrue() {
+        return ResponseEntity.ok(productService.getProductsStatusTrue());
     }
 
     @GetMapping("/id")

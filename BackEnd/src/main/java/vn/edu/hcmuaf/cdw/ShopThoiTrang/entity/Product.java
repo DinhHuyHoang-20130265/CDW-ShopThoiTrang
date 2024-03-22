@@ -46,19 +46,18 @@ public class Product {
     @JoinColumn(name = "updated_by")
     private User updateBy;
 
-    @JsonIgnore
+
     @ManyToMany (fetch = FetchType.LAZY)
     @JoinTable(name = "product_categories",
             joinColumns = @JoinColumn(name = "product_id"),
             inverseJoinColumns = @JoinColumn(name = "cate_id"))
     private List<Categories> categories;
 
-    @OneToMany(mappedBy = "product", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "product", cascade = CascadeType.ALL)
     private List<Variation> variations;
 
-    @JsonIgnore
-    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "product")
-    private ImageProduct imageProduct;
+    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "product")
+    private List<ImageProduct> imageProducts;
 
     @OneToMany(mappedBy = "product", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private List<ProductPromotion> productPromotions;

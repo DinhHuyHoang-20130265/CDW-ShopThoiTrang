@@ -1,5 +1,6 @@
 package vn.edu.hcmuaf.cdw.ShopThoiTrang.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -21,7 +22,7 @@ public class Categories {
     private String name;
 
     @Column(name = "parent_id")
-    private long parentId;
+    private Long parentId;
     private boolean status;
 
     @Column(name = "released_date")
@@ -38,6 +39,7 @@ public class Categories {
     @JoinColumn(name = "updated_by")
     private User updateBy;
 
+    @JsonBackReference
     @ManyToMany(mappedBy = "categories", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private List<Product> products;
 }

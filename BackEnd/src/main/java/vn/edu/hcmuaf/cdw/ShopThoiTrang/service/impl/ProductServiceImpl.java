@@ -21,6 +21,11 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
+    public List<Product> getProductsStatusTrue() {
+        return productRepository.findByStatusTrue();
+    }
+
+    @Override
     public Product getProductById(Long id) {
         return productRepository.findById(id).orElse(null);
     }
