@@ -24,12 +24,9 @@ public class ImportInvoice {
     private Product product;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "size_id")
-    private Size size;
+    @JoinColumn(name = "variation_id")
+    private Variation variation;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "color_id")
-    private Color color;
 
     private int quantity;
 

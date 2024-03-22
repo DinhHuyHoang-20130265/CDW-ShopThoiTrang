@@ -2,24 +2,23 @@ package vn.edu.hcmuaf.cdw.ShopThoiTrang.entity;
 
 import jakarta.persistence.*;
 import lombok.*;
+
 import java.sql.Date;
 import java.util.List;
 
 @Entity
-@Table(name = "size")
+@Table(name = "variation")
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
 @ToString
-
-public class Size {
+public class Variation {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
-    private String size;
-    private int stock;
+    private String color;
     private boolean status;
 
     @Column(name = "released_date")
@@ -37,7 +36,11 @@ public class Size {
     private User updateBy;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "variation_id")
-    private Variation variation;
+    @JoinColumn(name = "product_id")
+    private Product product;
+
+    @OneToMany(mappedBy = "variation", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    private List<Size> sizes;
+
 
 }

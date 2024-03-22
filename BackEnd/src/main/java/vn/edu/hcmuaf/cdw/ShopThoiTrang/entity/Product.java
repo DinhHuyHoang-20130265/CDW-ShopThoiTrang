@@ -53,19 +53,8 @@ public class Product {
             inverseJoinColumns = @JoinColumn(name = "cate_id"))
     private List<Categories> categories;
 
-    @JsonIgnore
-    @ManyToMany (fetch = FetchType.LAZY)
-    @JoinTable(name = "product_color",
-            joinColumns = @JoinColumn(name = "product_id"),
-            inverseJoinColumns = @JoinColumn(name = "color_id"))
-    private List<Color> colors;
-
-    @JsonIgnore
-    @ManyToMany (fetch = FetchType.LAZY)
-    @JoinTable(name = "product_size",
-            joinColumns = @JoinColumn(name = "product_id"),
-            inverseJoinColumns = @JoinColumn(name = "size_id"))
-    private Set<Size> sizes = new HashSet<>();
+    @OneToMany(mappedBy = "product", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    private List<Variation> variations;
 
     @JsonIgnore
     @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "product")
