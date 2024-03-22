@@ -5,16 +5,13 @@ export const DELETE_ALL_FROM_CART = "DELETE_ALL_FROM_CART";
 
 //add to cart
 export const addToCart = (
-    item: { selectedProductColor: any; selectedProductSize: any; },
-    addToast: (arg0: string, arg1: { appearance: string; autoDismiss: boolean; }) => void,
+    item: any,
+    addToast: any,
     quantityCount: any,
     selectedProductColor: any,
     selectedProductSize: any
 ) => {
-    return (dispatch: (arg0: {
-        type: string;
-        payload: { quantity: any; selectedProductColor: any; selectedProductSize: any; };
-    }) => void) => {
+    return (dispatch: any) => {
         if (addToast) {
             addToast("Added To Cart", {appearance: "success", autoDismiss: true});
         }
@@ -38,11 +35,8 @@ export const addToCart = (
     };
 };
 //decrease from cart
-export const decreaseQuantity = (item: any, addToast: (arg0: string, arg1: {
-    appearance: string;
-    autoDismiss: boolean;
-}) => void) => {
-    return (dispatch: (arg0: { type: string; payload: any; }) => void) => {
+export const decreaseQuantity = (item: any, addToast: any) => {
+    return (dispatch: any) => {
         if (addToast) {
             addToast("Item Decremented From Cart", {
                 appearance: "warning",
@@ -53,11 +47,8 @@ export const decreaseQuantity = (item: any, addToast: (arg0: string, arg1: {
     };
 };
 //delete from cart
-export const deleteFromCart = (item: any, addToast: (arg0: string, arg1: {
-    appearance: string;
-    autoDismiss: boolean;
-}) => void) => {
-    return (dispatch: (arg0: { type: string; payload: any; }) => void) => {
+export const deleteFromCart = (item: any, addToast: any) => {
+    return (dispatch: any) => {
         if (addToast) {
             addToast("Removed From Cart", {appearance: "error", autoDismiss: true});
         }
@@ -65,11 +56,8 @@ export const deleteFromCart = (item: any, addToast: (arg0: string, arg1: {
     };
 };
 //delete all from cart
-export const deleteAllFromCart = (addToast: (arg0: string, arg1: {
-    appearance: string;
-    autoDismiss: boolean;
-}) => void) => {
-    return (dispatch: (arg0: { type: string; }) => void) => {
+export const deleteAllFromCart = (addToast: any) => {
+    return (dispatch: any) => {
         if (addToast) {
             addToast("Removed All From Cart", {
                 appearance: "error",
@@ -81,12 +69,12 @@ export const deleteAllFromCart = (addToast: (arg0: string, arg1: {
 };
 
 // get stock of cart item
-export const cartItemStock = (item: { stock: any; variation: any[]; }, color: any, size: any) => {
+export const cartItemStock = (item: any, color: any, size: any) => {
     if (item.stock) {
         return item.stock;
     } else {
         return item.variation
-            .filter(single => single.color === color)[0]
+            .filter((single: any) => single.color === color)[0]
             .size.filter((single: { name: any; }) => single.name === size)[0].stock;
     }
 };

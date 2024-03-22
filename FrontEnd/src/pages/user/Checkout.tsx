@@ -5,7 +5,7 @@ import {Link} from "react-router-dom";
 import {getDiscountPrice} from "../../helpers/product";
 import Breadcrumb from "../../wrappers/breadcrumb/Breadcrumb";
 
-const Checkout = ({location, cartItems, currency}: any) => {
+const Checkout = ({cartItems}: any) => {
     let cartTotalPrice = 0;
 
     return (

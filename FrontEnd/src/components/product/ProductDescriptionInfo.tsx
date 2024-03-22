@@ -251,13 +251,12 @@ const ProductDescriptionInfo = ({
 const mapDispatchToProps = (dispatch: any) => {
     return {
         addToCart: (
-            {
-                item,
-                addToast,
-                quantityCount,
-                selectedProductColor,
-                selectedProductSize
-            }: any
+            item: any,
+            addToast: any,
+            quantityCount: any,
+            selectedProductColor: any,
+            selectedProductSize
+                : any
         ) => {
             dispatch(
                 addToCart(
@@ -269,7 +268,7 @@ const mapDispatchToProps = (dispatch: any) => {
                 )
             );
         },
-        addToWishlist: ({item, addToast}: any) => {
+        addToWishlist: (item: any, addToast: any) => {
             dispatch(addToWishlist(item, addToast));
         }
     };
