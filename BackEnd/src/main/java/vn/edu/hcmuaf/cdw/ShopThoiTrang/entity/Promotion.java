@@ -1,5 +1,6 @@
 package vn.edu.hcmuaf.cdw.ShopThoiTrang.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
@@ -49,7 +50,7 @@ public class Promotion {
     @JoinColumn(name = "updated_by", referencedColumnName = "id")
     private User updatedBy;
 
-
-    @OneToMany(mappedBy = "promotion", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    private List<ProductPromotion> productPromotions;
+    @JsonBackReference
+    @ManyToMany(mappedBy = "promotions", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    private List<Product> products;
 }
