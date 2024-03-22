@@ -67,7 +67,7 @@ public class SecurityConfiguration {
                                 .requestMatchers("/api/user/forgot-password").permitAll()
                                 .requestMatchers("/api/user/forgot-password-confirmation").permitAll()
                                 .requestMatchers("/api/products").permitAll()
-                                .anyRequest().authenticated()
+                                .anyRequest().permitAll()
                 );
 
         http.authenticationProvider(authenticationProvider());
