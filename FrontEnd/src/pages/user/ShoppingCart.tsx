@@ -1,4 +1,3 @@
-import PropTypes from "prop-types";
 import React, {Fragment, useState} from "react";
 import {Link} from "react-router-dom";
 import {useToasts} from "react-toast-notifications";
@@ -31,7 +30,7 @@ const ShoppingCart = ({
                 <div className="container">
                     {cartItems && cartItems.length >= 1 ? (
                         <Fragment>
-                            <h3 className="cart-page-title">Your cart items</h3>
+                            <h3 className="cart-page-title">Giỏ hàng</h3>
                             <div className="row">
                                 <div className="col-12">
                                     <div className="table-content table-responsive cart-table-content">
@@ -48,6 +47,7 @@ const ShoppingCart = ({
                                             </thead>
                                             <tbody>
                                             {cartItems.map((cartItem: any, key: any) => {
+                                                console.log(cartItem)
                                                 const discountedPrice: any = getDiscountPrice(
                                                     cartItem.price,
                                                     cartItem.discount
@@ -64,134 +64,96 @@ const ShoppingCart = ({
                                                         finalDiscountedPrice * cartItem.quantity)
                                                     : (cartTotalPrice +=
                                                         finalProductPrice * cartItem.quantity);
-                                                return (
-                                                    <tr key={key}>
-                                                        <td className="product-thumbnail">
-                                                            <Link
-                                                                to={
+                                                return (cartItem ?
+                                                        <tr key={key}>
+                                                            <td className="product-thumbnail">
+                                                                <Link to={"/product/" + cartItem.id}>
+                                                                    <img className="img-fluid" src={cartItem.image[0]}
+                                                                         alt=""/>
+                                                                </Link>
+                                                            </td>
 
-                                                                    "/product/" +
-                                                                    cartItem.id
-                                                                }
-                                                            >
-                                                                <img
-                                                                    className="img-fluid"
-                                                                    src={
-
-                                                                        cartItem.image[0]
-                                                                    }
-                                                                    alt=""
-                                                                />
-                                                            </Link>
-                                                        </td>
-
-                                                        <td className="product-name">
-                                                            <Link
-                                                                to={
-
-                                                                    "/product/" +
-                                                                    cartItem.id
-                                                                }
-                                                            >
-                                                                {cartItem.name}
-                                                            </Link>
-                                                            {cartItem.selectedProductColor &&
-                                                            cartItem.selectedProductSize ? (
-                                                                <div className="cart-item-variation">
-                                      <span>
-                                        Color: {cartItem.selectedProductColor}
-                                      </span>
+                                                            <td className="product-name">
+                                                                <Link
+                                                                    to={"/product/" + cartItem.id}>
+                                                                    {cartItem.name}
+                                                                </Link>
+                                                                {cartItem.selectedProductColor &&
+                                                                cartItem.selectedProductSize ? (
+                                                                    <div className="cart-item-variation">
                                                                     <span>
-                                        Size: {cartItem.selectedProductSize}
-                                      </span>
-                                                                </div>
-                                                            ) : (
-                                                                ""
-                                                            )}
-                                                        </td>
+                                                                    Color: {cartItem.selectedProductColor}
+                                                                    </span>
+                                                                        <span>
+                                                                        Size: {cartItem.selectedProductSize}
+                                                                    </span>
+                                                                    </div>) : ("")}
+                                                            </td>
 
-                                                        <td className="product-price-cart">
-                                                            {discountedPrice !== null ? (
-                                                                <Fragment>
-                                      <span className="amount old">
-                                        {"đ" +
-                                            finalProductPrice}
-                                      </span>
+                                                            <td className="product-price-cart">
+                                                                {discountedPrice !== null ? (
+                                                                    <Fragment>
+                                                                    <span className="amount old">
+                                                                        {"đ" + finalProductPrice}
+                                                                    </span>
+                                                                        <span className="amount">
+                                                                        {"đ" + finalDiscountedPrice}
+                                                                    </span>
+                                                                    </Fragment>) : (
                                                                     <span className="amount">
-                                        {"đ" +
-                                            finalDiscountedPrice}
-                                      </span>
-                                                                </Fragment>
-                                                            ) : (
-                                                                <span className="amount">
-                                      {"đ" +
-                                          finalProductPrice}
-                                    </span>
-                                                            )}
-                                                        </td>
+                                                                    {"đ" + finalProductPrice}
+                                                                </span>)}
+                                                            </td>
 
-                                                        <td className="product-quantity">
-                                                            <div className="cart-plus-minus">
-                                                                <button
-                                                                    className="dec qtybutton"
-                                                                    onClick={() =>
-                                                                        decreaseQuantity(cartItem, addToast)
-                                                                    }
-                                                                >
-                                                                    -
-                                                                </button>
-                                                                <input
-                                                                    className="cart-plus-minus-box"
-                                                                    type="text"
-                                                                    value={cartItem.quantity}
-                                                                    readOnly
-                                                                />
-                                                                <button
-                                                                    className="inc qtybutton"
-                                                                    onClick={() =>
-                                                                        addToCart(
-                                                                            cartItem,
-                                                                            addToast,
-                                                                            quantityCount
-                                                                        )
-                                                                    }
-                                                                    disabled={
-                                                                        cartItem !== undefined &&
-                                                                        cartItem.quantity &&
-                                                                        cartItem.quantity >=
-                                                                        cartItemStock(
-                                                                            cartItem,
-                                                                            cartItem.selectedProductColor,
-                                                                            cartItem.selectedProductSize
-                                                                        )
-                                                                    }
-                                                                >
-                                                                    +
-                                                                </button>
-                                                            </div>
-                                                        </td>
-                                                        <td className="product-subtotal">
-                                                            {discountedPrice !== null
-                                                                ? "đ" +
-                                                                (
-                                                                    finalDiscountedPrice * cartItem.quantity
-                                                                ).toFixed(2)
-                                                                : "đ" +
-                                                                (
-                                                                    finalProductPrice * cartItem.quantity
-                                                                ).toFixed(2)}
-                                                        </td>
+                                                            <td className="product-quantity">
+                                                                <div className="cart-plus-minus">
+                                                                    <button className="dec qtybutton"
+                                                                            onClick={() => cartItem && decreaseQuantity(cartItem, addToast)}>
+                                                                        -
+                                                                    </button>
+                                                                    <input
+                                                                        className="cart-plus-minus-box"
+                                                                        type="text"
+                                                                        value={cartItem.quantity}
+                                                                        readOnly
+                                                                    />
+                                                                    <button
+                                                                        className="inc qtybutton"
+                                                                        onClick={() => cartItem &&
+                                                                            addToCart(
+                                                                                cartItem,
+                                                                                addToast,
+                                                                                quantityCount
+                                                                            )
+                                                                        }
+                                                                        disabled={
+                                                                            cartItem !== undefined &&
+                                                                            cartItem.quantity &&
+                                                                            cartItem.quantity >=
+                                                                            cartItemStock(
+                                                                                cartItem,
+                                                                                cartItem.selectedProductColor,
+                                                                                cartItem.selectedProductSize
+                                                                            )
+                                                                        }
+                                                                    >
+                                                                        +
+                                                                    </button>
+                                                                </div>
+                                                            </td>
+                                                            <td className="product-subtotal">
+                                                                {discountedPrice !== null
+                                                                    ? "đ" + (finalDiscountedPrice * cartItem.quantity).toFixed(2) : "đ" + (finalProductPrice * cartItem.quantity).toFixed(2)}
+                                                            </td>
 
-                                                        <td className="product-remove">
-                                                            <button
-                                                                onClick={() =>
-                                                                    deleteFromCart(cartItem, addToast)
-                                                                }
-                                                            >
-                                                                <i className="fa fa-times"></i>
-                                                            </button>
-                                                        </td>
-                                                    </tr>
+                                                            <td className="product-remove">
+                                                                <button onClick={() =>
+                                                                    cartItem && deleteFromCart(cartItem, addToast)
+                                                                }>
+                                                                    <i className="fa fa-times"></i>
+                                                                </button>
+                                                            </td>
+                                                        </tr> : <></>
                                                 );
                                             })}
                                             </tbody>
@@ -203,15 +165,13 @@ const ShoppingCart = ({
                                 <div className="col-lg-12">
                                     <div className="cart-shiping-update-wrapper">
                                         <div className="cart-shiping-update">
-                                            <Link
-                                                to={process.env.PUBLIC_URL + "/shop"}
-                                            >
-                                                Continue Shopping
+                                            <Link to={"/shop"}>
+                                                Tiếp tục mua hàng
                                             </Link>
                                         </div>
                                         <div className="cart-clear">
                                             <button onClick={() => deleteAllFromCart(addToast)}>
-                                                Clear Shopping Cart
+                                                Xoá toàn bộ giỏ hàng
                                             </button>
                                         </div>
                                     </div>
@@ -219,8 +179,6 @@ const ShoppingCart = ({
                             </div>
 
                             <div className="row">
-
-
                                 <div className="col-lg-6 col-md-6">
                                     <div className="discount-code-wrapper">
                                         <div className="title-wrap">
@@ -250,17 +208,17 @@ const ShoppingCart = ({
                                         <h5>
                                             Tạm tính{" "}
                                             <span>
-                          {"đ" + cartTotalPrice.toFixed(2)}
-                        </span>
+                                                {"đ" + cartTotalPrice.toFixed(2)}
+                                            </span>
                                         </h5>
 
                                         <h4 className="grand-totall-title">
                                             Tổng tiền{" "}
                                             <span>
-                          {"đ" + cartTotalPrice.toFixed(2)}
-                        </span>
+                                                {"đ" + cartTotalPrice.toFixed(2)}
+                                            </span>
                                         </h4>
-                                        <Link to={process.env.PUBLIC_URL + "/checkout"}>
+                                        <Link to={"/checkout"}>
                                             Thanh toán
                                         </Link>
                                     </div>
@@ -277,7 +235,7 @@ const ShoppingCart = ({
                                     <div className="item-empty-area__text">
                                         No items found in cart <br/>{" "}
                                         <Link to={process.env.PUBLIC_URL + "/shop"}>
-                                            Shop Now
+                                            Mua ngay
                                         </Link>
                                     </div>
                                 </div>
@@ -290,32 +248,21 @@ const ShoppingCart = ({
     );
 };
 
-ShoppingCart.propTypes = {
-    addToCart: PropTypes.func,
-    cartItems: PropTypes.array,
-    currency: PropTypes.object,
-    decreaseQuantity: PropTypes.func,
-    location: PropTypes.object,
-    deleteAllFromCart: PropTypes.func,
-    deleteFromCart: PropTypes.func
-};
-
 const mapStateToProps = (state: any) => {
     return {
-        cartItems: state.cartData,
-        currency: state.currencyData
+        cartItems: state.cartData
     };
 };
 
 const mapDispatchToProps = (dispatch: any) => {
     return {
-        addToCart: ({item, addToast, quantityCount}: any) => {
-            dispatch(addToCart(item, addToast, quantityCount, null, null));
+        addToCart: (item: any, addToast: any, quantityCount: any) => {
+            dispatch(addToCart(item, addToast, quantityCount, item.selectedProductColor, item.selectedProductSize));
         },
-        decreaseQuantity: ({item, addToast}: any) => {
+        decreaseQuantity: (item: any, addToast: any) => {
             dispatch(decreaseQuantity(item, addToast));
         },
-        deleteFromCart: ({item, addToast}: any) => {
+        deleteFromCart: (item: any, addToast: any) => {
             dispatch(deleteFromCart(item, addToast));
         },
         deleteAllFromCart: (addToast: any) => {

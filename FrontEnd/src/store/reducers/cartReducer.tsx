@@ -8,90 +8,63 @@ import {
 const initState: any[] = [];
 const {v4: uuidv4} = require('uuid');
 
-const cartReducer = (state = initState, action: { payload: any; type: string; }) => {
+const cartReducer = (state = initState, action: any) => {
     const cartItems = state,
         product = action.payload;
 
     if (action.type === ADD_TO_CART) {
-        // for non variant products
-        if (product.variation === undefined) {
-            const cartItem = cartItems.filter(item => item.id === product.id)[0];
-            if (cartItem === undefined) {
-                return [
-                    ...cartItems,
-                    {
-                        ...product,
-                        quantity: product.quantity ? product.quantity : 1,
-                        cartItemId: uuidv4()
-                    }
-                ];
-            } else {
-                return cartItems.map(item =>
-                    item.cartItemId === cartItem.cartItemId
-                        ? {
-                            ...item,
-                            quantity: product.quantity
-                                ? item.quantity + product.quantity
-                                : item.quantity + 1
-                        }
-                        : item
-                );
-            }
-            // for variant products
-        } else {
-            const cartItem = cartItems.filter(
-                item =>
-                    item.id === product.id &&
-                    product.selectedProductColor &&
-                    product.selectedProductColor === item.selectedProductColor &&
-                    product.selectedProductSize &&
-                    product.selectedProductSize === item.selectedProductSize &&
-                    (product.cartItemId ? product.cartItemId === item.cartItemId : true)
-            )[0];
+        const cartItem = cartItems.filter(
+            item =>
+                item.id === product.id &&
+                product.selectedProductColor &&
+                product.selectedProductColor === item.selectedProductColor &&
+                product.selectedProductSize &&
+                product.selectedProductSize === item.selectedProductSize &&
+                (product.cartItemId ? product.cartItemId === item.cartItemId : true)
+        )[0];
 
-            if (cartItem === undefined) {
-                return [
-                    ...cartItems,
-                    {
-                        ...product,
-                        quantity: product.quantity ? product.quantity : 1,
-                        cartItemId: uuidv4()
+        if (cartItem === undefined) {
+            return [
+                ...cartItems,
+                {
+                    ...product,
+                    quantity: product.quantity ? product.quantity : 1,
+                    cartItemId: uuidv4()
+                }
+            ];
+        } else if (
+            (cartItem.selectedProductColor !== product.selectedProductColor ||
+                cartItem.selectedProductSize !== product.selectedProductSize)
+        ) {
+            return [
+                ...cartItems,
+                {
+                    ...product,
+                    quantity: product.quantity ? product.quantity : 1,
+                    cartItemId: uuidv4()
+                }
+            ];
+        } else {
+            return cartItems.map(item =>
+                item.cartItemId === cartItem.cartItemId
+                    ? {
+                        ...item,
+                        quantity: product.quantity
+                            ? item.quantity + product.quantity
+                            : item.quantity + 1,
+                        selectedProductColor: product.selectedProductColor,
+                        selectedProductSize: product.selectedProductSize
                     }
-                ];
-            } else if (
-                (cartItem.selectedProductColor !== product.selectedProductColor ||
-                    cartItem.selectedProductSize !== product.selectedProductSize)
-            ) {
-                return [
-                    ...cartItems,
-                    {
-                        ...product,
-                        quantity: product.quantity ? product.quantity : 1,
-                        cartItemId: uuidv4()
-                    }
-                ];
-            } else {
-                return cartItems.map(item =>
-                    item.cartItemId === cartItem.cartItemId
-                        ? {
-                            ...item,
-                            quantity: product.quantity
-                                ? item.quantity + product.quantity
-                                : item.quantity + 1,
-                            selectedProductColor: product.selectedProductColor,
-                            selectedProductSize: product.selectedProductSize
-                        }
-                        : item
-                );
-            }
+                    : item
+            );
         }
     }
 
     if (action.type === DECREASE_QUANTITY) {
         if (product.quantity === 1) {
-            const remainingItems = (cartItems: any[], product: { cartItemId: any; }) =>
+            const remainingItems = (cartItems: any, product: any) =>
                 cartItems.filter(
-                    cartItem => cartItem.cartItemId !== product.cartItemId
+                    (cartItem: any) => cartItem.cartItemId !== product.cartItemId
                 );
             return remainingItems(cartItems, product);
         } else {
@@ -104,9 +77,9 @@ const cartReducer = (state = initState, action: { payload: any; type: string; })
     }
 
     if (action.type === DELETE_FROM_CART) {
-        const remainingItems = (cartItems: any[], product: { cartItemId: any; }) =>
-            cartItems.filter(cartItem => cartItem.cartItemId !== product.cartItemId);
-        return remainingItems(cartItems, product);
+        return cartItems.filter((cartItem: any) =>
+            cartItem.cartItemId !== product.cartItemId)
+
     }
 
     if (action.type === DELETE_ALL_FROM_CART) {
