@@ -1,11 +1,26 @@
 import PropTypes from "prop-types";
-import React, {Fragment} from "react";
+import React, {Fragment, useState} from "react";
 import Accordion from "react-bootstrap/Accordion";
 import Image from 'react-bootstrap/Image';
 import Breadcrumb from "../../wrappers/breadcrumb/Breadcrumb";
-import {Col, Table} from "react-bootstrap";
+import {Col, Container, Row, Table} from "react-bootstrap";
 
 const MyAccount = () => {
+
+    const displaySelectedImage = (event: any) => {
+        const selectedImage: any = document.getElementById('selectedAvatar');
+        const fileInput = event.target;
+
+        if (fileInput.files && fileInput.files[0]) {
+            const reader = new FileReader();
+
+            reader.onload = function (e: any) {
+                selectedImage.src = e.target.result;
+            };
+
+            reader.readAsDataURL(fileInput.files[0]);
+        }
+    };
 
     return (
         <Fragment>
@@ -26,12 +41,26 @@ const MyAccount = () => {
                                                     <h6>Khách hàng</h6>
                                                 </div>
                                                 <div className="row">
-                                                    <div className="col-lg-12 col-md-12">
-                                                        <Col xs={3} md={4} className="m-auto mb-4">
-                                                            <Image
-                                                                src="https://static.zerochan.net/Mahou.Shoujo.Madoka%E2%98%86Magica.full.512292.jpg"
-                                                                thumbnail className="w-150"/>
-                                                        </Col>
+                                                    <div className="col-lg-12 col-md-12 mb-5">
+                                                        <div className="d-flex justify-content-center mb-4">
+                                                            <img id="selectedAvatar"
+                                                                 src={"https://mdbootstrap.com/img/Photos/Others/placeholder-avatar.jpg"}
+                                                                 className="rounded-circle" style={{
+                                                                width: '200px',
+                                                                height: '200px',
+                                                                objectFit: 'cover'
+                                                            }} alt="example placeholder"/>
+                                                        </div>
+                                                        <div className="d-flex justify-content-center">
+                                                            <div className="btn btn-primary btn-rounded">
+                                                                <label className="form-label text-white m-1"
+                                                                       htmlFor="customFile2">Chọn ảnh</label>
+                                                                <input type="file" className="form-control d-none"
+                                                                       id="customFile2"
+                                                                       onChange={displaySelectedImage}/>
+                                                            </div>
+                                                        </div>
+
                                                     </div>
                                                     <div className="col-lg-6 col-md-6">
                                                         <div className="billing-info">
