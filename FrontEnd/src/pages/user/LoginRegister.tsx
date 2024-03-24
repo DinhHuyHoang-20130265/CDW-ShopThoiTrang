@@ -1,11 +1,31 @@
 import PropTypes from "prop-types";
-import React, {Fragment} from "react";
+import React, {Fragment, useEffect, useState} from "react";
 import {Link} from "react-router-dom";
 import Tab from "react-bootstrap/Tab";
 import Nav from "react-bootstrap/Nav";
 import Breadcrumb from "../../wrappers/breadcrumb/Breadcrumb";
+import {ENDPOINT} from "../../api-endpoint/endpoint";
+import useForm from "../../components/auth/FormLogin";
+import {Navigate} from 'react-router-dom';
+import {FiCommand} from "react-icons/fi";
 
-const LoginRegister = ({location}: any) => {
+const LoginRegister = () => {
+    const [user, setUser] = useState(false);
+    const [loading, setLoading] = useState(false);
+
+    const {handleSubmit, status} = useForm(setLoading);
+
+    useEffect(() => {
+        const checkUser = () => {
+            if (localStorage.getItem("user") !== null && localStorage.getItem("user") !== "") {
+                setUser(true);
+            }
+        };
+        checkUser();
+    }, []);
+
+    if (user) return (<Navigate to="/"/>)
+
 
     return (
         <Fragment>
@@ -32,28 +52,41 @@ const LoginRegister = ({location}: any) => {
                                         <Tab.Pane eventKey="login">
                                             <div className="login-form-container">
                                                 <div className="login-register-form">
-                                                    <form>
+                                                    {status === 404 ?
+                                                        <p className={"text-danger align-text-bottom center"}
+                                                           style={{textAlign: "center", fontSize: 20}}>Không
+                                                            tìm thấy tên đăng
+                                                            nhập</p> : status === 417 ?
+                                                            <p className={"text-danger align-text-bottom center"}
+                                                               style={{textAlign: "center", fontSize: 20}}>Sai
+                                                                mật khẩu</p> : <></>}
+                                                    <form onSubmit={handleSubmit}
+                                                          action={ENDPOINT + "auth/login"}
+                                                          method="POST">
                                                         <input
                                                             type="text"
-                                                            name="user-name"
+                                                            name="username"
                                                             placeholder="Tên đăng nhập"
                                                         />
                                                         <input
                                                             type="password"
-                                                            name="user-password"
+                                                            name="password"
                                                             placeholder="Mật khẩu"
                                                         />
                                                         <div className="button-box">
                                                             <div className="login-toggle-btn">
                                                                 <input type="checkbox"/>
                                                                 <label className="ml-10">Nhớ tài khoản</label>
-                                                                <Link to={process.env.PUBLIC_URL + "/"}>
+                                                                <Link to={"/forgot-password"}>
                                                                     Quên mật khẩu?
                                                                 </Link>
                                                             </div>
-                                                            <button type="submit">
-                                                                <span>Đăng nhập</span>
-                                                            </button>
+                                                            {loading ? <button disabled={true}>
+                                                                    <span><FiCommand className="loading-icon"/></span>
+                                                                </button> :
+                                                                <button type="submit">
+                                                                    <span>Đăng nhập</span>
+                                                                </button>}
                                                         </div>
                                                     </form>
                                                 </div>
