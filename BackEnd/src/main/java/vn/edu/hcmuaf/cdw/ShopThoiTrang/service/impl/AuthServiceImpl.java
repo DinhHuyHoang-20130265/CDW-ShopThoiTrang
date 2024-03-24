@@ -74,13 +74,10 @@ public class AuthServiceImpl implements AuthService {
 
         ResponseCookie jwtCookie = jwtUtils.generateJwtCookie(userDetails);
 
-        ResponseEntity.ok().header(HttpHeaders.SET_COOKIE, jwtCookie.toString())
-                .header(HttpHeaders.SET_COOKIE, jwtRefreshCookie.toString());
         return ResponseEntity.ok().header(HttpHeaders.SET_COOKIE, jwtCookie.toString())
                 .header(HttpHeaders.SET_COOKIE, jwtRefreshCookie.toString()).body(new JwtResponse(
                         userDetails.getId(),
                         userDetails.getUsername(),
-                        userDetails.getEmail(),
                         permissions));
     }
 
@@ -88,7 +85,6 @@ public class AuthServiceImpl implements AuthService {
     public ResponseEntity<?> refreshToken(HttpServletRequest request) {
 
         String refreshToken = jwtUtils.getJwtRefreshFromCookies(request);
-
         if ((refreshToken != null) && (!refreshToken.isEmpty())) {
             return refreshTokenService.findByToken(refreshToken)
                     .map(refreshTokenService::verifyExpiration)
@@ -100,8 +96,7 @@ public class AuthServiceImpl implements AuthService {
                                 .header(HttpHeaders.SET_COOKIE, jwtCookie.toString())
                                 .body("Token is refreshed successfully!");
                     })
-                    .orElseThrow(() -> new TokenRefreshException(refreshToken,
-                            "Refresh token is not in database!"));
+                    .orElseThrow(() -> new TokenRefreshException(refreshToken, "Refresh token is not in database!"));
         }
 
         return ResponseEntity.badRequest().body("Refresh Token is empty!");
