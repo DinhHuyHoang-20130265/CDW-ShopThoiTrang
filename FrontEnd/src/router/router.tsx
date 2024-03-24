@@ -3,7 +3,6 @@ import App from "../App";
 import Home from "../pages/user/Home";
 import About from "../pages/user/About";
 import Shop from "../pages/user/Shop";
-import DashBoard from "../pages/admin/DashBoard";
 import React from "react";
 import ProductDetail, {loadId} from "../pages/user/ProductDetail";
 import ShoppingCart from "../pages/user/ShoppingCart";
@@ -71,18 +70,7 @@ export const webRouter = createBrowserRouter([
                 path: "contact",
                 element: <Contact/>,
                 loader: loadId
-            }
-            , {
-                path: "admin",
-                element: <DashBoard/>,
-                children: [
-                    {
-                        path: "dashboard",
-                        element: <DashBoard/>,
-                    }
-                ]
-            },
-            {
+            }, {
                 path: "/*",
                 element: <NotFound404/>
             }

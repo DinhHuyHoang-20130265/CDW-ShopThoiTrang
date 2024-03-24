@@ -1,6 +1,6 @@
 import PropTypes from "prop-types";
 import React, {useEffect, useState} from "react";
-import {Link, Navigate} from "react-router-dom";
+import {Link} from "react-router-dom";
 import {connect} from "react-redux";
 import MenuCart from "./sub-components/MenuCart";
 import {deleteFromCart} from "../../store/actions/cartActions";
