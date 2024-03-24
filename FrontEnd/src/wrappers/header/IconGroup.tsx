@@ -1,9 +1,10 @@
 import PropTypes from "prop-types";
-import React from "react";
+import React, {useEffect, useState} from "react";
 import {Link} from "react-router-dom";
 import {connect} from "react-redux";
 import MenuCart from "./sub-components/MenuCart";
 import {deleteFromCart} from "../../store/actions/cartActions";
+import {logout} from "../../components/auth/Logout";
 
 const IconGroup = ({
                        cartData,
@@ -11,6 +12,14 @@ const IconGroup = ({
                        deleteFromCart,
                        iconWhiteClass
                    }: any) => {
+
+    const [user, setUser]: any = useState(false);
+    useEffect(() => {
+        if (localStorage.getItem("user") !== null && localStorage.getItem("user") !== "") {
+            setUser(true);
+        }
+    }, []);
+
     const handleClick = (e: any) => {
         e.currentTarget.nextSibling.classList.toggle("active");
     };
@@ -21,6 +30,13 @@ const IconGroup = ({
         );
         offcanvasMobileMenu.classList.add("active");
     };
+
+    function handleLogout() {
+        logout();
+        localStorage.removeItem("user");
+        setUser(false);
+        window.location.href = "/login-register";
+    }
 
     return (
         <div
@@ -48,19 +64,20 @@ const IconGroup = ({
                 </button>
                 <div className="account-dropdown">
                     <ul>
-                        <li>
-                            <Link to={process.env.PUBLIC_URL + "/login-register"}>Login</Link>
-                        </li>
-                        <li>
-                            <Link to={process.env.PUBLIC_URL + "/login-register"}>
-                                Register
-                            </Link>
-                        </li>
-                        <li>
-                            <Link to={process.env.PUBLIC_URL + "/my-account"}>
-                                my account
-                            </Link>
-                        </li>
+                        {!user ? <li>
+                                <Link to={process.env.PUBLIC_URL + "/login-register"}>Đăng nhập - Đăng ký</Link>
+                            </li>
+                            : <>
+                                <li>
+                                    <Link to={process.env.PUBLIC_URL + "/my-account"}>
+                                        Tài khoản của tôi
+                                    </Link>
+                                </li>
+                                <li>
+                                    <a onClick={handleLogout}>Đăng xuất</a>
+                                </li>
+                            </>
+                        }
                     </ul>
                 </div>
             </div>
@@ -96,8 +113,7 @@ const IconGroup = ({
             <div className="same-style mobile-off-canvas d-block d-lg-none">
                 <button
                     className="mobile-aside-button"
-                    onClick={() => triggerMobileMenu()}
-                >
+                    onClick={() => triggerMobileMenu()}>
                     <i className="pe-7s-menu"/>
                 </button>
             </div>
@@ -131,3 +147,4 @@ const mapDispatchToProps = (dispatch: any) => {
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(IconGroup);
+

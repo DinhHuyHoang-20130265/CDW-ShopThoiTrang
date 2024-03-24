@@ -7,14 +7,13 @@ import MobileMenu from "./MobileMenu";
 
 const Header = ({
                     layout,
-                    top,
-                    borderStyle,
                     headerPaddingClass,
                     headerPositionClass,
                     headerBgClass
                 }: any) => {
     const [scroll, setScroll] = useState(0);
     const [headerTop, setHeaderTop] = useState(0);
+
 
     useEffect(() => {
         const header: any = document.querySelector(".sticky-bar");
@@ -24,6 +23,7 @@ const Header = ({
             window.removeEventListener("scroll", handleScroll);
         };
     }, []);
+
 
     const handleScroll = () => {
         setScroll(window.scrollY);

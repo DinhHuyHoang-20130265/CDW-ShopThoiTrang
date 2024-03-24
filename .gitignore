@@ -22,6 +22,28 @@ FrontEnd/npm-debug.log*
 FrontEnd/yarn-debug.log*
 FrontEnd/yarn-error.log*
 
+# dependencies
+FrontEnd-Admin/node_modules
+FrontEnd-Admin/.pnp
+FrontEnd-Admin/.pnp.js
+
+# testing
+FrontEnd-Admin/coverage
+
+# production
+FrontEnd-Admin/build
+
+# misc
+FrontEnd-Admin/.DS_Store
+FrontEnd-Admin/.env.local
+FrontEnd-Admin/.env.development.local
+FrontEnd-Admin/.env.test.local
+FrontEnd-Admin/.env.production.local
+
+FrontEnd-Admin/npm-debug.log*
+FrontEnd-Admin/yarn-debug.log*
+FrontEnd-Admin/yarn-error.log*
+
 BackEnd/HELP.md
 BackEnd/target/
 BackEnd/!.mvn/wrapper/maven-wrapper.jar

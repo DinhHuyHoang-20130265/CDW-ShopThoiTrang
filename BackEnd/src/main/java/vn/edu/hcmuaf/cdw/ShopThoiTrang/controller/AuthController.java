@@ -13,7 +13,6 @@ import vn.edu.hcmuaf.cdw.ShopThoiTrang.reponsitory.UserRepository;
 import vn.edu.hcmuaf.cdw.ShopThoiTrang.service.AuthService;
 
 @RestController
-@CrossOrigin(origins = "*", maxAge = 3600)
 @RequestMapping("/api/auth")
 @Transactional
 public class AuthController {
