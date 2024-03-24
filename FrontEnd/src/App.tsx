@@ -1,4 +1,4 @@
-import React, {Fragment, useEffect, useState} from 'react';
+import React, {Fragment} from 'react';
 import {Outlet} from "react-router";
 import {ToastProvider} from "react-toast-notifications";
 import {BreadcrumbsProvider} from "react-breadcrumbs-dynamic";
@@ -6,15 +6,6 @@ import PropTypes from "prop-types";
 import LayoutUser from "./pages/layout/layoutUser";
 
 function App() {
-    const [isAdmin, setIsAdmin] = useState(false);
-
-    useEffect(() => {
-        // @ts-ignore
-        const user: any = JSON.parse(localStorage.getItem('user'));
-        if (user && user.authorities.includes('ROLE_ADMIN')) {
-            setIsAdmin(true);
-        }
-    }, []);
 
     return (
         <ToastProvider placement="bottom-left">
@@ -29,7 +20,6 @@ function App() {
                 </div>
             </BreadcrumbsProvider>
         </ToastProvider>
-
     );
 }
 
