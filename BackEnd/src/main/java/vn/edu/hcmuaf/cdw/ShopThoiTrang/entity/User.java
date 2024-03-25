@@ -51,7 +51,7 @@ public class User implements UserDetails {
             inverseJoinColumns = @JoinColumn(
                     name = "role_id", referencedColumnName = "id"))
     private Collection<Role> roles;
-    @JsonIgnore
+
     @Column(name = "created_date")
     private Date createdDate;
 
@@ -59,6 +59,7 @@ public class User implements UserDetails {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "created_by")
     private User createdBy;
+
     @JsonIgnore
     @Column(name = "updated_date")
     private Date updateDate;
@@ -75,6 +76,7 @@ public class User implements UserDetails {
         roles.forEach(role -> role.getPermissions().forEach(permission -> authorities.add(new SimpleGrantedAuthority(permission.getName()))));
         return authorities;
     }
+
     @JsonIgnore
     @Override
     public String getPassword() {
