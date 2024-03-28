@@ -1,6 +1,6 @@
 import * as React from 'react';
 import {Card, CardContent} from '@mui/material';
-import MonetizationOnIcon from '@mui/icons-material/MonetizationOnOutlined';
+import PersonIcon from '@mui/icons-material/Person';
 import LockIcon from '@mui/icons-material/Lock';
 import {
     FilterList,
@@ -24,27 +24,23 @@ const UserListAside = () => (
         }}
     >
         <CardContent sx={{pt: 1}}>
-            <FilterLiveSearch label={"Tìm..."}/>
+            <FilterLiveSearch label={"Tìm..."} name={"search"}/>
 
             <SavedQueriesList/>
 
-
             <FilterList
-                label="Đã mua hàng"
-                icon={<MonetizationOnIcon/>}
-            >
+                label="Loại tài khoản"
+                icon={<PersonIcon/>}>
                 <FilterListItem
-                    label="Có"
+                    label="Admin"
                     value={{
-                        nb_commands_gte: 1,
-                        nb_commands_lte: undefined,
+                        type: "ADMIN"
                     }}
                 />
                 <FilterListItem
-                    label="Không"
+                    label="User"
                     value={{
-                        nb_commands_gte: undefined,
-                        nb_commands_lte: 0,
+                        type: "USER"
                     }}
                 />
             </FilterList>
@@ -55,11 +51,11 @@ const UserListAside = () => (
             >
                 <FilterListItem
                     label="Đã khoá"
-                    value={{has_ordered: true}}
+                    value={{status: false}}
                 />
                 <FilterListItem
                     label="Chưa khoá"
-                    value={{has_ordered: false}}
+                    value={{status: true}}
                 />
             </FilterList>
 
