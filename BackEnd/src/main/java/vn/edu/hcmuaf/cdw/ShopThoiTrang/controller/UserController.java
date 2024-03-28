@@ -37,13 +37,24 @@ public class UserController {
         return userInfoService.findById(userService.getUserByUsername(username).getId());
     }
 
+    @GetMapping("/get-authorities")
+    public ResponseEntity<?> getAuthorities() {
+        String jwt = jwtUtils.getJwtFromCookies(request);
+        if (jwt == null) {
+            return ResponseEntity.badRequest().body("Token is null");
+        }
+        String username = jwtUtils.getUserNameFromJwtToken(jwt);
+        return userService.getAuthorities(username);
+    }
+
     @GetMapping
-    public ResponseEntity<Page<User>> getUsers(@RequestParam(defaultValue = "") String q,
-                                               @RequestParam(defaultValue = "0") int start,
-                                               @RequestParam(defaultValue = "25") int end,
-                                               @RequestParam(defaultValue = "createdDate") String sort,
-                                               @RequestParam(defaultValue = "DESC") String order) throws UnsupportedEncodingException {
-        Page<User> users = userService.getAllUsers(q, start, end, sort, order);
+    public ResponseEntity<Page<User>> getUsers(
+            @RequestParam(defaultValue = "0") int start,
+            @RequestParam(defaultValue = "{}") String filter,
+            @RequestParam(defaultValue = "25") int end,
+            @RequestParam(defaultValue = "createdDate") String sort,
+            @RequestParam(defaultValue = "DESC") String order) throws UnsupportedEncodingException {
+        Page<User> users = userService.getAllUsers(filter, start, end, sort, order);
         return ResponseEntity.ok(users);
     }
 

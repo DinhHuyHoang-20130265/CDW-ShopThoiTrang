@@ -53,11 +53,48 @@ public class AuthServiceImpl implements AuthService {
     @Override
     public ResponseEntity<?> login(LoginDto loginDto) {
         User user = userRepository.findByUsername(loginDto.getUsername()).orElse(null);
-        if (user == null) {
+        if (user == null || !user.isEnabled()) {
             return new ResponseEntity<>("username not found", HttpStatus.NOT_FOUND);
         }
         if (!passwordEncoder.matches(loginDto.getPassword(), user.getPassword())) {
             return new ResponseEntity<>("wrong password", HttpStatus.EXPECTATION_FAILED);
+        }
+        if (user.getRoles().stream().noneMatch(role -> role.getName().equals("USER"))) {
+            return new ResponseEntity<>("unauthorized ", HttpStatus.NOT_ACCEPTABLE);
+        }
+        Authentication authentication = authenticationManager.authenticate(
+                new UsernamePasswordAuthenticationToken(loginDto.getUsername(), loginDto.getPassword()));
+
+        SecurityContextHolder.getContext().setAuthentication(authentication);
+
+        UserDetailsImpl userDetails = (UserDetailsImpl) authentication.getPrincipal();
+        List<String> permissions = userDetails.getAuthorities().stream()
+                .map(GrantedAuthority::getAuthority)
+                .collect(Collectors.toList());
+        RefreshToken refreshToken = refreshTokenService.createRefreshToken(userDetails.getId());
+
+        ResponseCookie jwtRefreshCookie = jwtUtils.generateRefreshJwtCookie(refreshToken.getToken());
+
+        ResponseCookie jwtCookie = jwtUtils.generateJwtCookie(userDetails);
+
+        return ResponseEntity.ok().header(HttpHeaders.SET_COOKIE, jwtCookie.toString())
+                .header(HttpHeaders.SET_COOKIE, jwtRefreshCookie.toString()).body(new JwtResponse(
+                        userDetails.getId(),
+                        userDetails.getUsername(),
+                        permissions));
+    }
+
+    @Override
+    public ResponseEntity<?> login_admin(LoginDto loginDto) {
+        User user = userRepository.findByUsername(loginDto.getUsername()).orElse(null);
+        if (user == null || !user.isEnabled()) {
+            return new ResponseEntity<>("username not found", HttpStatus.NOT_FOUND);
+        }
+        if (!passwordEncoder.matches(loginDto.getPassword(), user.getPassword())) {
+            return new ResponseEntity<>("wrong password", HttpStatus.EXPECTATION_FAILED);
+        }
+        if (user.getRoles().stream().noneMatch(role -> role.getName().equals("ADMIN"))) {
+            return new ResponseEntity<>("unauthorized ", HttpStatus.NOT_ACCEPTABLE);
         }
         Authentication authentication = authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(loginDto.getUsername(), loginDto.getPassword()));

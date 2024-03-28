@@ -1,12 +1,15 @@
 import * as React from 'react';
-import {Admin, Resource} from 'react-admin';
+import {Admin, Login, Resource} from 'react-admin';
 import {dataProvider} from "./dataProvider/dataProvider";
 import UserList from "./users/UserList";
+import {authProvider} from "./authProvider";
 
 const App = () => {
     return (
         <Admin
-            title=""
+            authProvider={authProvider}
+            loginPage={Login}
+            title="Admin"
             dataProvider={dataProvider}
             disableTelemetry
         >
