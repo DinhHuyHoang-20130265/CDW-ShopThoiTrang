@@ -15,7 +15,7 @@ import vn.edu.hcmuaf.cdw.ShopThoiTrang.reponsitory.UserRepository;
 
 @Service
 public class RefreshTokenService {
-    @Value("120000")
+    @Value("1200000")
     private Long refreshTokenDurationMs;
 
     @Autowired
@@ -50,6 +50,7 @@ public class RefreshTokenService {
     }
 
     public RefreshToken verifyExpiration(RefreshToken token) {
+        System.out.println(token.getExpiryDate() + " " + Instant.now());
         if (token.getExpiryDate().compareTo(Instant.now()) < 0) {
             refreshTokenRepository.delete(token);
             throw new TokenRefreshException(token.getToken(), "Refresh token was expired. Please make a new signing request");
