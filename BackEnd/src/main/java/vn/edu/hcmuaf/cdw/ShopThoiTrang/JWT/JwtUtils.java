@@ -22,7 +22,7 @@ public class JwtUtils {
     @Value("0dbdaf92f6405b2d6293e8f800858d0ecb80af8d4b02d6002ea05dbd7e9badb22d805b91bf10828e6bdf7694bf24df152971cf22a45a33ef955538b015325048")
     private String jwtSecret;
 
-    @Value("600000")
+    @Value("120000")
     private int jwtExpirationMs;
 
     @Value("shop2h")
@@ -86,7 +86,6 @@ public class JwtUtils {
         } catch (IllegalArgumentException e) {
             logger.error("JWT claims string is empty: {}", e.getMessage());
         }
-
         return false;
     }
 

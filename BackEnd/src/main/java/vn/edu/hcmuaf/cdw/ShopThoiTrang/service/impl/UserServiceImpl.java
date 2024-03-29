@@ -5,7 +5,6 @@ import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import jakarta.persistence.criteria.Join;
 import jakarta.persistence.criteria.Predicate;
-import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -14,7 +13,6 @@ import org.springframework.data.jpa.domain.Specification;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.stereotype.Service;
-import vn.edu.hcmuaf.cdw.ShopThoiTrang.entity.Order;
 import vn.edu.hcmuaf.cdw.ShopThoiTrang.entity.Role;
 import vn.edu.hcmuaf.cdw.ShopThoiTrang.entity.User;
 import vn.edu.hcmuaf.cdw.ShopThoiTrang.entity.UserInfo;
@@ -86,6 +84,17 @@ public class UserServiceImpl implements UserService {
 
             return predicate;
         };
+
+        if (sortBy.equals("username") || sortBy.equals("createdDate")) {
+            return userRepository.findAll(specification, PageRequest.of(start, end - start + 1, direction, sortBy));
+        }
+
+        if (sortBy.equals("fullName")) {
+            return userRepository.findAll((root, query, criteriaBuilder) -> {
+                root.join("userInfo");
+                return specification.toPredicate(root, query, criteriaBuilder);
+            }, PageRequest.of(start, end - start + 1, direction, "userInfo.fullName"));
+        }
 
         return userRepository.findAll(specification, PageRequest.of(start, end - start + 1, Sort.by(direction, sortBy)));
     }
