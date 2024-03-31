@@ -13,6 +13,8 @@ public interface AuthService {
 
     ResponseEntity<?> isValidEmail(SignupDto signupDto);
 
+    ResponseEntity<?> login_admin(LoginDto loginDto);
+
     ResponseEntity<?> refreshToken(HttpServletRequest request);
 
     ResponseEntity<?> forgotPassword(ForgotPasswordRequest forgotPasswordRequest);
