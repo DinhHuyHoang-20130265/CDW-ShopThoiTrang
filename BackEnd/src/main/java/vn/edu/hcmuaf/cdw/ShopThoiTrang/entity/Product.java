@@ -1,6 +1,7 @@
 package vn.edu.hcmuaf.cdw.ShopThoiTrang.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -26,7 +27,6 @@ public class Product {
     private String content;
     private boolean status;
 
-    @JsonIgnore
     @Column(name = "img_url")
     private String imageUrl;
 
@@ -45,6 +45,9 @@ public class Product {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "updated_by")
     private User updateBy;
+
+    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "product")
+    private Price price;
 
 
     @ManyToMany (fetch = FetchType.LAZY)

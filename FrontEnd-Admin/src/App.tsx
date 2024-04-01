@@ -3,6 +3,8 @@ import {Admin, Login, Resource} from 'react-admin';
 import {dataProvider} from "./dataProvider/dataProvider";
 import UserList from "./users/UserList";
 import {authProvider} from "./authProvider";
+import ProductList from "./products/ProductList";
+import {ProductShow} from "./products/ProductShow";
 
 const App = () => {
     return (
@@ -14,6 +16,7 @@ const App = () => {
             disableTelemetry
         >
             <Resource name="user" list={UserList}/>
+            <Resource name="product" list={ProductList} show={ProductShow}/>
         </Admin>
     );
 };
