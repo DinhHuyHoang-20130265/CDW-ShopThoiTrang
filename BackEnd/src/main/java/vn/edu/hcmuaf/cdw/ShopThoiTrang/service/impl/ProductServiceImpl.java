@@ -85,4 +85,9 @@ public class ProductServiceImpl implements ProductService {
         return productRepository.findAll(specification, PageRequest.of(start, end, Sort.by(direction, sortBy)));
 
     }
+
+    @Override
+    public void deleteProduct(Long id) {
+        productRepository.deleteById(id);
+    }
 }

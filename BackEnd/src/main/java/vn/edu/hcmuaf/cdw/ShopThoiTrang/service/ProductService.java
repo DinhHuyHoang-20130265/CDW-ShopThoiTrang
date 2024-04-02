@@ -15,4 +15,6 @@ public interface ProductService {
     Product getProductById(Long id);
 
     Page<Product> getAllProducts(String filter, int start, int end, String sortBy, String order);
+
+    void deleteProduct(Long id);
 }
