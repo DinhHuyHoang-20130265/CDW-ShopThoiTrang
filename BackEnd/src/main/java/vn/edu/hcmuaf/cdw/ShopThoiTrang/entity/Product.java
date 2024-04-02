@@ -5,9 +5,7 @@ import jakarta.persistence.*;
 import lombok.*;
 
 import java.sql.Date;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 @Entity
 @Table(name = "product")
@@ -26,7 +24,6 @@ public class Product {
     private String content;
     private boolean status;
 
-    @JsonIgnore
     @Column(name = "img_url")
     private String imageUrl;
 
@@ -46,12 +43,15 @@ public class Product {
     @JoinColumn(name = "updated_by")
     private User updateBy;
 
+    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "product")
+    private Price price;
+
 
     @ManyToMany (fetch = FetchType.LAZY)
     @JoinTable(name = "product_categories",
             joinColumns = @JoinColumn(name = "product_id"),
             inverseJoinColumns = @JoinColumn(name = "cate_id"))
-    private List<Categories> categories;
+    private List<Category> categories;
 
     @OneToMany(mappedBy = "product", cascade = CascadeType.ALL)
     private List<Variation> variations;
