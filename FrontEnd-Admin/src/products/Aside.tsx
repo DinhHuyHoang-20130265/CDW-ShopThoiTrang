@@ -12,10 +12,11 @@ import {
     useGetList,
 } from 'react-admin';
 
-import { Product } from '../types';
+import {Category, Product} from '../types';
+import LockIcon from "@mui/icons-material/Lock";
 
 const Aside = () => {
-    const { data } = useGetList<Product>('product', {
+    const { data } = useGetList<Category>('category', {
         pagination: { page: 1, perPage: 100 },
         sort: { field: 'name', order: 'ASC' },
     });
@@ -31,88 +32,31 @@ const Aside = () => {
             }}
         >
             <CardContent sx={{ pt: 1 }}>
-                <FilterLiveSearch hiddenLabel />
+                <FilterLiveSearch label={"Tìm..."} name={"search"} />
 
                 <SavedQueriesList />
 
                 <FilterList
-                    label="resources.products.filters.sales"
-                    icon={<AttachMoneyIcon />}
+                    label="Trạng thái"
+                    icon={<LockIcon />}
                 >
                     <FilterListItem
-                        label="resources.products.filters.best_sellers"
+                        label="Đã ẩn"
                         value={{
-                            sales_lte: undefined,
-                            sales_gt: 25,
-                            sales: undefined,
+                            status: false,
                         }}
                     />
                     <FilterListItem
-                        label="resources.products.filters.average_sellers"
+                        label="Hiển thị"
                         value={{
-                            sales_lte: 25,
-                            sales_gt: 10,
-                            sales: undefined,
+                            status: true,
                         }}
                     />
-                    <FilterListItem
-                        label="resources.products.filters.low_sellers"
-                        value={{
-                            sales_lte: 10,
-                            sales_gt: 0,
-                            sales: undefined,
-                        }}
-                    />
-                    <FilterListItem
-                        label="resources.products.filters.never_sold"
-                        value={{
-                            sales_lte: undefined,
-                            sales_gt: undefined,
-                            sales: 0,
-                        }}
-                    />
-                </FilterList>
 
-                <FilterList
-                    label="resources.products.filters.stock"
-                    icon={<BarChartIcon />}
-                >
-                    <FilterListItem
-                        label="resources.products.filters.no_stock"
-                        value={{
-                            stock_lt: undefined,
-                            stock_gt: undefined,
-                            stock: 0,
-                        }}
-                    />
-                    <FilterListItem
-                        label="resources.products.filters.low_stock"
-                        value={{
-                            stock_lt: 10,
-                            stock_gt: 0,
-                            stock: undefined,
-                        }}
-                    />
-                    <FilterListItem
-                        label="resources.products.filters.average_stock"
-                        value={{
-                            stock_lt: 50,
-                            stock_gt: 9,
-                            stock: undefined,
-                        }}
-                    />
-                    <FilterListItem
-                        label="resources.products.filters.enough_stock"
-                        value={{
-                            stock_lt: undefined,
-                            stock_gt: 49,
-                            stock: undefined,
-                        }}
-                    />
                 </FilterList>
 
                 {/*<FilterList*/}
-                {/*    label="resources.products.filters.product"*/}
+                {/*    label="Danh mục"*/}
                 {/*    icon={<LocalOfferIcon />}*/}
                 {/*>*/}
                 {/*    {data &&*/}
@@ -120,7 +64,7 @@ const Aside = () => {
                 {/*            <FilterListItem*/}
                 {/*                label={record.name}*/}
                 {/*                key={record.id}*/}
-                {/*                value={{ category_id: record.id }}*/}
+                {/*                value={{categories: record}} // Truyền record làm giá trị của value*/}
                 {/*            />*/}
                 {/*        ))}*/}
                 {/*</FilterList>*/}
@@ -128,5 +72,4 @@ const Aside = () => {
         </Card>
     );
 };
-
 export default Aside;

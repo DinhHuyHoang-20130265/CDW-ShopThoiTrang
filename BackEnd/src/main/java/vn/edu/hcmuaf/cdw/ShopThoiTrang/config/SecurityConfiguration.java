@@ -73,7 +73,8 @@ public class SecurityConfiguration {
                         auth.requestMatchers("/api/auth/**").permitAll()
                                 .requestMatchers("/api/test/**").authenticated()
                                 .requestMatchers("/api/product/**").permitAll()
-                                .requestMatchers("/api/product/{id}").permitAll()
+                                .requestMatchers("/api/user/**").permitAll()
+                                .requestMatchers("/api/category/**").permitAll()
                                 .anyRequest().authenticated()
                 );
 

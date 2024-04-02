@@ -6,7 +6,7 @@ const httpClient = fetchUtils.fetchJson;
 
 export const dataProvider: DataProvider = {
     // @ts-ignore
-    getList: async (resource: any, params: any) => {
+    getList: async (resource : any, params: any) => {
         try {
             const {page, perPage} = params.pagination;
             const {field, order} = params.sort;

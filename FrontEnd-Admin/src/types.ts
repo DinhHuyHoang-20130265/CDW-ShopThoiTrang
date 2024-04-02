@@ -2,9 +2,9 @@ import {RaRecord} from 'react-admin';
 
 export type ThemeName = 'light' | 'dark';
 
-export interface Category extends RaRecord {
-    name: string;
-}
+// export interface Category extends RaRecord {
+//     name: string;
+// }
 
 export interface Customer extends RaRecord {
     username: string;

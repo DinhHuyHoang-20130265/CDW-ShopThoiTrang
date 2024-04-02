@@ -1,14 +1,11 @@
 package vn.edu.hcmuaf.cdw.ShopThoiTrang.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.*;
 
 import java.sql.Date;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 @Entity
 @Table(name = "product")
@@ -54,7 +51,7 @@ public class Product {
     @JoinTable(name = "product_categories",
             joinColumns = @JoinColumn(name = "product_id"),
             inverseJoinColumns = @JoinColumn(name = "cate_id"))
-    private List<Categories> categories;
+    private List<Category> categories;
 
     @OneToMany(mappedBy = "product", cascade = CascadeType.ALL)
     private List<Variation> variations;

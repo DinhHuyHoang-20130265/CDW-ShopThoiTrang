@@ -14,7 +14,7 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 @ToString
-public class Categories {
+public class Category {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

@@ -17,6 +17,7 @@ const App = () => {
         >
             <Resource name="user" list={UserList}/>
             <Resource name="product" list={ProductList} show={ProductShow}/>
+            <Resource name={"category"} />
         </Admin>
     );
 };
