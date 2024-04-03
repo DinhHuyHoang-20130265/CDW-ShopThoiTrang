@@ -50,11 +50,10 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public Page<User> getAllUsers(String filter, int start, int end, String sortBy, String order) {
+    public Page<User> getAllUsers(String filter, int page, int perPage, String sortBy, String order) {
         Sort.Direction direction = Sort.Direction.ASC;
         if (order.equalsIgnoreCase("DESC"))
             direction = Sort.Direction.DESC;
-
 
         JsonNode filterJson;
         try {
@@ -86,17 +85,17 @@ public class UserServiceImpl implements UserService {
         };
 
         if (sortBy.equals("username") || sortBy.equals("createdDate")) {
-            return userRepository.findAll(specification, PageRequest.of(start, end - start + 1, direction, sortBy));
+            return userRepository.findAll(specification, PageRequest.of(page, perPage, direction, sortBy));
         }
 
         if (sortBy.equals("fullName")) {
             return userRepository.findAll((root, query, criteriaBuilder) -> {
                 root.join("userInfo");
                 return specification.toPredicate(root, query, criteriaBuilder);
-            }, PageRequest.of(start, end - start + 1, direction, "userInfo.fullName"));
+            }, PageRequest.of(page, perPage, direction, "userInfo.fullName"));
         }
 
-        return userRepository.findAll(specification, PageRequest.of(start, end - start + 1, Sort.by(direction, sortBy)));
+        return userRepository.findAll(specification, PageRequest.of(page, perPage, Sort.by(direction, sortBy)));
     }
 
 }

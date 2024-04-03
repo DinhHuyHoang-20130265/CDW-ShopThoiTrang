@@ -49,12 +49,12 @@ public class UserController {
 
     @GetMapping
     public ResponseEntity<Page<User>> getUsers(
-            @RequestParam(defaultValue = "0") int start,
+            @RequestParam(defaultValue = "0") int page,
             @RequestParam(defaultValue = "{}") String filter,
-            @RequestParam(defaultValue = "25") int end,
+            @RequestParam(defaultValue = "25") int perPage,
             @RequestParam(defaultValue = "createdDate") String sort,
             @RequestParam(defaultValue = "DESC") String order) throws UnsupportedEncodingException {
-        Page<User> users = userService.getAllUsers(filter, start, end, sort, order);
+        Page<User> users = userService.getAllUsers(filter, page, perPage, sort, order);
         return ResponseEntity.ok(users);
     }
 
