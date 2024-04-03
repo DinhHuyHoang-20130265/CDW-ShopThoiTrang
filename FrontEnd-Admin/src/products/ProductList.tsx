@@ -2,18 +2,11 @@ import * as React from 'react';
 import {
     CreateButton,
     ExportButton,
-    FilterButton,
-    SortButton,
     TopToolbar,
-    useGetResourceLabel,
     FunctionField,
-    ReferenceArrayField,
-    Edit,
     EditButton,
-    ShowView,
-    SingleFieldList,
     ChipField,
-    SearchInput, DateInput, SelectColumnsButton,
+    SearchInput, DateInput, SelectColumnsButton, DatagridConfigurable,
 } from 'react-admin';
 
 import {
@@ -25,7 +18,6 @@ import {
     BulkDeleteButton,
     BulkUpdateButton,
 } from "react-admin";
-import UserListAside from "../users/UserListAside";
 import {Theme, useMediaQuery} from "@mui/material";
 import MobileGrid from "../users/MobileGrid";
 import Aside from "./Aside";
@@ -59,8 +51,7 @@ export const ProductList = () => {
             {isXsmall ? (
                 <MobileGrid/>
             ) : (
-                <Datagrid
-
+                <DatagridConfigurable
                     rowClick="show"
                     bulkActionButtons={
                         <>
@@ -69,10 +60,11 @@ export const ProductList = () => {
                         </>
                     }
                 >
-                    <ImageField sx={{m:"auto"}} className={"cent"} source="imageUrl" label="Ảnh"/>
+                    <ImageField sx={{m: "auto"}} className={"cent"} source="imageUrl" label="Ảnh"/>
                     <TextField source="name" label="Tên SP"/>
                     <TextField source="description" label="Mô tả"/>
                     <FunctionField
+                        source="categories"
                         label="Danh mục"
                         render={(record: any) => (
                             record.categories.map((category: any) => (
@@ -90,7 +82,7 @@ export const ProductList = () => {
                         label="Giá"
                     />
                     <EditButton/>
-                </Datagrid>
+                </DatagridConfigurable>
             )}
         </List>)
 };
