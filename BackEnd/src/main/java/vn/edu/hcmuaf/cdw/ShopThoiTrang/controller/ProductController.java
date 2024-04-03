@@ -25,12 +25,12 @@ public class ProductController {
     }
 
     @GetMapping
-    public ResponseEntity<Page<Product>> getAllProducts(@RequestParam(defaultValue = "0") int start,
+    public ResponseEntity<Page<Product>> getAllProducts(@RequestParam(defaultValue = "0") int page,
                                                         @RequestParam(defaultValue = "{}") String filter,
-                                                        @RequestParam(defaultValue = "25") int end,
+                                                        @RequestParam(defaultValue = "25") int perPage,
                                                         @RequestParam(defaultValue = "name") String sort,
                                                         @RequestParam(defaultValue = "DESC") String order) {
-        Page<Product> products = productService.getAllProducts(filter, start, end, sort, order);
+        Page<Product> products = productService.getAllProducts(filter, page, perPage, sort, order);
         return ResponseEntity.ok(products);
     }
 

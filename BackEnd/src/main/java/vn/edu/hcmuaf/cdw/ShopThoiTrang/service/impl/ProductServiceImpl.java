@@ -43,7 +43,7 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public Page<Product> getAllProducts(String filter, int start, int end, String sortBy, String order) {
+    public Page<Product> getAllProducts(String filter, int page, int perPage, String sortBy, String order) {
         Sort.Direction direction = Sort.Direction.ASC;
         if (order.equalsIgnoreCase("DESC"))
             direction = Sort.Direction.DESC;
@@ -72,17 +72,17 @@ public class ProductServiceImpl implements ProductService {
             return predicate;
         };
 
-        if(sortBy.equals("price")) {
-            return productRepository.findAll(specification, PageRequest.of(start, end, Sort.by(direction, "price")));
+        if (sortBy.equals("price")) {
+            return productRepository.findAll(specification, PageRequest.of(page, perPage, Sort.by(direction, "price")));
         }
-        if(sortBy.equals("name")) {
-            return productRepository.findAll(specification, PageRequest.of(start, end, Sort.by(direction, "name")));
+        if (sortBy.equals("name")) {
+            return productRepository.findAll(specification, PageRequest.of(page, perPage, Sort.by(direction, "name")));
         }
-        if(sortBy.equals("status")) {
-            return productRepository.findAll(specification, PageRequest.of(start, end, Sort.by(direction, "status")));
+        if (sortBy.equals("status")) {
+            return productRepository.findAll(specification, PageRequest.of(page, perPage, Sort.by(direction, "status")));
         }
 
-        return productRepository.findAll(specification, PageRequest.of(start, end, Sort.by(direction, sortBy)));
+        return productRepository.findAll(specification, PageRequest.of(page, perPage, Sort.by(direction, sortBy)));
 
     }
 
