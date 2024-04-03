@@ -1,9 +1,5 @@
 import * as React from 'react';
-import uncountableWords from 'inflection';
-import { Card, CardContent } from '@mui/material';
-import LocalOfferIcon from '@mui/icons-material/LocalOfferOutlined';
-import BarChartIcon from '@mui/icons-material/BarChart';
-import AttachMoneyIcon from '@mui/icons-material/AttachMoney';
+import {Card, CardContent} from '@mui/material';
 import {
     FilterList,
     FilterListItem,
@@ -16,29 +12,33 @@ import {Category, Product} from '../types';
 import LockIcon from "@mui/icons-material/Lock";
 
 const Aside = () => {
-    const { data } = useGetList<Category>('category', {
-        pagination: { page: 1, perPage: 100 },
-        sort: { field: 'name', order: 'ASC' },
+    const {data} = useGetList<Category>('category', {
+        pagination: {page: 1, perPage: 100},
+        sort: {field: 'name', order: 'ASC'},
     });
 
     return (
         <Card
             sx={{
-                display: { xs: 'none', md: 'block' },
+                display: {
+                    xs: 'none',
+                    md: 'block',
+                },
                 order: -1,
-                width: '15em',
+                flex: '0 0 15em',
                 mr: 2,
+                mt: 6,
                 alignSelf: 'flex-start',
             }}
         >
-            <CardContent sx={{ pt: 1 }}>
-                <FilterLiveSearch label={"Tìm..."} name={"search"} />
+            <CardContent sx={{pt: 1}}>
+                <FilterLiveSearch label={"Tìm..."} name={"search"}/>
 
-                <SavedQueriesList />
+                <SavedQueriesList/>
 
                 <FilterList
                     label="Trạng thái"
-                    icon={<LockIcon />}
+                    icon={<LockIcon/>}
                 >
                     <FilterListItem
                         label="Đã ẩn"

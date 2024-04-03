@@ -6,7 +6,7 @@ const httpClient = fetchUtils.fetchJson;
 
 export const dataProvider: DataProvider = {
     // @ts-ignore
-    getList: async (resource : any, params: any) => {
+    getList: async (resource: any, params: any) => {
         try {
             const {page, perPage} = params.pagination;
             const {field, order} = params.sort;
@@ -14,8 +14,8 @@ export const dataProvider: DataProvider = {
                 filter: JSON.stringify(fetchUtils.flattenObject(params.filter)),
                 sort: field,
                 order: order,
-                start: (page - 1) * perPage,
-                end: page * perPage,
+                page: page - 1,
+                perPage: perPage,
             };
 
             const {json} = await httpClient(`${process.env.REACT_APP_API_URL}/${resource}?${fetchUtils.queryParameters(query)}`, {
