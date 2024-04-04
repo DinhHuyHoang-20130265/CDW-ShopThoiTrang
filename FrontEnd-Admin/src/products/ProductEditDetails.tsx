@@ -1,23 +1,18 @@
 import * as React from 'react';
 import {
-    ArrayInput,
-    AutocompleteArrayInput, BooleanInput, NumberField,
-    NumberInput, ReferenceArrayInput,
-    ReferenceInput,
-    required, SelectArrayInput,
-    SelectInput, SimpleFormIterator,
-    TextInput, useGetList, useRecordContext,
+    Edit,
+    NumberInput,
+    required, SelectArrayInput, SelectArrayInputProps,
+    TextInput, useGetList,
 } from 'react-admin';
 import {InputAdornment, Grid} from '@mui/material';
-import {Category, Product} from "../types";
+import {Category} from "../types";
 import {useEffect, useState} from "react";
 import {RichTextInput} from "ra-input-rich-text";
 
 
-export const ProductEditDetails = () => {
-    const record: any = useRecordContext<Product>();
-    const [categories, setCategories] = useState([]);
-    const [categoriesSelected, setCategoriesSelected] = useState([]);
+export const ProductEditDetails = (props: SelectArrayInputProps) => {
+    const [categories, setCategories] = useState<Category[]>([]);
     const {data}: any = useGetList<Category>('category', {
         pagination: {page: 1, perPage: 100},
         sort: {field: 'name', order: 'ASC'},
@@ -27,19 +22,15 @@ export const ProductEditDetails = () => {
         if (data) {
             setCategories(data);
         }
-        if (record) {
-            setCategoriesSelected(record.categories);
-        }
-    }, [data, record]);
-
+    }, [data]);
     return (
         <Grid container columnSpacing={2}>
             <Grid item xs={12} sm={12}>
-                <TextInput source="name" fullWidth validate={req} name={"name"}/>
+                <TextInput source="name" fullWidth validate={req}/>
             </Grid>
 
             <Grid item xs={12} sm={12}>
-                <TextInput source="description" validate={req} multiline fullWidth name={"description"}/>
+                <TextInput source="description" validate={req} multiline fullWidth/>
             </Grid>
 
             <Grid item xs={12} sm={4}>
@@ -55,16 +46,16 @@ export const ProductEditDetails = () => {
                     fullWidth/>
             </Grid>
             <Grid item xs={12} sm={8}>
-                <ReferenceArrayInput label="chọn" source="categories" reference="category" name={"list_cate"}>
-                    <AutocompleteArrayInput source="categories" choices={categories}
-                                            label={"Danh mục"} fullWidth name={"categories"} optionText={"name"}/>
-                </ReferenceArrayInput>
 
+                <SelectArrayInput  {...props} label="Danh mục" source="categoriesIds"
+                                   optionValue={"id"}
+                                   choices={categories} fullWidth validate={req}/>
             </Grid>
             <Grid item xs={12} sm={12}>
-                <RichTextInput source="content" label="" validate={req} name={"content"}/>
+                <RichTextInput source="content" label="Mô tả" validate={req}/>
             </Grid>
-        </Grid>)
+        </Grid>
+    )
 };
 
 const req = [required()];

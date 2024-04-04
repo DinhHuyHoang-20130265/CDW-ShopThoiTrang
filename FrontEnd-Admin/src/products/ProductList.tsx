@@ -6,7 +6,7 @@ import {
     FunctionField,
     EditButton,
     ChipField,
-    SearchInput, DateInput, SelectColumnsButton, DatagridConfigurable,
+    SearchInput, DateInput, SelectColumnsButton, DatagridConfigurable, useGetList,
 } from 'react-admin';
 
 import {
@@ -21,6 +21,7 @@ import {
 import {Theme, useMediaQuery} from "@mui/material";
 import MobileGrid from "../users/MobileGrid";
 import Aside from "./Aside";
+import {Category} from "../types";
 
 const visitorFilters = [
     <SearchInput alwaysOn name={"search"} source={"filter"}/>,
@@ -39,6 +40,10 @@ export const ProductList = () => {
     const isXsmall = useMediaQuery<Theme>(theme =>
         theme.breakpoints.down('sm')
     );
+    const {data}: any = useGetList<Category>('category', {
+        pagination: {page: 1, perPage: 100},
+        sort: {field: 'name', order: 'ASC'},
+    });
     const isSmall = useMediaQuery<Theme>(theme => theme.breakpoints.down('md'));
     return (
         <List

@@ -11,6 +11,7 @@ import {
 import React from "react";
 import {Product} from "../types";
 import {ProductEditDetails} from "./ProductEditDetails";
+import {Grid} from "@mui/material";
 
 
 const RichTextInput = React.lazy(() =>
@@ -31,12 +32,14 @@ export const ProductShow = (props: any) => {
                     label="Ảnh"
                     sx={{maxWidth: '40em'}}
                 >
-                    <ImageInput multiple={false} source="imageUrl" label="Thumbnail" name={"imageUrl"}>
-                        <ImageField source="imageUrl"/>
-                    </ImageInput>
-                    <ImageInput source="imgProducts" label="image" name={"imgProducts"}>
-                        <ImageField source="url"/>
-                    </ImageInput>
+                    <Grid container columnSpacing={2}>
+                        <Grid item xs={12} sm={12}>
+                            <ImageField source="imageUrl" label="Thumbnail"/>
+                        </Grid>
+                        <Grid item xs={12} sm={12}>
+                            <ImageField source="imgProducts" src="url" label="image"/>
+                        </Grid>
+                    </Grid>
                 </TabbedForm.Tab>
                 <TabbedForm.Tab
                     label="Chi tiết"
@@ -50,15 +53,15 @@ export const ProductShow = (props: any) => {
                     path="description"
                     sx={{maxWidth: '100%'}}
                 >
-                    <ArrayInput source={`variations`} label={`Biến thể`} fullWidth name={"variations"}>
+                    <ArrayInput source={`variations`} label={`Biến thể`} fullWidth>
                         <SimpleFormIterator>
-                            <TextInput source="color" label="Màu sắc" name={"color"}/>
-                            <ArrayInput sx={{marginLeft: 10}} source={`sizes`} label={`Sizes`} name={"sizes"}>
+                            <TextInput source="color" label="Màu sắc"/>
+                            <ArrayInput sx={{marginLeft: 10}} source={`sizes`} label={`Sizes`}>
                                 <SimpleFormIterator inline>
-                                    <TextInput source="size" label="Kích cỡ" name={"size"}/>
+                                    <TextInput source="size" label="Kích cỡ"/>
                                     <NumberInput sx={{width: "20%"}} source="stock" label="Số lượng" disabled
-                                                 name={"stock"}/>
-                                    <BooleanInput source="status" label="Trạng thái" name={"status"}/>
+                                    />
+                                    <BooleanInput source="status" label="Trạng thái"/>
                                 </SimpleFormIterator>
                             </ArrayInput>
                         </SimpleFormIterator>

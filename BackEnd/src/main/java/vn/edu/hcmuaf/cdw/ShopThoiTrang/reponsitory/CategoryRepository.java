@@ -1,5 +1,6 @@
 package vn.edu.hcmuaf.cdw.ShopThoiTrang.reponsitory;
 
+import com.fasterxml.jackson.databind.JsonNode;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.domain.Specification;
@@ -12,4 +13,6 @@ public interface CategoryRepository extends JpaRepository<Category, Long> {
     List<Category> getAllByStatusIsTrue();
 
     Page<Category> findAll(Specification<Category> specification, Pageable pageable);
+
+    List<Category> findAllById(Iterable<Long> ids);
 }
