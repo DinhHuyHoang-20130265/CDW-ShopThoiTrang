@@ -17,4 +17,8 @@ public interface ProductService {
     Page<Product> getAllProducts(String filter, int page, int perPage, String sortBy, String order);
 
     void deleteProduct(Long id);
+
+    Product saveProduct(Product product);
+
+    void updateProduct(long id,Product product);
 }

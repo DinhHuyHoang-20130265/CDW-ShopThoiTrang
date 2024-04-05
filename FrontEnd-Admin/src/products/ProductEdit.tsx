@@ -24,7 +24,7 @@ const ProductTitle = () => {
     const record = useRecordContext<Product>();
     return record ? <span>{record.name}</span> : null;
 };
-export const ProductShow = (props: any) => {
+export const ProductEdit = (props: any) => {
     return (
         <Edit title={<ProductTitle/>}>
             <TabbedForm>
