@@ -22,6 +22,7 @@ import java.nio.charset.StandardCharsets;
 import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class ProductServiceImpl implements ProductService {
@@ -126,7 +127,7 @@ public class ProductServiceImpl implements ProductService {
         // save variations
         List<Variation> viariations = new ArrayList<>();
         for (Variation variation : product.getVariations()) {
-            System.out.println("id laf:   "+variation.getId());
+            System.out.println("id laf:   " + variation.getId());
             variation.setReleaseDate(currentDate);
             variation.setUpdateDate(currentDate);
             variation.setReleaseBy(variation.getReleaseBy());
@@ -179,101 +180,127 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     @Transactional
-    public Product updateProduct(long id, Product updatedProduct) {
-        Product existingProduct = productRepository.findById(id).orElse(null);
-
+    public Product updateProduct(long productId, Product productUpdate) {
         Date currentDate = new Date(System.currentTimeMillis());
 
-        // Cập nhật thông tin chung của sản phẩm
-        existingProduct.setName(updatedProduct.getName());
-        existingProduct.setDescription(updatedProduct.getDescription());
-        existingProduct.setPrice(updatedProduct.getPrice());
-        existingProduct.setUpdateDate(currentDate);
-        existingProduct.setUpdateBy(updatedProduct.getUpdateBy());
+        Product existingProduct = productRepository.findById(productId)
+                .orElseThrow(() -> new IllegalArgumentException("Product not found with id: " + productId));
 
-        // Cập nhật giá của sản phẩm
-        Price price = existingProduct.getPrice();
-        price.setPrice(updatedProduct.getPrice().getPrice());
-        priceRepository.save(price);
+        // Cập nhật các trường của sản phẩm dựa trên productUpdate
+        existingProduct.setName(productUpdate.getName());
+        existingProduct.setDescription(productUpdate.getDescription());
+        existingProduct.setContent(productUpdate.getContent());
+        existingProduct.setStatus(productUpdate.isStatus());
+        existingProduct.setImageUrl(productUpdate.getImageUrl());
+        existingProduct.setReleaseDate(productUpdate.getReleaseDate());
+        existingProduct.setUpdateDate(productUpdate.getUpdateDate());
 
-        // Xóa các biến thể không có trong danh sách biến thể của sản phẩm cập nhật
-        List<Variation> updatedVariations = updatedProduct.getVariations();
-        List<Variation> existingVariations = existingProduct.getVariations();
-        existingVariations.removeIf(existingVariation -> !updatedVariations.contains(existingVariation));
+        // Cập nhật hoặc thêm mới các biến thể
+        List<Variation> updatedVariations = new ArrayList<>();
+        for (Variation updatedVariation : productUpdate.getVariations()) {
+            Variation existingVariation = existingProduct.getVariations().stream()
+                    .filter(v -> v.getId() == updatedVariation.getId())
+                    .findFirst()
+                    .orElse(null);
+            if (existingVariation != null) {
+                // Cập nhật biến thể
+                existingVariation.setColor(updatedVariation.getColor());
+                existingVariation.setUpdateDate(currentDate);
+                existingVariation.setUpdateBy(updatedVariation.getUpdateBy());
+                updateSizes(existingVariation, updatedVariation.getSizes());
+                updatedVariations.add(existingVariation);
+                variationRepository.save(existingVariation);
+            } else {
+                // Thêm mới biến thể
+                List<Variation> viariations = new ArrayList<>();
+                for (Variation variation : productUpdate.getVariations()) {
+                    System.out.println("id laf:   " + variation.getId());
+                    variation.setReleaseDate(currentDate);
+                    variation.setUpdateDate(currentDate);
+                    variation.setReleaseBy(variation.getReleaseBy());
+                    variation.setUpdateBy(variation.getUpdateBy());
+                    variation.setProduct(productUpdate);
 
-        // Thêm mới các biến thể có trong danh sách biến thể của sản phẩm cập nhật nhưng không có trong sản phẩm hiện tại
-        for (Variation updatedVariation : updatedVariations) {
-            if (!existingVariations.contains(updatedVariation)) {
-                Variation newVariation = new Variation();
-                newVariation.setColor(updatedVariation.getColor());
-                newVariation.setReleaseDate(currentDate);
-                newVariation.setUpdateDate(currentDate);
-                newVariation.setReleaseBy(updatedVariation.getReleaseBy());
-                newVariation.setUpdateBy(updatedVariation.getUpdateBy());
-                newVariation.setProduct(existingProduct);
+                    List<Size> sizes = new ArrayList<>();
+                    for (Size size : variation.getSizes()) {
+                        size.setStatus(size.isStatus());
+                        size.setStock(size.getStock());
+                        size.setUpdateDate(currentDate);
+                        size.setReleaseDate(currentDate);
+                        size.setReleaseBy(size.getReleaseBy());
+                        size.setUpdateBy(size.getUpdateBy());
+                        size.setVariation(variation);
 
-                List<Size> sizes = new ArrayList<>();
-                for (Size size : updatedVariation.getSizes()) {
-                    Size newSize = new Size();
-                    newSize.setSize(size.getSize());
-                    newSize.setStatus(size.isStatus());
-                    newSize.setStock(size.getStock());
-                    newSize.setUpdateDate(currentDate);
-                    newSize.setReleaseDate(currentDate);
-                    newSize.setReleaseBy(size.getReleaseBy());
-                    newSize.setUpdateBy(size.getUpdateBy());
-                    newSize.setVariation(newVariation);
-
-                    sizeRepository.save(newSize);
-                    sizes.add(newSize);
+                        sizeRepository.save(size);
+                        sizes.add(size);
+                    }
+                    variation.setSizes(sizes);
+                    variationRepository.save(variation);
+                    viariations.add(variation);
                 }
-                newVariation.setSizes(sizes);
-                variationRepository.save(newVariation);
-                existingVariations.add(newVariation);
+                productUpdate.setUpdateDate(currentDate);
+                productUpdate.setReleaseDate(currentDate);
+                productUpdate.setReleaseBy(productUpdate.getReleaseBy());
+                productUpdate.setUpdateBy(productUpdate.getUpdateBy());
+                productUpdate.setVariations(viariations);
+                updatedVariations.add(updatedVariation);
             }
-
-
-        }
-
-
-        // Cập nhật thông tin biến thể của sản phẩm
-        for (Variation updatedVariation : updatedProduct.getVariations()) {
-            Variation existingVariation = variationRepository.findById(updatedVariation.getId()).orElse(null);
-            existingVariation.setColor(updatedVariation.getColor());
-            existingVariation.setUpdateDate(currentDate);
-            existingVariation.setUpdateBy(updatedVariation.getUpdateBy());
-
-            // Cập nhật thông tin kích thước của biến thể
-            List<Size> updatedSizes = new ArrayList<>();
-            for (Size updatedSize : updatedVariation.getSizes()) {
-                Size existingSize = sizeRepository.findById(updatedSize.getId()).orElse(null);
-                existingSize.setSize(updatedSize.getSize());
-                existingSize.setStatus(updatedSize.isStatus());
-                existingSize.setStock(updatedSize.getStock());
-                existingSize.setUpdateDate(currentDate);
-                existingSize.setUpdateBy(updatedSize.getUpdateBy());
-                updatedSizes.add(existingSize);
-            }
-            existingVariation.setSizes(updatedSizes);
-            variationRepository.save(existingVariation);
-            updatedVariations.add(existingVariation);
         }
         existingProduct.setVariations(updatedVariations);
 
-        // Cập nhật thông tin ảnh sản phẩm
-        List<ImageProduct> updatedImageProducts = new ArrayList<>();
-        for (ImageProduct updatedImageProduct : updatedProduct.getImgProducts()) {
-            ImageProduct existingImageProduct = imageProductRepository.findById(updatedImageProduct.getId()).orElse(null);
-            existingImageProduct.setUrl(updatedImageProduct.getUrl());
-            existingImageProduct.setUpdateDate(currentDate);
-            existingImageProduct.setUpdateBy(updatedImageProduct.getUpdateBy());
-            updatedImageProducts.add(existingImageProduct);
-        }
-        existingProduct.setImgProducts(updatedImageProducts);
+        // Xóa các biến thể không còn tồn tại
+        List<Long> updatedVariationIds = updatedVariations.stream()
+                .map(Variation::getId)
+                .toList();
+        existingProduct.getVariations().removeIf(v -> !updatedVariationIds.contains(v.getId()));
 
-        // Lưu các thay đổi vào cơ sở dữ liệu và trả về sản phẩm đã được cập nhật
         return productRepository.save(existingProduct);
     }
 
+    private void updateSizes(Variation existingVariation, List<Size> updatedSizes) {
+        System.out.println("updatedSizes: " + updatedSizes);
+        Date currentDate = new Date(System.currentTimeMillis());
+        for (Size updatedSize : updatedSizes) {
+            Size existingSize = existingVariation.getSizes().stream()
+                    .filter(s -> s.getId() == updatedSize.getId())
+                    .findFirst()
+                    .orElse(null);
+            if (existingSize != null) {
+                // Cập nhật kích thước
+                existingSize.setSize(updatedSize.getSize());
+                existingSize.setStock(updatedSize.getStock());
+                existingSize.setStatus(updatedSize.isStatus());
+                existingSize.setUpdateDate(currentDate);
+                existingSize.setUpdateBy(updatedSize.getUpdateBy());
+            } else {
+                // Thêm mới kích thước
+                updatedSize.setSize(updatedSize.getSize());
+                updatedSize.setStock(updatedSize.getStock());
+                updatedSize.setStatus(updatedSize.isStatus());
+                updatedSize.setUpdateDate(currentDate);
+                updatedSize.setUpdateBy(updatedSize.getUpdateBy());
+                updatedSize.setReleaseDate(currentDate);
+                updatedSize.setReleaseBy(updatedSize.getReleaseBy());
+                updatedSize.setVariation(existingVariation);
 
+                existingVariation.getSizes().add(updatedSize);
+            }
+        }
+        // Xóa các kích thước không còn tồn tại
+        List<Long> updatedSizeIds = updatedSizes.stream()
+                .map(Size::getId)
+                .toList();
+        List<Long> ex = new ArrayList<>(existingVariation.getSizes().stream()
+                .map(Size::getId)
+                .toList());
+        System.out.println("updatedSizeIds: " + updatedSizeIds);
+        System.out.println("existingVariation.getSizes(): " + ex);
+        existingVariation.getSizes().removeIf(s -> !updatedSizeIds.contains(s.getId()));
+        ex.removeIf(s -> !updatedSizeIds.contains(s));
+        System.out.println("existingVariation.getSizes() after remove: " + ex);
+        variationRepository.save(existingVariation);
+
+    }
 }
+
+
