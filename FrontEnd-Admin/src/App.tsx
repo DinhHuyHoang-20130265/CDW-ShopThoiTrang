@@ -9,9 +9,12 @@ import CategoryList from "./categories/CategoryList";
 import ProductIcon from '@mui/icons-material/CheckroomRounded';
 import UserIcon from '@mui/icons-material/PeopleAltRounded';
 import CategoryIcon from '@mui/icons-material/CategoryRounded';
+import NewspaperRoundedIcon from '@mui/icons-material/NewspaperRounded';
 import {ProductCreate} from "./products/ProductCreate";
 import {CategoryEdit} from "./categories/CategoryEdit";
 import {CategoryCreate} from "./categories/CategoryCreate";
+import BlogList from "./blogs/BlogList";
+
 const App = () => {
     return (
         <Admin
@@ -40,6 +43,11 @@ const App = () => {
                       create={CategoryCreate}
                       icon={CategoryIcon}
                       options={{label: "Danh mục"}}
+            />
+            <Resource name="blog"
+                      list={BlogList}
+                      icon={NewspaperRoundedIcon}
+                      options={{label: "Bài viết"}}
             />
         </Admin>
     );

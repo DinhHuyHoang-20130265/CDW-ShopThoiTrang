@@ -103,6 +103,17 @@ export interface Product extends RaRecord {
     promotions: Promotion[],
 }
 
+export interface Blog extends RaRecord {
+    id: number,
+    title: string,
+    description: string,
+    content: string,
+    thumbnail: string,
+    createDate: string,
+    updateDate: string,
+    status: boolean,
+}
+
 
 declare global {
     interface Window {
