@@ -14,6 +14,8 @@ import {ProductCreate} from "./products/ProductCreate";
 import {CategoryEdit} from "./categories/CategoryEdit";
 import {CategoryCreate} from "./categories/CategoryCreate";
 import BlogList from "./blogs/BlogList";
+import {BlogEdit} from "./blogs/BlogEdit";
+import {BlogCreate} from "./blogs/BlogCreate";
 
 const App = () => {
     return (
@@ -46,6 +48,8 @@ const App = () => {
             />
             <Resource name="blog"
                       list={BlogList}
+                      edit={BlogEdit}
+                      create={BlogCreate}
                       icon={NewspaperRoundedIcon}
                       options={{label: "Bài viết"}}
             />

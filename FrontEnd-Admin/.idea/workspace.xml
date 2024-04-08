@@ -4,16 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="89893dc3-088e-47ef-a82c-f709754202c6" name="Changes" comment="add category for admin">
-      <change afterPath="$PROJECT_DIR$/../BackEnd/src/main/java/vn/edu/hcmuaf/cdw/ShopThoiTrang/entity/Blog.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../BackEnd/src/main/java/vn/edu/hcmuaf/cdw/ShopThoiTrang/reponsitory/BlogRepository.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../BackEnd/src/main/java/vn/edu/hcmuaf/cdw/ShopThoiTrang/service/impl/BlogServiceImpl.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/blogs/BlogList.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../BackEnd/src/main/java/vn/edu/hcmuaf/cdw/ShopThoiTrang/config/SecurityConfiguration.java" beforeDir="false" afterPath="$PROJECT_DIR$/../BackEnd/src/main/java/vn/edu/hcmuaf/cdw/ShopThoiTrang/config/SecurityConfiguration.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/App.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/App.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/types.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/types.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../FrontEnd/yarn.lock" beforeDir="false" afterPath="$PROJECT_DIR$/../FrontEnd/yarn.lock" afterDir="false" />
+    <list default="true" id="89893dc3-088e-47ef-a82c-f709754202c6" name="Changes" comment="add blog api, add list blog for admin">
+      <change afterPath="$PROJECT_DIR$/src/blogs/BlogCreate.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/blogs/BlogEdit.tsx" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -115,7 +108,7 @@
       <workItem from="1712153846495" duration="2940000" />
       <workItem from="1712292616766" duration="12033000" />
       <workItem from="1712470594407" duration="2393000" />
-      <workItem from="1712553430272" duration="9305000" />
+      <workItem from="1712553430272" duration="9583000" />
     </task>
     <task id="LOCAL-00001" summary="update product for admin (50%&#10;)">
       <option name="closed" value="true" />
@@ -141,7 +134,23 @@
       <option name="project" value="LOCAL" />
       <updated>1712586620492</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="add blog api, add list blog for admin">
+      <option name="closed" value="true" />
+      <created>1712597962950</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1712597962950</updated>
+    </task>
+    <task id="LOCAL-00005" summary="add blog api, add list blog for admin">
+      <option name="closed" value="true" />
+      <created>1712597974953</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1712597974953</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -165,6 +174,7 @@
     <MESSAGE value="fix" />
     <MESSAGE value="update product for admin (50%&#10;)" />
     <MESSAGE value="add category for admin" />
-    <option name="LAST_COMMIT_MESSAGE" value="add category for admin" />
+    <MESSAGE value="add blog api, add list blog for admin" />
+    <option name="LAST_COMMIT_MESSAGE" value="add blog api, add list blog for admin" />
   </component>
 </project>
