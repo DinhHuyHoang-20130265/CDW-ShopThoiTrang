@@ -10,6 +10,8 @@ import ProductIcon from '@mui/icons-material/CheckroomRounded';
 import UserIcon from '@mui/icons-material/PeopleAltRounded';
 import CategoryIcon from '@mui/icons-material/CategoryRounded';
 import {ProductCreate} from "./products/ProductCreate";
+import {CategoryEdit} from "./categories/CategoryEdit";
+import {CategoryCreate} from "./categories/CategoryCreate";
 const App = () => {
     return (
         <Admin
@@ -34,6 +36,8 @@ const App = () => {
             />
             <Resource name="category"
                       list={CategoryList}
+                      edit={CategoryEdit}
+                      create={CategoryCreate}
                       icon={CategoryIcon}
                       options={{label: "Danh mục"}}
             />

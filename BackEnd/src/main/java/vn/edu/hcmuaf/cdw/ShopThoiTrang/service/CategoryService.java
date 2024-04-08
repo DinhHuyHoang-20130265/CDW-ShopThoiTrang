@@ -10,4 +10,10 @@ public interface CategoryService {
 
     List<Category> getAllCategories(String ids);
     List<Category> getCategoriesStatusTrue();
+
+    Category getCategoryById(Long id);
+
+    Category saveCategory(Category category);
+
+    Category updateCategory(Long id ,Category category);
 }

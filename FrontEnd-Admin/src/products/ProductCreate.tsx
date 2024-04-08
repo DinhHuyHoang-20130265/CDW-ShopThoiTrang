@@ -66,6 +66,10 @@ export const ProductCreate = (props: any) => {
                             <TextInput source="description" validate={req} multiline fullWidth/>
                         </Grid>
 
+                        <Grid item xs={12} sm={12}>
+                            <BooleanInput source={"status"} label={"Trạng thái"} defaultValue={false}/>
+                        </Grid>
+
                         <Grid item xs={12} sm={4}>
                             <NumberInput
                                 source="price.price"

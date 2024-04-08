@@ -137,8 +137,8 @@ export const dataProvider: DataProvider = {
             headers: new Headers({
                 'Content-Type': 'application/json',
                 Accept: 'application/json',
-                credentials: 'include',
-            })
+            }),
+            credentials: 'include'
         }).then(({json}) => ({
             data: json,
         })),

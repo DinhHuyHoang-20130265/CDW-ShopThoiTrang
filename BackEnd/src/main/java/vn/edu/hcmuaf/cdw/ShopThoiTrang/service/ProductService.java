@@ -20,5 +20,5 @@ public interface ProductService {
 
     Product saveProduct(Product product);
 
-    void updateProduct(long id,Product product);
+    Product updateProduct(long id,Product product);
 }
