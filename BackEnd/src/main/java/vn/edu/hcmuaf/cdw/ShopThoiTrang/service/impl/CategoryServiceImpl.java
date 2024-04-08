@@ -15,6 +15,7 @@ import vn.edu.hcmuaf.cdw.ShopThoiTrang.reponsitory.CategoryRepository;
 import vn.edu.hcmuaf.cdw.ShopThoiTrang.service.CategoryService;
 
 import java.nio.charset.StandardCharsets;
+import java.sql.Date;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -83,5 +84,27 @@ public class CategoryServiceImpl implements CategoryService {
     @Override
     public List<Category> getCategoriesStatusTrue() {
         return categoryRepository.getAllByStatusIsTrue();
+    }
+
+    @Override
+    public Category getCategoryById(Long id) {
+        return categoryRepository.findById(id).orElse(null);
+    }
+
+    @Override
+    public Category saveCategory(Category category) {
+        Date currentDate = new Date(System.currentTimeMillis());
+        category.setReleaseDate(currentDate);
+        category.setUpdateDate(currentDate);
+        return categoryRepository.save(category);
+    }
+
+    @Override
+    public Category updateCategory(Long id, Category category) {
+        Category categoryUpdate = categoryRepository.findById(id).orElse(null);
+        categoryUpdate.setName(category.getName());
+        categoryUpdate.setStatus(category.isStatus());
+        categoryUpdate.setUpdateDate(new Date(System.currentTimeMillis()));
+        return categoryRepository.save(categoryUpdate);
     }
 }

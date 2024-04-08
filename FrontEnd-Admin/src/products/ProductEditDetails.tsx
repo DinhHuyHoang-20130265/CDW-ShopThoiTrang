@@ -1,5 +1,6 @@
 import * as React from 'react';
 import {
+    BooleanInput,
     Edit,
     NumberInput,
     required, SelectArrayInput, SelectArrayInputProps,
@@ -31,6 +32,10 @@ export const ProductEditDetails = (props: SelectArrayInputProps) => {
 
             <Grid item xs={12} sm={12}>
                 <TextInput source="description" validate={req} multiline fullWidth/>
+            </Grid>
+
+            <Grid item xs={12} sm={12}>
+                <BooleanInput source={"status"} label={"Trạng thái"}/>
             </Grid>
 
             <Grid item xs={12} sm={4}>
