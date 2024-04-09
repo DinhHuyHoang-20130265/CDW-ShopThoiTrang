@@ -268,7 +268,9 @@ public class ProductServiceImpl implements ProductService {
         }
 
         existingProduct.setVariations(updatedVariations);
-        return entityManager.merge(existingProduct);
+        System.out.println("Category: " + productUpdate.getCategories());
+        System.out.println("Category2: " + existingProduct.getCategories());
+        return productRepository.save(existingProduct);
     }
 
     private void updateSizes(Variation existingVariation, List<Size> updatedSizes) {
