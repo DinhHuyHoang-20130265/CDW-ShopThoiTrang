@@ -16,6 +16,8 @@ import vn.edu.hcmuaf.cdw.ShopThoiTrang.reponsitory.BlogRepository;
 import vn.edu.hcmuaf.cdw.ShopThoiTrang.service.BlogService;
 
 import java.nio.charset.StandardCharsets;
+import java.sql.Date;
+
 import org.springframework.data.jpa.domain.Specification;
 
 
@@ -61,5 +63,26 @@ public class BlogServiceImpl implements BlogService {
     @Override
     public Blog getBlogById(Long id) {
         return blogRepository.findById(id).orElse(null);
+    }
+
+    @Override
+    public Blog saveBlog(Blog blog) {
+        Date date = new Date(System.currentTimeMillis());
+        blog.setCreateDate(date);
+        blog.setUpdateDate(date);
+        return blogRepository.save(blog);
+    }
+
+    @Override
+    public Blog updateBlog(Long id, Blog blog) {
+        Blog existingBlog = blogRepository.findById(id).orElse(null);
+        if (existingBlog != null) {
+            existingBlog.setTitle(blog.getTitle());
+            existingBlog.setContent(blog.getContent());
+            existingBlog.setStatus(blog.isStatus());
+            existingBlog.setUpdateDate(new Date(System.currentTimeMillis()));
+            existingBlog.setUpdateBy(blog.getUpdateBy());
+        }
+        return blogRepository.save(existingBlog);
     }
 }

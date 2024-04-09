@@ -20,7 +20,6 @@ export const BlogCreate = () => {
     return (
         <Create>
             <SimpleForm>
-                <TextInput disabled label="Id" source="id"/>
                 <ImageInput name="thumbnail" source="thumbnail" label="Thumbnail">
                     <ImageField source="thumbnail"/>
                 </ImageInput>
