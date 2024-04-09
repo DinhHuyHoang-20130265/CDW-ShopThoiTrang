@@ -195,6 +195,8 @@ public class ProductServiceImpl implements ProductService {
         existingProduct.setReleaseDate(productUpdate.getReleaseDate());
         existingProduct.setUpdateDate(productUpdate.getUpdateDate());
 
+        existingProduct.setCategories(productUpdate.getCategories());
+
         // Cập nhật hoặc thêm mới các biến thể
         List<Variation> updatedVariations = new ArrayList<>();
         for (Variation updatedVariation : productUpdate.getVariations()) {
@@ -209,12 +211,10 @@ public class ProductServiceImpl implements ProductService {
                 existingVariation.setUpdateBy(updatedVariation.getUpdateBy());
                 updateSizes(existingVariation, updatedVariation.getSizes());
                 updatedVariations.add(existingVariation);
-                variationRepository.save(existingVariation);
             } else {
                 // Thêm mới biến thể
                 List<Variation> viariations = new ArrayList<>();
                 for (Variation variation : productUpdate.getVariations()) {
-                    System.out.println("id laf:   " + variation.getId());
                     variation.setReleaseDate(currentDate);
                     variation.setUpdateDate(currentDate);
                     variation.setReleaseBy(variation.getReleaseBy());
@@ -238,6 +238,8 @@ public class ProductServiceImpl implements ProductService {
                     variationRepository.save(variation);
                     viariations.add(variation);
                 }
+
+
                 productUpdate.setUpdateDate(currentDate);
                 productUpdate.setReleaseDate(currentDate);
                 productUpdate.setReleaseBy(productUpdate.getReleaseBy());
@@ -246,19 +248,30 @@ public class ProductServiceImpl implements ProductService {
                 updatedVariations.add(updatedVariation);
             }
         }
-        existingProduct.setVariations(updatedVariations);
 
         // Xóa các biến thể không còn tồn tại
         List<Long> updatedVariationIds = updatedVariations.stream()
                 .map(Variation::getId)
                 .toList();
-        existingProduct.getVariations().removeIf(v -> !updatedVariationIds.contains(v.getId()));
 
-        return productRepository.save(existingProduct);
+        List<Variation> variationsToDelete = new ArrayList<>();
+        for (Variation variation : existingProduct.getVariations()) {
+            if (!updatedVariationIds.contains(variation.getId())) {
+                variationsToDelete.add(variation); // Thêm biến thể cần xóa vào danh sách
+            }
+        }
+
+
+        for (Variation variation : variationsToDelete) {
+            existingProduct.getVariations().remove(variation); // Loại bỏ biến thể khỏi danh sách
+            variationRepository.delete(variation); // Xóa biến thể khỏi cơ sở dữ liệu
+        }
+
+        existingProduct.setVariations(updatedVariations);
+        return entityManager.merge(existingProduct);
     }
 
     private void updateSizes(Variation existingVariation, List<Size> updatedSizes) {
-        System.out.println("updatedSizes: " + updatedSizes);
         Date currentDate = new Date(System.currentTimeMillis());
         for (Size updatedSize : updatedSizes) {
             Size existingSize = existingVariation.getSizes().stream()
@@ -290,16 +303,21 @@ public class ProductServiceImpl implements ProductService {
         List<Long> updatedSizeIds = updatedSizes.stream()
                 .map(Size::getId)
                 .toList();
-        List<Long> ex = new ArrayList<>(existingVariation.getSizes().stream()
-                .map(Size::getId)
-                .toList());
-        System.out.println("updatedSizeIds: " + updatedSizeIds);
-        System.out.println("existingVariation.getSizes(): " + ex);
-        existingVariation.getSizes().removeIf(s -> !updatedSizeIds.contains(s.getId()));
-        ex.removeIf(s -> !updatedSizeIds.contains(s));
-        System.out.println("existingVariation.getSizes() after remove: " + ex);
-        variationRepository.save(existingVariation);
 
+        List<Size> sizesToDelete = new ArrayList<>();
+
+        for (Size size : existingVariation.getSizes()) {
+            if (!updatedSizeIds.contains(size.getId())) {
+                sizesToDelete.add(size); // Thêm vào danh sách các đối tượng cần xóa
+            }
+        }
+
+        for (Size size : sizesToDelete) {
+            existingVariation.getSizes().remove(size); // Loại bỏ khỏi danh sách biến thể
+            sizeRepository.delete(size); // Xóa khỏi cơ sở dữ liệu
+        }
+
+        variationRepository.save(existingVariation); // Lưu biến thể đã cập nhật
     }
 }
 

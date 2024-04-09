@@ -44,7 +44,7 @@ const BlogList = () => {
     return(
         <List
             sort={{field: 'title', order: 'ASC'}}
-            perPage={20}
+            perPage={10}
             pagination={false}
             component="div"
             actions={<ListActions/>}
