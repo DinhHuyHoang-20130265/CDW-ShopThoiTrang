@@ -1,5 +1,5 @@
 import * as React from 'react';
-import {Admin, Login, Resource} from 'react-admin';
+import {Admin, ListGuesser, Login, Resource} from 'react-admin';
 import {dataProvider} from "./dataProvider/dataProvider";
 import UserList from "./users/UserList";
 import {authProvider} from "./authProvider";
@@ -16,6 +16,7 @@ import {CategoryCreate} from "./categories/CategoryCreate";
 import BlogList from "./blogs/BlogList";
 import {BlogEdit} from "./blogs/BlogEdit";
 import {BlogCreate} from "./blogs/BlogCreate";
+import ImportInvoiceList from "./importInvoices/ImportInvoiceList";
 
 const App = () => {
     return (
@@ -38,6 +39,11 @@ const App = () => {
                       icon={ProductIcon}
                       recordRepresentation={(product) => product.name}
                       options={{label: "Sản Phẩm"}}
+            />
+            <Resource name="import-invoice"
+                      list={ImportInvoiceList}
+                      icon={NewspaperRoundedIcon}
+                      options={{label: "Nhập hàng"}}
             />
             <Resource name="category"
                       list={CategoryList}
