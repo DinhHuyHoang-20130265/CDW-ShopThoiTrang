@@ -11,6 +11,7 @@ public class TestController {
 
     @Autowired
     UserInfoRepository userInfoRepository;
+
     @GetMapping("/all")
     public String allAccess() {
         return "This is Public Content.";
@@ -38,5 +39,11 @@ public class TestController {
     @PreAuthorize("hasAuthority('ROLE_ADMIN') and hasAuthority('USER_CREATE')")
     public String adminCreateUser() {
         return "Admin User create Board.";
+    }
+
+    @GetMapping("/admin-delete")
+    @PreAuthorize("hasAuthority('ROLE_ADMIN') and hasAuthority('USER_DELETE')")
+    public String adminDeleteUser() {
+        return "Admin User delete Board.";
     }
 }

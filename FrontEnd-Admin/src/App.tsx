@@ -1,5 +1,5 @@
 import * as React from 'react';
-import {Admin, ListGuesser, Login, Resource} from 'react-admin';
+import {Admin, Login, Resource} from 'react-admin';
 import {dataProvider} from "./dataProvider/dataProvider";
 import UserList from "./users/UserList";
 import {authProvider} from "./authProvider";
@@ -14,6 +14,8 @@ import ArrowDownwardRoundedIcon from '@mui/icons-material/ArrowDownwardRounded';
 import {ProductCreate} from "./products/ProductCreate";
 import {CategoryEdit} from "./categories/CategoryEdit";
 import {CategoryCreate} from "./categories/CategoryCreate";
+import UserCreate from "./users/UserCreate";
+import UserEdit from "./users/UserEdit";
 import BlogList from "./blogs/BlogList";
 import {BlogEdit} from "./blogs/BlogEdit";
 import {BlogCreate} from "./blogs/BlogCreate";
@@ -31,8 +33,11 @@ const App = () => {
         >
             <Resource name="user"
                       list={UserList}
+                      edit={UserEdit}
+                      create={UserCreate}
                       icon={UserIcon}
                       options={{label: "Tài Khoản"}}
+                      hasShow={false}
             />
             <Resource name="product"
                       list={ProductList}

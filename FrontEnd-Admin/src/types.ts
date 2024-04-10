@@ -18,6 +18,17 @@ export interface Customer extends RaRecord {
         phone: string;
         email: string;
     };
+    role: {
+        id: number,
+        name: string,
+        authority: string
+    },
+    role_name: string,
+    resourceVariations: {
+        id: number,
+        resource: Resource,
+        permissions: Permission[]
+    },
     createdDate: string;
     total_spent: number;
 }
@@ -133,6 +144,15 @@ export interface ImportInvoiceRequest {
     importPrice: number,
 }
 
+export interface Permission extends RaRecord {
+    id: number,
+    name: string,
+}
+
+export interface Resource extends RaRecord {
+    id: number,
+    name: string,
+}
 
 declare global {
     interface Window {

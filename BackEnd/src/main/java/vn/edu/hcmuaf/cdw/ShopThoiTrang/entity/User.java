@@ -1,6 +1,7 @@
 package vn.edu.hcmuaf.cdw.ShopThoiTrang.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import lombok.*;
 import org.springframework.security.core.GrantedAuthority;
@@ -10,6 +11,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import java.sql.Date;
 import java.util.Collection;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 
@@ -42,15 +44,17 @@ public class User implements UserDetails {
     @OneToMany(mappedBy = "user", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private Set<Order> orders;
 
-    @JsonIgnore
-    @ManyToMany
+    @ManyToOne
     @JoinTable(
             name = "roles_users",
             joinColumns = @JoinColumn(
                     name = "user_id", referencedColumnName = "id"),
             inverseJoinColumns = @JoinColumn(
                     name = "role_id", referencedColumnName = "id"))
-    private Collection<Role> roles;
+    private Role role;
+
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+    private List<ResourceVariation> resourceVariations;
 
     @Column(name = "created_date")
     private Date createdDate;
@@ -72,8 +76,12 @@ public class User implements UserDetails {
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         Set<GrantedAuthority> authorities = new HashSet<>();
-        roles.forEach(role -> authorities.add(new SimpleGrantedAuthority("ROLE_" + role.getName())));
-        roles.forEach(role -> role.getPermissions().forEach(permission -> authorities.add(new SimpleGrantedAuthority(permission.getName()))));
+        authorities.add(new SimpleGrantedAuthority("ROLE_" + role.getName()));
+        resourceVariations.forEach(resourceVariation -> {
+            resourceVariation.getPermissions().forEach(permission -> {
+                authorities.add(new SimpleGrantedAuthority(resourceVariation.getResource().getName() + "_" + permission.getName()));
+            });
+        });
         return authorities;
     }
 

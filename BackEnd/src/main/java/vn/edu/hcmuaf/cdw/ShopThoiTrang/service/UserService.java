@@ -6,7 +6,7 @@ import org.springframework.http.ResponseEntity;
 import vn.edu.hcmuaf.cdw.ShopThoiTrang.entity.User;
 
 import java.io.UnsupportedEncodingException;
-import java.util.List;
+import java.util.Optional;
 
 public interface UserService {
     User getUserById(Long id);

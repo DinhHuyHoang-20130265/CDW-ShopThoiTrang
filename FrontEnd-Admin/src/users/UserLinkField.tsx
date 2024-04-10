@@ -1,8 +1,8 @@
 import * as React from 'react';
-import { Link, FieldProps, useRecordContext } from 'react-admin';
+import {FieldProps, useRecordContext} from 'react-admin';
 
 import FullNameField from './FullNameField';
-import { Customer } from '../types';
+import {Customer} from '../types';
 
 const UserLinkField = (_: FieldProps<Customer>) => {
     const record = useRecordContext<Customer>();
@@ -10,9 +10,7 @@ const UserLinkField = (_: FieldProps<Customer>) => {
         return null;
     }
     return (
-        <Link to={`/user/${record.id}`}>
-            <FullNameField />
-        </Link>
+        <FullNameField/>
     );
 };
 
