@@ -130,6 +130,7 @@ const UserEdit = () => {
                 </TabbedForm.Tab>
                 <TabbedForm.Tab
                     label="Phân quyền"
+                    path="role"
                     sx={{maxWidth: '40em'}}
                 >
                     <ArrayInput source={`resourceVariations`} label={`Phân Quyền`} fullWidth>

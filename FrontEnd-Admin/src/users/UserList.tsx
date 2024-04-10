@@ -8,7 +8,7 @@ import {
     ExportButton,
     List,
     SearchInput,
-    SelectColumnsButton, ShowButton, TextField,
+    SelectColumnsButton, TextField,
     TopToolbar,
 } from 'react-admin';
 import {useMediaQuery, Theme} from '@mui/material';
@@ -23,7 +23,7 @@ const visitorFilters = [
 
 const UserListActions = () => (
     <TopToolbar>
-        <CreateButton/>
+        <CreateButton />
         <SelectColumnsButton/>
         <ExportButton/>
     </TopToolbar>

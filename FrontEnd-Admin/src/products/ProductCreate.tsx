@@ -1,16 +1,13 @@
 import {
     ImageField,
-    Edit,
     TabbedForm,
     TextInput,
     useRecordContext,
     required,
-    ImageInput,
     SimpleFormIterator, ArrayInput, NumberInput, BooleanInput, Create, SelectArrayInput, useGetList,
 } from "react-admin";
 import React, {useEffect, useState} from "react";
 import {Category, Product} from "../types";
-import {ProductEditDetails} from "./ProductEditDetails";
 import {Grid, InputAdornment} from "@mui/material";
 
 

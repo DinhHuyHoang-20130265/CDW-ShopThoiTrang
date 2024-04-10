@@ -1,14 +1,18 @@
 import * as React from 'react';
 import {
     Create,
-    DateInput,
-    SimpleForm,
     TextInput,
-    useTranslate,
     PasswordInput,
     email,
+    TabbedForm,
+    NullableBooleanInput,
+    ReferenceInput,
+    AutocompleteInput,
+    ArrayInput,
+    SimpleFormIterator,
+    required,
 } from 'react-admin';
-import {Box, Typography} from '@mui/material';
+import {Box, Grid, Typography} from '@mui/material';
 
 export const validateForm = (
     values: Record<string, any>
@@ -36,78 +40,147 @@ export const validateForm = (
 };
 
 const UserCreate = () => (
-    <Create>
-        <SimpleForm
-            sx={{maxWidth: 500}}
-            defaultValues={{
-                fullName: "",
-                username: "",
-                email: "",
-                status: false,
-                phone: "",
-                address: false,
-                authorities: [],
-            }}
-            validate={validateForm}
-        >
-            <SectionTitle label="resources.customers.fieldGroups.identity"/>
-            <Box display={{xs: 'block', sm: 'flex', width: '100%'}}>
-                <Box flex={1} mr={{xs: 0, sm: '0.5em'}}>
-                    <TextInput source="first_name" isRequired fullWidth/>
-                </Box>
-                <Box flex={1} ml={{xs: 0, sm: '0.5em'}}>
-                    <TextInput source="last_name" isRequired fullWidth/>
-                </Box>
-            </Box>
-            <TextInput type="email" source="email" isRequired fullWidth/>
-            <DateInput source="birthday"/>
-            <Separator/>
-            <SectionTitle label="resources.customers.fieldGroups.address"/>
-            <TextInput
-                source="address"
-                multiline
-                fullWidth
-                helperText={false}
-            />
-            <Box display={{xs: 'block', sm: 'flex'}}>
-                <Box flex={2} mr={{xs: 0, sm: '0.5em'}}>
-                    <TextInput source="city" fullWidth helperText={false}/>
-                </Box>
-                <Box flex={1} mr={{xs: 0, sm: '0.5em'}}>
-                    <TextInput
-                        source="stateAbbr"
-                        fullWidth
-                        helperText={false}
-                    />
-                </Box>
-                <Box flex={2}>
-                    <TextInput source="zipcode" fullWidth helperText={false}/>
-                </Box>
-            </Box>
-            <Separator/>
-            <SectionTitle label="resources.customers.fieldGroups.password"/>
-            <Box display={{xs: 'block', sm: 'flex'}}>
-                <Box flex={1} mr={{xs: 0, sm: '0.5em'}}>
-                    <PasswordInput source="password" fullWidth/>
-                </Box>
-                <Box flex={1} ml={{xs: 0, sm: '0.5em'}}>
-                    <PasswordInput source="confirm_password" fullWidth/>
-                </Box>
-            </Box>
-        </SimpleForm>
+    <Create title={"Create User"}>
+        <TabbedForm>
+            <TabbedForm.Tab
+                label="Thông tin"
+                sx={{maxWidth: '40em'}}
+            >
+                <div>
+                    <Grid container width={{xs: '100%', xl: 800}} spacing={2}>
+                        <Grid item xs={12} md={8}>
+                            <Typography variant="h6" gutterBottom>
+                                Thông tin cá nhân
+                            </Typography>
+                            <Box display={{xs: 'block', sm: 'flex'}}>
+                                <Box flex={1} mr={{xs: 0, sm: '0.5em'}}>
+                                    <TextInput
+                                        source="userInfo.fullName"
+                                        label={"Họ và tên"}
+                                        validate={req}
+                                        fullWidth
+                                    />
+                                </Box>
+                                <Box flex={1} mr={{xs: 0, sm: '0.5em'}}>
+                                    <TextInput
+                                        source="username"
+                                        validate={req}
+                                        fullWidth
+                                        label={"Tên đăng nhập"}
+                                    />
+                                </Box>
+                            </Box>
+                            <TextInput
+                                type="email"
+                                source="userInfo.email"
+                                label={"Email"}
+                                validate={req}
+                                fullWidth
+                            />
+                            <TextInput
+                                type="text"
+                                source="userInfo.phone"
+                                label={"SĐT"}
+                                fullWidth
+                            />
+                            <Box mt="1em"/>
+
+                            <Typography variant="h6" gutterBottom>
+                                Địa chỉ
+                            </Typography>
+                            <TextInput
+                                source="address"
+                                multiline
+                                fullWidth
+                                helperText={false}
+                            />
+                            <Box display={{xs: 'block', sm: 'flex'}}>
+                                <Box flex={2} mr={{xs: 0, sm: '0.5em'}}>
+                                    <TextInput
+                                        source="province"
+                                        fullWidth
+                                        helperText={false}
+                                    />
+                                </Box>
+                                <Box flex={1} mr={{xs: 0, sm: '0.5em'}}>
+                                    <TextInput
+                                        source="district"
+                                        fullWidth
+                                        helperText={false}
+                                    />
+                                </Box>
+                                <Box flex={2}>
+                                    <TextInput
+                                        source="ward"
+                                        fullWidth
+                                        helperText={false}
+                                    />
+                                </Box>
+                            </Box>
+
+                            <Box mt="1em"/>
+
+                            <Typography variant="h6" gutterBottom>
+                                Mật khẩu
+                            </Typography>
+                            <Box display={{xs: 'block', sm: 'flex'}}>
+                                <Box flex={1} mr={{xs: 0, sm: '0.5em'}}>
+                                    <PasswordInput
+                                        source="password"
+                                        fullWidth
+                                        validate={req}
+                                    />
+                                </Box>
+                                <Box flex={1} ml={{xs: 0, sm: '0.5em'}}>
+                                    <PasswordInput
+                                        source="confirm_password"
+                                        fullWidth
+                                        validate={req}
+                                    />
+                                </Box>
+                            </Box>
+                        </Grid>
+                        <Grid item xs={12} md={4}>
+                            <Typography variant="h6" gutterBottom>
+                                Khác
+                            </Typography>
+                            <NullableBooleanInput
+                                label={"Đang hoạt động"}
+                                fullWidth
+                                source="enabled"
+                                defaultValue={true}
+                            />
+                            <ReferenceInput label="Tài nguyên" source="role.id" reference="role">
+                                <AutocompleteInput label={"Loại tài khoản"} optionText={"name"} optionValue={"id"}
+                                                   validate={req}/>
+                            </ReferenceInput>
+                        </Grid>
+                    </Grid>
+                </div>
+            </TabbedForm.Tab>
+            <TabbedForm.Tab
+                label="Phân quyền"
+                sx={{maxWidth: '40em'}}
+                path="role"
+            >
+                <ArrayInput source={`resourceVariations`} label={`Phân Quyền`} fullWidth>
+                    <SimpleFormIterator inline>
+                        <ReferenceInput label="Tài nguyên" source="resource.id" reference="resource">
+                            <AutocompleteInput label={"Tài nguyên"} optionText={"name"} optionValue={"id"}/>
+                        </ReferenceInput>
+                        <ArrayInput sx={{marginLeft: 10}} source={`permissions`} label={`Quyền`}>
+                            <SimpleFormIterator inline>
+                                <ReferenceInput label="Quyền" source="id" reference="permission">
+                                    <AutocompleteInput label={"Quyền"} optionText={"name"} optionValue={"id"}/>
+                                </ReferenceInput>
+                            </SimpleFormIterator>
+                        </ArrayInput>
+                    </SimpleFormIterator>
+                </ArrayInput>
+            </TabbedForm.Tab>
+        </TabbedForm>
     </Create>
 );
 
-const SectionTitle = ({label}: { label: string }) => {
-    const translate = useTranslate();
-
-    return (
-        <Typography variant="h6" gutterBottom>
-            {translate(label as string)}
-        </Typography>
-    );
-};
-
-const Separator = () => <Box pt="1em"/>;
-
+const req = [required()];
 export default UserCreate;
