@@ -4,13 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="89893dc3-088e-47ef-a82c-f709754202c6" name="Changes" comment="updated: finished user edit (show only)">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/products/ProductCreate.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/products/ProductCreate.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/users/UserCreate.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/users/UserCreate.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/users/UserEdit.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/users/UserEdit.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/users/UserList.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/users/UserList.tsx" afterDir="false" />
-    </list>
+    <list default="true" id="89893dc3-088e-47ef-a82c-f709754202c6" name="Changes" comment="updated: added user create" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -228,7 +222,15 @@
       <option name="project" value="LOCAL" />
       <updated>1712767047002</updated>
     </task>
-    <option name="localTasksCounter" value="15" />
+    <task id="LOCAL-00015" summary="updated: added user create">
+      <option name="closed" value="true" />
+      <created>1712768369175</created>
+      <option name="number" value="00015" />
+      <option name="presentableId" value="LOCAL-00015" />
+      <option name="project" value="LOCAL" />
+      <updated>1712768369175</updated>
+    </task>
+    <option name="localTasksCounter" value="16" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -259,6 +261,7 @@
     <MESSAGE value="add api and list importInvoice for admin" />
     <MESSAGE value="updated: fix conflict" />
     <MESSAGE value="updated: finished user edit (show only)" />
-    <option name="LAST_COMMIT_MESSAGE" value="updated: finished user edit (show only)" />
+    <MESSAGE value="updated: added user create" />
+    <option name="LAST_COMMIT_MESSAGE" value="updated: added user create" />
   </component>
 </project>
