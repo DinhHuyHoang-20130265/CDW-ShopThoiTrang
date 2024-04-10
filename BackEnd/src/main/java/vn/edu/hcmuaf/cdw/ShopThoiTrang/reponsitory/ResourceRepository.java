@@ -4,12 +4,12 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.data.jpa.repository.JpaRepository;
-import vn.edu.hcmuaf.cdw.ShopThoiTrang.entity.Permission;
+import vn.edu.hcmuaf.cdw.ShopThoiTrang.entity.Resource;
 
 import java.util.List;
 
-public interface PermissionRepository extends JpaRepository<Permission, Long> {
-    Page<Permission> findAll(Specification<Permission> specification, Pageable pageable);
+public interface ResourceRepository extends JpaRepository<Resource, Long> {
+    Page<Resource> findAll(Specification<Resource> specification, Pageable pageable);
 
-    List<Permission> findAllById(Iterable<Long> ids);
+    List<Resource> findAllById(Iterable<Long> ids);
 }
