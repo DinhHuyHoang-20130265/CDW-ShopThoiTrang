@@ -80,7 +80,9 @@ export const ProductCreate = (props: any) => {
                                     ),
                                 }}
                                 validate={req}
-                                fullWidth/>
+                                fullWidth
+                                step={1000}
+                            />
                         </Grid>
                         <Grid item xs={12} sm={8}>
 

@@ -3,6 +3,8 @@ package vn.edu.hcmuaf.cdw.ShopThoiTrang.entity;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.sql.Date;
+
 @Entity
 @Table(name = "import_invoices")
 @Getter
@@ -17,21 +19,24 @@ public class ImportInvoice {
     private long id;
 
     @Column(name = "import_date")
-    private String importDate;
+    private Date importDate;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER )
     @JoinColumn(name = "product_id")
     private Product product;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER )
     @JoinColumn(name = "variation_id")
     private Variation variation;
 
+    @ManyToOne(fetch = FetchType.EAGER )
+    @JoinColumn(name = "size_id")
+    private Size size;
 
     private int quantity;
 
     @Column(name = "import_price")
-    private double importPrice;
+    private Double importPrice;
 
 
 

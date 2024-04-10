@@ -1,5 +1,6 @@
 package vn.edu.hcmuaf.cdw.ShopThoiTrang.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
@@ -45,5 +46,8 @@ public class Variation {
     @OneToMany(mappedBy = "variation", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private List<Size> sizes;
 
+    @JsonIgnore
+    @OneToMany(mappedBy = "variation", fetch = FetchType.EAGER , cascade = CascadeType.ALL)
+    private List<ImportInvoice> importInvoices;
 
 }

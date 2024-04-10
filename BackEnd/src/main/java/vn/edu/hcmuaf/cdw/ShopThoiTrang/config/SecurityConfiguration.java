@@ -76,6 +76,7 @@ public class SecurityConfiguration {
                                 .requestMatchers("/api/user/**").permitAll()
                                 .requestMatchers("/api/category/**").permitAll()
                                 .requestMatchers("/api/blog/**").permitAll()
+                                .requestMatchers("/api/import-invoice/**").permitAll()
                                 .anyRequest().authenticated()
                 );
 
