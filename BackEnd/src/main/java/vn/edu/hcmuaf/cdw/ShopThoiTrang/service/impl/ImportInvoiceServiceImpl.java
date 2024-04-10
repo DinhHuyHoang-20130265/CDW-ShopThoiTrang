@@ -12,17 +12,30 @@ import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 import vn.edu.hcmuaf.cdw.ShopThoiTrang.entity.ImportInvoice;
-import vn.edu.hcmuaf.cdw.ShopThoiTrang.reponsitory.ImportInvoiceRepository;
+import vn.edu.hcmuaf.cdw.ShopThoiTrang.entity.Size;
+import vn.edu.hcmuaf.cdw.ShopThoiTrang.model.request.ImportInvoiceRequest;
+import vn.edu.hcmuaf.cdw.ShopThoiTrang.reponsitory.*;
 import vn.edu.hcmuaf.cdw.ShopThoiTrang.service.ImportInvoiceService;
 
 import java.nio.charset.StandardCharsets;
 import java.sql.Date;
+import java.util.ArrayList;
+import java.util.List;
 
 @Service
 public class ImportInvoiceServiceImpl implements ImportInvoiceService {
 
     @Autowired
     private ImportInvoiceRepository importInvoiceRepository;
+
+    @Autowired
+    private ProductRepository productRepository;
+
+    @Autowired
+    private VariationRepository variationRepository;
+
+    @Autowired
+    private SizeRepository sizeRepository;
 
     @Override
     public Page<ImportInvoice> getImportInvoices(String filter, int page, int perPage, String sortBy, String order) {
@@ -63,5 +76,27 @@ public class ImportInvoiceServiceImpl implements ImportInvoiceService {
         Date date = new Date(System.currentTimeMillis());
         importInvoice.setImportDate(date);
         return importInvoiceRepository.save(importInvoice);
+    }
+
+    @Override
+    public List<ImportInvoice> saveImportInvoices(List<ImportInvoiceRequest> importInvoiceRequests) {
+        Date date = new Date(System.currentTimeMillis());
+        List<ImportInvoice> importInvoices = new ArrayList<>();
+        for (ImportInvoiceRequest importInvoiceRequest : importInvoiceRequests) {
+            ImportInvoice importInvoice = new ImportInvoice();
+            importInvoice.setImportDate(date);
+            importInvoice.setProduct(productRepository.findById(importInvoiceRequest.getIdProduct()).get());
+            importInvoice.setVariation(variationRepository.findById(importInvoiceRequest.getIdVariation()).get());
+            importInvoice.setSize(sizeRepository.findById(importInvoiceRequest.getIdSize()).get());
+            importInvoice.setQuantity(importInvoiceRequest.getQuantity());
+            importInvoice.setImportPrice(importInvoiceRequest.getImportPrice());
+            importInvoiceRepository.save(importInvoice);
+            importInvoices.add(importInvoice);
+
+            Size size = sizeRepository.findById(importInvoiceRequest.getIdSize()).get();
+            size.setStock(size.getStock() + importInvoiceRequest.getQuantity());
+            sizeRepository.save(size);
+        }
+        return importInvoices;
     }
 }

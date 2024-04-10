@@ -96,7 +96,6 @@ export const dataProvider: DataProvider = {
                 const query = {
                     ids: JSON.stringify({ids: params.data.categories}),
                 };
-                console.log(encodeURI(params.data.categories))
                 const {json} = await httpClient(`${process.env.REACT_APP_API_URL}/category/ids?${fetchUtils.queryParameters(query)}`, {
                     method: 'GET',
 
@@ -107,11 +106,11 @@ export const dataProvider: DataProvider = {
                     credentials: 'include'
                 })
                 categories = json;
-                console.log(categories);
             }
             const {json} = await httpClient(`${process.env.REACT_APP_API_URL}/${resource}`, {
                 method: 'POST',
-                body: JSON.stringify(categories !== null ? {...params.data, categories: categories} : params.data),
+                body: JSON.stringify(resource === "import-invoice" ? params.data.ImportInvoiceRequest
+                :(categories !== null ? {...params.data, categories: categories} : params.data)),
 
                 headers: new Headers({
                     'Content-Type': 'application/json',

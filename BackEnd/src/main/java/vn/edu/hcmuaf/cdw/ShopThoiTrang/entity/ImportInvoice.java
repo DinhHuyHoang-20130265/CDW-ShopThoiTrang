@@ -1,6 +1,5 @@
 package vn.edu.hcmuaf.cdw.ShopThoiTrang.entity;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import lombok.*;
 

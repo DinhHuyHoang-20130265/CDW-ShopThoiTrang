@@ -31,9 +31,6 @@ public class ProductServiceImpl implements ProductService {
     private ProductRepository productRepository;
 
     @Autowired
-    private CategoryRepository categoryRepository;
-
-    @Autowired
     private ImageProductRepository imageProductRepository;
 
     @Autowired
@@ -46,7 +43,6 @@ public class ProductServiceImpl implements ProductService {
     private SizeRepository sizeRepository;
 
     @Autowired
-    private EntityManager entityManager;
 
 
     @Override
