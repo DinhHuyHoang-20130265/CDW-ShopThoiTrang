@@ -33,7 +33,7 @@ export interface Category extends RaRecord {
     updateBy: string
 }
 
-export interface Size extends RaRecord{
+export interface Size extends RaRecord {
     id: number,
     size: string,
     stock: number,
@@ -69,7 +69,7 @@ export interface ImageProduct extends RaRecord {
 export interface Promotion extends RaRecord {
     id: number,
     name: string,
-    description: string|null,
+    description: string | null,
     discount: number,
     status: boolean,
     thumbnail: string,
@@ -96,11 +96,41 @@ export interface Product extends RaRecord {
     imageUrl: string,
     releaseDate: string,
     updateDate: string,
-    price:  Price,
+    price: Price,
     categories: Category[],
     variations: Variation[],
     imgProducts: ImageProduct[],
     promotions: Promotion[],
+}
+
+export interface Blog extends RaRecord {
+    id: number,
+    title: string,
+    description: string,
+    content: string,
+    thumbnail: string,
+    createDate: string,
+    updateDate: string,
+    status: boolean,
+}
+
+export interface ImportInvoice extends RaRecord {
+    id: number,
+    importDate: string,
+    product: Product,
+    variation: Variation,
+    size: Size,
+    quantity: number,
+    importPrice: number,
+}
+
+export interface ImportInvoiceRequest {
+    importDate: string,
+    idProduct: number,
+    idVariation: number,
+    idSize: number,
+    quantity: number,
+    importPrice: number,
 }
 
 
