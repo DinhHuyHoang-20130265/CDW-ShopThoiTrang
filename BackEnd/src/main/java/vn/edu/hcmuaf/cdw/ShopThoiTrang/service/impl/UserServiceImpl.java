@@ -77,7 +77,7 @@ public class UserServiceImpl implements UserService {
 
             if (filterJson.has("type")) {
                 String type = filterJson.get("type").asText();
-                Join<User, Role> roleJoin = root.join("roles");
+                Join<User, Role> roleJoin = root.join("role");
                 predicate = criteriaBuilder.and(predicate, criteriaBuilder.isTrue(roleJoin.get("name").in(type)));
             }
 

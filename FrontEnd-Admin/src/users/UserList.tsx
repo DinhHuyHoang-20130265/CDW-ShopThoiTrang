@@ -1,13 +1,14 @@
 import * as React from 'react';
 import {
+    ArrayField,
     CreateButton,
     DatagridConfigurable,
     DateField,
-    DateInput,
+    DateInput, EditButton,
     ExportButton,
     List,
     SearchInput,
-    SelectColumnsButton, TextField,
+    SelectColumnsButton, ShowButton, TextField,
     TopToolbar,
 } from 'react-admin';
 import {useMediaQuery, Theme} from '@mui/material';
@@ -20,7 +21,7 @@ const visitorFilters = [
     <DateInput source="createdDate" name={"createdDate"}/>,
 ];
 
-const VisitorListActions = () => (
+const UserListActions = () => (
     <TopToolbar>
         <CreateButton/>
         <SelectColumnsButton/>
@@ -39,13 +40,12 @@ const UserList = () => {
             sort={{field: 'createdDate', order: 'DESC'}}
             perPage={25}
             aside={<UserListAside/>}
-            actions={<VisitorListActions/>}
+            actions={<UserListActions/>}
         >
             {isXsmall ? (
                 <MobileGrid/>
             ) : (
                 <DatagridConfigurable
-                    rowClick="edit"
                     sx={{
                         '& .column-groups': {
                             md: {display: 'none'},
@@ -58,11 +58,9 @@ const UserList = () => {
                     />
                     <TextField source="username" label="Tên đăng nhập"/>
                     <DateField source="createdDate" label={"Ngày tạo"}/>
-                    {/*<ColoredNumberField*/}
-                    {/*    source="total_spent"*/}
-                    {/*    options={{style: 'currency', currency: 'VND'}}*/}
-                    {/*/>*/}
-                    {/*<DateField source="latest_purchase" showTime/>*/}
+                    <ArrayField label={"Tuỳ chọn"}>
+                        <EditButton/>
+                    </ArrayField>
                 </DatagridConfigurable>
             )}
         </List>

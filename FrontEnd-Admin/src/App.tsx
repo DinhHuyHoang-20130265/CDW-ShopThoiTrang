@@ -21,6 +21,7 @@ import {BlogEdit} from "./blogs/BlogEdit";
 import {BlogCreate} from "./blogs/BlogCreate";
 import ImportInvoiceList from "./importInvoices/ImportInvoiceList";
 import ImportInvoiceCreate from "./importInvoices/ImportInvoiceCreate";
+
 const App = () => {
     return (
         <Admin
@@ -36,6 +37,7 @@ const App = () => {
                       create={UserCreate}
                       icon={UserIcon}
                       options={{label: "Tài Khoản"}}
+                      hasShow={false}
             />
             <Resource name="product"
                       list={ProductList}
