@@ -53,10 +53,12 @@ export const dataProvider: DataProvider = {
             credentials: 'include',
         }).then(({json}) => {
             return ({
-                data: resource !== 'product' ? json : {
+                data: resource == 'product' ? {
                     ...json,
                     categoriesIds: json.categories.map((cat: any) => cat.id)
-                }
+                } : resource == 'user' ? {
+                    ...json
+                } : json
             })
         }),
     getMany: async (resource: any, params: any) => {

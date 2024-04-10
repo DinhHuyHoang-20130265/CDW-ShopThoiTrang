@@ -12,6 +12,9 @@ import CategoryIcon from '@mui/icons-material/CategoryRounded';
 import {ProductCreate} from "./products/ProductCreate";
 import {CategoryEdit} from "./categories/CategoryEdit";
 import {CategoryCreate} from "./categories/CategoryCreate";
+import UserCreate from "./users/UserCreate";
+import UserEdit from "./users/UserEdit";
+
 const App = () => {
     return (
         <Admin
@@ -23,6 +26,8 @@ const App = () => {
         >
             <Resource name="user"
                       list={UserList}
+                      edit={UserEdit}
+                      create={UserCreate}
                       icon={UserIcon}
                       options={{label: "Tài Khoản"}}
             />

@@ -38,16 +38,13 @@ public class UserDetailsImpl implements UserDetails {
     }
 
     public static UserDetailsImpl build(User user) {
-        List<GrantedAuthority> authorities = new ArrayList<>();
-        user.getRoles().forEach(role -> authorities.add(new SimpleGrantedAuthority("ROLE_" + role.getName())));
-        user.getRoles().forEach(role -> role.getPermissions().forEach(permission -> authorities.add(new SimpleGrantedAuthority(permission.getName()))));
 
         return new UserDetailsImpl(
                 user.getId(),
                 user.getUsername(),
                 user.getUserInfo().getEmail(),
                 user.getPassword(),
-                authorities);
+                user.getAuthorities());
     }
 
     @Override
