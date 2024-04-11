@@ -22,7 +22,7 @@ import {checkPassword} from "./UserCreate";
 
 
 const UserEdit = () => {
-    const [admin, setAdmin] = useState(true)
+    const [admin, setAdmin] = useState(false)
     const [password, setPassword] = useState(false)
     const handlePassword = useCallback((event: any) => {
         setPassword(event.target.checked)
