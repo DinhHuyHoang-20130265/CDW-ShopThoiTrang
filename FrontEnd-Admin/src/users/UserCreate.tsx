@@ -13,6 +13,7 @@ import {
     required,
 } from 'react-admin';
 import {Box, Grid, Typography} from '@mui/material';
+import {useState} from "react";
 
 export const validateForm = (
     values: Record<string, any>
@@ -39,8 +40,18 @@ export const validateForm = (
     return errors;
 };
 
-const UserCreate = () => (
-    <Create title={"Create User"}>
+const UserCreate = () => {
+
+    const [admin, setAdmin] = useState(false)
+
+    const handleRoleChange = (e: any) => {
+        if (e === 1) {
+            setAdmin(false)
+        } else
+            setAdmin(true)
+    }
+
+    return <Create title={"Create User"}>
         <TabbedForm>
             <TabbedForm.Tab
                 label="Thông tin"
@@ -149,10 +160,11 @@ const UserCreate = () => (
                                 fullWidth
                                 source="enabled"
                                 defaultValue={true}
+                                validate={req}
                             />
                             <ReferenceInput label="Tài nguyên" source="role.id" reference="role">
                                 <AutocompleteInput label={"Loại tài khoản"} optionText={"name"} optionValue={"id"}
-                                                   validate={req}/>
+                                                   validate={req} onChange={handleRoleChange}/>
                             </ReferenceInput>
                         </Grid>
                     </Grid>
@@ -163,7 +175,7 @@ const UserCreate = () => (
                 sx={{maxWidth: '40em'}}
                 path="role"
             >
-                <ArrayInput source={`resourceVariations`} label={`Phân Quyền`} fullWidth>
+                {admin ? <ArrayInput source={`resourceVariations`} label={`Phân Quyền`} fullWidth>
                     <SimpleFormIterator inline>
                         <ReferenceInput label="Tài nguyên" source="resource.id" reference="resource">
                             <AutocompleteInput label={"Tài nguyên"} optionText={"name"} optionValue={"id"}/>
@@ -176,11 +188,11 @@ const UserCreate = () => (
                             </SimpleFormIterator>
                         </ArrayInput>
                     </SimpleFormIterator>
-                </ArrayInput>
+                </ArrayInput> : <></>}
             </TabbedForm.Tab>
         </TabbedForm>
     </Create>
-);
+}
 
 const req = [required()];
 export default UserCreate;

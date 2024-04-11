@@ -1,6 +1,5 @@
 import {DataProvider, fetchUtils} from 'react-admin';
 import {authProvider} from "../authProvider";
-import {json} from "node:stream/consumers";
 
 const httpClient = fetchUtils.fetchJson;
 
@@ -66,10 +65,10 @@ export const dataProvider: DataProvider = {
             credentials: 'include',
         }).then(({json}) => {
             return ({
-                data: resource == 'product' ? {
+                data: resource === 'product' ? {
                     ...json,
                     categoriesIds: json.categories.map((cat: any) => cat.id)
-                } : resource == 'user' ? {
+                } : resource === 'user' ? {
                     ...json
                 } : json
             })
@@ -105,8 +104,10 @@ export const dataProvider: DataProvider = {
     create: async (resource: any, params: any) => {
         console.log(params)
         try {
-
             let categories = null;
+            let role = null;
+            let resourceUser: any = null;
+            let permissions: any = null;
             if (resource === 'product') {
                 const query = {
                     ids: JSON.stringify({ids: params.data.categories}),
@@ -121,11 +122,56 @@ export const dataProvider: DataProvider = {
                     credentials: 'include'
                 })
                 categories = json;
+            } else if (resource === 'user') {
+                const query = {
+                    ids: JSON.stringify({ids: params.data.role}),
+                };
+                const {json} = await httpClient(`${process.env.REACT_APP_API_URL}/role/ids?${fetchUtils.queryParameters(query)}`, {
+                    method: 'GET',
+
+                    headers: new Headers({
+                        'Content-Type': 'application/json',
+                        Accept: 'application/json',
+                    }),
+                    credentials: 'include'
+                })
+                const query1 = {
+                    ids: JSON.stringify({ids: params.data.resourceVariations.map((item: any) => item.resource.id)}),
+                };
+                const json2 = await httpClient(`${process.env.REACT_APP_API_URL}/resource/ids?${fetchUtils.queryParameters(query1)}`, {
+                    method: 'GET',
+                    headers: new Headers({
+                        'Content-Type': 'application/json',
+                        Accept: 'application/json',
+                    }),
+                    credentials: 'include'
+                })
+                const json3: any = await httpClient(`${process.env.REACT_APP_API_URL}/permission`, {
+                    method: 'GET',
+                    headers: new Headers({
+                        'Content-Type': 'application/json',
+                        Accept: 'application/json',
+                    }),
+                    credentials: 'include'
+                })
+                role = json;
+                resourceUser = json2.json;
+                permissions = json3.json.content;
             }
             const {json} = await httpClient(`${process.env.REACT_APP_API_URL}/${resource}`, {
                 method: 'POST',
                 body: JSON.stringify(resource === "import-invoice" ? params.data.ImportInvoiceRequest
-                    : (categories !== null ? {...params.data, categories: categories} : params.data)),
+                    : (categories !== null ? {
+                        ...params.data,
+                        categories: categories
+                    } : (role !== null ? {
+                        ...params.data,
+                        role: role[0],
+                        resourceVariations: resourceUser != null && permissions !== null ? params.data.resourceVariations.map((item: any, index: any) => ({
+                            resource: resourceUser.find((resource: any) => resource.id === item.resource.id),
+                            permissions: item.permissions.map((item: any) => permissions.find((cat: any) => cat.id === item.id))
+                        })) : []
+                    } : params.data))),
 
                 headers: new Headers({
                     'Content-Type': 'application/json',
@@ -133,7 +179,7 @@ export const dataProvider: DataProvider = {
                 }),
                 credentials: 'include'
             })
-            window.location.href = '/#/product';
+            window.location.href = `/#/${resource}`;
             return Promise.resolve({data: json});
         } catch (error: any) {
             if (error.status === 401) {

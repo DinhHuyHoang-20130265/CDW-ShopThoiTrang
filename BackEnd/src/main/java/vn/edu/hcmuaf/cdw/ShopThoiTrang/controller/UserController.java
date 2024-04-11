@@ -6,8 +6,8 @@ import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import vn.edu.hcmuaf.cdw.ShopThoiTrang.JWT.JwtUtils;
-import vn.edu.hcmuaf.cdw.ShopThoiTrang.entity.Category;
 import vn.edu.hcmuaf.cdw.ShopThoiTrang.entity.User;
+import vn.edu.hcmuaf.cdw.ShopThoiTrang.model.dto.CreateUserDTO;
 import vn.edu.hcmuaf.cdw.ShopThoiTrang.service.UserInfoService;
 import vn.edu.hcmuaf.cdw.ShopThoiTrang.service.UserService;
 
@@ -63,6 +63,12 @@ public class UserController {
     public ResponseEntity<User> getUserById(@PathVariable Long id) {
         User user = userService.getUserById(id);
         return ResponseEntity.ok(user);
+    }
+
+    @PostMapping
+    public ResponseEntity<?> saveUser(@RequestBody CreateUserDTO dto) {
+
+        return ResponseEntity.ok(userService.saveUser(dto, request));
     }
 
 }

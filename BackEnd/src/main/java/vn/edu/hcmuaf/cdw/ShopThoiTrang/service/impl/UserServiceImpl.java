@@ -5,6 +5,7 @@ import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import jakarta.persistence.criteria.Join;
 import jakarta.persistence.criteria.Predicate;
+import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -12,15 +13,22 @@ import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
-import vn.edu.hcmuaf.cdw.ShopThoiTrang.entity.Role;
-import vn.edu.hcmuaf.cdw.ShopThoiTrang.entity.User;
-import vn.edu.hcmuaf.cdw.ShopThoiTrang.entity.UserInfo;
+import org.springframework.transaction.annotation.Transactional;
+import vn.edu.hcmuaf.cdw.ShopThoiTrang.JWT.JwtUtils;
+import vn.edu.hcmuaf.cdw.ShopThoiTrang.entity.*;
+import vn.edu.hcmuaf.cdw.ShopThoiTrang.model.dto.CreateUserDTO;
+import vn.edu.hcmuaf.cdw.ShopThoiTrang.reponsitory.ResourceRepository;
+import vn.edu.hcmuaf.cdw.ShopThoiTrang.reponsitory.ResourceVariationRepository;
 import vn.edu.hcmuaf.cdw.ShopThoiTrang.reponsitory.UserInfoRepository;
 import vn.edu.hcmuaf.cdw.ShopThoiTrang.reponsitory.UserRepository;
 import vn.edu.hcmuaf.cdw.ShopThoiTrang.service.UserService;
 
 import java.nio.charset.StandardCharsets;
+import java.sql.Date;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
@@ -31,6 +39,15 @@ public class UserServiceImpl implements UserService {
 
     @Autowired
     UserInfoRepository userInfoRepository;
+
+    @Autowired
+    ResourceVariationRepository resourceVariationRepository;
+    @Autowired
+    ResourceRepository resourceRepository;
+    @Autowired
+    private JwtUtils jwtUtils;
+    @Autowired
+    private PasswordEncoder passwordEncoder;
 
     @Override
     public User getUserById(Long id) {
@@ -96,6 +113,58 @@ public class UserServiceImpl implements UserService {
         }
 
         return userRepository.findAll(specification, PageRequest.of(page, perPage, Sort.by(direction, sortBy)));
+    }
+
+    @Override
+    @Transactional
+    public ResponseEntity<?> saveUser(CreateUserDTO dto, HttpServletRequest request) {
+        System.out.println(dto);
+        if (userRepository.findByUsername(dto.getUsername()).isPresent()) {
+            return ResponseEntity.badRequest().body("Username is already taken");
+        }
+        if (userInfoRepository.findByEmail(dto.getUserInfo().getEmail()) != null) {
+            return ResponseEntity.badRequest().body("Email is already taken");
+        }
+        Date currentDate = new Date(System.currentTimeMillis());
+
+        User newUser = new User();
+        newUser.setUserInfo(new UserInfo());
+        newUser.getUserInfo().setEmail(dto.getUserInfo().getEmail());
+        newUser.getUserInfo().setFullName(dto.getUserInfo().getFullName());
+        newUser.setPasswordEncrypted(passwordEncoder.encode(dto.getPassword()));
+        newUser.setEnabled(dto.isEnabled());
+        newUser.setUsername(dto.getUsername());
+        newUser.setRole(dto.getRole());
+        newUser.setCreatedDate(currentDate);
+        newUser.setUpdateDate(currentDate);
+        newUser.setResourceVariations(new ArrayList<>());
+        if (!dto.getRole().getName().equals("USER")) {
+            if (dto.getResourceVariations() == null || dto.getResourceVariations().isEmpty()) {
+                return ResponseEntity.badRequest().body("Resource variations is required");
+            }
+            List<ResourceVariation> resourceVariations = new ArrayList<>();
+            for (ResourceVariation rv : dto.getResourceVariations()) {
+                ResourceVariation resourceVariation = new ResourceVariation();
+                Resource resource = resourceRepository.findById(rv.getResource().getId())
+                        .orElseThrow(() -> new RuntimeException("Resource not found"));
+
+                resourceVariation.setResource(resource);
+                resourceVariation.setPermissions(rv.getPermissions());
+                resourceVariation.setUser(newUser);
+                resourceVariations.add(resourceVariation);
+            }
+            newUser.setResourceVariations(resourceVariations);
+        }
+        String jwt = jwtUtils.getJwtFromCookies(request);
+        if (jwt == null) {
+            return ResponseEntity.badRequest().body("Token is null");
+        }
+        String username = jwtUtils.getUserNameFromJwtToken(jwt);
+        newUser.setCreatedBy(userRepository.findByUsername(username).get());
+        newUser.setUpdateBy(userRepository.findByUsername(username).get());
+        newUser.getUserInfo().setUser(newUser);
+        return ResponseEntity.ok(userRepository.save(newUser));
+
     }
 
 }
