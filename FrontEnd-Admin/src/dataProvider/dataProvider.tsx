@@ -1,8 +1,8 @@
-import {DataProvider, fetchUtils} from 'react-admin';
+import {DataProvider, fetchUtils, HttpError} from 'react-admin';
 import {authProvider} from "../authProvider";
 
-const httpClient = fetchUtils.fetchJson;
 
+const httpClient = fetchUtils.fetchJson;
 
 export const dataProvider: DataProvider = {
     // @ts-ignore
@@ -179,7 +179,12 @@ export const dataProvider: DataProvider = {
                 }),
                 credentials: 'include'
             })
+            if (json.statusCodeValue < 200 || json.statusCodeValue >= 300) {
+                console.log(json)
+                return Promise.reject({message: json.body});
+            }
             window.location.href = `/#/${resource}`;
+            console.log(json)
             return Promise.resolve({data: json});
         } catch (error: any) {
             if (error.status === 401) {
