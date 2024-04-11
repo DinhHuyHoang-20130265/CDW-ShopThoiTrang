@@ -10,6 +10,9 @@ import {
 
 import {Category, Product} from '../types';
 import LockIcon from "@mui/icons-material/Lock";
+import CategoryIcon from '@mui/icons-material/CategoryRounded';
+import AttachMoneyRoundedIcon from '@mui/icons-material/AttachMoneyRounded';
+
 
 const Aside = () => {
     const {data} = useGetList<Category>('category', {
@@ -56,8 +59,36 @@ const Aside = () => {
                 </FilterList>
 
                 <FilterList
+                    label="Giá"
+                    icon={<AttachMoneyRoundedIcon />}
+                >
+                    <FilterListItem
+                        label="0 - 99.000"
+                        value={{
+                            price_lt: 100000,
+                            price_gt: undefined,
+                        }}
+                    />
+                    <FilterListItem
+                        label="100.000 - 299.000"
+                        value={{
+                            price_lt: 300000,
+                            price_gt: 100000,
+                        }}
+                    />
+                    <FilterListItem
+                        label="300.000 trở lên"
+                        value={{
+                            price_lt: undefined,
+                            price_gt: 300000,
+                        }}
+                    />
+
+                </FilterList>
+
+                <FilterList
                     label="Danh mục"
-                    icon={<LockIcon />}
+                    icon={<CategoryIcon />}
                 >
                     {data &&
                         data.map((record: any) => (

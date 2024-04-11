@@ -12,6 +12,7 @@ import {
 } from 'react-admin';
 import React, {useEffect, useState} from "react";
 import {Category} from "../types";
+import {Grid} from "@mui/material";
 
 export const CategoryEdit = (props: SelectArrayInputProps) => {
     const [categories, setCategories] = useState<Category[]>([]);
@@ -28,12 +29,24 @@ export const CategoryEdit = (props: SelectArrayInputProps) => {
     return (
         <Edit>
             <SimpleForm>
-                <TextInput disabled label="Id" source="id"/>
-                <TextInput source="name" validate={required()}/>
-                <SelectInput source="parentId" choices={categories} />
-                <BooleanInput  source="status" label="Trạng thái" defaultValue={false}/>
-                <DateField source="releaseDate" label="Ngày tạo"/>
+                <Grid container columnSpacing={2}>
+                    <Grid item xs={6} sm={6}>
+                        <TextInput disabled label="Id" source="id" fullWidth/>
+                    </Grid>
+                    <Grid item xs={6} sm={6}>
+                        <SelectInput source="parentId" choices={categories} fullWidth/>
+                    </Grid>
+                    <Grid item xs={12} sm={12}>
+                        <TextInput source="name" validate={required()} fullWidth/>
+                    </Grid>
+                    <Grid item xs={6} sm={6}>
+                        <BooleanInput source="status" label="Trạng thái" defaultValue={false} fullWidth/>
+                    </Grid>
+                    <Grid item xs={6} sm={6}>
+                        <DateField source="releaseDate" label="Ngày tạo" />
+                    </Grid>
 
+                </Grid>
             </SimpleForm>
         </Edit>
     )

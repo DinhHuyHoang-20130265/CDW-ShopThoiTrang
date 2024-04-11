@@ -2,28 +2,21 @@ import * as React from 'react';
 import {
     BooleanField,
     CreateButton,
-    Datagrid,
     DatagridConfigurable,
     DateField,
     EditButton,
     ExportButton,
     FilterButton,
     List,
-    NumberField,
     Pagination,
-    RecordContextProvider,
-    ReferenceField,
-    ReferenceManyCount,
-    SearchInput,
-    SelectColumnsButton, SelectField, SelectInput,
-    ShowButton,
+    SelectColumnsButton, SelectField,
     TextField,
     TextInput,
     TopToolbar, useGetList,
-    useListContext,
 } from 'react-admin';
 import {useEffect, useState} from "react";
 import {Category} from "../types";
+import LinkToProducts from "./LinkToProducts";
 
 const ListActions = () => (
     <TopToolbar>
@@ -62,15 +55,14 @@ const CategoryList = () => {
         filters={postFilters(categories)}
     >
         <DatagridConfigurable>
-            <TextField source="id"/>
-            <TextField source="name"/>
-            <SelectField source="parentId" choices={categories}/>
-            <DateField source="releaseDate"/>
+            <TextField source="id" label={"Id"}/>
+            <TextField source="name" label={"Tên"}/>
+            <SelectField source="parentId" choices={categories} label={"Danh mục cha"}/>
+            <DateField source="releaseDate" label={"Ngày tạo"}/>
             <BooleanField source="status" label="Trạng thái"/>
-
             <>
-                <EditButton/>
-                <ShowButton/>
+                <LinkToProducts/>
+                <EditButton sx={{marginLeft:5}}/>
             </>
         </DatagridConfigurable>
         <Pagination/>

@@ -6,7 +6,7 @@ import {
     FunctionField,
     EditButton,
     ChipField,
-    SearchInput, DateInput, SelectColumnsButton, DatagridConfigurable, useGetList,
+    SearchInput, DateInput, SelectColumnsButton, DatagridConfigurable, useGetList, DeleteButton,
 } from 'react-admin';
 
 import {

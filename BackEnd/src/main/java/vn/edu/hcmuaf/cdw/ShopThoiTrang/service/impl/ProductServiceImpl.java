@@ -74,12 +74,15 @@ public class ProductServiceImpl implements ProductService {
         }
         Specification<Product> specification = (root, query, criteriaBuilder) -> {
             Predicate predicate = criteriaBuilder.conjunction();
-            if (filterJson.has("name")) {
-                predicate = criteriaBuilder.and(predicate, criteriaBuilder.like(root.get("name"), "%" + filterJson.get("name").asText() + "%"));
+            if (filterJson.has("q")) {
+
+                predicate = criteriaBuilder.and(predicate, criteriaBuilder.like(root.get("name"), "%" + filterJson.get("q").asText().toLowerCase() + "%"));
             }
-            if (filterJson.has("price")) {
+            if (filterJson.has("price_lt") || filterJson.has("price_gt")) {
+                double priceLt = filterJson.has("price_lt") ? filterJson.get("price_lt").asDouble() : Double.MAX_VALUE;
+                double priceGt = filterJson.has("price_gt") ? filterJson.get("price_gt").asDouble() : 0;
                 Join<Product, Price> priceJoin = root.join("price");
-                predicate = criteriaBuilder.and(predicate, criteriaBuilder.equal(root.get("price"), filterJson.get("price").asDouble()));
+                predicate = criteriaBuilder.and(predicate, criteriaBuilder.between(priceJoin.get("price"), priceGt, priceLt));
             }
             if (filterJson.has("status")) {
                 predicate = criteriaBuilder.and(predicate, criteriaBuilder.equal(root.get("status"), filterJson.get("status").asBoolean()));
