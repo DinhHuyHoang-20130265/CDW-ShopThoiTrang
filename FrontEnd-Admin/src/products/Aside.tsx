@@ -55,19 +55,19 @@ const Aside = () => {
 
                 </FilterList>
 
-                {/*<FilterList*/}
-                {/*    label="Danh mục"*/}
-                {/*    icon={<LocalOfferIcon />}*/}
-                {/*>*/}
-                {/*    {data &&*/}
-                {/*        data.map((record: any) => (*/}
-                {/*            <FilterListItem*/}
-                {/*                label={record.name}*/}
-                {/*                key={record.id}*/}
-                {/*                value={{categories: record}} // Truyền record làm giá trị của value*/}
-                {/*            />*/}
-                {/*        ))}*/}
-                {/*</FilterList>*/}
+                <FilterList
+                    label="Danh mục"
+                    icon={<LockIcon />}
+                >
+                    {data &&
+                        data.map((record: any) => (
+                            <FilterListItem
+                                label={record.name}
+                                key={record.id}
+                                value={{categoryId: record.id}} // Truyền record làm giá trị của value
+                            />
+                        ))}
+                </FilterList>
             </CardContent>
         </Card>
     );

@@ -85,7 +85,8 @@ public class ProductServiceImpl implements ProductService {
                 predicate = criteriaBuilder.and(predicate, criteriaBuilder.equal(root.get("status"), filterJson.get("status").asBoolean()));
             }
             if (filterJson.has("categoryId")) {
-                predicate = criteriaBuilder.and(predicate, criteriaBuilder.equal(root.get("category").get("id"), filterJson.get("categoryId").asLong()));
+                Join<Product, Category> categoryJoin = root.join("categories");
+                predicate = criteriaBuilder.and(predicate, criteriaBuilder.equal(categoryJoin.get("id"), filterJson.get("categoryId").asLong()));
             }
             return predicate;
         };

@@ -4,7 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="89893dc3-088e-47ef-a82c-f709754202c6" name="Changes" comment="updated: added user create" />
+    <list default="true" id="89893dc3-088e-47ef-a82c-f709754202c6" name="Changes" comment="updated: added user create">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/products/Aside.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/products/Aside.tsx" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -39,7 +42,7 @@
   "keyToString": {
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
-    "git-widget-placeholder": "DinhHuyHoang",
+    "git-widget-placeholder": "NguyenNgocHuy",
     "ignore.virus.scanning.warn.message": "true",
     "last_opened_file_path": "D:/ChuyenDeWeb/CDW-ShopThoiTrang/FrontEnd-Admin/src/products",
     "node.js.detected.package.eslint": "true",
@@ -50,7 +53,7 @@
     "nodejs_package_manager_path": "npm",
     "npm.npm start.executor": "Run",
     "settings.editor.selected.configurable": "preferences.keymap",
-    "ts.external.directory.path": "D:\\CDW-ShopThoiTrang\\FrontEnd-Admin\\node_modules\\typescript\\lib",
+    "ts.external.directory.path": "D:\\ChuyenDeWeb\\CDW-ShopThoiTrang\\FrontEnd-Admin\\node_modules\\typescript\\lib",
     "vue.rearranger.settings.migration": "true"
   }
 }]]></component>
