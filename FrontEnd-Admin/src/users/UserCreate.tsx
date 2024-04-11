@@ -16,15 +16,14 @@ import {Box, Grid, Typography} from '@mui/material';
 import {useState} from "react";
 
 
-const checkPassword = (password: string) => {
+export const checkPassword = (password: string) => {
     // Regex pattern kiểm tra password
     const passwordPattern = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[A-Za-z\d]{8,}$/;
 
     return passwordPattern.test(password);
 }
 
-export const validateForm = (values: Record<any, any>): Record<any, any> => {
-    console.log(values)
+const validateForm = (values: Record<any, any>): Record<any, any> => {
     const errors = {} as any;
     if (!values.username) {
         errors.username = 'username is required';
@@ -72,7 +71,6 @@ export const validateForm = (values: Record<any, any>): Record<any, any> => {
             })
         }
     }
-    console.log(errors)
     return errors;
 }
 
@@ -108,7 +106,7 @@ const UserCreate = () => {
             ward: undefined
         }} toolbar={<Toolbar>
             <SaveButton
-                label="Save"
+                label="Create"
                 alwaysEnable
             />
         </Toolbar>}>
@@ -226,6 +224,7 @@ const UserCreate = () => {
             <TabbedForm.Tab
                 label="Phân quyền"
                 sx={{maxWidth: '40em'}}
+                path="role"
             >
                 {admin ? <ArrayInput source={`resourceVariations`} label={`Phân Quyền`} fullWidth>
                     <SimpleFormIterator inline>

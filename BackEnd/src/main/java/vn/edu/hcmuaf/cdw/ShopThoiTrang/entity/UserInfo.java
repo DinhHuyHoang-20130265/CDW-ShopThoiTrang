@@ -11,7 +11,8 @@ import lombok.*;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-@ToString
+@ToString(exclude = "user")
+
 public class UserInfo {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

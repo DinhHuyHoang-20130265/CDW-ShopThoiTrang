@@ -1,4 +1,4 @@
-import {DataProvider, fetchUtils, HttpError} from 'react-admin';
+import {DataProvider, fetchUtils} from 'react-admin';
 import {authProvider} from "../authProvider";
 
 
@@ -197,6 +197,9 @@ export const dataProvider: DataProvider = {
 
     update: async (resource: any, params: any) => {
         let categories = null;
+        let role = null;
+        let resourceUser: any = null;
+        let permissions: any = null;
         if (resource === 'product') {
             const query = {
                 ids: JSON.stringify({ids: params.data.categoriesIds}),
@@ -213,10 +216,53 @@ export const dataProvider: DataProvider = {
             })
             categories = json;
             console.log(categories);
+        } else if (resource === 'user') {
+            const query = {
+                ids: JSON.stringify({ids: params.data.role}),
+            };
+            const {json} = await httpClient(`${process.env.REACT_APP_API_URL}/role/ids?${fetchUtils.queryParameters(query)}`, {
+                method: 'GET',
+
+                headers: new Headers({
+                    'Content-Type': 'application/json',
+                    Accept: 'application/json',
+                }),
+                credentials: 'include'
+            })
+            const query1 = {
+                ids: JSON.stringify({ids: params.data.resourceVariations.map((item: any) => item.resource.id)}),
+            };
+            const json2 = await httpClient(`${process.env.REACT_APP_API_URL}/resource/ids?${fetchUtils.queryParameters(query1)}`, {
+                method: 'GET',
+                headers: new Headers({
+                    'Content-Type': 'application/json',
+                    Accept: 'application/json',
+                }),
+                credentials: 'include'
+            })
+            const json3: any = await httpClient(`${process.env.REACT_APP_API_URL}/permission`, {
+                method: 'GET',
+                headers: new Headers({
+                    'Content-Type': 'application/json',
+                    Accept: 'application/json',
+                }),
+                credentials: 'include'
+            })
+            role = json;
+            resourceUser = json2.json;
+            permissions = json3.json.content;
         }
         const {json} = await httpClient(`${process.env.REACT_APP_API_URL}/${resource}/${params.id}`, {
             method: 'PUT',
-            body: JSON.stringify(categories !== null ? {...params.data, categories: categories} : params.data),
+            body: JSON.stringify(categories !== null ? {...params.data, categories: categories} :
+                (role !== null ? {
+                    ...params.data,
+                    role: role[0],
+                    resourceVariations: resourceUser != null && permissions !== null ? params.data.resourceVariations.map((item: any, index: any) => ({
+                        resource: resourceUser.find((resource: any) => resource.id === item.resource.id),
+                        permissions: item.permissions.map((item: any) => permissions.find((cat: any) => cat.id === item.id))
+                    })) : []
+                } : params.data)),
             headers: new Headers({
                 'Content-Type': 'application/json',
                 Accept: 'application/json',

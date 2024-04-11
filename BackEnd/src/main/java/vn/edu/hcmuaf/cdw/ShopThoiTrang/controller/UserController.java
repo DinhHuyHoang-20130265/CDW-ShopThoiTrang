@@ -6,8 +6,10 @@ import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import vn.edu.hcmuaf.cdw.ShopThoiTrang.JWT.JwtUtils;
+import vn.edu.hcmuaf.cdw.ShopThoiTrang.entity.Product;
 import vn.edu.hcmuaf.cdw.ShopThoiTrang.entity.User;
 import vn.edu.hcmuaf.cdw.ShopThoiTrang.model.dto.CreateUserDTO;
+import vn.edu.hcmuaf.cdw.ShopThoiTrang.model.dto.UpdateUserDTO;
 import vn.edu.hcmuaf.cdw.ShopThoiTrang.service.UserInfoService;
 import vn.edu.hcmuaf.cdw.ShopThoiTrang.service.UserService;
 
@@ -67,8 +69,17 @@ public class UserController {
 
     @PostMapping
     public ResponseEntity<?> saveUser(@RequestBody CreateUserDTO dto) {
-
         return ResponseEntity.ok(userService.saveUser(dto, request));
     }
 
+    @PutMapping("/{id}")
+    public ResponseEntity<?> updateProduct(@PathVariable Long id, @RequestBody UpdateUserDTO dto) {
+        return ResponseEntity.ok(userService.updateUser(id, dto, request));
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<?> deleteProduct(@PathVariable Long id) {
+        userService.deleteUser(id);
+        return ResponseEntity.ok("Deleted");
+    }
 }
