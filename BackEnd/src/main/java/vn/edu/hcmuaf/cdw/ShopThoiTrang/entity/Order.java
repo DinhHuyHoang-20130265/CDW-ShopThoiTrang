@@ -28,17 +28,17 @@ public class Order {
     private Timestamp OrderDate;
     private String note;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "status_id")
     private OrderStatus status;
 
-    @Column(name = "shopping_fee")
+    @Column(name = "shipping_fee")
     private Double shippingFee;
 
     @Column(name = "total_amount")
     private Double totalAmount;
 
-    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinColumn(name = "user_id")
     private User user;
 

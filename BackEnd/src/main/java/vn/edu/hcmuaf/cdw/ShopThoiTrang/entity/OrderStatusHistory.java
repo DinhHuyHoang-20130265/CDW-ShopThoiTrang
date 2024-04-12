@@ -1,5 +1,6 @@
 package vn.edu.hcmuaf.cdw.ShopThoiTrang.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -18,6 +19,7 @@ public class OrderStatusHistory {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
+    @JsonBackReference
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "order_id")
     private Order order;

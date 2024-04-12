@@ -46,4 +46,8 @@ public class Size {
     @JsonIgnore
     @OneToMany(mappedBy = "size", fetch = FetchType.EAGER , cascade = CascadeType.ALL)
     private List<ImportInvoice> importInvoices;
+
+    @JsonIgnore
+    @OneToMany(mappedBy = "size", fetch = FetchType.LAZY , cascade = CascadeType.ALL)
+    private List<OrderDetail> orderDetails;
 }

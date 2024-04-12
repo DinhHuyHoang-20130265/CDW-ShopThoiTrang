@@ -50,4 +50,8 @@ public class Variation {
     @OneToMany(mappedBy = "variation", fetch = FetchType.EAGER , cascade = CascadeType.ALL)
     private List<ImportInvoice> importInvoices;
 
+    @JsonIgnore
+    @OneToMany(mappedBy = "variation", fetch = FetchType.LAZY , cascade = CascadeType.ALL)
+    private List<OrderDetail> orderDetails;
+
 }
