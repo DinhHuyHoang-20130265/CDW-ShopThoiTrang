@@ -65,6 +65,7 @@ export const ProductList = () => {
                         </>
                     }
                 >
+                    <NumberField source="id" label="ID"/>
                     <ImageField sx={{m: "auto"}} className={"cent"} source="imageUrl" label="Ảnh"/>
                     <TextField source="name" label="Tên SP"/>
                     <TextField source="description" label="Mô tả"/>
