@@ -32,7 +32,7 @@ const FullNameField = (props: Props) => {
                     mb: -0.5,
                 }}
             />
-            {record.userInfo.fullName}
+            <p>{record.userInfo.fullName}</p>
         </Typography>
     ) : null;
 };

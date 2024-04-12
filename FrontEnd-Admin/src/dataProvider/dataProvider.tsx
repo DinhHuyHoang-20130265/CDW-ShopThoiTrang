@@ -1,8 +1,21 @@
 import {DataProvider, fetchUtils} from 'react-admin';
 import {authProvider} from "../authProvider";
+import {imgProvider} from "../imgProvider/imgProvider";
 
 
 const httpClient = fetchUtils.fetchJson;
+
+async function getBase64(file: any) {
+    return new Promise((resolve, reject) => {
+        const reader: any = new FileReader()
+        reader.readAsDataURL(file)
+        reader.onload = () => {
+            resolve(reader.result.split(',')[1])
+        }
+        reader.onerror = reject
+    })
+}
+
 
 export const dataProvider: DataProvider = {
     // @ts-ignore
@@ -103,12 +116,48 @@ export const dataProvider: DataProvider = {
     // @ts-ignore
     create: async (resource: any, params: any) => {
         console.log(params)
+        if (params.data.imageUrl === undefined || params.data.imageUrl === null) {
+            return Promise.reject({message: "Ảnh chính không được để trống"});
+        }
+        if (params.data.imgProducts !== undefined && params.data.imgProducts !== null && params.data.imgProducts.length > 4) {
+            return Promise.reject({message: "Số lượng ảnh phụ không được vượt quá 4 ảnh"});
+        }
         try {
+            let avtUrl = null;
             let categories = null;
             let role = null;
+            let imageUrl = null;
+            let imgProducts = [];
             let resourceUser: any = null;
             let permissions: any = null;
             if (resource === 'product') {
+                if (params.data.imageUrl !== undefined && params.data.imageUrl !== null) {
+                    let selectedImg = null;
+                    await getBase64(params.data.imageUrl.rawFile)
+                        .then(res => {
+                            selectedImg = res;
+                        })
+                        .catch(err => console.log(err))
+                    imageUrl = await imgProvider(selectedImg);
+                }
+                if (params.data.imgProducts !== undefined && params.data.imgProducts !== null) {
+                    for (const item of params.data.imgProducts) {
+                        let selectedImg = null;
+                        await getBase64(item.rawFile)
+                            .then(res => {
+                                selectedImg = res;
+                            })
+                            .catch(err => console.log(err))
+                        imgProducts.push({
+                            product: null,
+                            url: await imgProvider(selectedImg),
+                            releaseDate: null,
+                            releaseBy: null,
+                            updateDate: null,
+                            updateBy: null,
+                        });
+                    }
+                }
                 const query = {
                     ids: JSON.stringify({ids: params.data.categories}),
                 };
@@ -154,6 +203,15 @@ export const dataProvider: DataProvider = {
                     }),
                     credentials: 'include'
                 })
+                if (params.data.userInfo.avt !== undefined && params.data.userInfo.avt !== null) {
+                    let selectedImg = null;
+                    await getBase64(params.data.userInfo.avt.rawFile)
+                        .then(res => {
+                            selectedImg = res;
+                        })
+                        .catch(err => console.log(err))
+                    avtUrl = await imgProvider(selectedImg);
+                }
                 role = json;
                 resourceUser = json2.json;
                 permissions = json3.json.content;
@@ -163,10 +221,16 @@ export const dataProvider: DataProvider = {
                 body: JSON.stringify(resource === "import-invoice" ? params.data.ImportInvoiceRequest
                     : (categories !== null ? {
                         ...params.data,
-                        categories: categories
+                        categories: categories,
+                        imageUrl: imageUrl,
+                        imgProducts: imgProducts
                     } : (role !== null ? {
                         ...params.data,
                         role: role[0],
+                        userInfo: {
+                            ...params.data.userInfo,
+                            avtUrl: (avtUrl !== null ? avtUrl : null)
+                        },
                         resourceVariations: resourceUser != null && permissions !== null ? params.data.resourceVariations.map((item: any, index: any) => ({
                             resource: resourceUser.find((resource: any) => resource.id === item.resource.id),
                             permissions: item.permissions.map((item: any) => permissions.find((cat: any) => cat.id === item.id))
@@ -198,6 +262,7 @@ export const dataProvider: DataProvider = {
     update: async (resource: any, params: any) => {
         let categories = null;
         let role = null;
+        let avtUrl = null;
         let resourceUser: any = null;
         let permissions: any = null;
         if (resource === 'product') {
@@ -248,6 +313,15 @@ export const dataProvider: DataProvider = {
                 }),
                 credentials: 'include'
             })
+            if (params.data.userInfo.avt !== undefined && params.data.userInfo.avt !== null) {
+                let selectedImg = null;
+                await getBase64(params.data.userInfo.avt.rawFile)
+                    .then(res => {
+                        selectedImg = res;
+                    })
+                    .catch(err => console.log(err))
+                avtUrl = await imgProvider(selectedImg);
+            }
             role = json;
             resourceUser = json2.json;
             permissions = json3.json.content;
@@ -258,6 +332,14 @@ export const dataProvider: DataProvider = {
                 (role !== null ? {
                     ...params.data,
                     role: role[0],
+                    userInfo: {
+                        ...params.data.userInfo,
+                        avtUrl:
+                            avtUrl !== null ? avtUrl :
+                                params.data.userInfo.avtUrl !== undefined && params.data.userInfo.avtUrl !== null ?
+                                    params.data.userInfo.avtUrl :
+                                    null
+                    },
                     resourceVariations: resourceUser != null && permissions !== null ? params.data.resourceVariations.map((item: any, index: any) => ({
                         resource: resourceUser.find((resource: any) => resource.id === item.resource.id),
                         permissions: item.permissions.map((item: any) => permissions.find((cat: any) => cat.id === item.id))

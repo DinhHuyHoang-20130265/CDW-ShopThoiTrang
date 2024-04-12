@@ -10,7 +10,6 @@ import {
 } from 'react-admin';
 
 import {
-    Datagrid,
     List,
     NumberField,
     ImageField,

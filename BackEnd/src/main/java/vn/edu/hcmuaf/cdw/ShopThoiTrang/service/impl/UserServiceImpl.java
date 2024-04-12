@@ -133,6 +133,8 @@ public class UserServiceImpl implements UserService {
         newUser.setUserInfo(new UserInfo());
         newUser.getUserInfo().setEmail(dto.getUserInfo().getEmail());
         newUser.getUserInfo().setFullName(dto.getUserInfo().getFullName());
+        newUser.getUserInfo().setAvtUrl(dto.getUserInfo().getAvtUrl());
+        newUser.getUserInfo().setPhone(dto.getUserInfo().getPhone());
         newUser.setPasswordEncrypted(passwordEncoder.encode(dto.getPassword()));
         newUser.setEnabled(dto.isEnabled());
         newUser.setUsername(dto.getUsername());

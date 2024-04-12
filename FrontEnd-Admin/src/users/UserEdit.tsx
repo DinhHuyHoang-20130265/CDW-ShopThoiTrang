@@ -12,14 +12,47 @@ import {
     BooleanInput,
     email,
     Toolbar,
-    SaveButton,
+    SaveButton, ImageInput, ImageField,
 } from 'react-admin';
 import {Grid, Box, Typography} from '@mui/material';
 
 import FullNameField from './FullNameField';
 import {useCallback, useState} from "react";
 import {checkPassword} from "./UserCreate";
+import {useWatch} from 'react-hook-form';
 
+const ReturnedImg = () => {
+    const isReturned = useWatch({name: 'userInfo.avtUrl'});
+    return isReturned ?
+        <>
+            <ImageField source="userInfo.avtUrl" title="title" sx={{
+                display: "flex",
+                justifyContent: "center",
+                marginTop: "5px",
+                marginBottom: "5px",
+                maxHeight: "100px"
+            }}/>
+            <ImageInput source="userInfo.avt" accept="image/*"
+                        placeholder={<p>Add new Avt Img</p>} label={"Thêm ảnh đại diện mới"}>
+                <ImageField source="src" title="title" sx={{
+                    display: "flex",
+                    justifyContent: "center",
+                    marginTop: "5px",
+                    marginBottom: "5px",
+                    maxHeight: "100px"
+                }}/>
+            </ImageInput>
+        </> : <ImageInput source="userInfo.avt" accept="image/*"
+                          placeholder={<p>Drop your img file here</p>}>
+            <ImageField source="src" title="title" sx={{
+                display: "flex",
+                justifyContent: "center",
+                marginTop: "5px",
+                marginBottom: "5px",
+                maxHeight: "100px"
+            }}/>
+        </ImageInput>;
+};
 
 const UserEdit = () => {
     const [admin, setAdmin] = useState(false)
@@ -33,6 +66,7 @@ const UserEdit = () => {
         } else
             setAdmin(true)
     }
+
 
     const validateForm = (values: Record<any, any>): Record<any, any> => {
         const errors = {} as any;
@@ -98,10 +132,10 @@ const UserEdit = () => {
             </Toolbar>}>
                 <TabbedForm.Tab
                     label="Thông tin"
-                    sx={{maxWidth: '40em'}}
+                    sx={{maxWidth: '80em'}}
                 >
                     <div>
-                        <Grid container width={{xs: '100%', xl: 800}} spacing={2}>
+                        <Grid container width={{xs: '100%', xl: 1200}} spacing={2}>
                             <Grid item xs={12} md={8}>
                                 <Typography variant="h6" gutterBottom>
                                     Thông tin cá nhân
@@ -206,6 +240,10 @@ const UserEdit = () => {
                                     <AutocompleteInput label={"Loại tài khoản"} optionText={"name"} optionValue={"id"}
                                                        onChange={handleRoleChange}/>
                                 </ReferenceInput>
+                                <Typography variant="h6" gutterBottom>
+                                    Ảnh đại diện
+                                </Typography>
+                                <ReturnedImg/>
                             </Grid>
                         </Grid>
                     </div>

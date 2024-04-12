@@ -4,11 +4,19 @@ import {
     TextInput,
     useRecordContext,
     required,
-    SimpleFormIterator, ArrayInput, NumberInput, BooleanInput, Create, SelectArrayInput, useGetList,
+    SimpleFormIterator,
+    ArrayInput,
+    NumberInput,
+    BooleanInput,
+    Create,
+    SelectArrayInput,
+    useGetList,
+    ImageInput,
+    Toolbar, SaveButton,
 } from "react-admin";
 import React, {useEffect, useState} from "react";
 import {Category, Product} from "../types";
-import {Grid, InputAdornment} from "@mui/material";
+import {Grid, InputAdornment, Typography} from "@mui/material";
 
 
 const RichTextInput = React.lazy(() =>
@@ -35,17 +43,32 @@ export const ProductCreate = (props: any) => {
     }, [data]);
     return (
         <Create title={<ProductTitle/>}>
-            <TabbedForm>
+            <TabbedForm toolbar={<Toolbar>
+                <SaveButton
+                    label="Create"
+                    alwaysEnable
+                />
+            </Toolbar>}>
                 <TabbedForm.Tab
                     label="Ảnh"
                     sx={{maxWidth: '40em'}}
                 >
-                    <Grid container columnSpacing={2}>
-                        <Grid item xs={12} sm={12}>
-                            <ImageField source="imageUrl" label="Thumbnail"/>
+                    <Grid container>
+                        <Grid item xs={12}>
+                            <Typography variant="h6" gutterBottom>
+                                Ảnh chính
+                            </Typography>
+                            <ImageInput name={"imageUrl"} source={"imageUrl"}>
+                                <ImageField source="src" label="Ảnh chính"/>
+                            </ImageInput>
                         </Grid>
-                        <Grid item xs={12} sm={12}>
-                            <ImageField source="imgProducts" src="url" label="image"/>
+                        <Grid item xs={12}>
+                            <Typography variant="h6" gutterBottom>
+                                Danh sách ảnh phụ
+                            </Typography>
+                            <ImageInput name={"imgProducts"} source={"imgProducts"} multiple>
+                                <ImageField source="src" label="Danh sách ảnh phụ"/>
+                            </ImageInput>
                         </Grid>
                     </Grid>
                 </TabbedForm.Tab>
@@ -83,9 +106,9 @@ export const ProductCreate = (props: any) => {
                         </Grid>
                         <Grid item xs={12} sm={8}>
 
-                            <SelectArrayInput  label="Danh mục" source={"categories"}
-                                               optionValue={"id"}
-                                               choices={categories} fullWidth validate={req}/>
+                            <SelectArrayInput label="Danh mục" source={"categories"}
+                                              optionValue={"id"}
+                                              choices={categories} fullWidth validate={req}/>
                         </Grid>
                         <Grid item xs={12} sm={12}>
                             <RichTextInput source="content" label="Mô tả" validate={req}/>
@@ -103,7 +126,8 @@ export const ProductCreate = (props: any) => {
                             <ArrayInput sx={{marginLeft: 10}} source={`sizes`} label={`Sizes`}>
                                 <SimpleFormIterator inline>
                                     <TextInput source="size" label="Kích cỡ"/>
-                                    <NumberInput sx={{width: "20%"}} source="stock" label="Số lượng" disabled defaultValue={0}
+                                    <NumberInput sx={{width: "20%"}} source="stock" label="Số lượng" disabled
+                                                 defaultValue={0}
                                     />
                                     <BooleanInput source="status" label="Trạng thái" defaultValue={true}/>
                                 </SimpleFormIterator>

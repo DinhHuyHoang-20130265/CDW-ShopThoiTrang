@@ -10,7 +10,7 @@ import {
     AutocompleteInput,
     ArrayInput,
     SimpleFormIterator,
-    Toolbar, SaveButton,
+    Toolbar, SaveButton, ImageInput, ImageField,
 } from 'react-admin';
 import {Box, Grid, Typography} from '@mui/material';
 import {useState} from "react";
@@ -217,6 +217,19 @@ const UserCreate = () => {
                                 <AutocompleteInput label={"Loại tài khoản"} optionText={"name"} optionValue={"id"}
                                                    onChange={handleRoleChange}/>
                             </ReferenceInput>
+                            <Typography variant="h6" gutterBottom>
+                                Ảnh đại diện
+                            </Typography>
+                            <ImageInput source="userInfo.avt" accept="image/*"
+                                        placeholder={<p>Drop your img file here</p>}>
+                                <ImageField source="src" title="title" sx={{
+                                    display: "flex",
+                                    justifyContent: "center",
+                                    marginTop: "5px",
+                                    marginBottom: "5px",
+                                    maxHeight: "100px"
+                                }}/>
+                            </ImageInput>
                         </Grid>
                     </Grid>
                 </div>
