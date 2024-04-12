@@ -12,14 +12,29 @@ import {
     BooleanInput,
     email,
     Toolbar,
-    SaveButton,
+    SaveButton, ImageInput, ImageField, useRecordContext,
 } from 'react-admin';
 import {Grid, Box, Typography} from '@mui/material';
 
 import FullNameField from './FullNameField';
 import {useCallback, useState} from "react";
 import {checkPassword} from "./UserCreate";
+import {useWatch} from 'react-hook-form';
 
+const ReturnedImg = () => {
+    const isReturned = useWatch({name: 'userInfo.avtUrl'});
+    return isReturned ?
+        <>
+            <ImageField source="userInfo.avtUrl" title="title"/>
+            <ImageInput source="userInfo.avt" accept="image/*"
+                        placeholder={<p>Add new Avt Img</p>} label={"Thêm ảnh đại diện mới"}>
+                <ImageField source="src" title="title"/>
+            </ImageInput>
+        </> : <ImageInput source="userInfo.avt" accept="image/*"
+                          placeholder={<p>Drop your img file here</p>}>
+            <ImageField source="src" title="title"/>
+        </ImageInput>;
+};
 
 const UserEdit = () => {
     const [admin, setAdmin] = useState(false)
@@ -33,6 +48,7 @@ const UserEdit = () => {
         } else
             setAdmin(true)
     }
+
 
     const validateForm = (values: Record<any, any>): Record<any, any> => {
         const errors = {} as any;
@@ -206,6 +222,10 @@ const UserEdit = () => {
                                     <AutocompleteInput label={"Loại tài khoản"} optionText={"name"} optionValue={"id"}
                                                        onChange={handleRoleChange}/>
                                 </ReferenceInput>
+                                <Typography variant="h6" gutterBottom>
+                                    Ảnh đại diện
+                                </Typography>
+                                <ReturnedImg/>
                             </Grid>
                         </Grid>
                     </div>

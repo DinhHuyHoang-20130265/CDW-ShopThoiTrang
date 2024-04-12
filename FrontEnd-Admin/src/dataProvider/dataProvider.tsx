@@ -224,6 +224,7 @@ export const dataProvider: DataProvider = {
     update: async (resource: any, params: any) => {
         let categories = null;
         let role = null;
+        let avtUrl = null;
         let resourceUser: any = null;
         let permissions: any = null;
         if (resource === 'product') {
@@ -274,6 +275,15 @@ export const dataProvider: DataProvider = {
                 }),
                 credentials: 'include'
             })
+            if (params.data.userInfo.avt !== undefined && params.data.userInfo.avt !== null) {
+                let selectedImg = null;
+                await getBase64(params.data.userInfo.avt.rawFile)
+                    .then(res => {
+                        selectedImg = res;
+                    })
+                    .catch(err => console.log(err))
+                avtUrl = await imgProvider(selectedImg);
+            }
             role = json;
             resourceUser = json2.json;
             permissions = json3.json.content;
@@ -284,6 +294,14 @@ export const dataProvider: DataProvider = {
                 (role !== null ? {
                     ...params.data,
                     role: role[0],
+                    userInfo: {
+                        ...params.data.userInfo,
+                        avtUrl:
+                            avtUrl !== null ? avtUrl :
+                                params.data.userInfo.avtUrl !== undefined && params.data.userInfo.avtUrl !== null ?
+                                    params.data.userInfo.avtUrl :
+                                    null
+                    },
                     resourceVariations: resourceUser != null && permissions !== null ? params.data.resourceVariations.map((item: any, index: any) => ({
                         resource: resourceUser.find((resource: any) => resource.id === item.resource.id),
                         permissions: item.permissions.map((item: any) => permissions.find((cat: any) => cat.id === item.id))
