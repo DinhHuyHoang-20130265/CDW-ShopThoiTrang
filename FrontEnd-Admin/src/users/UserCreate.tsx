@@ -220,8 +220,15 @@ const UserCreate = () => {
                             <Typography variant="h6" gutterBottom>
                                 Ảnh đại diện
                             </Typography>
-                            <ImageInput source="userInfo.avt" accept="image/*" placeholder={<p>Drop your img file here</p>}>
-                                <ImageField source="src" title="title" />
+                            <ImageInput source="userInfo.avt" accept="image/*"
+                                        placeholder={<p>Drop your img file here</p>}>
+                                <ImageField source="src" title="title" sx={{
+                                    display: "flex",
+                                    justifyContent: "center",
+                                    marginTop: "5px",
+                                    marginBottom: "5px",
+                                    maxHeight: "100px"
+                                }}/>
                             </ImageInput>
                         </Grid>
                     </Grid>

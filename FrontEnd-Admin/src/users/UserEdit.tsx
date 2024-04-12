@@ -25,14 +25,32 @@ const ReturnedImg = () => {
     const isReturned = useWatch({name: 'userInfo.avtUrl'});
     return isReturned ?
         <>
-            <ImageField source="userInfo.avtUrl" title="title"/>
+            <ImageField source="userInfo.avtUrl" title="title" sx={{
+                display: "flex",
+                justifyContent: "center",
+                marginTop: "5px",
+                marginBottom: "5px",
+                maxHeight: "100px"
+            }}/>
             <ImageInput source="userInfo.avt" accept="image/*"
                         placeholder={<p>Add new Avt Img</p>} label={"Thêm ảnh đại diện mới"}>
-                <ImageField source="src" title="title"/>
+                <ImageField source="src" title="title" sx={{
+                    display: "flex",
+                    justifyContent: "center",
+                    marginTop: "5px",
+                    marginBottom: "5px",
+                    maxHeight: "100px"
+                }}/>
             </ImageInput>
         </> : <ImageInput source="userInfo.avt" accept="image/*"
                           placeholder={<p>Drop your img file here</p>}>
-            <ImageField source="src" title="title"/>
+            <ImageField source="src" title="title" sx={{
+                display: "flex",
+                justifyContent: "center",
+                marginTop: "5px",
+                marginBottom: "5px",
+                maxHeight: "100px"
+            }}/>
         </ImageInput>;
 };
 
@@ -114,10 +132,10 @@ const UserEdit = () => {
             </Toolbar>}>
                 <TabbedForm.Tab
                     label="Thông tin"
-                    sx={{maxWidth: '40em'}}
+                    sx={{maxWidth: '80em'}}
                 >
                     <div>
-                        <Grid container width={{xs: '100%', xl: 800}} spacing={2}>
+                        <Grid container width={{xs: '100%', xl: 1200}} spacing={2}>
                             <Grid item xs={12} md={8}>
                                 <Typography variant="h6" gutterBottom>
                                     Thông tin cá nhân

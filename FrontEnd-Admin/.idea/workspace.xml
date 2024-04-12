@@ -4,12 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="89893dc3-088e-47ef-a82c-f709754202c6" name="Changes" comment="updated: updated create user with upload avt img">
-      <change beforePath="$PROJECT_DIR$/../BackEnd/src/main/java/vn/edu/hcmuaf/cdw/ShopThoiTrang/service/impl/UserServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/../BackEnd/src/main/java/vn/edu/hcmuaf/cdw/ShopThoiTrang/service/impl/UserServiceImpl.java" afterDir="false" />
+    <list default="true" id="89893dc3-088e-47ef-a82c-f709754202c6" name="Changes" comment="updated: updated edit user with upload/edit avt img">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/dataProvider/dataProvider.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/dataProvider/dataProvider.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/products/ProductList.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/products/ProductList.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/users/FullNameField.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/users/FullNameField.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/users/UserCreate.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/users/UserCreate.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/users/UserEdit.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/users/UserEdit.tsx" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -138,7 +135,7 @@
       <workItem from="1712818349174" duration="11637000" />
       <workItem from="1712842060869" duration="141000" />
       <workItem from="1712842397762" duration="18172000" />
-      <workItem from="1712905683717" duration="7157000" />
+      <workItem from="1712905683717" duration="8171000" />
     </task>
     <task id="LOCAL-00001" summary="update product for admin (50%&#10;)">
       <option name="closed" value="true" />
@@ -284,7 +281,15 @@
       <option name="project" value="LOCAL" />
       <updated>1712911044587</updated>
     </task>
-    <option name="localTasksCounter" value="19" />
+    <task id="LOCAL-00019" summary="updated: updated edit user with upload/edit avt img">
+      <option name="closed" value="true" />
+      <created>1712913363422</created>
+      <option name="number" value="00019" />
+      <option name="presentableId" value="LOCAL-00019" />
+      <option name="project" value="LOCAL" />
+      <updated>1712913363422</updated>
+    </task>
+    <option name="localTasksCounter" value="20" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -319,6 +324,7 @@
     <MESSAGE value="updated: finished create user" />
     <MESSAGE value="updated: finished create user and fixed permission logic, also constraint in input form in create" />
     <MESSAGE value="updated: updated create user with upload avt img" />
-    <option name="LAST_COMMIT_MESSAGE" value="updated: updated create user with upload avt img" />
+    <MESSAGE value="updated: updated edit user with upload/edit avt img" />
+    <option name="LAST_COMMIT_MESSAGE" value="updated: updated edit user with upload/edit avt img" />
   </component>
 </project>
