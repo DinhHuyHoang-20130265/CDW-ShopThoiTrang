@@ -1,5 +1,6 @@
 package vn.edu.hcmuaf.cdw.ShopThoiTrang.controller;
 
+import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
@@ -13,6 +14,9 @@ public class ProductController {
 
     @Autowired
     private ProductService productService;
+
+    @Autowired
+    HttpServletRequest request;
 
     @GetMapping("/user")
     public ResponseEntity<?> getProductsStatusTrue() {
@@ -37,7 +41,7 @@ public class ProductController {
     @PostMapping
     public ResponseEntity<?> saveProduct(@RequestBody Product product) {
 
-        return ResponseEntity.ok(productService.saveProduct(product));
+        return ResponseEntity.ok(productService.saveProduct(product, request));
     }
 
     @PutMapping("/{id}")

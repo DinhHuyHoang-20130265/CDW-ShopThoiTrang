@@ -12,7 +12,7 @@ import {
     BooleanInput,
     email,
     Toolbar,
-    SaveButton, ImageInput, ImageField, useRecordContext,
+    SaveButton, ImageInput, ImageField,
 } from 'react-admin';
 import {Grid, Box, Typography} from '@mui/material';
 

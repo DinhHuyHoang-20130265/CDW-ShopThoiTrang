@@ -115,13 +115,49 @@ export const dataProvider: DataProvider = {
     getManyReference: (resource: any, params: any) => Promise.resolve({data: []}),
     // @ts-ignore
     create: async (resource: any, params: any) => {
+        console.log(params)
+        if (params.data.imageUrl === undefined || params.data.imageUrl === null) {
+            return Promise.reject({message: "Ảnh chính không được để trống"});
+        }
+        if (params.data.imgProducts !== undefined && params.data.imgProducts !== null && params.data.imgProducts.length > 4) {
+            return Promise.reject({message: "Số lượng ảnh phụ không được vượt quá 4 ảnh"});
+        }
         try {
             let avtUrl = null;
             let categories = null;
             let role = null;
+            let imageUrl = null;
+            let imgProducts = [];
             let resourceUser: any = null;
             let permissions: any = null;
             if (resource === 'product') {
+                if (params.data.imageUrl !== undefined && params.data.imageUrl !== null) {
+                    let selectedImg = null;
+                    await getBase64(params.data.imageUrl.rawFile)
+                        .then(res => {
+                            selectedImg = res;
+                        })
+                        .catch(err => console.log(err))
+                    imageUrl = await imgProvider(selectedImg);
+                }
+                if (params.data.imgProducts !== undefined && params.data.imgProducts !== null) {
+                    for (const item of params.data.imgProducts) {
+                        let selectedImg = null;
+                        await getBase64(item.rawFile)
+                            .then(res => {
+                                selectedImg = res;
+                            })
+                            .catch(err => console.log(err))
+                        imgProducts.push({
+                            product: null,
+                            url: await imgProvider(selectedImg),
+                            releaseDate: null,
+                            releaseBy: null,
+                            updateDate: null,
+                            updateBy: null,
+                        });
+                    }
+                }
                 const query = {
                     ids: JSON.stringify({ids: params.data.categories}),
                 };
@@ -185,7 +221,9 @@ export const dataProvider: DataProvider = {
                 body: JSON.stringify(resource === "import-invoice" ? params.data.ImportInvoiceRequest
                     : (categories !== null ? {
                         ...params.data,
-                        categories: categories
+                        categories: categories,
+                        imageUrl: imageUrl,
+                        imgProducts: imgProducts
                     } : (role !== null ? {
                         ...params.data,
                         role: role[0],
