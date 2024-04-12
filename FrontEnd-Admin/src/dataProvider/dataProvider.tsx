@@ -1,8 +1,21 @@
 import {DataProvider, fetchUtils} from 'react-admin';
 import {authProvider} from "../authProvider";
+import {imgProvider} from "../imgProvider/imgProvider";
 
 
 const httpClient = fetchUtils.fetchJson;
+
+async function getBase64(file: any) {
+    return new Promise((resolve, reject) => {
+        const reader: any = new FileReader()
+        reader.readAsDataURL(file)
+        reader.onload = () => {
+            resolve(reader.result.split(',')[1])
+        }
+        reader.onerror = reject
+    })
+}
+
 
 export const dataProvider: DataProvider = {
     // @ts-ignore
@@ -102,8 +115,8 @@ export const dataProvider: DataProvider = {
     getManyReference: (resource: any, params: any) => Promise.resolve({data: []}),
     // @ts-ignore
     create: async (resource: any, params: any) => {
-        console.log(params)
         try {
+            let avtUrl = null;
             let categories = null;
             let role = null;
             let resourceUser: any = null;
@@ -154,6 +167,15 @@ export const dataProvider: DataProvider = {
                     }),
                     credentials: 'include'
                 })
+                if (params.data.userInfo.avt !== undefined && params.data.userInfo.avt !== null) {
+                    let selectedImg = null;
+                    await getBase64(params.data.userInfo.avt.rawFile)
+                        .then(res => {
+                            selectedImg = res;
+                        })
+                        .catch(err => console.log(err))
+                    avtUrl = await imgProvider(selectedImg);
+                }
                 role = json;
                 resourceUser = json2.json;
                 permissions = json3.json.content;
@@ -167,6 +189,10 @@ export const dataProvider: DataProvider = {
                     } : (role !== null ? {
                         ...params.data,
                         role: role[0],
+                        userInfo: {
+                            ...params.data.userInfo,
+                            avtUrl: (avtUrl !== null ? avtUrl : null)
+                        },
                         resourceVariations: resourceUser != null && permissions !== null ? params.data.resourceVariations.map((item: any, index: any) => ({
                             resource: resourceUser.find((resource: any) => resource.id === item.resource.id),
                             permissions: item.permissions.map((item: any) => permissions.find((cat: any) => cat.id === item.id))

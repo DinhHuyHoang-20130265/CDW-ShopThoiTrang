@@ -5,8 +5,11 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="89893dc3-088e-47ef-a82c-f709754202c6" name="Changes" comment="updated: finished create user and fixed permission logic, also constraint in input form in create">
+      <change afterPath="$PROJECT_DIR$/src/imgProvider/imgProvider.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.env" beforeDir="false" afterPath="$PROJECT_DIR$/.env" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/users/UserEdit.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/users/UserEdit.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/dataProvider/dataProvider.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/dataProvider/dataProvider.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/users/UserCreate.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/users/UserCreate.tsx" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -24,18 +27,18 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
   </component>
-  <component name="GitHubPullRequestSearchHistory"><![CDATA[{
-  "lastFilter": {
-    "state": "OPEN",
-    "assignee": "DinhHuyHoang-20130265"
+  <component name="GitHubPullRequestSearchHistory">{
+  &quot;lastFilter&quot;: {
+    &quot;state&quot;: &quot;OPEN&quot;,
+    &quot;assignee&quot;: &quot;DinhHuyHoang-20130265&quot;
   }
-}]]></component>
-  <component name="GithubPullRequestsUISettings"><![CDATA[{
-  "selectedUrlAndAccountId": {
-    "url": "https://github.com/DinhHuyHoang-20130265/CDW-ShopThoiTrang.git",
-    "accountId": "dd6f2130-194f-469e-9a72-6e72cbed251b"
+}</component>
+  <component name="GithubPullRequestsUISettings">{
+  &quot;selectedUrlAndAccountId&quot;: {
+    &quot;url&quot;: &quot;https://github.com/DinhHuyHoang-20130265/CDW-ShopThoiTrang.git&quot;,
+    &quot;accountId&quot;: &quot;dd6f2130-194f-469e-9a72-6e72cbed251b&quot;
   }
-}]]></component>
+}</component>
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
   </component>
@@ -134,6 +137,7 @@
       <workItem from="1712818349174" duration="11637000" />
       <workItem from="1712842060869" duration="141000" />
       <workItem from="1712842397762" duration="18172000" />
+      <workItem from="1712905683717" duration="4628000" />
     </task>
     <task id="LOCAL-00001" summary="update product for admin (50%&#10;)">
       <option name="closed" value="true" />
