@@ -239,6 +239,7 @@ public class AuthServiceImpl implements AuthService {
         user.setPasswordEncrypted(passwordEncoder.encode(signupDto.getPassword()));
         user.setEnabled(true);
         user.setUsername(signupDto.getUsername());
+        user.getUserInfo().setUser(user);
         userRepository.save(user);
 
         otpMap.remove(signupDto.getEmail());
