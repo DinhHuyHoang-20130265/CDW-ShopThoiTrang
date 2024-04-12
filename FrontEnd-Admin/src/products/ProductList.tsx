@@ -89,7 +89,8 @@ export const ProductList = () => {
                     <EditButton/>
                 </DatagridConfigurable>
             )}
-        </List>)
+        </List>
+    )
 };
 
 export default ProductList;

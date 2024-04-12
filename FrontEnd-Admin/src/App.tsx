@@ -21,6 +21,7 @@ import {BlogEdit} from "./blogs/BlogEdit";
 import {BlogCreate} from "./blogs/BlogCreate";
 import ImportInvoiceList from "./importInvoices/ImportInvoiceList";
 import ImportInvoiceCreate from "./importInvoices/ImportInvoiceCreate";
+import ProductShow from "./products/ProductShow";
 
 const App = () => {
     return (
@@ -43,6 +44,7 @@ const App = () => {
                       list={ProductList}
                       edit={ProductEdit}
                       create={ProductCreate}
+                      show={ProductShow}
                       icon={ProductIcon}
                       recordRepresentation={(product) => product.name}
                       options={{label: "Sản Phẩm"}}
