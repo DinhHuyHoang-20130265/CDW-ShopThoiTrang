@@ -13,17 +13,17 @@ import {
 } from 'react-admin';
 import {useMediaQuery, Theme} from '@mui/material';
 import UserListAside from "./UserListAside";
-import MobileGrid from "./MobileGrid";
 import UserLinkField from "./UserLinkField";
+import MobileGrid from "./MobileGrid";
 
 const visitorFilters = [
-    <SearchInput alwaysOn name={"search"} source={"filter"}/>,
+    <SearchInput alwaysOn name={"q"} source={"filter"}/>,
     <DateInput source="createdDate" name={"createdDate"}/>,
 ];
 
 const UserListActions = () => (
     <TopToolbar>
-        <CreateButton />
+        <CreateButton/>
         <SelectColumnsButton/>
         <ExportButton/>
     </TopToolbar>

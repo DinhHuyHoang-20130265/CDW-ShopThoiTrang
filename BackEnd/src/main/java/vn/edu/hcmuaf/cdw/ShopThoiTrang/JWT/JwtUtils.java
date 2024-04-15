@@ -41,16 +41,16 @@ public class JwtUtils {
 
     public ResponseCookie generateJwtCookie(UserDetailsImpl userPrincipal) {
         String jwt = generateTokenFromUsername(userPrincipal.getUsername());
-        return ResponseCookie.from(jwtCookie, jwt).path("/").maxAge(24 * 60 * 60).httpOnly(true).build();
+        return ResponseCookie.from(jwtCookie, jwt).path("/api").maxAge(24 * 60 * 60).httpOnly(true).build();
     }
 
     public ResponseCookie generateJwtCookie(User user) {
         String jwt = generateTokenFromUsername(user.getUsername());
-        return generateCookie(jwtCookie, jwt, "/");
+        return generateCookie(jwtCookie, jwt, "/api");
     }
 
     public ResponseCookie generateRefreshJwtCookie(String refreshToken) {
-        return generateCookie(jwtRefreshCookie, refreshToken, "/");
+        return generateCookie(jwtRefreshCookie, refreshToken, "/api/auth/refresh-token");
     }
 
     private ResponseCookie generateCookie(String name, String value, String path) {
@@ -58,7 +58,7 @@ public class JwtUtils {
     }
 
     public ResponseCookie getCleanJwtCookie() {
-        return ResponseCookie.from(jwtCookie, null).path("/").build();
+        return ResponseCookie.from(jwtCookie, null).path("/api").build();
     }
 
     public String generateTokenFromUsername(String username) {
@@ -85,12 +85,14 @@ public class JwtUtils {
             logger.error("JWT token is unsupported: {}", e.getMessage());
         } catch (IllegalArgumentException e) {
             logger.error("JWT claims string is empty: {}", e.getMessage());
+        } catch (Exception e) {
+            logger.error("JWT token is invalid: {}", e.getMessage());
         }
         return false;
     }
 
     public ResponseCookie getCleanJwtRefreshCookie() {
-        return ResponseCookie.from(jwtRefreshCookie, null).path("/").build();
+        return ResponseCookie.from(jwtRefreshCookie, null).path("/api/auth/refresh-token").build();
     }
 
     private String getCookieValueByName(HttpServletRequest request, String name) {
