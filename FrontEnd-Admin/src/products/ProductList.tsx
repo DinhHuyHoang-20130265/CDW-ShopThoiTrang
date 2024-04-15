@@ -18,9 +18,9 @@ import {
     BulkUpdateButton,
 } from "react-admin";
 import {Theme, useMediaQuery} from "@mui/material";
-import MobileGrid from "../users/MobileGrid";
 import Aside from "./Aside";
 import {Category} from "../types";
+import MobileProductGrid from "./MobileProductGrid";
 
 const visitorFilters = [
     <SearchInput alwaysOn name={"search"} source={"filter"}/>,
@@ -53,7 +53,7 @@ export const ProductList = () => {
             actions={<VisitorListActions/>}
         >
             {isXsmall ? (
-                <MobileGrid/>
+                <MobileProductGrid/>
             ) : (
                 <DatagridConfigurable
                     rowClick="show"
