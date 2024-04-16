@@ -28,6 +28,11 @@ public class ProductController {
         return ResponseEntity.ok(productService.getProductById(id));
     }
 
+    @GetMapping("/ids")
+    public ResponseEntity<?> getAllProducts(@RequestParam(defaultValue = "{}") String ids) {
+        return ResponseEntity.ok(productService.getAllProducts(ids));
+    }
+
     @GetMapping
     public ResponseEntity<Page<Product>> getAllProducts(@RequestParam(defaultValue = "0") int page,
                                                         @RequestParam(defaultValue = "{}") String filter,

@@ -154,6 +154,42 @@ export interface Resource extends RaRecord {
     name: string,
 }
 
+export interface OrderStatus extends RaRecord {
+    id: number,
+    name: string,
+}
+
+export interface OrderDetail extends RaRecord {
+    id: number,
+    product: Product,
+    variation: Variation,
+    size: Size,
+    quantity: number,
+    price: number,
+}
+
+export interface OrderStatusHistory extends RaRecord {
+    id: number,
+    status: OrderStatus,
+    createdDate: string,
+}
+export interface Order extends RaRecord {
+    id: number,
+    name: string,
+    note: string,
+    address: string,
+    phone: string,
+    shippingFee: number,
+    totalAmount: number,
+    OrderDate: string,
+    user: Customer,
+    status: OrderStatus,
+    total: number,
+    orderDetails: OrderDetail[],
+    orderStatusHistories: OrderStatusHistory[],
+}
+
+
 declare global {
     interface Window {
         restServer: any;

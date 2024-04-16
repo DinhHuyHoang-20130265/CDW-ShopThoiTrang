@@ -8,17 +8,20 @@ import {
     useGetList,
 } from 'react-admin';
 
-import {Category, Product} from '../types';
-import LockIcon from "@mui/icons-material/Lock";
 import CategoryIcon from '@mui/icons-material/CategoryRounded';
-import AttachMoneyRoundedIcon from '@mui/icons-material/AttachMoneyRounded';
+import AttachMoneyRoundedIcon from "@mui/icons-material/AttachMoneyRounded";
 
 
-const Aside = () => {
-    const {data} = useGetList<Category>('category', {
-        pagination: {page: 1, perPage: 100},
-        sort: {field: 'name', order: 'ASC'},
-    });
+const OrderAside = () => {
+    const statuses = [
+        { id: 1, name: 'CHỜ XÁC NHẬN' },
+        { id: 2, name: 'ĐANG ĐÓNG GÓI' },
+        { id: 3, name: 'CHỜ ĐƠN VỊ VẬN CHUYỂN' },
+        { id: 4, name: 'ĐANG GIAO HÀNG' },
+        { id: 5, name: 'THÀNH CÔNG' },
+        { id: 6, name: 'ĐANG XỬ LÝ' },
+        { id: 7, name: 'ĐÃ HỦY' }
+    ];
 
     return (
         <Card
@@ -39,24 +42,24 @@ const Aside = () => {
 
                 <SavedQueriesList/>
 
-                <FilterList
-                    label="Trạng thái"
-                    icon={<LockIcon/>}
-                >
-                    <FilterListItem
-                        label="Đã ẩn"
-                        value={{
-                            status: false,
-                        }}
-                    />
-                    <FilterListItem
-                        label="Hiển thị"
-                        value={{
-                            status: true,
-                        }}
-                    />
+                {/*<FilterList*/}
+                {/*    label="Trạng thái"*/}
+                {/*    icon={<LockIcon/>}*/}
+                {/*>*/}
+                {/*    <FilterListItem*/}
+                {/*        label="Đã ẩn"*/}
+                {/*        value={{*/}
+                {/*            status: false,*/}
+                {/*        }}*/}
+                {/*    />*/}
+                {/*    <FilterListItem*/}
+                {/*        label="Hiển thị"*/}
+                {/*        value={{*/}
+                {/*            status: true,*/}
+                {/*        }}*/}
+                {/*    />*/}
 
-                </FilterList>
+                {/*</FilterList>*/}
 
                 <FilterList
                     label="Giá"
@@ -90,12 +93,12 @@ const Aside = () => {
                     label="Danh mục"
                     icon={<CategoryIcon />}
                 >
-                    {data &&
-                        data.map((record: any) => (
+                    {statuses &&
+                        statuses.map((record: any) => (
                             <FilterListItem
                                 label={record.name}
                                 key={record.id}
-                                value={{categoryId: record.id}} // Truyền record làm giá trị của value
+                                value={{statusId: record.id}} // Truyền record làm giá trị của value
                             />
                         ))}
                 </FilterList>
@@ -103,4 +106,4 @@ const Aside = () => {
         </Card>
     );
 };
-export default Aside;
+export default OrderAside;

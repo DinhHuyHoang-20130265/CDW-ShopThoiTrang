@@ -73,7 +73,7 @@ const ReturnedImg = () => {
 
 export const ProductEdit = (props: any) => {
     return (
-        <Edit title={<ProductTitle/>}>
+        <Edit title={<ProductTitle/>}  hasShow={false}>
             <TabbedForm>
                 <TabbedForm.Tab
                     label="Ảnh"
