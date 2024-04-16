@@ -8,7 +8,6 @@ import { Category } from '../types';
 
 const LinkToProducts = () => {
     const record = useRecordContext<Category>();
-    const translate = useTranslate();
     if (!record) return null;
     return (
         <Button

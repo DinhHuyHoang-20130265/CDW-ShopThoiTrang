@@ -1,6 +1,7 @@
 import * as React from 'react';
 import {Card, CardContent} from '@mui/material';
 import {
+    Count,
     FilterList,
     FilterListItem,
     FilterLiveSearch,
@@ -10,18 +11,29 @@ import {
 
 import CategoryIcon from '@mui/icons-material/CategoryRounded';
 import AttachMoneyRoundedIcon from "@mui/icons-material/AttachMoneyRounded";
+import {useEffect, useState} from "react";
+import axios from "axios";
 
 
 const OrderAside = () => {
-    const statuses = [
-        { id: 1, name: 'CHỜ XÁC NHẬN' },
-        { id: 2, name: 'ĐANG ĐÓNG GÓI' },
-        { id: 3, name: 'CHỜ ĐƠN VỊ VẬN CHUYỂN' },
-        { id: 4, name: 'ĐANG GIAO HÀNG' },
-        { id: 5, name: 'THÀNH CÔNG' },
-        { id: 6, name: 'ĐANG XỬ LÝ' },
-        { id: 7, name: 'ĐÃ HỦY' }
-    ];
+
+    const [status, setStatus] = useState([]);
+
+    useEffect(() => {
+            const fetchStatus = async () => {
+                const {data}: any = await axios.get(`${process.env.REACT_APP_API_URL}/order-status`,{
+                    headers: {
+                        'Content-Type': 'application/json',
+                        Accept: 'application/json',
+                    }
+                })
+                if (data) {
+                    setStatus(data);
+                }
+            };
+            fetchStatus();
+        }, []
+    );
 
     return (
         <Card
@@ -42,28 +54,10 @@ const OrderAside = () => {
 
                 <SavedQueriesList/>
 
-                {/*<FilterList*/}
-                {/*    label="Trạng thái"*/}
-                {/*    icon={<LockIcon/>}*/}
-                {/*>*/}
-                {/*    <FilterListItem*/}
-                {/*        label="Đã ẩn"*/}
-                {/*        value={{*/}
-                {/*            status: false,*/}
-                {/*        }}*/}
-                {/*    />*/}
-                {/*    <FilterListItem*/}
-                {/*        label="Hiển thị"*/}
-                {/*        value={{*/}
-                {/*            status: true,*/}
-                {/*        }}*/}
-                {/*    />*/}
-
-                {/*</FilterList>*/}
 
                 <FilterList
                     label="Giá"
-                    icon={<AttachMoneyRoundedIcon />}
+                    icon={<AttachMoneyRoundedIcon/>}
                 >
                     <FilterListItem
                         label="0 - 99.000"
@@ -90,15 +84,25 @@ const OrderAside = () => {
                 </FilterList>
 
                 <FilterList
-                    label="Danh mục"
-                    icon={<CategoryIcon />}
+                    label="Trạng thái"
+                    icon={<CategoryIcon/>}
                 >
-                    {statuses &&
-                        statuses.map((record: any) => (
+                    {status &&
+                        status.map((record: any) => (
                             <FilterListItem
-                                label={record.name}
+                                label={
+                                    <>
+                                        {`${record.name}`}
+                                        (<Count
+                                            filter={{
+                                                statusId: record.id // Thay vì choice.name, sử dụng statusId
+                                            }}
+                                            sx={{ lineHeight: 'inherit'}} // Thêm style nếu cần
+                                        />)
+                                    </>
+                                }
                                 key={record.id}
-                                value={{statusId: record.id}} // Truyền record làm giá trị của value
+                                value={{statusId: record.id}}
                             />
                         ))}
                 </FilterList>

@@ -6,7 +6,14 @@ import {
     FunctionField,
     EditButton,
     ChipField,
-    SearchInput, DateInput, SelectColumnsButton, DatagridConfigurable, useGetList, DeleteButton,
+    SearchInput,
+    DateInput,
+    SelectColumnsButton,
+    DatagridConfigurable,
+    useGetList,
+    DeleteButton,
+    useResourceContext,
+    useRecordContext,
 } from 'react-admin';
 
 import {
@@ -22,6 +29,7 @@ import {Theme, useMediaQuery} from "@mui/material";
 import MobileGrid from "../users/MobileGrid";
 import {Category} from "../types";
 import OrderAside from "./OrderAside";
+import LinkToUser from "./LinkToUser";
 
 const visitorFilters = [
     <SearchInput alwaysOn name={"search"} source={"filter"}/>,
@@ -57,7 +65,7 @@ export const OrderList = () => {
                 <MobileGrid/>
             ) : (
                 <DatagridConfigurable
-                    rowClick="show"
+                    rowClick={false}
                     // bulkActionButtons={
                     //     <>
                     //         <BulkUpdateButton data={{stock: 100}} label="Refill stock"/>
@@ -68,9 +76,7 @@ export const OrderList = () => {
                     <NumberField source="id" label="ID"/>
                     <TextField source="name" label="Tên"/>
                     <NumberField source="totalAmount" label="Tổng tiền"/>
-                    <TextField
-                        source={"user.userInfo.fullName"}
-                    />
+                    <LinkToUser/>
                     <EditButton/>
                 </DatagridConfigurable>
             )}

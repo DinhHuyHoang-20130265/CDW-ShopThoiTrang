@@ -326,6 +326,7 @@ export const dataProvider: DataProvider = {
             resourceUser = json2.json;
             permissions = json3.json.content;
         }
+        console.log("sssss",params.data)
         const {json} = await httpClient(`${process.env.REACT_APP_API_URL}/${resource}/${params.id}`, {
             method: 'PUT',
             body: JSON.stringify(categories !== null ? {...params.data, categories: categories} :

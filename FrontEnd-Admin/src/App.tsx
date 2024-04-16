@@ -11,6 +11,7 @@ import UserIcon from '@mui/icons-material/PeopleAltRounded';
 import CategoryIcon from '@mui/icons-material/CategoryRounded';
 import NewspaperRoundedIcon from '@mui/icons-material/NewspaperRounded';
 import ArrowDownwardRoundedIcon from '@mui/icons-material/ArrowDownwardRounded';
+import ReceiptRoundedIcon from '@mui/icons-material/ReceiptRounded';
 import {ProductCreate} from "./products/ProductCreate";
 import {CategoryEdit} from "./categories/CategoryEdit";
 import {CategoryCreate} from "./categories/CategoryCreate";
@@ -59,8 +60,8 @@ const App = () => {
             />
             <Resource name={"order"}
                       list={OrderList}
-                      show={OrderEdit}
-                      icon={ArrowDownwardRoundedIcon}
+                      edit={OrderEdit}
+                      icon={ReceiptRoundedIcon}
                       options={{label: "Đơn hàng"}}
                       
             />

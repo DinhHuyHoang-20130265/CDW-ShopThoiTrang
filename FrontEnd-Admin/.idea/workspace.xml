@@ -5,20 +5,10 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="89893dc3-088e-47ef-a82c-f709754202c6" name="Changes" comment="resolve conflict">
-      <change afterPath="$PROJECT_DIR$/../BackEnd/src/main/java/vn/edu/hcmuaf/cdw/ShopThoiTrang/controller/OrderStatusController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../BackEnd/src/main/java/vn/edu/hcmuaf/cdw/ShopThoiTrang/service/OrderStatusService.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../BackEnd/src/main/java/vn/edu/hcmuaf/cdw/ShopThoiTrang/service/impl/OrderStatusServiceImpl.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/orders/ListItem.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/orders/OrderEdit.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/orders/Total.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../BackEnd/src/main/java/vn/edu/hcmuaf/cdw/ShopThoiTrang/config/SecurityConfiguration.java" beforeDir="false" afterPath="$PROJECT_DIR$/../BackEnd/src/main/java/vn/edu/hcmuaf/cdw/ShopThoiTrang/config/SecurityConfiguration.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../BackEnd/src/main/java/vn/edu/hcmuaf/cdw/ShopThoiTrang/service/impl/OrderServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/../BackEnd/src/main/java/vn/edu/hcmuaf/cdw/ShopThoiTrang/service/impl/OrderServiceImpl.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/orders/CallApiOrderStatus.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/App.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/App.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/orders/OrderAside.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/orders/OrderAside.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/orders/OrderList.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/orders/OrderList.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/products/ProductShow.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/products/ProductShow.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/types.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/types.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../FrontEnd/yarn.lock" beforeDir="false" afterPath="$PROJECT_DIR$/../FrontEnd/yarn.lock" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -302,6 +292,7 @@
     <MESSAGE value="update productList: done filter by category" />
     <MESSAGE value="add list order" />
     <MESSAGE value="resolve conflict" />
-    <option name="LAST_COMMIT_MESSAGE" value="resolve conflict" />
+    <MESSAGE value="Add Order Detail" />
+    <option name="LAST_COMMIT_MESSAGE" value="Add Order Detail" />
   </component>
 </project>
