@@ -22,6 +22,7 @@ import java.nio.charset.StandardCharsets;
 import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Stream;
 
 @Service
 public class ProductServiceImpl implements ProductService {
@@ -49,6 +50,26 @@ public class ProductServiceImpl implements ProductService {
     @Override
     public List<Product> getAllProducts() {
         return productRepository.findAll();
+    }
+
+    @Override
+    public List<Product> getAllProducts(String ids) {
+        JsonNode filterJson;
+        try {
+            filterJson = new ObjectMapper().readTree(java.net.URLDecoder.decode(ids, StandardCharsets.UTF_8));
+        } catch (JsonProcessingException e) {
+            throw new RuntimeException(e);
+        }
+        if (filterJson.has("ids")) {
+            List<Long> idsList = new ArrayList<>();
+            for (JsonNode idNode : filterJson.get("ids")) {
+                idsList.add(idNode.asLong());
+            }
+            Iterable<Long> itr = List.of(Stream.of(idsList).flatMap(List::stream).toArray(Long[]::new));
+            return productRepository.findAllById(itr);
+        }
+
+        return null;
     }
 
     @Override

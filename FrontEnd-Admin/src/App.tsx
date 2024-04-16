@@ -23,6 +23,7 @@ import ImportInvoiceList from "./importInvoices/ImportInvoiceList";
 import ImportInvoiceCreate from "./importInvoices/ImportInvoiceCreate";
 import ProductShow from "./products/ProductShow";
 import OrderList from "./orders/OrderList";
+import OrderEdit from "./orders/OrderEdit";
 
 const App = () => {
     return (
@@ -58,6 +59,7 @@ const App = () => {
             />
             <Resource name={"order"}
                       list={OrderList}
+                      show={OrderEdit}
                       icon={ArrowDownwardRoundedIcon}
                       options={{label: "Đơn hàng"}}
                       

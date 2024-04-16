@@ -48,7 +48,7 @@ export const OrderList = () => {
     return (
         <List
             filters={isSmall ? visitorFilters : undefined}
-            sort={{field: 'name', order: 'DESC'}}
+            sort={{field: 'id', order: 'DESC'}}
             perPage={25}
             aside={<OrderAside/>}
             actions={<VisitorListActions/>}

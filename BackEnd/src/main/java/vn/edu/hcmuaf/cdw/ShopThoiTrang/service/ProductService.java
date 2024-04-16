@@ -11,6 +11,8 @@ public interface ProductService {
 
     List<Product> getAllProducts();
 
+    List<Product> getAllProducts(String ids);
+
     List<Product> getProductsStatusTrue();
 
     Product getProductById(Long id);
