@@ -8,6 +8,7 @@ import {ENDPOINT} from "../../api-endpoint/endpoint";
 import useForm from "../../components/auth/FormLogin";
 import {Navigate} from 'react-router-dom';
 import {FiCommand} from "react-icons/fi";
+import GoogleButton from "react-google-button";
 
 const LoginRegister = () => {
     const [user, setUser] = useState(false);
@@ -84,9 +85,32 @@ const LoginRegister = () => {
                                                             {loading ? <button disabled={true}>
                                                                     <span><FiCommand className="loading-icon"/></span>
                                                                 </button> :
-                                                                <button type="submit">
-                                                                    <span>Đăng nhập</span>
-                                                                </button>}
+                                                                <div style={{
+                                                                    display: "flex",
+                                                                    justifyContent: "space-between",
+                                                                    alignItems: "center",
+                                                                    flexDirection: "row",
+
+                                                                }}>
+                                                                    <button type="submit"
+                                                                            style={{float: "left", height: "50px"}}>
+                                                                        <span>Đăng nhập</span>
+                                                                    </button>
+
+                                                                    <p style={{
+                                                                        textAlign: "center",
+                                                                        marginBottom: "0px"
+                                                                    }}>Hoặc</p>
+
+                                                                    <GoogleButton
+                                                                        style={{float: "right", width: "150px"}}
+                                                                        label={"Google"}
+                                                                        onClick={() => {
+                                                                            console.log('Google button clicked')
+                                                                        }}
+                                                                    />
+                                                                </div>
+                                                            }
                                                         </div>
                                                     </form>
                                                 </div>

@@ -12,6 +12,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import vn.edu.hcmuaf.cdw.ShopThoiTrang.JWT.JwtUtils;
 import vn.edu.hcmuaf.cdw.ShopThoiTrang.entity.RefreshToken;
+import vn.edu.hcmuaf.cdw.ShopThoiTrang.entity.Role;
 import vn.edu.hcmuaf.cdw.ShopThoiTrang.entity.User;
 import vn.edu.hcmuaf.cdw.ShopThoiTrang.entity.UserInfo;
 import vn.edu.hcmuaf.cdw.ShopThoiTrang.exception.TokenRefreshException;
@@ -237,6 +238,7 @@ public class AuthServiceImpl implements AuthService {
         user.getUserInfo().setEmail(signupDto.getEmail());
         user.getUserInfo().setFullName(signupDto.getFullName());
         user.setPasswordEncrypted(passwordEncoder.encode(signupDto.getPassword()));
+        user.setRole(new Role(2L, "USER"));
         user.setEnabled(true);
         user.setUsername(signupDto.getUsername());
         user.getUserInfo().setUser(user);

@@ -1,30 +1,20 @@
 import * as React from 'react';
 import {
     ArrayInput,
-    BooleanField, Create,
-    CreateButton,
-    Datagrid,
+    Create,
     DatagridConfigurable,
-    DateField, DateInput,
-    EditButton,
+    DateField,
     ExportButton,
-    FilterButton, ImageField,
+    FilterButton,
     List,
     NumberField, NumberInput,
     Pagination,
-    RecordContextProvider,
-    ReferenceField,
-    ReferenceManyCount,
-    SearchInput,
-    SelectColumnsButton, SelectField, SelectInput,
-    ShowButton, SimpleForm, SimpleFormIterator,
+    SelectColumnsButton,
+    SimpleForm, SimpleFormIterator,
     TextField,
     TextInput,
-    TopToolbar, useGetList,
-    useListContext,
+    TopToolbar
 } from 'react-admin';
-import {useEffect, useState} from "react";
-import {Category, ImportInvoiceRequest} from "../types";
 import {Stack} from '@mui/material';
 
 const ListActions = () => (

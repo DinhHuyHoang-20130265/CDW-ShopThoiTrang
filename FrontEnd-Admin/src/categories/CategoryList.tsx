@@ -10,6 +10,7 @@ import {
     List,
     Pagination,
     SelectColumnsButton, SelectField,
+    ShowButton,
     TextField,
     TextInput,
     TopToolbar, useGetList,
@@ -28,9 +29,9 @@ const ListActions = () => (
 );
 
 const postFilters = (cate: any) => [
-    <TextInput label="Tìm kiếm..." source="q" alwaysOn />,
-    <TextInput label="Tên" source="name" />,
-    <BooleanField label="Trạng thái" source="status" />
+    <TextInput label="Tìm kiếm..." source="q" alwaysOn/>,
+    <TextInput label="Tên" source="name"/>,
+    <BooleanField label="Trạng thái" source="status"/>
 ];
 
 const CategoryList = () => {
