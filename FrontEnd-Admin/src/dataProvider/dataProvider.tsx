@@ -61,13 +61,27 @@ export const dataProvider: DataProvider = {
             };
         } catch (error: any) {
             if (error.status === 401) {
-                // @ts-ignore
-                await authProvider.logout();
-                window.location.href = '/#/login';
+                await httpClient(`${process.env.REACT_APP_API_URL}/auth/refresh-token`, {
+                    method: 'POST',
+                    headers: new Headers({
+                        Accept: 'application/json',
+                        'Content-Type': 'application/json'
+                    }),
+                    credentials: 'include',
+                }).then((response: any) => {
+                    Promise.resolve();
+                }).catch((error: any) => {
+                    console.log(error)
+                    // @ts-ignore
+                    return authProvider.logout();
+                })
+            } else {
+                console.log(error)
+                return Promise.reject({message: error.response.data.message});
             }
         }
     },
-
+    // @ts-ignore
     getOne: (resource: any, params: any) =>
         httpClient(`${process.env.REACT_APP_API_URL}/${resource}/${params.id}`, {
             method: 'GET',
@@ -85,7 +99,29 @@ export const dataProvider: DataProvider = {
                     ...json
                 } : json
             })
+        }).catch(async (error: any) => {
+            if (error.status === 401) {
+                await httpClient(`${process.env.REACT_APP_API_URL}/auth/refresh-token`, {
+                    method: 'POST',
+                    headers: new Headers({
+                        Accept: 'application/json',
+                        'Content-Type': 'application/json'
+                    }),
+                    credentials: 'include',
+                }).then((response: any) => {
+                    console.log(response)
+                    Promise.resolve();
+                }).catch((error: any) => {
+                    console.log(error)
+                    // @ts-ignore
+                    return authProvider.logout();
+                })
+            } else {
+                console.log(error)
+                return Promise.reject({message: error.response.data.message});
+            }
         }),
+    // @ts-ignore
     getMany: async (resource: any, params: any) => {
         try {
             const ids = params.ids.map((cate: object | any) => typeof cate === "object" ? cate.id : cate)
@@ -105,11 +141,25 @@ export const dataProvider: DataProvider = {
             return Promise.resolve({data: json})
         } catch (error: any) {
             if (error.status === 401) {
-                // @ts-ignore
-                await authProvider.logout();
-                window.location.href = '/#/login';
+                await httpClient(`${process.env.REACT_APP_API_URL}/auth/refresh-token`, {
+                    method: 'POST',
+                    headers: new Headers({
+                        Accept: 'application/json',
+                        'Content-Type': 'application/json'
+                    }),
+                    credentials: 'include',
+                }).then((response: any) => {
+                    console.log(response)
+                    Promise.resolve();
+                }).catch((error: any) => {
+                    console.log(error)
+                    // @ts-ignore
+                    return authProvider.logout();
+                })
+            } else {
+                console.log(error)
+                return Promise.reject({message: error.response.data.message});
             }
-            return Promise.resolve({data: []})
         }
     },
     getManyReference: (resource: any, params: any) => Promise.resolve({data: []}),
@@ -251,9 +301,23 @@ export const dataProvider: DataProvider = {
             return Promise.resolve({data: json});
         } catch (error: any) {
             if (error.status === 401) {
-                // @ts-ignore
-                authProvider.logout().then(r => console.log(r));
-                window.location.href = '/#/login';
+                await httpClient(`${process.env.REACT_APP_API_URL}/auth/refresh-token`, {
+                    method: 'POST',
+                    headers: new Headers({
+                        Accept: 'application/json',
+                        'Content-Type': 'application/json'
+                    }),
+                    credentials: 'include',
+                }).then((response: any) => {
+                    Promise.reject({message: "Please try again"});
+                }).catch((error: any) => {
+                    console.log(error)
+                    // @ts-ignore
+                    return authProvider.logout();
+                })
+            } else {
+                console.log(error)
+                return Promise.reject({message: error.response.data.message});
             }
         }
     },

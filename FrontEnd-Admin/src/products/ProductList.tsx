@@ -55,8 +55,8 @@ const ProductList = () => {
                     rowClick="show"
                     bulkActionButtons={
                         <>
-                            <BulkUpdateButton data={{stock: 100}} label="Refill stock"/>
-                            <BulkDeleteButton/>
+                            <BulkUpdateButton data={{status: false}} label="Ẩn hết tất cả sản phẩm đã chọn"/>
+                            <BulkDeleteButton label={"Xoá"}/>
                         </>
                     }
                 >
