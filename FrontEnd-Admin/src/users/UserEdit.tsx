@@ -54,19 +54,33 @@ const ReturnedImg = () => {
         </ImageInput>;
 };
 
+const ReturnedRole = (props: any) => {
+    const isReturned = useWatch({name: 'role.id'});
+    if (isReturned === 1 || isReturned === null || isReturned === undefined) {
+        props.setAdmin(false)
+    } else
+        props.setAdmin(true)
+    return (
+        <ReferenceInput label="Role" source="role.id" reference="role">
+            <AutocompleteInput label={"Loại tài khoản"} optionText={"name"} optionValue={"id"}
+                               onChange={props.handleRoleChange} allowCreate={false}/>
+        </ReferenceInput>)
+};
+
 const UserEdit = () => {
     const [admin, setAdmin] = useState(false)
     const [password, setPassword] = useState(false)
+
     const handlePassword = useCallback((event: any) => {
         setPassword(event.target.checked)
     }, []);
+
     const handleRoleChange = (e: any) => {
         if (e === 1 || e === null || e === undefined) {
             setAdmin(false)
         } else
             setAdmin(true)
     }
-
 
     const validateForm = (values: Record<any, any>): Record<any, any> => {
         const errors = {} as any;
@@ -236,10 +250,11 @@ const UserEdit = () => {
                                     fullWidth
                                     source="enabled"
                                 />
-                                <ReferenceInput label="Tài nguyên" source="role.id" reference="role">
-                                    <AutocompleteInput label={"Loại tài khoản"} optionText={"name"} optionValue={"id"}
-                                                       onChange={handleRoleChange}/>
-                                </ReferenceInput>
+                                <ReturnedRole handleRoleChange={handleRoleChange} setAdmin={setAdmin}/>
+                                {/*<ReferenceInput label="Role" source="role.id" reference="role">*/}
+                                {/*    <AutocompleteInput label={"Loại tài khoản"} optionText={"name"} optionValue={"id"}*/}
+                                {/*                       onChange={handleRoleChange} allowCreate={false}/>*/}
+                                {/*</ReferenceInput>*/}
                                 <Typography variant="h6" gutterBottom>
                                     Ảnh đại diện
                                 </Typography>
@@ -272,7 +287,8 @@ const UserEdit = () => {
                 </TabbedForm.Tab>
             </TabbedForm>
         </Edit>
-    );
+    )
+        ;
 };
 
 const UserTitle = () => <FullNameField size="32" sx={{margin: '5px 0'}}/>;

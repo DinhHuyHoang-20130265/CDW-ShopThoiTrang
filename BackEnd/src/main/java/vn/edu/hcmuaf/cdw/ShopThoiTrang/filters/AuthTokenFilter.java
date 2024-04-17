@@ -53,12 +53,13 @@ public class AuthTokenFilter extends OncePerRequestFilter {
                 SecurityContextHolder.getContext().setAuthentication(authentication);
             } else if (jwt == null || !jwtUtils.validateJwtToken(jwt)) {
                 String refreshToken = jwtUtils.getJwtRefreshFromCookies(request);
+                System.out.println(refreshToken);
                 if (refreshToken != null) {
                     RefreshToken token = refreshTokenService.findByToken(refreshToken).map(refreshTokenService::verifyExpiration).orElseThrow(() -> new TokenRefreshException(refreshToken, "Refresh token is not valid or expired!"));
 
                     UserDetails userDetails = userDetailsService.loadUserByUsername(token.getUser().getUsername());
                     ResponseCookie newJwtToken = jwtUtils.generateJwtCookie(userService.getUserByUsername(userDetails.getUsername()));
-
+                    System.out.println(newJwtToken.toString());
                     response.addHeader(HttpHeaders.SET_COOKIE, newJwtToken.toString());
 
                     UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(userDetails, null, userDetails.getAuthorities());

@@ -1,6 +1,6 @@
 import * as React from 'react';
 import {
-    ArrayField,
+    ArrayField, BulkDeleteButton, BulkUpdateButton,
     CreateButton,
     DatagridConfigurable,
     DateField,
@@ -51,7 +51,14 @@ const UserList = () => {
                             md: {display: 'none'},
                             lg: {display: 'table-cell'},
                         },
-                    }}>
+                    }}
+                    bulkActionButtons={
+                        <>
+                            <BulkUpdateButton data={{enabled: false}} label="Ngưng hoạt động tất cả tài khoản đã chọn"/>
+                            <BulkDeleteButton label={"Xoá"}/>
+                        </>
+                    }
+                >
                     <UserLinkField
                         source="fullName"
                         label="Họ tên"

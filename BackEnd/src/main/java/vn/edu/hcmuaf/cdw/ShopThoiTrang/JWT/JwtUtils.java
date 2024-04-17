@@ -1,5 +1,6 @@
 package vn.edu.hcmuaf.cdw.ShopThoiTrang.JWT;
 
+import java.util.Arrays;
 import java.util.Date;
 
 import jakarta.servlet.http.Cookie;
@@ -50,7 +51,7 @@ public class JwtUtils {
     }
 
     public ResponseCookie generateRefreshJwtCookie(String refreshToken) {
-        return generateCookie(jwtRefreshCookie, refreshToken, "/api/auth/refresh-token");
+        return generateCookie(jwtRefreshCookie, refreshToken, "/api");
     }
 
     private ResponseCookie generateCookie(String name, String value, String path) {
@@ -73,6 +74,7 @@ public class JwtUtils {
 
     public boolean validateJwtToken(String authToken) {
         try {
+            System.out.println(authToken);
             Jwts.parser().setSigningKey(jwtSecret).parseClaimsJws(authToken);
             return true;
         } catch (SignatureException e) {
@@ -92,7 +94,7 @@ public class JwtUtils {
     }
 
     public ResponseCookie getCleanJwtRefreshCookie() {
-        return ResponseCookie.from(jwtRefreshCookie, null).path("/api/auth/refresh-token").build();
+        return ResponseCookie.from(jwtRefreshCookie, null).path("/api").build();
     }
 
     private String getCookieValueByName(HttpServletRequest request, String name) {
