@@ -6,7 +6,7 @@ import {
     FunctionField,
     EditButton,
     ChipField,
-    SearchInput, DateInput, SelectColumnsButton, DatagridConfigurable, useGetList, DeleteButton,
+    SearchInput, DateInput, SelectColumnsButton, DatagridConfigurable,
 } from 'react-admin';
 
 import {
@@ -19,7 +19,6 @@ import {
 } from "react-admin";
 import {Theme, useMediaQuery} from "@mui/material";
 import Aside from "./Aside";
-import {Category} from "../types";
 import MobileProductGrid from "./MobileProductGrid";
 
 const visitorFilters = [
@@ -35,14 +34,11 @@ const VisitorListActions = () => (
     </TopToolbar>
 );
 
-export const ProductList = () => {
+const ProductList = () => {
     const isXsmall = useMediaQuery<Theme>(theme =>
         theme.breakpoints.down('sm')
     );
-    const {data}: any = useGetList<Category>('category', {
-        pagination: {page: 1, perPage: 100},
-        sort: {field: 'name', order: 'ASC'},
-    });
+
     const isSmall = useMediaQuery<Theme>(theme => theme.breakpoints.down('md'));
     return (
         <List

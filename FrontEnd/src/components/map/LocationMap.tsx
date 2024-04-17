@@ -23,5 +23,5 @@ const FooterMap = (props: any) => {
 };
 
 export default GoogleApiWrapper({
-    apiKey: "AIzaSyB2D8wrWMY3XZnuHO6C31uq90JiuaFzGws"
+    apiKey: ""
 })(FooterMap);

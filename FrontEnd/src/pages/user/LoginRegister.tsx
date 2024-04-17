@@ -9,12 +9,30 @@ import useForm from "../../components/auth/FormLogin";
 import {Navigate} from 'react-router-dom';
 import {FiCommand} from "react-icons/fi";
 import GoogleButton from "react-google-button";
+import {useGoogleLogin} from "@react-oauth/google";
+import axios from "axios";
 
 const LoginRegister = () => {
     const [user, setUser] = useState(false);
     const [loading, setLoading] = useState(false);
 
     const {handleSubmit, status} = useForm(setLoading);
+
+    console.log(process.env.GOOGLE_LOGIN_API_CLIENT)
+
+    const loginGoogleHandle = useGoogleLogin({
+        flow: "auth-code",
+        onSuccess: async tokenResponse => {
+            console.log(tokenResponse);
+            const token= await axios.post(ENDPOINT + "auth/google", {
+
+            })
+
+        },
+        onError: error => {
+            console.error("Error", error);
+        }
+    });
 
     useEffect(() => {
         const checkUser = () => {
@@ -26,7 +44,6 @@ const LoginRegister = () => {
     }, []);
 
     if (user) return (<Navigate to="/"/>)
-
 
     return (
         <Fragment>
@@ -105,9 +122,7 @@ const LoginRegister = () => {
                                                                     <GoogleButton
                                                                         style={{float: "right", width: "150px"}}
                                                                         label={"Google"}
-                                                                        onClick={() => {
-                                                                            console.log('Google button clicked')
-                                                                        }}
+                                                                        onClick={loginGoogleHandle}
                                                                     />
                                                                 </div>
                                                             }

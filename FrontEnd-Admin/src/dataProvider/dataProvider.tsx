@@ -115,7 +115,6 @@ export const dataProvider: DataProvider = {
     getManyReference: (resource: any, params: any) => Promise.resolve({data: []}),
     // @ts-ignore
     create: async (resource: any, params: any) => {
-        console.log(params)
         if (params.data.imageUrl === undefined || params.data.imageUrl === null) {
             return Promise.reject({message: "Ảnh chính không được để trống"});
         }
@@ -262,14 +261,45 @@ export const dataProvider: DataProvider = {
     update: async (resource: any, params: any) => {
         let categories = null;
         let role = null;
+        let imageUrl = null;
+        let imgProducts = [];
         let avtUrl = null;
         let resourceUser: any = null;
         let permissions: any = null;
         if (resource === 'product') {
+            if (params.data.imgProducts_new !== undefined && params.data.imgProducts_new !== null && params.data.imgProducts_new.length > 4) {
+                return Promise.reject({message: "Số lượng ảnh phụ không được vượt quá 4 ảnh"});
+            }
+            if (params.data.imageUrl_new !== undefined && params.data.imageUrl_new !== null) {
+                let selectedImg = null;
+                await getBase64(params.data.imageUrl_new.rawFile)
+                    .then(res => {
+                        selectedImg = res;
+                    })
+                    .catch(err => console.log(err))
+                imageUrl = await imgProvider(selectedImg);
+            }
+            if (params.data.imgProducts_new !== undefined && params.data.imgProducts_new !== null) {
+                for (const item of params.data.imgProducts_new) {
+                    let selectedImg = null;
+                    await getBase64(item.rawFile)
+                        .then(res => {
+                            selectedImg = res;
+                        })
+                        .catch(err => console.log(err))
+                    imgProducts.push({
+                        product: null,
+                        url: await imgProvider(selectedImg),
+                        releaseDate: null,
+                        releaseBy: null,
+                        updateDate: null,
+                        updateBy: null,
+                    });
+                }
+            }
             const query = {
                 ids: JSON.stringify({ids: params.data.categoriesIds}),
             };
-            console.log(params.data)
             const {json} = await httpClient(`${process.env.REACT_APP_API_URL}/category/ids?${fetchUtils.queryParameters(query)}`, {
                 method: 'GET',
 
@@ -280,7 +310,6 @@ export const dataProvider: DataProvider = {
                 credentials: 'include'
             })
             categories = json;
-            console.log(categories);
         } else if (resource === 'user') {
             const query = {
                 ids: JSON.stringify({ids: params.data.role}),
@@ -328,7 +357,12 @@ export const dataProvider: DataProvider = {
         }
         const {json} = await httpClient(`${process.env.REACT_APP_API_URL}/${resource}/${params.id}`, {
             method: 'PUT',
-            body: JSON.stringify(categories !== null ? {...params.data, categories: categories} :
+            body: JSON.stringify(categories !== null ? {
+                    ...params.data,
+                    categories: categories,
+                    imageUrl: imageUrl !== null ? imageUrl : params.data.imageUrl,
+                    imgProducts: imgProducts !== null && imgProducts.length > 0 ? imgProducts : params.data.imgProducts
+                } :
                 (role !== null ? {
                     ...params.data,
                     role: role[0],
