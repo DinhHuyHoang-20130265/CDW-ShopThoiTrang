@@ -8,13 +8,28 @@ const httpClient = axios.create({
 
 httpClient.interceptors.response.use(
     response => response,
-    error => {
+    async error => {
         if (error.response && error.response.status === 401) {
-            // @ts-ignore
-            authProvider.logout().then(r => console.log(r));
-            window.location.href = '/#/login';
+            await httpClient.post(`${process.env.REACT_APP_API_URL}/auth/refresh-token`, {
+                headers: {
+                    Accept: 'application/json',
+                    'Content-Type': 'application/json'
+                },
+                withCredentials: true
+            }).then((response: any) => {
+                console.log(response)
+                Promise.resolve();
+            }).catch((error) => {
+                console.log(error)
+                // @ts-ignore
+                authProvider.logout().then(r => console.log(r));
+                window.location.href = '/#/login';
+            })
+
+        } else {
+            console.log(error)
+            return Promise.reject({message: error.response.data.message});
         }
-        return Promise.reject(error);
     }
 );
 
@@ -34,10 +49,8 @@ export const authProvider: AuthProvider = {
                 window.location.href = '/';
             }
         }).catch((error) => {
-            if (error.status === 401) { // @ts-ignore
-                return authProvider.logout();
-            }
-            return Promise.reject();
+            console.log(error)
+            return Promise.reject({message: error.response.data.message});
         });
     },
     logout: async () => {
@@ -66,11 +79,26 @@ export const authProvider: AuthProvider = {
             if (response.status === 200) {
                 return Promise.resolve(response.data);
             }
-        }).catch((error) => {
-            if (error.status === 401) { // @ts-ignore
-                return authProvider.logout();
+        }).catch(async (error) => {
+            if (error.status === 401) {
+                await httpClient.post(`${process.env.REACT_APP_API_URL}/auth/refresh-token`, {
+                    headers: {
+                        Accept: 'application/json',
+                        'Content-Type': 'application/json'
+                    },
+                    withCredentials: true
+                }).then((response: any) => {
+                    console.log(response)
+                    Promise.resolve();
+                }).catch((error) => {
+                    console.log(error)
+                    // @ts-ignore
+                    return authProvider.logout();
+                })
+            } else {
+                console.log(error)
+                return Promise.reject({message: error.response.data.message});
             }
-            return Promise.reject();
         });
 
     },
@@ -93,13 +121,26 @@ export const authProvider: AuthProvider = {
                     avt: response.avtUrl
                 });
             } else console.log(response.status)
-        }).catch((error) => {
+        }).catch(async (error) => {
             if (error.status === 401) {
-                console.log("abvc")
-                // @ts-ignore
-                return authProvider.logout();
+                await httpClient.post(`${process.env.REACT_APP_API_URL}/auth/refresh-token`, {
+                    headers: {
+                        Accept: 'application/json',
+                        'Content-Type': 'application/json'
+                    },
+                    withCredentials: true
+                }).then((response: any) => {
+                    console.log(response)
+                    Promise.resolve();
+                }).catch((error) => {
+                    console.log(error)
+                    // @ts-ignore
+                    return authProvider.logout();
+                })
+            } else {
+                console.log(error)
+                return Promise.reject({message: error.response.data.message});
             }
-            return Promise.reject();
         });
     }
 }

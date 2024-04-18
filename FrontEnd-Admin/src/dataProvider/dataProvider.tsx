@@ -61,13 +61,27 @@ export const dataProvider: DataProvider = {
             };
         } catch (error: any) {
             if (error.status === 401) {
-                // @ts-ignore
-                await authProvider.logout();
-                window.location.href = '/#/login';
+                await httpClient(`${process.env.REACT_APP_API_URL}/auth/refresh-token`, {
+                    method: 'POST',
+                    headers: new Headers({
+                        Accept: 'application/json',
+                        'Content-Type': 'application/json'
+                    }),
+                    credentials: 'include',
+                }).then((response: any) => {
+                    Promise.resolve();
+                }).catch((error: any) => {
+                    console.log(error)
+                    // @ts-ignore
+                    return authProvider.logout();
+                })
+            } else {
+                console.log(error)
+                return Promise.reject({message: error.response.data.message});
             }
         }
     },
-
+    // @ts-ignore
     getOne: (resource: any, params: any) =>
         httpClient(`${process.env.REACT_APP_API_URL}/${resource}/${params.id}`, {
             method: 'GET',
@@ -85,7 +99,29 @@ export const dataProvider: DataProvider = {
                     ...json
                 } : json
             })
+        }).catch(async (error: any) => {
+            if (error.status === 401) {
+                await httpClient(`${process.env.REACT_APP_API_URL}/auth/refresh-token`, {
+                    method: 'POST',
+                    headers: new Headers({
+                        Accept: 'application/json',
+                        'Content-Type': 'application/json'
+                    }),
+                    credentials: 'include',
+                }).then((response: any) => {
+                    console.log(response)
+                    Promise.resolve();
+                }).catch((error: any) => {
+                    console.log(error)
+                    // @ts-ignore
+                    return authProvider.logout();
+                })
+            } else {
+                console.log(error)
+                return Promise.reject({message: error.response.data.message});
+            }
         }),
+    // @ts-ignore
     getMany: async (resource: any, params: any) => {
         try {
             const ids = params.ids.map((cate: object | any) => typeof cate === "object" ? cate.id : cate)
@@ -105,9 +141,24 @@ export const dataProvider: DataProvider = {
             return Promise.resolve({data: json})
         } catch (error: any) {
             if (error.status === 401) {
-                // @ts-ignore
-                await authProvider.logout();
-                window.location.href = '/#/login';
+                await httpClient(`${process.env.REACT_APP_API_URL}/auth/refresh-token`, {
+                    method: 'POST',
+                    headers: new Headers({
+                        Accept: 'application/json',
+                        'Content-Type': 'application/json'
+                    }),
+                    credentials: 'include',
+                }).then((response: any) => {
+                    console.log(response)
+                    Promise.resolve();
+                }).catch((error: any) => {
+                    console.log(error)
+                    // @ts-ignore
+                    return authProvider.logout();
+                })
+            } else {
+                console.log(error)
+                return Promise.reject({message: error.response.data.message});
             }
             return Promise.resolve({data: []})
         }
@@ -252,9 +303,23 @@ export const dataProvider: DataProvider = {
             return Promise.resolve({data: json});
         } catch (error: any) {
             if (error.status === 401) {
-                // @ts-ignore
-                authProvider.logout().then(r => console.log(r));
-                window.location.href = '/#/login';
+                await httpClient(`${process.env.REACT_APP_API_URL}/auth/refresh-token`, {
+                    method: 'POST',
+                    headers: new Headers({
+                        Accept: 'application/json',
+                        'Content-Type': 'application/json'
+                    }),
+                    credentials: 'include',
+                }).then((response: any) => {
+                    Promise.reject({message: "Please try again"});
+                }).catch((error: any) => {
+                    console.log(error)
+                    // @ts-ignore
+                    return authProvider.logout();
+                })
+            } else {
+                console.log(error)
+                return Promise.reject({message: error.response.data.message});
             }
         }
     },
@@ -262,15 +327,46 @@ export const dataProvider: DataProvider = {
     update: async (resource: any, params: any) => {
         let categories = null;
         let role = null;
+        let imageUrl = null;
+        let imgProducts = [];
         let avtUrl = null;
         let resourceUser: any = null;
         let permissions: any = null;
         let products = null;
         if (resource === 'product') {
+            if (params.data.imgProducts_new !== undefined && params.data.imgProducts_new !== null && params.data.imgProducts_new.length > 4) {
+                return Promise.reject({message: "Số lượng ảnh phụ không được vượt quá 4 ảnh"});
+            }
+            if (params.data.imageUrl_new !== undefined && params.data.imageUrl_new !== null) {
+                let selectedImg = null;
+                await getBase64(params.data.imageUrl_new.rawFile)
+                    .then(res => {
+                        selectedImg = res;
+                    })
+                    .catch(err => console.log(err))
+                imageUrl = await imgProvider(selectedImg);
+            }
+            if (params.data.imgProducts_new !== undefined && params.data.imgProducts_new !== null) {
+                for (const item of params.data.imgProducts_new) {
+                    let selectedImg = null;
+                    await getBase64(item.rawFile)
+                        .then(res => {
+                            selectedImg = res;
+                        })
+                        .catch(err => console.log(err))
+                    imgProducts.push({
+                        product: null,
+                        url: await imgProvider(selectedImg),
+                        releaseDate: null,
+                        releaseBy: null,
+                        updateDate: null,
+                        updateBy: null,
+                    });
+                }
+            }
             const query = {
                 ids: JSON.stringify({ids: params.data.categoriesIds}),
             };
-            console.log(params.data)
             const {json} = await httpClient(`${process.env.REACT_APP_API_URL}/category/ids?${fetchUtils.queryParameters(query)}`, {
                 method: 'GET',
 
@@ -281,9 +377,7 @@ export const dataProvider: DataProvider = {
                 credentials: 'include'
             })
             categories = json;
-            console.log(categories);
-        } else
-            if (resource === 'user') {
+        } else if (resource === 'user') {
             const query = {
                 ids: JSON.stringify({ids: params.data.role}),
             };
@@ -328,27 +422,14 @@ export const dataProvider: DataProvider = {
             resourceUser = json2.json;
             permissions = json3.json.content;
         }
-        if (resource === 'promotion') {
-            const query = {
-                ids: JSON.stringify({ids: params.data.products}),
-            };
-            console.log(params.data.products.id)
-            const {json} = await httpClient(`${process.env.REACT_APP_API_URL}/product/ids?${fetchUtils.queryParameters(query)}`, {
-                method: 'GET',
-
-                headers: new Headers({
-                    'Content-Type': 'application/json',
-                    Accept: 'application/json',
-                }),
-                credentials: 'include'
-            })
-            products = json;
-            console.log(products);
-        }
-        console.log("sssss",params.data)
         const {json} = await httpClient(`${process.env.REACT_APP_API_URL}/${resource}/${params.id}`, {
             method: 'PUT',
-            body: JSON.stringify(categories !== null ? {...params.data, categories: categories} :
+            body: JSON.stringify(categories !== null ? {
+                    ...params.data,
+                    categories: categories,
+                    imageUrl: imageUrl !== null ? imageUrl : params.data.imageUrl,
+                    imgProducts: imgProducts !== null && imgProducts.length > 0 ? imgProducts : params.data.imgProducts
+                } :
                 (role !== null ? {
                     ...params.data,
                     role: role[0],

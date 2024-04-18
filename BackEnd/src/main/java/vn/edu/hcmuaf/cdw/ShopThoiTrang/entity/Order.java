@@ -21,7 +21,7 @@ public class Order {
     private Long id;
 
     private String name;
-    private int phone;
+    private String phone;
     private String address;
 
     @Column(name = "order_date")

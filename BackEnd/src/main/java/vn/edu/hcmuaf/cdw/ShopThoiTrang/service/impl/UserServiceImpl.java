@@ -182,7 +182,7 @@ public class UserServiceImpl implements UserService {
         userInfo.setPhone(dto.getUserInfo().getPhone());
         userInfo.setAvtUrl(dto.getUserInfo().getAvtUrl());
 
-        // userInfoRepository.save(userInfo);
+        userInfoRepository.save(userInfo);
 
         user.setEnabled(dto.isEnabled());
         user.setRole(dto.getRole());
@@ -191,6 +191,14 @@ public class UserServiceImpl implements UserService {
         if (dto.getRole().getName().equals("USER")) {
             if (user.getResourceVariations() != null && !user.getResourceVariations().isEmpty()) {
                 List<ResourceVariation> resourceVariations = new ArrayList<>(user.getResourceVariations());
+                for (ResourceVariation rv : resourceVariations) {
+                    rv.setResource(null);
+                    rv.setUser(null);
+                    rv.setPermissions(null);
+                    resourceVariationRepository.save(rv);
+                    resourceVariationRepository.delete(rv);
+                }
+
                 user.getResourceVariations().clear();
                 resourceVariationRepository.deleteAll(resourceVariations);
             }

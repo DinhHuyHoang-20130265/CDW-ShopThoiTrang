@@ -33,6 +33,11 @@ public class AuthController {
         return authService.login(loginRequest);
     }
 
+//    @PostMapping("/google")
+//    public ResponseEntity<?> authenticateGoogle(@Valid @RequestBody LoginDto loginRequest) {
+//        return authService.login_google(loginRequest);
+//    }
+
     @PostMapping("/login-admin")
     public ResponseEntity<?> authenticateAdmin(@Valid @RequestBody LoginDto loginRequest) {
         return authService.login_admin(loginRequest);
