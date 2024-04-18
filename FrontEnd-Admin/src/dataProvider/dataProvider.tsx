@@ -160,11 +160,13 @@ export const dataProvider: DataProvider = {
                 console.log(error)
                 return Promise.reject({message: error.response.data.message});
             }
+            return Promise.resolve({data: []})
         }
     },
     getManyReference: (resource: any, params: any) => Promise.resolve({data: []}),
     // @ts-ignore
     create: async (resource: any, params: any) => {
+        console.log(params)
         if (params.data.imageUrl === undefined || params.data.imageUrl === null) {
             return Promise.reject({message: "Ảnh chính không được để trống"});
         }
@@ -330,6 +332,7 @@ export const dataProvider: DataProvider = {
         let avtUrl = null;
         let resourceUser: any = null;
         let permissions: any = null;
+        let products = null;
         if (resource === 'product') {
             if (params.data.imgProducts_new !== undefined && params.data.imgProducts_new !== null && params.data.imgProducts_new.length > 4) {
                 return Promise.reject({message: "Số lượng ảnh phụ không được vượt quá 4 ảnh"});

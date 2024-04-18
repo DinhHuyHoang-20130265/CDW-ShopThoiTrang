@@ -19,6 +19,8 @@ import {Card, CardContent, Box, Grid, Typography, Link} from '@mui/material';
 import {Order, Customer} from '../types';
 import ListItem from "./ListItem";
 import Total from "./Total";
+import {useEffect, useState} from "react";
+import axios from "axios";
 
 const OrderEdit = () => (
     <Edit component="div">
@@ -39,7 +41,6 @@ const OrderEdit = () => (
 
 const CustomerDetails = () => {
     const record = useRecordContext();
-    console.log(record);
     return (
         <div>
             <Typography
@@ -83,7 +84,24 @@ const CustomerAddress = () => {
 const Spacer = () => <Box mb={1}>&nbsp;</Box>;
 
 const OrderForm = () => {
-    const translate = useTranslate();
+    const [status, setStatus] = useState([]);
+
+    useEffect(() => {
+            const fetchStatus = async () => {
+                const {data}: any = await axios.get(`${process.env.REACT_APP_API_URL}/order-status`,{
+                    headers: {
+                        'Content-Type': 'application/json',
+                        Accept: 'application/json',
+                    }
+                })
+                if (data) {
+                    setStatus(data);
+                }
+            };
+            fetchStatus();
+        }, []
+    );
+    console.log(status);
     return (
         <Form warnWhenUnsavedChanges>
             <Box maxWidth="50em">
@@ -113,19 +131,12 @@ const OrderForm = () => {
                                 <Grid container>
                                     <Grid item xs={12} sm={12} md={6}>
                                         <SelectInput
-                                            source="status"
+                                            source="status.id"
                                             label={"Trạng thái"}
-                                            choices={[
-
-                                                {id: 1, name: 'CHỜ XÁC NHẬN'},
-                                                {id: 2, name: 'ĐANG ĐÓNG GÓI'},
-                                                {id: 3, name: 'CHỜ ĐƠN VỊ VẬN CHUYỂN'},
-                                                {id: 4, name: 'ĐANG GIAO HÀNG'},
-                                                {id: 5, name: 'THÀNH CÔNG'},
-                                                {id: 6, name: 'ĐANG XỬ LÝ'},
-                                                {id: 7, name: 'ĐÃ HỦY'}
-
-                                            ]}
+                                            choices={status.map((item: any) => ({
+                                                id: item.id,
+                                                name: item.name
+                                            }))}
                                         />
                                     </Grid>
                                     <Grid item xs={12} sm={12} md={6}>

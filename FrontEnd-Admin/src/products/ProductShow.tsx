@@ -10,7 +10,6 @@ import {Grid, Stack, Table, Typography} from "@mui/material";
 
 const ProductShow = () => {
     const {record} = useShowController();
-    console.log(record);
     return (
         <>
             <Show>
