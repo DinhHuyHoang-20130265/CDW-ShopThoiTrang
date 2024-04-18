@@ -9,7 +9,31 @@ import {Grid, Stack, Table, Typography} from "@mui/material";
 
 
 const ProductShow = () => {
-    const {record} = useShowController();
+    const getPromotionPrice = (product: any) => {
+        const currentDate = new Date();
+        const activePromotion = product.promotions.find((promotion: any) => {
+            const startDate = new Date(promotion.startDate);
+            const endDate = new Date(promotion.endDate);
+            return (currentDate >= startDate && currentDate <= endDate && promotion.status) ? promotion : null;
+        });
+
+
+        if (activePromotion !== null) {
+            const discountedPrice = product.price.price - (product.price.price * activePromotion.discount) / 100;
+            return (<div>
+                <span style={{textDecorationLine: "line-through", fontSize: 18, fontWeight: 'bold'}}>{formatPrice(product.price.price)}</span>
+                <br/>
+                <span style={{fontSize: 22, fontWeight: 'bold', color:'red'}}>{formatPrice(discountedPrice)} <span style={{fontSize: 18, fontWeight: 'bold', color:'red'}}>({activePromotion.discount}%)</span> </span>
+            </div>);
+        }
+        return (
+            <span style={{fontSize: 22, fontWeight: 'bold', color:'red'}}>{formatPrice(product.price.price)}</span>
+        );
+    };
+
+    const formatPrice = (price: number) => {
+        return new Intl.NumberFormat('vi-VN', {style: 'currency', currency: 'VND'}).format(price);
+    }
     return (
         <>
             <Show>
@@ -24,7 +48,12 @@ const ProductShow = () => {
                             </Labeled>
                             <TextField source="name" sx={{fontSize: 28, fontWeight: 'bold'}}/>
                             <RichTextField source="description"/>
-                            <NumberField source="price.price" sx={{fontSize: 20, fontWeight: 'bold'}}/>
+                            <FunctionField
+                                label="Giá"
+                                render={(record: any) => (
+                                    getPromotionPrice(record)
+                                )}
+                            />
                             <FunctionField
                                 source="categories"
                                 label="Danh mục"

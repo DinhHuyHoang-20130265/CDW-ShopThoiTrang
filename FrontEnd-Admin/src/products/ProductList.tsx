@@ -20,6 +20,7 @@ import {
 import {Theme, useMediaQuery} from "@mui/material";
 import Aside from "./Aside";
 import MobileProductGrid from "./MobileProductGrid";
+import {render} from "@testing-library/react";
 
 const visitorFilters = [
     <SearchInput alwaysOn name={"search"} source={"filter"}/>,
@@ -40,6 +41,33 @@ const ProductList = () => {
     );
 
     const isSmall = useMediaQuery<Theme>(theme => theme.breakpoints.down('md'));
+
+    const getPromotionPrice = (product: any) => {
+        const currentDate = new Date();
+        const activePromotion = product.promotions.find((promotion: any) => {
+            const startDate = new Date(promotion.startDate);
+            const endDate = new Date(promotion.endDate);
+            return (currentDate >= startDate && currentDate <= endDate && promotion.status);
+        });
+
+
+        if (activePromotion) {
+            const discountedPrice = product.price.price - (product.price.price * activePromotion.discount) / 100;
+            return (<div>
+                <span style={{textDecorationLine: "line-through"}}>{formatPrice(product.price.price)}</span>
+                <br/>
+                <span style={{color:'red'}}>{formatPrice(discountedPrice)}</span>
+            </div>);
+        }
+        return (
+            <span>{formatPrice(product.price.price)}</span>
+        );
+    };
+
+    const formatPrice = (price: number) => {
+        return new Intl.NumberFormat('vi-VN', {style: 'currency', currency: 'VND'}).format(price);
+    }
+
     return (
         <List
             filters={isSmall ? visitorFilters : undefined}
@@ -74,14 +102,12 @@ const ProductList = () => {
                         )}
                     />
 
-                    <NumberField
-                        source="price.price"
-                        options={{
-                            style: "currency",
-                            currency: "VND",
-                        }}
+                    <FunctionField
                         label="Giá"
+                        render={(record: any) => getPromotionPrice(record)}
                     />
+
+
                     <EditButton/>
                 </DatagridConfigurable>
             )}
