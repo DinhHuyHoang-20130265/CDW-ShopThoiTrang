@@ -85,6 +85,16 @@ public class PromotionServiceImpl implements PromotionService {
         Date date = new Date(System.currentTimeMillis());
         promotion.setCreatedDate(date);
         promotion.setUpdatedDate(date);
+
+        List<Product> products = new ArrayList<>();
+        for (Product product : promotion.getProducts()) {
+            Product existingProduct = productRepository.findById(product.getId()).orElse(null);
+            promotion.getProducts().add(existingProduct);
+            existingProduct.getPromotions().add(promotion);
+            products.add(existingProduct);
+        }
+        promotion.setProducts(products);
+
         return promotionRepository.save(promotion);
     }
 

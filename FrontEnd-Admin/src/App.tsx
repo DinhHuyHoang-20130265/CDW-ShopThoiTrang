@@ -29,6 +29,7 @@ import OrderEdit from "./orders/OrderEdit";
 import OrderCreate from "./orders/OrderCreate";
 import PromotionList from "./promotion/PromotionList";
 import PromotionEdit from "./promotion/PromotionEdit";
+import PromotionCreate from "./promotion/PromotionCreate";
 
 const App = () => {
     return (
@@ -59,6 +60,7 @@ const App = () => {
             <Resource name="promotion"
                       list={PromotionList}
                       edit={PromotionEdit}
+                      create={PromotionCreate}
                       icon={DiscountRoundedIcon}
                       recordRepresentation={(promotion) => promotion.name}
                       options={{label: "Khuyến mãi"}}
