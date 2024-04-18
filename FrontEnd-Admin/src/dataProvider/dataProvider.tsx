@@ -265,6 +265,7 @@ export const dataProvider: DataProvider = {
         let avtUrl = null;
         let resourceUser: any = null;
         let permissions: any = null;
+        let products = null;
         if (resource === 'product') {
             const query = {
                 ids: JSON.stringify({ids: params.data.categoriesIds}),
@@ -281,7 +282,8 @@ export const dataProvider: DataProvider = {
             })
             categories = json;
             console.log(categories);
-        } else if (resource === 'user') {
+        } else
+            if (resource === 'user') {
             const query = {
                 ids: JSON.stringify({ids: params.data.role}),
             };
@@ -325,6 +327,23 @@ export const dataProvider: DataProvider = {
             role = json;
             resourceUser = json2.json;
             permissions = json3.json.content;
+        }
+        if (resource === 'promotion') {
+            const query = {
+                ids: JSON.stringify({ids: params.data.products}),
+            };
+            console.log(params.data.products.id)
+            const {json} = await httpClient(`${process.env.REACT_APP_API_URL}/product/ids?${fetchUtils.queryParameters(query)}`, {
+                method: 'GET',
+
+                headers: new Headers({
+                    'Content-Type': 'application/json',
+                    Accept: 'application/json',
+                }),
+                credentials: 'include'
+            })
+            products = json;
+            console.log(products);
         }
         console.log("sssss",params.data)
         const {json} = await httpClient(`${process.env.REACT_APP_API_URL}/${resource}/${params.id}`, {

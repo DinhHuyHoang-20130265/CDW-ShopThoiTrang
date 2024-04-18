@@ -16,11 +16,13 @@ import vn.edu.hcmuaf.cdw.ShopThoiTrang.entity.Price;
 import vn.edu.hcmuaf.cdw.ShopThoiTrang.entity.Product;
 import vn.edu.hcmuaf.cdw.ShopThoiTrang.entity.Promotion;
 import vn.edu.hcmuaf.cdw.ShopThoiTrang.model.dto.PromotionDto;
+import vn.edu.hcmuaf.cdw.ShopThoiTrang.reponsitory.ProductRepository;
 import vn.edu.hcmuaf.cdw.ShopThoiTrang.reponsitory.PromotionRepository;
 import vn.edu.hcmuaf.cdw.ShopThoiTrang.service.PromotionService;
 
 import java.nio.charset.StandardCharsets;
 import java.sql.Date;
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -29,6 +31,8 @@ public class PromotionServiceImpl implements PromotionService {
     @Autowired
     private PromotionRepository promotionRepository;
 
+    @Autowired
+    private ProductRepository productRepository;
 
     @Override
     public Page<PromotionDto> getAllPromotion(String filter, int page, int perPage, String sortBy, String order) {
@@ -86,20 +90,46 @@ public class PromotionServiceImpl implements PromotionService {
 
     @Override
     public Promotion updatePromotion(long id, Promotion promotion) {
-        Promotion promotion1 = promotionRepository.findById(id).orElse(null);
-        if (promotion1 == null) {
+        Promotion existingPromotion = promotionRepository.findById(id).orElse(null);
+        if (existingPromotion == null) {
             return null;
         }
-        promotion1.setName(promotion.getName());
-        promotion1.setDescription(promotion.getDescription());
-        promotion1.setDiscount(promotion.getDiscount());
-        promotion1.setStatus(promotion.isStatus());
-        promotion1.setThumbnail(promotion.getThumbnail());
-        promotion1.setStartDate(promotion.getStartDate());
-        promotion1.setEndDate(promotion.getEndDate());
-        promotion1.setUpdatedDate(new Date(System.currentTimeMillis()));
-        promotion1.setUpdatedBy(promotion.getUpdatedBy());
-        promotion1.setProducts(promotion.getProducts());
-        return promotionRepository.save(promotion1);
+        existingPromotion.setName(promotion.getName());
+        existingPromotion.setDescription(promotion.getDescription());
+        existingPromotion.setDiscount(promotion.getDiscount());
+        existingPromotion.setStatus(promotion.isStatus());
+        existingPromotion.setThumbnail(promotion.getThumbnail());
+        existingPromotion.setStartDate(promotion.getStartDate());
+        existingPromotion.setEndDate(promotion.getEndDate());
+        existingPromotion.setUpdatedDate(new Date(System.currentTimeMillis()));
+        existingPromotion.setUpdatedBy(promotion.getUpdatedBy());
+
+        List<Product> products = new ArrayList<>();
+        for (Product product : promotion.getProducts()) {
+            Product existingProduct = productRepository.findById(product.getId()).orElse(null);
+            if (!existingPromotion.getProducts().contains(existingProduct)) {
+                existingPromotion.getProducts().add(existingProduct);
+                existingProduct.getPromotions().add(existingPromotion);
+            }
+            products.add(existingProduct);
+        }
+        List<Product> productsToRemove = new ArrayList<>();
+
+        for (Product existingProduct : existingPromotion.getProducts()) {
+            if (!products.contains(existingProduct)) {
+                productsToRemove.add(existingProduct);
+                existingProduct.getPromotions().remove(existingPromotion);
+            }
+        }
+
+
+        existingPromotion.getProducts().removeAll(productsToRemove);
+
+        System.out.println(existingPromotion.getProducts().stream().map(Product::getName).toList());
+        System.out.println(products.stream().map(Product::getName).toList());
+        existingPromotion.getProducts().removeIf(product -> !products.contains(product));
+        existingPromotion.setProducts(products);
+
+        return promotionRepository.save(existingPromotion);
     }
 }

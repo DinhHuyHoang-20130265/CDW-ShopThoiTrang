@@ -297,8 +297,6 @@ public class ProductServiceImpl implements ProductService {
         }
 
         existingProduct.setVariations(updatedVariations);
-        System.out.println("Category: " + productUpdate.getCategories());
-        System.out.println("Category2: " + existingProduct.getCategories());
         return productRepository.save(existingProduct);
     }
 

@@ -1,21 +1,24 @@
 import {
     ArrayInput, AutocompleteInput,
     BooleanInput, DateInput,
-    Edit, ImageField, NumberInput, ReferenceInput,
+    Edit, ImageField, NullableBooleanInput, NumberInput, ReferenceInput,
     required, SimpleFormIterator, TabbedForm,
     TextInput, useEditContext, useGetList,
 } from "react-admin";
 import {Grid, InputAdornment, Typography} from "@mui/material";
 import React from "react";
+import {Category, Product} from "../types";
 
 const PromotionEdit = () => {
 
     const {record, isLoading}: any = useEditContext();
     console.log(record);
 
-    const {products}:any= useGetList('product', { pagination: { page: 1, perPage: 100 }, sort: { field: 'name', order: 'ASC' } })
-
-    console.log(products);
+    const {data} = useGetList<Product>('product', {
+        pagination: {page: 1, perPage: 100},
+        sort: {field: 'name', order: 'ASC'},
+    });
+    console.log(data);
     if (isLoading) return null;
     return (
         <Edit>
@@ -26,7 +29,7 @@ const PromotionEdit = () => {
                 >
                     <Grid container columnSpacing={2}>
                         <Grid item xs={12} sm={12}>
-                            <ImageField source={"thumbnail"} label="Ảnh" fullWidth/>
+                            <ImageField source={"thumbnail"} label="Ảnh" sx={{margin: 'auto'}}/>
                         </Grid>
                         <Grid item xs={12} sm={12}>
                             <TextInput source="name" label="Tên khuyến mãi" validate={required()} fullWidth/>
@@ -61,7 +64,7 @@ const PromotionEdit = () => {
                         </Grid>
 
                         <Grid item xs={12} sm={6}>
-                            <BooleanInput source="status" label="Trạng thái" defaultValue={false} fullWidth/>
+                            <NullableBooleanInput source="status" label="Trạng thái" defaultValue={false} fullWidth/>
                         </Grid>
 
                         <Grid item xs={12} sm={6}>
@@ -89,15 +92,8 @@ const PromotionEdit = () => {
                 >
                     <ArrayInput source={`products`} label={`Sản phẩm`}>
                         <SimpleFormIterator inline>
-                            <ReferenceInput
-                                label="Sản phẩm"
-                                source="id"
-                                reference="product"
-                                sx={{maxWidth: '40em'}}
-                            >
-                                <AutocompleteInput label={"Sản phẩm"}
-                                                   optionText={(choice: any) => `${choice.id} - ${choice.name}`}
-                                                   sx={{width: '40em'}}/>
+                            <ReferenceInput source="id" reference="product" label="Sản phẩm" fullWidth>
+                                <AutocompleteInput optionText="name" sx={{width: '40em'}}/>
                             </ReferenceInput>
                         </SimpleFormIterator>
                     </ArrayInput>
