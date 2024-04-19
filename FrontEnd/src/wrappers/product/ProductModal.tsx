@@ -14,13 +14,13 @@ function ProductModal(props: any) {
     const [gallerySwiper, getGallerySwiper]: any = useState(null);
     const [thumbnailSwiper, getThumbnailSwiper]: any = useState(null);
     const [selectedProductColor, setSelectedProductColor] = useState(
-        product.variation ? product.variation[0].color : ""
+        product.variations ? product.variations[0].color : ""
     );
     const [selectedProductSize, setSelectedProductSize] = useState(
-        product.variation ? product.variation[0].size[0].name : ""
+        product.variations ? product.variations[0].sizes[0].name : ""
     );
     const [productStock, setProductStock] = useState(
-        product.variation ? product.variation[0].size[0].stock : product.stock
+        product.variations ? product.variations[0].sizes[0].stock : 0
     );
     const [quantityCount, setQuantityCount] = useState(1);
 
@@ -41,30 +41,30 @@ function ProductModal(props: any) {
 
     useEffect(() => {
         if (
-            gallerySwiper !== null &&
-            gallerySwiper.controller &&
-            thumbnailSwiper !== null &&
-            thumbnailSwiper.controller
+            gallerySwiper !== null && gallerySwiper.controller &&
+            thumbnailSwiper !== null && thumbnailSwiper.controller
         ) {
             gallerySwiper.controller.control = thumbnailSwiper;
             thumbnailSwiper.controller.control = gallerySwiper;
         }
+        console.log("gallerySwiper", gallerySwiper)
+        console.log("thumbnailSwiper", thumbnailSwiper)
     }, [gallerySwiper, thumbnailSwiper]);
 
     const gallerySwiperParams = {
         getSwiper: getGallerySwiper,
         spaceBetween: 10,
-        loopedSlides: 4,
-        loop: true
+        loopedSlides: product.imgProducts.length > 3 ? 4 : product.imgProducts.length,
+        loop: true,
     };
 
     const thumbnailSwiperParams = {
         getSwiper: getThumbnailSwiper,
         spaceBetween: 10,
         slidesPerView: 4,
-        loopedSlides: 4,
         touchRatio: 0.2,
         freeMode: true,
+        loopedSlides: product.imgProducts.length > 3 ? 4 : product.imgProducts.length,
         loop: true,
         slideToClickedSlide: true,
         navigation: {
@@ -85,20 +85,20 @@ function ProductModal(props: any) {
 
     return (
         <Fragment>
-            <Modal show={props.show} onHide={props.onHide} className="product-quickview-modal-wrapper">
+            <Modal key={props.key} show={props.show} onHide={props.onHide} className="product-quickview-modal-wrapper">
                 <Modal.Header closeButton/>
                 <div className="modal-body">
                     <div className="row">
                         <div className="col-md-5 col-sm-12 col-xs-12">
                             <div className="product-large-image-wrapper">
                                 <Swiper {...gallerySwiperParams}>
-                                    {product.image &&
-                                        product.image.map((single: string, key: React.Key | null | undefined) => {
+                                    {product.imgProducts.length > 0 &&
+                                        product.imgProducts.map((single: any, key: any) => {
                                             return (
                                                 <div key={key}>
-                                                    <div className="single-image">
+                                                    <div className="single-image" style={{maxHeight: "325px"}}>
                                                         <img
-                                                            src={single}
+                                                            src={single.url}
                                                             className="img-fluid"
                                                             alt=""
                                                         />
@@ -110,13 +110,13 @@ function ProductModal(props: any) {
                             </div>
                             <div className="product-small-image-wrapper mt-15">
                                 <Swiper {...thumbnailSwiperParams}>
-                                    {product.image &&
-                                        product.image.map((single: string, key: React.Key | null | undefined) => {
+                                    {product.imgProducts.length > 0 &&
+                                        product.imgProducts.map((single: any, key: any) => {
                                             return (
                                                 <div key={key}>
                                                     <div className="single-image">
                                                         <img
-                                                            src={process.env.PUBLIC_URL + single}
+                                                            src={single.url}
                                                             className="img-fluid"
                                                             alt=""
                                                         />
