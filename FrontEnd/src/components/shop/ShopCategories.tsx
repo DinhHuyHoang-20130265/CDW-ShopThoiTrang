@@ -2,7 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 import {setActiveSort} from "../../helpers/product";
 
-const ShopCategories = ({ categories, getSortParams } : any) => {
+const ShopCategories = ({categories, getSortParams}: any) => {
     return (
         <div className="sidebar-widget">
             <h4 className="pro-sidebar-title">Danh mục </h4>
@@ -17,22 +17,22 @@ const ShopCategories = ({ categories, getSortParams } : any) => {
                                         setActiveSort(e);
                                     }}
                                 >
-                                    <span className="checkmark" /> Tất cả
+                                    <span className="checkmark"/> Tất cả
                                 </button>
                             </div>
                         </li>
-                        {categories.map((category :any, key : any) => {
+                        {categories.map((category: any, key: any) => {
                             return (
                                 <li key={key}>
                                     <div className="sidebar-widget-list-left">
                                         <button
                                             onClick={e => {
-                                                getSortParams("category", category);
+                                                getSortParams("category", category.name);
                                                 setActiveSort(e);
                                             }}
                                         >
                                             {" "}
-                                            <span className="checkmark" /> {category}{" "}
+                                            <span className="checkmark"/> {category.name}{" "}
                                         </button>
                                     </div>
                                 </li>
