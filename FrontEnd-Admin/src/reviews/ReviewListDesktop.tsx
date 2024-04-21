@@ -8,7 +8,7 @@ import {
 } from 'react-admin';
 
 import ProductReferenceField from '../products/ProductReferenceField';
-import CustomerReferenceField from '../visitors/CustomerReferenceField';
+import CustomerReferenceField from '../users/UserReferenceField';
 import StarRatingField from './StarRatingField';
 import rowSx from './rowSx';
 
@@ -21,17 +21,17 @@ export interface ReviewListDesktopProps {
 
 const ReviewsBulkActionButtons = () => (
     <>
-        <BulkAcceptButton />
-        <BulkRejectButton />
-        <BulkDeleteButton />
+        <BulkAcceptButton/>
+        <BulkRejectButton/>
+        <BulkDeleteButton/>
     </>
 );
 
-const ReviewListDesktop = ({ selectedRow }: ReviewListDesktopProps) => (
+const ReviewListDesktop = ({selectedRow}: ReviewListDesktopProps) => (
     <DatagridConfigurable
         rowClick="edit"
         rowSx={rowSx(selectedRow)}
-        bulkActionButtons={<ReviewsBulkActionButtons />}
+        bulkActionButtons={<ReviewsBulkActionButtons/>}
         sx={{
             '& .RaDatagrid-thead': {
                 borderLeftColor: 'transparent',
@@ -46,12 +46,12 @@ const ReviewListDesktop = ({ selectedRow }: ReviewListDesktopProps) => (
             },
         }}
     >
-        <DateField source="date" />
-        <CustomerReferenceField link={false} />
-        <ProductReferenceField source="product_id" link={false} />
-        <StarRatingField size="small" />
-        <TextField source="comment" />
-        <TextField source="status" />
+        <DateField source="reviewedDate" label={"Ngày đánh giá"}/>
+        <CustomerReferenceField link={false} label={"Người đánh giá"}/>
+        <ProductReferenceField source="product" link={false} label={"Sản phẩm"}/>
+        <StarRatingField size="small"/>
+        <TextField source="content" label={"Nội dung"}/>
+        <TextField source="type"/>
     </DatagridConfigurable>
 );
 

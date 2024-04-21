@@ -1,6 +1,6 @@
 package vn.edu.hcmuaf.cdw.ShopThoiTrang.entity;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -13,6 +13,7 @@ import java.sql.Date;
 @NoArgsConstructor
 @AllArgsConstructor
 @ToString
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 public class Review {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

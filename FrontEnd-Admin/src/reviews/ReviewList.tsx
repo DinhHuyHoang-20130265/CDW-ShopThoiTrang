@@ -51,7 +51,7 @@ const ReviewList = () => {
                 }}
                 filters={reviewFilters}
                 perPage={25}
-                sort={{field: 'date', order: 'DESC'}}
+                sort={{field: 'reviewedDate', order: 'DESC'}}
                 actions={<ReviewListActions/>}
             >
                 {isXSmall ? (

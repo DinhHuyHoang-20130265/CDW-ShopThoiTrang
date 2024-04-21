@@ -32,6 +32,7 @@ import PromotionList from "./promotion/PromotionList";
 import PromotionEdit from "./promotion/PromotionEdit";
 import PromotionCreate from "./promotion/PromotionCreate";
 import ReviewList from "./reviews/ReviewList";
+import ReviewEdit from "./reviews/ReviewEdit";
 
 const App = () => {
     return (
@@ -98,6 +99,7 @@ const App = () => {
             />
             <Resource name={"review"}
                       list={ReviewList}
+                      edit={ReviewEdit}
                       icon={CommentRoundedIcon}
                       options={{label: "Đánh giá"}}
             />
