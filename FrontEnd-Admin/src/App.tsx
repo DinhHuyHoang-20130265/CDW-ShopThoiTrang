@@ -12,6 +12,7 @@ import CategoryIcon from '@mui/icons-material/CategoryRounded';
 import NewspaperRoundedIcon from '@mui/icons-material/NewspaperRounded';
 import ArrowDownwardRoundedIcon from '@mui/icons-material/ArrowDownwardRounded';
 import ReceiptRoundedIcon from '@mui/icons-material/ReceiptRounded';
+import CommentRoundedIcon from '@mui/icons-material/CommentRounded';
 import {ProductCreate} from "./products/ProductCreate";
 import {CategoryEdit} from "./categories/CategoryEdit";
 import {CategoryCreate} from "./categories/CategoryCreate";
@@ -30,6 +31,7 @@ import OrderCreate from "./orders/OrderCreate";
 import PromotionList from "./promotion/PromotionList";
 import PromotionEdit from "./promotion/PromotionEdit";
 import PromotionCreate from "./promotion/PromotionCreate";
+import ReviewList from "./reviews/ReviewList";
 
 const App = () => {
     return (
@@ -93,6 +95,11 @@ const App = () => {
                       create={BlogCreate}
                       icon={NewspaperRoundedIcon}
                       options={{label: "Bài viết"}}
+            />
+            <Resource name={"review"}
+                      list={ReviewList}
+                      icon={CommentRoundedIcon}
+                      options={{label: "Đánh giá"}}
             />
         </Admin>
     );
