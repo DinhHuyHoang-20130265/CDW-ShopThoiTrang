@@ -2,7 +2,6 @@ import React, {Fragment, useState} from "react";
 import {Link} from "react-router-dom";
 import {useToasts} from "react-toast-notifications";
 import {getDiscountPrice} from "../../helpers/product";
-import ProductRating from "../../wrappers/product/sub-components/ProductRating";
 import ProductModal from "../../wrappers/product/ProductModal";
 
 const ProductGridForShopItem = ({
@@ -17,8 +16,8 @@ const ProductGridForShopItem = ({
     const [modalShow, setModalShow] = useState(false);
     const {addToast} = useToasts();
 
-    const discountedPrice = getDiscountPrice(product.price, product.discount);
-    const finalProductPrice = +(product.price).toFixed(2);
+    const discountedPrice = product.promotions && product.promotions.length > 0 ? getDiscountPrice(product.price.price, product.promotions[0].discount) : null;
+    const finalProductPrice = +(product.price.price).toFixed(2);
     const finalDiscountedPrice = discountedPrice !== null ? +(discountedPrice).toFixed(2) : 0;
 
     return (
@@ -32,30 +31,30 @@ const ProductGridForShopItem = ({
                     className={`product-wrap ${spaceBottomClass ? spaceBottomClass : ""}`}
                 >
                     <div className="product-img">
-                        <Link to={process.env.PUBLIC_URL + "/product/" + product.id}>
+                        <Link to={"/product/" + product.id}>
                             <img
                                 className="default-img"
-                                src={process.env.PUBLIC_URL + product.image[0]}
+                                src={product.imageUrl}
                                 alt=""
                             />
-                            {product.image.length > 1 ? (
+                            {product.imgProducts.length > 0 ? (
                                 <img
                                     className="hover-img"
-                                    src={process.env.PUBLIC_URL + product.image[1]}
+                                    src={product.imgProducts[0]}
                                     alt=""
                                 />
                             ) : (
                                 ""
                             )}
                         </Link>
-                        {product.discount || product.new ? (
+                        {product.promotions.length > 0 || product.variations ? (
                             <div className="product-img-badges">
-                                {product.discount ? (
-                                    <span className="pink">-{product.discount}%</span>
+                                {product.promotions.length > 0 && product.promotions[0].discount ? (
+                                    <span className="pink">-{product.promotions[0].discount}%</span>
                                 ) : (
                                     ""
                                 )}
-                                {product.new ? <span className="purple">New</span> : ""}
+                                {product.variations ? <span className="purple">Còn hàng</span> : ""}
                             </div>
                         ) : (
                             ""
@@ -77,11 +76,11 @@ const ProductGridForShopItem = ({
                                 </button>
                             </div>
                             <div className="pro-same-action pro-cart">
-                                {product.variation && product.variation.length >= 1 ? (
-                                    <Link to={`${process.env.PUBLIC_URL}/product/${product.id}`}>
+                                {product.variations && product.variations.length >= 1 ? (
+                                    <Link to={`/product/${product.id}`}>
                                         Xem ngay
                                     </Link>
-                                ) : product.stock && product.stock > 0 ? (
+                                ) : product.variations && product.variations.sizes && product.variations.sizes > 0 ? (
                                     <button
                                         onClick={() => addToCart(product, addToast)}
                                         className={
@@ -115,17 +114,17 @@ const ProductGridForShopItem = ({
                     </div>
                     <div className="product-content text-center">
                         <h3>
-                            <Link to={process.env.PUBLIC_URL + "/product/" + product.id}>
+                            <Link to={"/product/" + product.id}>
                                 {product.name}
                             </Link>
                         </h3>
-                        {product.rating && product.rating > 0 ? (
-                            <div className="product-rating">
-                                <ProductRating ratingValue={product.rating}/>
-                            </div>
-                        ) : (
-                            ""
-                        )}
+                        {/*{product.rating && product.rating > 0 ? (*/}
+                        {/*    <div className="product-rating">*/}
+                        {/*        <ProductRating ratingValue={product.rating}/>*/}
+                        {/*    </div>*/}
+                        {/*) : (*/}
+                        {/*    ""*/}
+                        {/*)}*/}
                         <div className="product-price">
                             {discountedPrice !== null ? (
                                 <Fragment>
@@ -145,30 +144,30 @@ const ProductGridForShopItem = ({
                         <div className="col-xl-4 col-md-5 col-sm-6">
                             <div className="product-list-image-wrap">
                                 <div className="product-img">
-                                    <Link to={process.env.PUBLIC_URL + "/product/" + product.id}>
+                                    <Link to={"/product/" + product.id}>
                                         <img
                                             className="default-img img-fluid"
-                                            src={process.env.PUBLIC_URL + product.image[0]}
+                                            src={product.imageUrl}
                                             alt=""
                                         />
-                                        {product.image.length > 1 ? (
+                                        {product.imgProducts.length > 0 ? (
                                             <img
                                                 className="hover-img img-fluid"
-                                                src={process.env.PUBLIC_URL + product.image[1]}
+                                                src={product.imgProducts[0]}
                                                 alt=""
                                             />
                                         ) : (
                                             ""
                                         )}
                                     </Link>
-                                    {product.discount || product.new ? (
+                                    {product.promotions.length > 0 || product.variations ? (
                                         <div className="product-img-badges">
-                                            {product.discount ? (
-                                                <span className="pink">-{product.discount}%</span>
+                                            {product.promotions.length > 0 && product.promotions[0].discount ? (
+                                                <span className="pink">-{product.promotions[0].discount}%</span>
                                             ) : (
                                                 ""
                                             )}
-                                            {product.new ? <span className="purple">New</span> : ""}
+                                            {product.variations ? <span className="purple">Còn hàng</span> : ""}
                                         </div>
                                     ) : (
                                         ""
@@ -179,7 +178,7 @@ const ProductGridForShopItem = ({
                         <div className="col-xl-8 col-md-7 col-sm-6">
                             <div className="shop-list-content">
                                 <h3>
-                                    <Link to={process.env.PUBLIC_URL + "/product/" + product.id}>
+                                    <Link to={"/product/" + product.id}>
                                         {product.name}
                                     </Link>
                                 </h3>
@@ -197,57 +196,57 @@ const ProductGridForShopItem = ({
                                         <span>{"đ" + finalProductPrice} </span>
                                     )}
                                 </div>
-                                {product.rating && product.rating > 0 ? (
-                                    <div className="rating-review">
-                                        <div className="product-list-rating">
-                                            <ProductRating ratingValue={product.rating}/>
-                                        </div>
-                                    </div>
-                                ) : (
-                                    ""
-                                )}
-                                {product.shortDescription ? (
-                                    <p>{product.shortDescription}</p>
+                                {/*{product.rating && product.rating > 0 ? (*/}
+                                {/*    <div className="rating-review">*/}
+                                {/*        <div className="product-list-rating">*/}
+                                {/*            <ProductRating ratingValue={product.rating}/>*/}
+                                {/*        </div>*/}
+                                {/*    </div>*/}
+                                {/*) : (*/}
+                                {/*    ""*/}
+                                {/*)}*/}
+                                {product.description ? (
+                                    <p>{product.description.substring(0, 40)}</p>
                                 ) : (
                                     ""
                                 )}
 
                                 <div className="shop-list-actions d-flex align-items-center">
                                     <div className="shop-list-btn btn-hover">
-                                        {product.variation && product.variation.length >= 1 ? (
-                                            <Link
-                                                to={`${process.env.PUBLIC_URL}/product/${product.id}`}
-                                            >
-                                                Xem ngay
-                                            </Link>
-                                        ) : product.stock && product.stock > 0 ? (
-                                            <button
-                                                onClick={() => addToCart(product, addToast)}
-                                                className={
-                                                    cartItem !== undefined && cartItem.quantity > 0
-                                                        ? "active"
-                                                        : ""
-                                                }
-                                                disabled={
-                                                    cartItem !== undefined && cartItem.quantity > 0
-                                                }
-                                                title={
-                                                    cartItem !== undefined
-                                                        ? "Added to cart"
-                                                        : "Add to cart"
-                                                }
-                                            >
-                                                {" "}
-                                                <i className="pe-7s-cart"></i>{" "}
-                                                {cartItem !== undefined && cartItem.quantity > 0
-                                                    ? "Added"
-                                                    : "Add to cart"}
-                                            </button>
-                                        ) : (
-                                            <button disabled className="active">
-                                                Out of Stock
-                                            </button>
-                                        )}
+                                        {/*{product.variations && product.variations.length >= 1 ? (*/}
+                                        {/*    <Link*/}
+                                        {/*        to={`/product/${product.id}`}*/}
+                                        {/*    >*/}
+                                        {/*        Xem ngay*/}
+                                        {/*    </Link>*/}
+                                        {/*) : product.stock && product.stock > 0 ? (*/}
+                                        {/*    <button*/}
+                                        {/*        onClick={() => addToCart(product, addToast)}*/}
+                                        {/*        className={*/}
+                                        {/*            cartItem !== undefined && cartItem.quantity > 0*/}
+                                        {/*                ? "active"*/}
+                                        {/*                : ""*/}
+                                        {/*        }*/}
+                                        {/*        disabled={*/}
+                                        {/*            cartItem !== undefined && cartItem.quantity > 0*/}
+                                        {/*        }*/}
+                                        {/*        title={*/}
+                                        {/*            cartItem !== undefined*/}
+                                        {/*                ? "Added to cart"*/}
+                                        {/*                : "Add to cart"*/}
+                                        {/*        }*/}
+                                        {/*    >*/}
+                                        {/*        {" "}*/}
+                                        {/*        <i className="pe-7s-cart"></i>{" "}*/}
+                                        {/*        {cartItem !== undefined && cartItem.quantity > 0*/}
+                                        {/*            ? "Added"*/}
+                                        {/*            : "Add to cart"}*/}
+                                        {/*    </button>*/}
+                                        {/*) : (*/}
+                                        {/*    <button disabled className="active">*/}
+                                        {/*        Out of Stock*/}
+                                        {/*    </button>*/}
+                                        {/*)}*/}
                                     </div>
 
                                     <div className="shop-list-wishlist ml-10">
@@ -273,6 +272,7 @@ const ProductGridForShopItem = ({
             </div>
             {/* product modal */}
             <ProductModal
+                key={product.id}
                 show={modalShow}
                 onHide={() => setModalShow(false)}
                 product={product}

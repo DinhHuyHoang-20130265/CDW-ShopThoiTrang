@@ -4,7 +4,6 @@ import {Link} from "react-router-dom";
 import Tab from "react-bootstrap/Tab";
 import Nav from "react-bootstrap/Nav";
 import Breadcrumb from "../../wrappers/breadcrumb/Breadcrumb";
-import {ENDPOINT} from "../../api-endpoint/endpoint";
 import useForm from "../../components/auth/FormLogin";
 import {Navigate} from 'react-router-dom';
 import {FiCommand} from "react-icons/fi";
@@ -18,15 +17,11 @@ const LoginRegister = () => {
 
     const {handleSubmit, status} = useForm(setLoading);
 
-    console.log(process.env.GOOGLE_LOGIN_API_CLIENT)
-
     const loginGoogleHandle = useGoogleLogin({
         flow: "auth-code",
         onSuccess: async tokenResponse => {
             console.log(tokenResponse);
-            const token= await axios.post(ENDPOINT + "auth/google", {
-
-            })
+            const token = await axios.post(process.env.API_ENDPOINT + "auth/google", {})
 
         },
         onError: error => {
@@ -79,7 +74,7 @@ const LoginRegister = () => {
                                                                style={{textAlign: "center", fontSize: 20}}>Sai
                                                                 mật khẩu</p> : <></>}
                                                     <form onSubmit={handleSubmit}
-                                                          action={ENDPOINT + "auth/login"}
+                                                          action={process.env.API_ENDPOINT + "auth/login"}
                                                           method="POST">
                                                         <input
                                                             type="text"
