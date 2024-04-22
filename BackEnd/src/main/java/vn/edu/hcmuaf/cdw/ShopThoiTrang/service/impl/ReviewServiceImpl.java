@@ -15,7 +15,10 @@ import vn.edu.hcmuaf.cdw.ShopThoiTrang.reponsitory.ReviewRepository;
 import vn.edu.hcmuaf.cdw.ShopThoiTrang.service.ReviewService;
 
 import java.nio.charset.StandardCharsets;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.stream.Stream;
 
@@ -38,6 +41,29 @@ public class ReviewServiceImpl implements ReviewService {
         }
         Specification<Review> specification = (root, query, criteriaBuilder) -> {
             Predicate predicate = criteriaBuilder.conjunction();
+            if (filterJson.has("q")) {
+                predicate = criteriaBuilder.and(predicate, criteriaBuilder.like(root.get("content"), "%" + filterJson.get("q").asText().toLowerCase() + "%"));
+            }
+            if (filterJson.has("type")) {
+                predicate = criteriaBuilder.and(predicate, criteriaBuilder.equal(root.get("type"), filterJson.get("type").asText()));
+            }
+            if (filterJson.has("reviewer.id")) {
+                predicate = criteriaBuilder.and(predicate, criteriaBuilder.equal(root.get("reviewer").get("id"), filterJson.get("reviewer.id").asLong()));
+            }
+            if (filterJson.has("product.id")) {
+                predicate = criteriaBuilder.and(predicate, criteriaBuilder.equal(root.get("product").get("id"), filterJson.get("product.id").asLong()));
+            }
+            if (filterJson.has("reviewedDate")) {
+                String dateString = filterJson.get("reviewedDate").asText();
+                SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+                Date date;
+                try {
+                    date = format.parse(dateString);
+                } catch (ParseException e) {
+                    throw new RuntimeException(e);
+                }
+                predicate = criteriaBuilder.and(predicate, criteriaBuilder.equal(root.get("reviewedDate"), date));
+            }
             return predicate;
         };
         return switch (sortBy) {
@@ -83,11 +109,33 @@ public class ReviewServiceImpl implements ReviewService {
 
     @Override
     public Review getReviewById(Long id) {
-        return null;
+        return reviewRepository.findById(id).orElse(null);
     }
 
     @Override
     public Review updateReview(Long id, Review review) {
-        return null;
+        Review reviewToUpdate = reviewRepository.findById(id).orElse(null);
+        if (reviewToUpdate == null) {
+            return null;
+        }
+        if (review.getContent() != null)
+            reviewToUpdate.setContent(review.getContent());
+        if (review.getRating() != 0)
+            reviewToUpdate.setRating(review.getRating());
+        reviewToUpdate.setStatus(review.isStatus());
+        reviewToUpdate.setType(review.getType());
+        if (review.getProduct() != null)
+            reviewToUpdate.setProduct(review.getProduct());
+        if (review.getReviewer() != null)
+            reviewToUpdate.setReviewer(review.getReviewer());
+        if (review.getReviewedDate() != null)
+            reviewToUpdate.setReviewedDate(review.getReviewedDate());
+        reviewToUpdate.setDeleted(review.isDeleted());
+        return reviewRepository.save(reviewToUpdate);
+    }
+
+    @Override
+    public void deleteReview(Long id) {
+
     }
 }

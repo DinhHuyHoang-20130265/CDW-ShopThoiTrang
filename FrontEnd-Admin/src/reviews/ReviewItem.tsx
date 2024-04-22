@@ -38,7 +38,7 @@ export const ReviewItem = () => {
             <ListItem>
                 <ListItemAvatar>
                     <ReferenceField
-                        source="reviewer"
+                        source="reviewer.id"
                         reference="user"
                         link={false}
                     >
@@ -49,7 +49,7 @@ export const ReviewItem = () => {
                     primary={
                         <Fragment>
                             <ReferenceField
-                                source="reviewer"
+                                source="reviewer.id"
                                 reference="user"
                                 link={false}
                             >
@@ -59,21 +59,20 @@ export const ReviewItem = () => {
                                     }
                                     variant="subtitle1"
                                 />
-                            </ReferenceField>{' '}
-                            on{' '}
+                            </ReferenceField>{' '}đã đánh giá sản phẩm{' '}
                             <ReferenceField
-                                source="product"
+                                source="product.id"
                                 reference="product"
                                 link={false}
                             >
                                 <TextField
-                                    source="reference"
+                                    source="name"
                                     variant="subtitle1"
                                 />
                             </ReferenceField>
                         </Fragment>
                     }
-                    secondary={record.content}
+                    secondary={"Nội dung: " + record.content}
                     secondaryTypographyProps={{noWrap: true}}
                 />
             </ListItem>

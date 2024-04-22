@@ -21,14 +21,14 @@ const RejectButton = () => {
         {
             mutationMode: 'undoable',
             onSuccess: () => {
-                notify('resources.review.notification.rejected_success', {
-                    type: 'info',
+                notify('Từ chối thành công', {
+                    type: 'success',
                     undoable: true,
                 });
-                redirectTo('/reviews');
+                redirectTo('/review');
             },
             onError: () => {
-                notify('resources.review.notification.rejected_error', {
+                notify('Từ chối thất bại', {
                     type: 'error',
                 });
             },

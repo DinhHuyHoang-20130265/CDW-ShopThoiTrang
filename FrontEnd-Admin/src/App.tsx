@@ -99,7 +99,6 @@ const App = () => {
             />
             <Resource name={"review"}
                       list={ReviewList}
-                      edit={ReviewEdit}
                       icon={CommentRoundedIcon}
                       options={{label: "Đánh giá"}}
             />

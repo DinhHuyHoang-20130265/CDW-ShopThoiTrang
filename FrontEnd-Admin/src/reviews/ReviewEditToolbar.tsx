@@ -38,6 +38,7 @@ const ReviewEditToolbar = (props: ToolbarProps) => {
             ) : (
                 <Fragment>
                     <SaveButton
+                        label={'Lưu'}
                         mutationOptions={{
                             onSuccess: () => {
                                 notify('ra.notification.updated', {
@@ -50,7 +51,7 @@ const ReviewEditToolbar = (props: ToolbarProps) => {
                         }}
                         type="button"
                     />
-                    <DeleteButton record={record} resource={resource}/>
+                    <DeleteButton record={record} resource={resource} label={'Xoá đánh giá'}/>
                 </Fragment>
             )}
         </Toolbar>

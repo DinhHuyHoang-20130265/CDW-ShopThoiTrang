@@ -4,12 +4,18 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="89893dc3-088e-47ef-a82c-f709754202c6" name="Changes" comment="updated: updated review (50%)">
+    <list default="true" id="89893dc3-088e-47ef-a82c-f709754202c6" name="Changes" comment="updated: finished review list">
+      <change beforePath="$PROJECT_DIR$/../BackEnd/src/main/java/vn/edu/hcmuaf/cdw/ShopThoiTrang/filters/AuthTokenFilter.java" beforeDir="false" afterPath="$PROJECT_DIR$/../BackEnd/src/main/java/vn/edu/hcmuaf/cdw/ShopThoiTrang/filters/AuthTokenFilter.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/App.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/App.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/dataProvider/dataProvider.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/dataProvider/dataProvider.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/products/ProductReferenceField.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/products/ProductReferenceField.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/reviews/AcceptButton.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/reviews/AcceptButton.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/reviews/RejectButton.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/reviews/RejectButton.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/reviews/ReviewEdit.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/reviews/ReviewEdit.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/reviews/ReviewEditToolbar.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/reviews/ReviewEditToolbar.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/reviews/ReviewItem.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/reviews/ReviewItem.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/reviews/ReviewListDesktop.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/reviews/ReviewListDesktop.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/users/UserReferenceField.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/users/UserReferenceField.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/reviews/reviewFilters.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/reviews/reviewFilters.tsx" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -155,7 +161,8 @@
       <workItem from="1713717477085" duration="71000" />
       <workItem from="1713717562755" duration="66000" />
       <workItem from="1713717643081" duration="5391000" />
-      <workItem from="1713784770266" duration="1496000" />
+      <workItem from="1713784770266" duration="4293000" />
+      <workItem from="1713805930848" duration="3382000" />
     </task>
     <task id="LOCAL-00001" summary="update product for admin (50%&#10;)">
       <option name="closed" value="true" />
@@ -333,7 +340,15 @@
       <option name="project" value="LOCAL" />
       <updated>1713723124896</updated>
     </task>
-    <option name="localTasksCounter" value="23" />
+    <task id="LOCAL-00023" summary="updated: finished review list">
+      <option name="closed" value="true" />
+      <created>1713786660051</created>
+      <option name="number" value="00023" />
+      <option name="presentableId" value="LOCAL-00023" />
+      <option name="project" value="LOCAL" />
+      <updated>1713786660051</updated>
+    </task>
+    <option name="localTasksCounter" value="24" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -375,6 +390,7 @@
     <MESSAGE value="update edit promotion (add product to promotion)" />
     <MESSAGE value="updated: created button review, review controller backend" />
     <MESSAGE value="updated: updated review (50%)" />
-    <option name="LAST_COMMIT_MESSAGE" value="updated: updated review (50%)" />
+    <MESSAGE value="updated: finished review list" />
+    <option name="LAST_COMMIT_MESSAGE" value="updated: finished review list" />
   </component>
 </project>

@@ -21,6 +21,7 @@ interface Props extends EditProps<Review> {
 }
 
 const ReviewEdit = ({id, onCancel}: Props) => {
+    console.log(id)
     return (
         <EditBase id={id}>
             <Box pt={5} width={{xs: '100vW', sm: 400}} mt={{xs: 2, sm: 1}}>
@@ -39,12 +40,16 @@ const ReviewEdit = ({id, onCancel}: Props) => {
                     <Grid container rowSpacing={1} mb={1}>
                         <Grid item xs={6}>
                             <Labeled>
-                                <UserReferenceField/>
+                                <UserReferenceField source={'reviewer.id'}/>
                             </Labeled>
                         </Grid>
                         <Grid item xs={6}>
                             <Labeled label="Sản phẩm">
-                                <ProductReferenceField/>
+                                <ProductReferenceField sx={{
+                                    mr: 1,
+                                    mt: '13px',
+                                    mb: -0.5,
+                                }}/>
                             </Labeled>
                         </Grid>
                         <Grid item xs={6}>

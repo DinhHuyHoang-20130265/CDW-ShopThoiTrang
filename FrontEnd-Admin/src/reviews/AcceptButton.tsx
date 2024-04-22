@@ -21,14 +21,14 @@ const AcceptButton = () => {
         {
             mutationMode: 'undoable',
             onSuccess: () => {
-                notify('resources.review.notification.approved_success', {
-                    type: 'info',
+                notify('Chấp thuận thành công', {
+                    type: 'success',
                     undoable: true,
                 });
                 redirectTo('/review');
             },
             onError: () => {
-                notify('resources.review.notification.approved_error', {
+                notify('Chấp thuận thất bại', {
                     type: 'error',
                 });
             },

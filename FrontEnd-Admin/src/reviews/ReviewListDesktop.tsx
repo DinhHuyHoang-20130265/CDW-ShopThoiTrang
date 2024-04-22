@@ -8,7 +8,7 @@ import {
 } from 'react-admin';
 
 import ProductReferenceField from '../products/ProductReferenceField';
-import CustomerReferenceField from '../users/UserReferenceField';
+import UserReferenceField from '../users/UserReferenceField';
 import StarRatingField from './StarRatingField';
 import rowSx from './rowSx';
 
@@ -47,7 +47,7 @@ const ReviewListDesktop = ({selectedRow}: ReviewListDesktopProps) => (
         }}
     >
         <DateField source="reviewedDate" label={"Ngày đánh giá"}/>
-        <CustomerReferenceField source={'reviewer.id'} link={false} label={"Người đánh giá"}/>
+        <UserReferenceField source={'reviewer.id'} link={false} label={"Người đánh giá"}/>
         <ProductReferenceField source="product.id" link={false} label={"Sản phẩm"}/>
         <StarRatingField size="small"/>
         <TextField source="content" label={"Nội dung"}/>
