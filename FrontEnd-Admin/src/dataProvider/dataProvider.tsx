@@ -123,8 +123,7 @@ export const dataProvider: DataProvider = {
         }),
     // @ts-ignore
     getMany: async (resource: any, params: any) => {
-        console.log(resource)
-        console.log(params)
+        console.log(resource, params)
         try {
             const ids = params.ids.map((cate: object | any) => typeof cate === "object" ? cate.id : cate)
             const query = {

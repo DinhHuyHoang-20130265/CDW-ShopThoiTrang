@@ -8,7 +8,7 @@ const UserReferenceField = (
         source?: string;
     }
 ) => (
-    <ReferenceField source="reviewer.id" reference="user" {...props}>
+    <ReferenceField source="id" reference="user" {...props}>
         <FullNameField/>
     </ReferenceField>
 );

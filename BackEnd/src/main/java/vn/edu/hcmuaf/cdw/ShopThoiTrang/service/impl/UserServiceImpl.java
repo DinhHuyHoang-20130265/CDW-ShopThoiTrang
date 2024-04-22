@@ -32,6 +32,7 @@ import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 @Service
 public class UserServiceImpl implements UserService {
@@ -63,16 +64,13 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public ResponseEntity<?> getAuthorities(String username) {
-        return ResponseEntity.ok(userRepository.findByUsername(username).get().getAuthorities().stream()
-                .map(GrantedAuthority::getAuthority)
-                .collect(Collectors.toList()));
+        return ResponseEntity.ok(userRepository.findByUsername(username).get().getAuthorities().stream().map(GrantedAuthority::getAuthority).collect(Collectors.toList()));
     }
 
     @Override
     public Page<User> getAllUsers(String filter, int page, int perPage, String sortBy, String order) {
         Sort.Direction direction = Sort.Direction.ASC;
-        if (order.equalsIgnoreCase("DESC"))
-            direction = Sort.Direction.DESC;
+        if (order.equalsIgnoreCase("DESC")) direction = Sort.Direction.DESC;
 
         JsonNode filterJson;
         try {
@@ -149,8 +147,7 @@ public class UserServiceImpl implements UserService {
             List<ResourceVariation> resourceVariations = new ArrayList<>();
             for (ResourceVariation rv : dto.getResourceVariations()) {
                 ResourceVariation resourceVariation = new ResourceVariation();
-                Resource resource = resourceRepository.findById(rv.getResource().getId())
-                        .orElseThrow(() -> new RuntimeException("Resource not found"));
+                Resource resource = resourceRepository.findById(rv.getResource().getId()).orElseThrow(() -> new RuntimeException("Resource not found"));
 
                 resourceVariation.setResource(resource);
                 resourceVariation.setPermissions(rv.getPermissions());
@@ -214,8 +211,7 @@ public class UserServiceImpl implements UserService {
                     resourceVariations.add(existingResourceVariation);
                 } else {
                     ResourceVariation resourceVariation = new ResourceVariation();
-                    Resource resource = resourceRepository.findById(rv.getResource().getId())
-                            .orElseThrow(() -> new RuntimeException("Resource not found"));
+                    Resource resource = resourceRepository.findById(rv.getResource().getId()).orElseThrow(() -> new RuntimeException("Resource not found"));
 
                     resourceVariation.setResource(resource);
                     resourceVariation.setPermissions(rv.getPermissions());
@@ -265,6 +261,26 @@ public class UserServiceImpl implements UserService {
     @Override
     public void deleteUser(Long id) {
 
+    }
+
+    @Override
+    public List<User> getAllUsers(String ids) {
+        JsonNode filterJson;
+        try {
+            filterJson = new ObjectMapper().readTree(java.net.URLDecoder.decode(ids, StandardCharsets.UTF_8));
+        } catch (JsonProcessingException e) {
+            throw new RuntimeException(e);
+        }
+        if (filterJson.has("ids")) {
+            List<Long> idsList = new ArrayList<>();
+            for (JsonNode idNode : filterJson.get("ids")) {
+                idsList.add(idNode.asLong());
+            }
+            Iterable<Long> itr = List.of(Stream.of(idsList).flatMap(List::stream).toArray(Long[]::new));
+            return userRepository.findAllById(itr);
+        }
+
+        return null;
     }
 
 }

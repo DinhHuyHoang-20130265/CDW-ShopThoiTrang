@@ -14,6 +14,7 @@ import vn.edu.hcmuaf.cdw.ShopThoiTrang.service.UserInfoService;
 import vn.edu.hcmuaf.cdw.ShopThoiTrang.service.UserService;
 
 import java.io.UnsupportedEncodingException;
+import java.util.List;
 
 @RestController
 @RequestMapping("/api/user")
@@ -58,6 +59,12 @@ public class UserController {
             @RequestParam(defaultValue = "createdDate") String sort,
             @RequestParam(defaultValue = "DESC") String order) throws UnsupportedEncodingException {
         Page<User> users = userService.getAllUsers(filter, page, perPage, sort, order);
+        return ResponseEntity.ok(users);
+    }
+
+    @GetMapping("/ids")
+    public ResponseEntity<?> getUsersByIds(@RequestParam(defaultValue = "{}") String ids) {
+        List<User> users = userService.getAllUsers(ids);
         return ResponseEntity.ok(users);
     }
 

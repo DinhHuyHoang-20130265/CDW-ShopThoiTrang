@@ -10,7 +10,7 @@ const ProductReferenceField = (
         Omit<ReferenceFieldProps, 'source' | 'reference' | 'children'>
 ) => (
     <ReferenceField
-        source="product.id"
+        source="id"
         reference="product"
         {...props}
     >

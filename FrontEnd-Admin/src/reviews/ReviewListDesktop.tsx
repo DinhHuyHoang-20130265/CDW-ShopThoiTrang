@@ -47,8 +47,8 @@ const ReviewListDesktop = ({selectedRow}: ReviewListDesktopProps) => (
         }}
     >
         <DateField source="reviewedDate" label={"Ngày đánh giá"}/>
-        <CustomerReferenceField link={false} label={"Người đánh giá"}/>
-        <ProductReferenceField source="product" link={false} label={"Sản phẩm"}/>
+        <CustomerReferenceField source={'reviewer.id'} link={false} label={"Người đánh giá"}/>
+        <ProductReferenceField source="product.id" link={false} label={"Sản phẩm"}/>
         <StarRatingField size="small"/>
         <TextField source="content" label={"Nội dung"}/>
         <TextField source="type"/>

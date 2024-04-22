@@ -9,6 +9,7 @@ import vn.edu.hcmuaf.cdw.ShopThoiTrang.model.dto.CreateUserDTO;
 import vn.edu.hcmuaf.cdw.ShopThoiTrang.model.dto.UpdateUserDTO;
 
 import java.io.UnsupportedEncodingException;
+import java.util.List;
 
 public interface UserService {
     User getUserById(Long id);
@@ -24,4 +25,6 @@ public interface UserService {
     User updateUser(Long id, UpdateUserDTO dto, HttpServletRequest request);
 
     void deleteUser(Long id);
+
+    List<User> getAllUsers(String ids);
 }
