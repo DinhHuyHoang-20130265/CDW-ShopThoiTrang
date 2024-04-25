@@ -31,7 +31,7 @@ const ProductDetail = () => {
             {/* product description tab */}
             <ProductDescriptionTab
                 spaceBottomClass="pb-90"
-                productFullDesc={product.fullDescription}
+                productFullDesc={product.description}
             />
 
             {/* related product slider */}

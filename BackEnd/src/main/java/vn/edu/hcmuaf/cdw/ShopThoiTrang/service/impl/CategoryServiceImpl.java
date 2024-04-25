@@ -17,7 +17,6 @@ import vn.edu.hcmuaf.cdw.ShopThoiTrang.service.CategoryService;
 import java.nio.charset.StandardCharsets;
 import java.sql.Date;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Stream;
 

@@ -17,17 +17,17 @@ public class CategoryController {
     private CategoryService categoryService;
 
     @GetMapping
-    public ResponseEntity<Page<Category>> getAllCategories( @RequestParam(defaultValue = "0") int start,
-                                                            @RequestParam(defaultValue = "{}") String filter,
-                                                            @RequestParam(defaultValue = "25") int end,
-                                                            @RequestParam(defaultValue = "name") String sort,
-                                                            @RequestParam(defaultValue = "DESC") String order) {
+    public ResponseEntity<Page<Category>> getAllCategories(@RequestParam(defaultValue = "0") int start,
+                                                           @RequestParam(defaultValue = "{}") String filter,
+                                                           @RequestParam(defaultValue = "25") int end,
+                                                           @RequestParam(defaultValue = "name") String sort,
+                                                           @RequestParam(defaultValue = "DESC") String order) {
         Page<Category> categories = categoryService.getAllCategories(filter, start, end, sort, order);
         return ResponseEntity.ok(categories);
     }
 
     @GetMapping("/ids")
-    public ResponseEntity<List<Category>> getAllCategories( @RequestParam(defaultValue = "{}") String ids) {
+    public ResponseEntity<List<Category>> getAllCategories(@RequestParam(defaultValue = "{}") String ids) {
         List<Category> categories = categoryService.getAllCategories(ids);
         return ResponseEntity.ok(categories);
     }
@@ -49,7 +49,5 @@ public class CategoryController {
         Category updatedCategory = categoryService.updateCategory(id, category);
         return ResponseEntity.ok(updatedCategory);
     }
-
-
 
 }
