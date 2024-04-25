@@ -94,10 +94,8 @@ public class ReviewServiceImpl implements ReviewService {
             throw new RuntimeException(e);
         }
         if (filterJson.has("ids")) {
-            System.out.println(filterJson.get("ids"));
             List<Long> idsList = new ArrayList<>();
             for (JsonNode idNode : filterJson.get("ids")) {
-                System.out.println(idNode);
                 idsList.add(idNode.asLong());
             }
             Iterable<Long> itr = List.of(Stream.of(idsList).flatMap(List::stream).toArray(Long[]::new));
@@ -136,6 +134,16 @@ public class ReviewServiceImpl implements ReviewService {
 
     @Override
     public void deleteReview(Long id) {
+        Review review = reviewRepository.findById(id).orElse(null);
+        if (review == null) {
+            return;
+        }
+        review.setDeleted(true);
+        reviewRepository.save(review);
+    }
 
+    @Override
+    public void hardDeleteReview(Long id) {
+        reviewRepository.deleteById(id);
     }
 }

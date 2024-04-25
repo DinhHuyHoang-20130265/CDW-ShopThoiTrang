@@ -23,6 +23,7 @@ import vn.edu.hcmuaf.cdw.ShopThoiTrang.service.AuthService;
 import vn.edu.hcmuaf.cdw.ShopThoiTrang.service.EmailService;
 import vn.edu.hcmuaf.cdw.ShopThoiTrang.service.RefreshTokenService;
 
+import java.sql.Date;
 import java.util.*;
 import java.util.concurrent.TimeUnit;
 import java.util.stream.Collectors;
@@ -242,6 +243,9 @@ public class AuthServiceImpl implements AuthService {
         user.setEnabled(true);
         user.setUsername(signupDto.getUsername());
         user.getUserInfo().setUser(user);
+        java.sql.Date date = new Date(System.currentTimeMillis());
+        user.setCreatedDate(date);
+        user.setUpdateDate(date);
         userRepository.save(user);
 
         otpMap.remove(signupDto.getEmail());

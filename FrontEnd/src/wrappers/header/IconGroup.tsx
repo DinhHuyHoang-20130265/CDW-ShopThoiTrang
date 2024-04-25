@@ -5,6 +5,7 @@ import {connect} from "react-redux";
 import MenuCart from "./sub-components/MenuCart";
 import {deleteFromCart} from "../../store/actions/cartActions";
 import {logout} from "../../components/auth/Logout";
+import {googleLogout} from "@react-oauth/google";
 
 const IconGroup = ({
                        cartData,
@@ -34,6 +35,7 @@ const IconGroup = ({
     function handleLogout() {
         logout();
         localStorage.removeItem("user");
+        googleLogout();
         setUser(false);
         window.location.href = "/login-register";
     }
@@ -56,6 +58,7 @@ const IconGroup = ({
                 </div>
             </div>
             <div className="same-style account-setting d-none d-lg-block">
+                {user && user}
                 <button
                     className="account-setting-active"
                     onClick={e => handleClick(e)}
@@ -65,11 +68,11 @@ const IconGroup = ({
                 <div className="account-dropdown">
                     <ul>
                         {!user ? <li>
-                                <Link to={process.env.PUBLIC_URL + "/login-register"}>Đăng nhập - Đăng ký</Link>
+                                <Link to={"/login-register"}>Đăng nhập - Đăng ký</Link>
                             </li>
                             : <>
                                 <li>
-                                    <Link to={process.env.PUBLIC_URL + "/my-account"}>
+                                    <Link to={"/my-account"}>
                                         Tài khoản của tôi
                                     </Link>
                                 </li>
@@ -82,7 +85,7 @@ const IconGroup = ({
                 </div>
             </div>
             <div className="same-style header-wishlist">
-                <Link to={process.env.PUBLIC_URL + "/wishlist"}>
+                <Link to={"/wishlist"}>
                     <i className="pe-7s-like"/>
                     <span className="count-style">
             {wishlistData && wishlistData.length ? wishlistData.length : 0}
@@ -103,7 +106,7 @@ const IconGroup = ({
                 />
             </div>
             <div className="same-style cart-wrap d-block d-lg-none">
-                <Link className="icon-cart" to={process.env.PUBLIC_URL + "/cart"}>
+                <Link className="icon-cart" to={"/cart"}>
                     <i className="pe-7s-shopbag"/>
                     <span className="count-style">
             {cartData && cartData.length ? cartData.length : 0}

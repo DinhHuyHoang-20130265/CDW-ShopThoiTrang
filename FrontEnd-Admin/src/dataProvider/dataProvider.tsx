@@ -123,6 +123,7 @@ export const dataProvider: DataProvider = {
         }),
     // @ts-ignore
     getMany: async (resource: any, params: any) => {
+        console.log(resource, params)
         try {
             const ids = params.ids.map((cate: object | any) => typeof cate === "object" ? cate.id : cate)
             const query = {
@@ -450,5 +451,9 @@ export const dataProvider: DataProvider = {
         }).then(({json}) => ({
             data: json,
         })),
-    deleteMany: (resource: any, params: any) => Promise.resolve({data: []}),
+    deleteMany: (resource: any, params: any) => {
+        console.log("Delete many")
+        console.log(resource, params)
+        return Promise.resolve({data: []})
+    },
 };

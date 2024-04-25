@@ -2,10 +2,13 @@ import * as React from 'react';
 import {
     BulkDeleteButton,
     DatagridConfigurable,
-    DateField,
+    DateField, FunctionField,
     Identifier,
     TextField,
 } from 'react-admin';
+import PendingIcon from '@mui/icons-material/Pending';
+import DoneOutlineIcon from '@mui/icons-material/DoneOutline';
+import DoNotDisturbIcon from '@mui/icons-material/DoNotDisturb';
 
 import ProductReferenceField from '../products/ProductReferenceField';
 import UserReferenceField from '../users/UserReferenceField';
@@ -51,7 +54,27 @@ const ReviewListDesktop = ({selectedRow}: ReviewListDesktopProps) => (
         <ProductReferenceField source="product.id" link={false} label={"Sản phẩm"}/>
         <StarRatingField size="small"/>
         <TextField source="content" label={"Nội dung"}/>
-        <TextField source="type"/>
+        <FunctionField source={'type'} render={
+            ({type}: any) => {
+                switch (type) {
+                    case 0:
+                        return <DoNotDisturbIcon string={"Đã từ chối"} sx={{
+                            color: 'error.main',
+                        }}/>;
+                    case 1:
+                        return <PendingIcon string={"Chờ xét duyệt"} sx={{
+                            color: 'warning.main',
+                        }}/>;
+                    case 2:
+                        return <DoneOutlineIcon string={"Đã chấp thuận"} sx={{
+                            color: 'success.main',
+                        }}/>;
+                    default:
+                        return 'Không xác định';
+                }
+            }
+        } label={"Loại"}
+        />
     </DatagridConfigurable>
 );
 

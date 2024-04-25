@@ -21,7 +21,7 @@ interface Props extends EditProps<Review> {
 }
 
 const ReviewEdit = ({id, onCancel}: Props) => {
-    console.log(id)
+
     return (
         <EditBase id={id}>
             <Box pt={5} width={{xs: '100vW', sm: 400}} mt={{xs: 2, sm: 1}}>

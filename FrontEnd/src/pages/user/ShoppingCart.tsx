@@ -49,11 +49,11 @@ const ShoppingCart = ({
                                             {cartItems.map((cartItem: any, key: any) => {
                                                 console.log(cartItem)
                                                 const discountedPrice: any = getDiscountPrice(
-                                                    cartItem.price,
-                                                    cartItem.discount
+                                                    cartItem.price.price,
+                                                    cartItem.promotions[0]
                                                 );
                                                 const finalProductPrice = (
-                                                    cartItem.price
+                                                    cartItem.price.price
                                                 ).toFixed(2);
                                                 const finalDiscountedPrice = (
                                                     discountedPrice
