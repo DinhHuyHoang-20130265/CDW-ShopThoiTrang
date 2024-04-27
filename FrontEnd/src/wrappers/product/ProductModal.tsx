@@ -1,4 +1,4 @@
-import React, {Fragment, useState, useEffect} from "react";
+import React, {Fragment, useEffect, useState} from "react";
 import Swiper from "react-id-swiper";
 import {getProductCartQuantity} from "../../helpers/product";
 import {Modal} from "react-bootstrap";
@@ -10,14 +10,14 @@ function ProductModal(props: any) {
     const {discountedprice} = props;
     const {finalproductprice} = props;
     const {finaldiscountedprice} = props;
-
+    product.imgProducts = [...product.imgProducts, {url: product.imageUrl}];
     const [gallerySwiper, getGallerySwiper]: any = useState(null);
     const [thumbnailSwiper, getThumbnailSwiper]: any = useState(null);
     const [selectedProductColor, setSelectedProductColor] = useState(
         product.variations ? product.variations[0].color : ""
     );
     const [selectedProductSize, setSelectedProductSize] = useState(
-        product.variations ? product.variations[0].sizes[0].name : ""
+        product.variations ? product.variations[0].sizes[0].size : ""
     );
     const [productStock, setProductStock] = useState(
         product.variations ? product.variations[0].sizes[0].stock : 0
@@ -31,7 +31,6 @@ function ProductModal(props: any) {
 
     const addToast = props.addtoast;
     const cartItems = props.cartitems;
-
     const productCartQty = getProductCartQuantity(
         cartItems,
         product,
@@ -47,8 +46,6 @@ function ProductModal(props: any) {
             gallerySwiper.controller.control = thumbnailSwiper;
             thumbnailSwiper.controller.control = gallerySwiper;
         }
-        console.log("gallerySwiper", gallerySwiper)
-        console.log("thumbnailSwiper", thumbnailSwiper)
     }, [gallerySwiper, thumbnailSwiper]);
 
     const gallerySwiperParams = {
@@ -92,11 +89,11 @@ function ProductModal(props: any) {
                         <div className="col-md-5 col-sm-12 col-xs-12">
                             <div className="product-large-image-wrapper">
                                 <Swiper {...gallerySwiperParams}>
-                                    {product.imgProducts.length > 0 &&
+                                    {
                                         product.imgProducts.map((single: any, key: any) => {
                                             return (
                                                 <div key={key}>
-                                                    <div className="single-image" style={{maxHeight: "325px"}}>
+                                                    <div className="single-image" style={{minHeight: "325px"}}>
                                                         <img
                                                             src={single.url}
                                                             className="img-fluid"
@@ -110,7 +107,7 @@ function ProductModal(props: any) {
                             </div>
                             <div className="product-small-image-wrapper mt-15">
                                 <Swiper {...thumbnailSwiperParams}>
-                                    {product.imgProducts.length > 0 &&
+                                    {
                                         product.imgProducts.map((single: any, key: any) => {
                                             return (
                                                 <div key={key}>
@@ -141,22 +138,22 @@ function ProductModal(props: any) {
                                         <span>{"đ" + finalproductprice} </span>
                                     )}
                                 </div>
-                                {product.rating && product.rating > 0 ? (
-                                    <div className="pro-details-rating-wrap">
-                                        <div className="pro-details-rating">
-                                            <ProductRating ratingValue={product.rating}/>
-                                        </div>
-                                    </div>) : ("")}
+
+                                <div className="pro-details-rating-wrap">
+                                    <div className="pro-details-rating">
+                                        <ProductRating ratingValue={product.rating}/>
+                                    </div>
+                                </div>
                                 <div className="pro-details-list">
-                                    <p>{product.shortDescription}</p>
+                                    <p>{product.description}</p>
                                 </div>
 
-                                {product.variation ? (
+                                {product.variations ? (
                                     <div className="pro-details-size-color">
                                         <div className="pro-details-color-wrap">
-                                            <span>Color</span>
+                                            <span>Màu</span>
                                             <div className="pro-details-color-content">
-                                                {product.variation.map((single: any, key: any) => {
+                                                {product.variations && product.variations.map((single: any, key: any) => {
                                                     return (
                                                         <label
                                                             className={`pro-details-color-content--single ${single.color}`}
@@ -172,8 +169,8 @@ function ProductModal(props: any) {
                                                                 }
                                                                 onChange={() => {
                                                                     setSelectedProductColor(single.color);
-                                                                    setSelectedProductSize(single.size[0].name);
-                                                                    setProductStock(single.size[0].stock);
+                                                                    setSelectedProductSize(single.sizes[0].size);
+                                                                    setProductStock(single.sizes[0].stock);
                                                                     setQuantityCount(1);
                                                                 }}
                                                             />
@@ -184,12 +181,12 @@ function ProductModal(props: any) {
                                             </div>
                                         </div>
                                         <div className="pro-details-size">
-                                            <span>Size</span>
+                                            <span>Kích thước</span>
                                             <div className="pro-details-size-content">
-                                                {product.variation &&
-                                                    product.variation.map((single: any) => {
+                                                {product.variations &&
+                                                    product.variations.map((single: any) => {
                                                         return single.color === selectedProductColor
-                                                            ? single.size.map((singleSize: any, key: any) => {
+                                                            ? single.sizes.map((singleSize: any, key: any) => {
                                                                 return (
                                                                     <label
                                                                         className={`pro-details-size-content--single`}
@@ -197,20 +194,20 @@ function ProductModal(props: any) {
                                                                     >
                                                                         <input
                                                                             type="radio"
-                                                                            value={singleSize.name}
+                                                                            value={singleSize.size}
                                                                             // @ts-ignore
                                                                             checked={
-                                                                                (singleSize.name === selectedProductSize) ? "checked" : ""
+                                                                                (singleSize.size === selectedProductSize) ? "checked" : ""
                                                                             }
                                                                             onChange={() => {
                                                                                 setSelectedProductSize(
-                                                                                    singleSize.name
+                                                                                    singleSize.size
                                                                                 );
                                                                                 setProductStock(singleSize.stock);
                                                                                 setQuantityCount(1);
                                                                             }}
                                                                         />
-                                                                        <span className="size-name">{singleSize.name}
+                                                                        <span className="size-name">{singleSize.size}
                                                                         </span>
                                                                     </label>
                                                                 );

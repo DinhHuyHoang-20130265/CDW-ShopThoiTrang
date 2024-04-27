@@ -9,7 +9,7 @@ import {LightgalleryProvider, LightgalleryItem} from "react-lightgallery";
 const ProductImageGalleryLeftThumb = ({product, thumbPosition}: any) => {
     const [gallerySwiper, getGallerySwiper]: any = useState(null);
     const [thumbnailSwiper, getThumbnailSwiper]: any = useState(null);
-
+    product.imgProducts = [...product.imgProducts, {url: product.imageUrl}];
     // effect for swiper slider synchronize
     useEffect(() => {
         if (
@@ -76,42 +76,41 @@ const ProductImageGalleryLeftThumb = ({product, thumbPosition}: any) => {
                     }`}
                 >
                     <div className="product-large-image-wrapper">
-                        {product.discount || product.new ? (
+                        {product.promotions[0] ? (
                             <div className="product-img-badges">
-                                {product.discount ? (
-                                    <span className="pink">-{product.discount}%</span>
+                                {product.promotions[0] ? (
+                                    <span className="pink">-{product.promotions[0].discount}%</span>
                                 ) : (
                                     ""
                                 )}
-                                {product.new ? <span className="purple">New</span> : ""}
+                                {product.variations ? <span className="purple">Còn hàng</span> : ""}
                             </div>
                         ) : (
                             ""
                         )}
                         <LightgalleryProvider>
                             <Swiper {...gallerySwiperParams}>
-                                {product.image &&
-                                    product.image.map((single: any, key: any) => {
-                                        return (
-                                            <div key={key}>
-                                                <LightgalleryItem
-                                                    group="any"
-                                                    src={process.env.PUBLIC_URL + single}
-                                                >
-                                                    <button>
-                                                        <i className="pe-7s-expand1"></i>
-                                                    </button>
-                                                </LightgalleryItem>
-                                                <div className="single-image">
-                                                    <img
-                                                        src={process.env.PUBLIC_URL + single}
-                                                        className="img-fluid"
-                                                        alt=""
-                                                    />
-                                                </div>
+                                {product.imgProducts.map((single: any) => single.url).map((single: any, key: any) => {
+                                    return (
+                                        <div key={key}>
+                                            <LightgalleryItem
+                                                group="any"
+                                                src={single}
+                                            >
+                                                <button>
+                                                    <i className="pe-7s-expand1"></i>
+                                                </button>
+                                            </LightgalleryItem>
+                                            <div className="single-image">
+                                                <img
+                                                    src={single}
+                                                    className="img-fluid"
+                                                    alt=""
+                                                />
                                             </div>
-                                        );
-                                    })}
+                                        </div>
+                                    );
+                                })}
                             </Swiper>
                         </LightgalleryProvider>
                     </div>

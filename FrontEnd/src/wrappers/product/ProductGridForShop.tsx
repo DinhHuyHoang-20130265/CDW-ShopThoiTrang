@@ -6,13 +6,11 @@ import {addToWishlist} from "../../store/actions/wishlistActions";
 
 const ProductGridForShop = ({
                                 products,
-                                currency,
                                 addToCart,
                                 addToWishlist,
                                 addToCompare,
                                 cartItems,
                                 wishlistItems,
-                                compareItems,
                                 sliderClassName,
                                 spaceBottomClass
                             }: any) => {
@@ -24,7 +22,6 @@ const ProductGridForShop = ({
                         sliderClassName={sliderClassName}
                         spaceBottomClass={spaceBottomClass}
                         product={product}
-                        currency={currency}
                         addToCart={addToCart}
                         addToWishlist={addToWishlist}
                         addToCompare={addToCompare}

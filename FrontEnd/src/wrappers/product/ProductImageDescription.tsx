@@ -12,10 +12,10 @@ const ProductImageDescription = ({spaceTopClass, spaceBottomClass, product, cart
     )[0];
     const {addToast} = useToasts();
 
-    const discountedPrice = getDiscountPrice(product.price, product.discount);
-    const finalProductPrice = +(product.price).toFixed(2);
-    const finalDiscountedPrice = +(
-        discountedPrice !== null ? discountedPrice : product.price
+    const discountedPrice = getDiscountPrice(product.price.price, product.promotions[0]);
+    const finalProductPrice = product.price.price.toFixed(2);
+    const finalDiscountedPrice = (
+        discountedPrice !== null ? discountedPrice : product.price.price
     ).toFixed(2);
 
     return (
@@ -33,7 +33,6 @@ const ProductImageDescription = ({spaceTopClass, spaceBottomClass, product, cart
                         />
                     </div>
                     <div className="col-lg-6 col-md-6">
-                        {/* product description info */}
                         <ProductDescriptionInfo
                             product={product}
                             discountedPrice={discountedPrice}
