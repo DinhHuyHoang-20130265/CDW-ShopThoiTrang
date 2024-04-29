@@ -108,14 +108,14 @@ const Checkout = ({cartItems}: any) => {
                                                 <ul>
                                                     {cartItems.map((cartItem: any, key: any) => {
                                                         const discountedPrice: any = getDiscountPrice(
-                                                            cartItem.price,
-                                                            cartItem.discount
+                                                            cartItem.price.price,
+                                                            cartItem.promotions[0]
                                                         );
                                                         const finalProductPrice = (
-                                                            cartItem.price
+                                                            cartItem.price.price
                                                         ).toFixed(2);
                                                         const finalDiscountedPrice: any = (
-                                                            discountedPrice
+                                                            discountedPrice === null ? cartItem.price.price : discountedPrice
                                                         ).toFixed(2);
 
                                                         discountedPrice != null
@@ -185,9 +185,9 @@ const Checkout = ({cartItems}: any) => {
                                         <i className="pe-7s-cash"></i>
                                     </div>
                                     <div className="item-empty-area__text">
-                                        No items found in cart to checkout <br/>{" "}
-                                        <Link to={process.env.PUBLIC_URL + "/shop-grid-standard"}>
-                                            Shop Now
+                                        Hiện không có sản phẩm nào để thanh toán <br/>{" "}
+                                        <Link to={"/shop"}>
+                                            Mua ngay
                                         </Link>
                                     </div>
                                 </div>
@@ -208,8 +208,7 @@ Checkout.propTypes = {
 
 const mapStateToProps = (state: any) => {
     return {
-        cartItems: state.cartData,
-        currency: state.currencyData
+        cartItems: state.cartData
     };
 };
 

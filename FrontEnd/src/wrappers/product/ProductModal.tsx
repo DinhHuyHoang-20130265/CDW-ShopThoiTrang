@@ -10,7 +10,6 @@ function ProductModal(props: any) {
     const {discountedprice} = props;
     const {finalproductprice} = props;
     const {finaldiscountedprice} = props;
-    product.imgProducts = [...product.imgProducts, {url: product.imageUrl}];
     const [gallerySwiper, getGallerySwiper]: any = useState(null);
     const [thumbnailSwiper, getThumbnailSwiper]: any = useState(null);
     const [selectedProductColor, setSelectedProductColor] = useState(
@@ -39,6 +38,11 @@ function ProductModal(props: any) {
     );
 
     useEffect(() => {
+        if (product.imgProducts.find((item: any) => item.url === product.imageUrl) === undefined)
+            product.imgProducts.push({url: product.imageUrl});
+    }, [product]);
+
+    useEffect(() => {
         if (
             gallerySwiper !== null && gallerySwiper.controller &&
             thumbnailSwiper !== null && thumbnailSwiper.controller
@@ -51,8 +55,8 @@ function ProductModal(props: any) {
     const gallerySwiperParams = {
         getSwiper: getGallerySwiper,
         spaceBetween: 10,
-        loopedSlides: product.imgProducts.length > 3 ? 4 : product.imgProducts.length,
-        loop: true,
+        loopedSlides: product.imgProducts.length,
+        loop: product.imgProducts.length > 3,
     };
 
     const thumbnailSwiperParams = {
@@ -61,8 +65,8 @@ function ProductModal(props: any) {
         slidesPerView: 4,
         touchRatio: 0.2,
         freeMode: true,
-        loopedSlides: product.imgProducts.length > 3 ? 4 : product.imgProducts.length,
-        loop: true,
+        loopedSlides: product.imgProducts.length,
+        loop: product.imgProducts.length > 3,
         slideToClickedSlide: true,
         navigation: {
             nextEl: ".swiper-button-next",
@@ -88,11 +92,11 @@ function ProductModal(props: any) {
                     <div className="row">
                         <div className="col-md-5 col-sm-12 col-xs-12">
                             <div className="product-large-image-wrapper">
-                                <Swiper {...gallerySwiperParams}>
+                                <Swiper {...gallerySwiperParams} >
                                     {
                                         product.imgProducts.map((single: any, key: any) => {
                                             return (
-                                                <div key={key}>
+                                                <div className={'abc'} key={key}>
                                                     <div className="single-image" style={{minHeight: "325px"}}>
                                                         <img
                                                             src={single.url}

@@ -1,4 +1,4 @@
-import React, {Fragment} from "react";
+import React, {Fragment, useEffect} from "react";
 import {useSelector} from "react-redux";
 import Breadcrumb from "../../wrappers/breadcrumb/Breadcrumb";
 import RelatedProductSlider from "../../wrappers/product/RelatedProductSlider";
@@ -13,11 +13,11 @@ export function loadId({params}: any) {
 const ProductDetail = () => {
     const received: any = useLoaderData()
     const product = useSelector((state: any) =>
-            state.productData.products.filter(
-                (single: any) => single.id === received.id)[0]
-        )
-    ;
-
+        state.productData.products.filter(
+            (single: any) => single.id === received.id)[0]
+    );
+    if (product.imgProducts.find((item: any) => item.url === product.imageUrl) === undefined)
+        product.imgProducts.push({url: product.imageUrl});
     return (
         <Fragment>
             <Breadcrumb/>

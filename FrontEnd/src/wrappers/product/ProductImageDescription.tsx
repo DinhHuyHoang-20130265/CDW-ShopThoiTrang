@@ -5,8 +5,7 @@ import ProductImageGallerySideThumb from "../../components/product/ProductImageG
 import ProductDescriptionInfo from "../../components/product/ProductDescriptionInfo";
 import {connect} from "react-redux";
 
-const ProductImageDescription = ({spaceTopClass, spaceBottomClass, product, cartItems, wishlistItems,}: any) => {
-
+const ProductImageDescription = ({spaceTopClass, spaceBottomClass, product, cartItems, wishlistItems}: any) => {
     const wishlistItem = wishlistItems.filter(
         (wishlistItem: any) => wishlistItem.id === product.id
     )[0];
@@ -17,7 +16,6 @@ const ProductImageDescription = ({spaceTopClass, spaceBottomClass, product, cart
     const finalDiscountedPrice = (
         discountedPrice !== null ? discountedPrice : product.price.price
     ).toFixed(2);
-
     return (
         <div
             className={`shop-area ${spaceTopClass ? spaceTopClass : ""} ${

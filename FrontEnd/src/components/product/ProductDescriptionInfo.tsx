@@ -18,13 +18,13 @@ const ProductDescriptionInfo = ({
                                     addToWishlist
                                 }: any) => {
     const [selectedProductColor, setSelectedProductColor] = useState(
-        product.variation ? product.variation[0].color : ""
+        product.variations ? product.variations[0].color : ""
     );
     const [selectedProductSize, setSelectedProductSize] = useState(
-        product.variation ? product.variation[0].size[0].name : ""
+        product.variations ? product.variations[0].sizes[0].size : ""
     );
     const [productStock, setProductStock] = useState(
-        product.variation ? product.variation[0].size[0].stock : product.stock
+        product.variations ? product.variations[0].sizes[0].stock : product.stock
     );
     const [quantityCount, setQuantityCount] = useState(1);
 
@@ -49,25 +49,21 @@ const ProductDescriptionInfo = ({
                     <span>{'đ' + finalProductPrice} </span>
                 )}
             </div>
-            {product.rating && product.rating > 0 ? (
-                <div className="pro-details-rating-wrap">
-                    <div className="pro-details-rating">
-                        <ProductRating ratingValue={product.rating}/>
-                    </div>
+            <div className="pro-details-rating-wrap">
+                <div className="pro-details-rating">
+                    <ProductRating ratingValue={product.rating}/>
                 </div>
-            ) : (
-                ""
-            )}
+            </div>
             <div className="pro-details-list">
-                <p>{product.shortDescription}</p>
+                <p>{product.description}</p>
             </div>
 
-            {product.variation ? (
+            {product.variations ? (
                 <div className="pro-details-size-color">
                     <div className="pro-details-color-wrap">
                         <span>Màu sắc</span>
                         <div className="pro-details-color-content">
-                            {product.variation.map((single: any, key: any) => {
+                            {product.variations.map((single: any, key: any) => {
                                 return (
                                     <label
                                         className={`pro-details-color-content--single ${single.color}`}
@@ -80,8 +76,8 @@ const ProductDescriptionInfo = ({
                                             checked={(single.color === selectedProductColor ? "checked" : "") as any}
                                             onChange={() => {
                                                 setSelectedProductColor(single.color);
-                                                setSelectedProductSize(single.size[0].name);
-                                                setProductStock(single.size[0].stock);
+                                                setSelectedProductSize(single.sizes[0].size);
+                                                setProductStock(single.sizes[0].stock);
                                                 setQuantityCount(1);
                                             }}
                                         />
@@ -94,11 +90,10 @@ const ProductDescriptionInfo = ({
                     <div className="pro-details-size">
                         <span>Kích thước</span>
                         <div className="pro-details-size-content">
-                            {product.variation &&
-                                product.variation.map((single: any) => {
+                            {product.variations &&
+                                product.variations.map((single: any) => {
                                     return single.color === selectedProductColor
-                                        ? single.size.map((singleSize: any, key: any) => {
-                                            console.log(key)
+                                        ? single.sizes.map((singleSize: any, key: any) => {
                                             return (
                                                 <label
                                                     className={`pro-details-size-content--single`}
@@ -106,19 +101,19 @@ const ProductDescriptionInfo = ({
                                                 >
                                                     <input
                                                         type="radio"
-                                                        value={singleSize.name}
+                                                        value={singleSize.size}
                                                         checked={
-                                                            (singleSize.name === selectedProductSize
+                                                            (singleSize.size === selectedProductSize
                                                                 ? "checked"
                                                                 : "") as any
                                                         }
                                                         onChange={() => {
-                                                            setSelectedProductSize(singleSize.name);
+                                                            setSelectedProductSize(singleSize.size);
                                                             setProductStock(singleSize.stock);
                                                             setQuantityCount(1);
                                                         }}
                                                     />
-                                                    <span className="size-name">{singleSize.name}</span>
+                                                    <span className="size-name">{singleSize.size}</span>
                                                 </label>
                                             );
                                         })
@@ -195,16 +190,16 @@ const ProductDescriptionInfo = ({
                     </button>
                 </div>
             </div>
-            {product.category ? (
+            {product.categories ? (
                 <div className="pro-details-meta">
                     <span>Danh mục :</span>
                     <ul>
-                        {product.category.map(({single, key}: any) => {
+                        {product.categories.map((single: any, key: any) => {
                             return (
                                 <li key={key}>
-                                    <Link to={process.env.PUBLIC_URL + "/shop-grid-standard"}>
-                                        {single}
-                                    </Link>
+                                    <a>
+                                        {single.name}
+                                    </a>
                                 </li>
                             );
                         })}
