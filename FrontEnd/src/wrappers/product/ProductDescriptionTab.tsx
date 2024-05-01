@@ -3,7 +3,7 @@ import React from "react";
 import Tab from "react-bootstrap/Tab";
 import Nav from "react-bootstrap/Nav";
 
-const ProductDescriptionTab = ({ spaceBottomClass, productFullDesc } : any) => {
+const ProductDescriptionTab = ({spaceBottomClass, productFullDesc}: any) => {
     return (
         <div className={`description-review-area ${spaceBottomClass}`}>
             <div className="container">
@@ -53,7 +53,6 @@ const ProductDescriptionTab = ({ spaceBottomClass, productFullDesc } : any) => {
                                                 <div className="review-img">
                                                     <img
                                                         src={
-                                                            process.env.PUBLIC_URL +
                                                             "/assets/img/testimonial/1.jpg"
                                                         }
                                                         alt=""
@@ -66,11 +65,11 @@ const ProductDescriptionTab = ({ spaceBottomClass, productFullDesc } : any) => {
                                                                 <h4>White Lewis</h4>
                                                             </div>
                                                             <div className="review-rating">
-                                                                <i className="fa fa-star" />
-                                                                <i className="fa fa-star" />
-                                                                <i className="fa fa-star" />
-                                                                <i className="fa fa-star" />
-                                                                <i className="fa fa-star" />
+                                                                <i className="fa fa-star"/>
+                                                                <i className="fa fa-star"/>
+                                                                <i className="fa fa-star"/>
+                                                                <i className="fa fa-star"/>
+                                                                <i className="fa fa-star"/>
                                                             </div>
                                                         </div>
                                                         <div className="review-left">
@@ -91,7 +90,6 @@ const ProductDescriptionTab = ({ spaceBottomClass, productFullDesc } : any) => {
                                                 <div className="review-img">
                                                     <img
                                                         src={
-                                                            process.env.PUBLIC_URL +
                                                             "/assets/img/testimonial/2.jpg"
                                                         }
                                                         alt=""
@@ -104,11 +102,11 @@ const ProductDescriptionTab = ({ spaceBottomClass, productFullDesc } : any) => {
                                                                 <h4>White Lewis</h4>
                                                             </div>
                                                             <div className="review-rating">
-                                                                <i className="fa fa-star" />
-                                                                <i className="fa fa-star" />
-                                                                <i className="fa fa-star" />
-                                                                <i className="fa fa-star" />
-                                                                <i className="fa fa-star" />
+                                                                <i className="fa fa-star"/>
+                                                                <i className="fa fa-star"/>
+                                                                <i className="fa fa-star"/>
+                                                                <i className="fa fa-star"/>
+                                                                <i className="fa fa-star"/>
                                                             </div>
                                                         </div>
                                                         <div className="review-left">
@@ -135,22 +133,22 @@ const ProductDescriptionTab = ({ spaceBottomClass, productFullDesc } : any) => {
                                                     <div className="star-box">
                                                         <span>Your rating:</span>
                                                         <div className="ratting-star">
-                                                            <i className="fa fa-star" />
-                                                            <i className="fa fa-star" />
-                                                            <i className="fa fa-star" />
-                                                            <i className="fa fa-star" />
-                                                            <i className="fa fa-star" />
+                                                            <i className="fa fa-star"/>
+                                                            <i className="fa fa-star"/>
+                                                            <i className="fa fa-star"/>
+                                                            <i className="fa fa-star"/>
+                                                            <i className="fa fa-star"/>
                                                         </div>
                                                     </div>
                                                     <div className="row">
                                                         <div className="col-md-6">
                                                             <div className="rating-form-style mb-10">
-                                                                <input placeholder="Name" type="text" />
+                                                                <input placeholder="Name" type="text"/>
                                                             </div>
                                                         </div>
                                                         <div className="col-md-6">
                                                             <div className="rating-form-style mb-10">
-                                                                <input placeholder="Email" type="email" />
+                                                                <input placeholder="Email" type="email"/>
                                                             </div>
                                                         </div>
                                                         <div className="col-md-12">
@@ -160,7 +158,7 @@ const ProductDescriptionTab = ({ spaceBottomClass, productFullDesc } : any) => {
                                     placeholder="Message"
                                     defaultValue={""}
                                 />
-                                                                <input type="submit" defaultValue="Submit" />
+                                                                <input type="submit" defaultValue="Submit"/>
                                                             </div>
                                                         </div>
                                                     </div>

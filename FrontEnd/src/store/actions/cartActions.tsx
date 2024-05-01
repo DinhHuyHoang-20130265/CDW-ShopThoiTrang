@@ -13,7 +13,7 @@ export const addToCart = (
 ) => {
     return (dispatch: any) => {
         if (addToast) {
-            addToast("Added To Cart", {appearance: "success", autoDismiss: true});
+            addToast("Thêm sản phẩm vào giỏ haàng thành công", {appearance: "success", autoDismiss: true});
         }
         dispatch({
             type: ADD_TO_CART,
@@ -38,7 +38,7 @@ export const addToCart = (
 export const decreaseQuantity = (item: any, addToast: any) => {
     return (dispatch: any) => {
         if (addToast) {
-            addToast("Item Decremented From Cart", {
+            addToast("Đã tăng số lượng sản phẩm", {
                 appearance: "warning",
                 autoDismiss: true
             });
@@ -50,7 +50,7 @@ export const decreaseQuantity = (item: any, addToast: any) => {
 export const deleteFromCart = (item: any, addToast: any) => {
     return (dispatch: any) => {
         if (addToast) {
-            addToast("Removed From Cart", {appearance: "error", autoDismiss: true});
+            addToast("Đã xoá sản phẩm", {appearance: "error", autoDismiss: true});
         }
         dispatch({type: DELETE_FROM_CART, payload: item});
     };
@@ -59,7 +59,7 @@ export const deleteFromCart = (item: any, addToast: any) => {
 export const deleteAllFromCart = (addToast: any) => {
     return (dispatch: any) => {
         if (addToast) {
-            addToast("Removed All From Cart", {
+            addToast("Đã xoá tất cả sản phẩm trong giỏ hàng", {
                 appearance: "error",
                 autoDismiss: true
             });
@@ -70,11 +70,7 @@ export const deleteAllFromCart = (addToast: any) => {
 
 // get stock of cart item
 export const cartItemStock = (item: any, color: any, size: any) => {
-    if (item.stock) {
-        return item.stock;
-    } else {
-        return item.variation
-            .filter((single: any) => single.color === color)[0]
-            .size.filter((single: { name: any; }) => single.name === size)[0].stock;
-    }
+    return item.variations
+        .filter((single: any) => single.color === color)[0]
+        .sizes.filter((single: any) => single.size === size)[0].stock;
 };

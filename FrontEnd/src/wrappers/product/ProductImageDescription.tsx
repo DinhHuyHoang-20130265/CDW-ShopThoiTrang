@@ -5,19 +5,17 @@ import ProductImageGallerySideThumb from "../../components/product/ProductImageG
 import ProductDescriptionInfo from "../../components/product/ProductDescriptionInfo";
 import {connect} from "react-redux";
 
-const ProductImageDescription = ({spaceTopClass, spaceBottomClass, product, cartItems, wishlistItems,}: any) => {
-
+const ProductImageDescription = ({spaceTopClass, spaceBottomClass, product, cartItems, wishlistItems}: any) => {
     const wishlistItem = wishlistItems.filter(
         (wishlistItem: any) => wishlistItem.id === product.id
     )[0];
     const {addToast} = useToasts();
 
-    const discountedPrice = getDiscountPrice(product.price, product.discount);
-    const finalProductPrice = +(product.price).toFixed(2);
-    const finalDiscountedPrice = +(
-        discountedPrice !== null ? discountedPrice : product.price
+    const discountedPrice = getDiscountPrice(product.price.price, product.promotions[0]);
+    const finalProductPrice = product.price.price.toFixed(2);
+    const finalDiscountedPrice = (
+        discountedPrice !== null ? discountedPrice : product.price.price
     ).toFixed(2);
-
     return (
         <div
             className={`shop-area ${spaceTopClass ? spaceTopClass : ""} ${
@@ -33,7 +31,6 @@ const ProductImageDescription = ({spaceTopClass, spaceBottomClass, product, cart
                         />
                     </div>
                     <div className="col-lg-6 col-md-6">
-                        {/* product description info */}
                         <ProductDescriptionInfo
                             product={product}
                             discountedPrice={discountedPrice}
