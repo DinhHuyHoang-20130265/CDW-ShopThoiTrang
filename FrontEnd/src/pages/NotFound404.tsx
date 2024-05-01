@@ -13,7 +13,7 @@ const NotFound404 = () => {
                         <div className="col-xl-7 col-lg-8 text-center">
                             <div className="error">
                                 <h1>404</h1>
-                                <h2>OPPS! PAGE NOT FOUND</h2>
+                                <h2>OOPS! PAGE NOT FOUND</h2>
                                 <p>
                                     Xin lỗi nhưng trang bạn đang tìm kiếm không tồn tại, có thể
                                     đã bị xóa, tên đã thay đổi hoặc tạm thời không có sẵn.

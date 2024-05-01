@@ -13,6 +13,7 @@ import {ClipLoader} from "react-spinners";
 
 const Checkout = ({cartItems}: any) => {
     let cartTotalPrice = 0;
+    const [isLoading, setIsLoading]: any = useState(false);
     const [provinces, setProvinces] = useState([]);
     const [districts, setDistricts] = useState([]);
     const [wards, setWards] = useState([]);
@@ -28,11 +29,10 @@ const Checkout = ({cartItems}: any) => {
 
     const [fee, setFee] = useState(0);
     const [paymentType, setPaymentType] = useState('cod');
-    const [isLoading, setIsLoading]: any = useState(false);
 
     useEffect(() => {
-        console.log(isLoading)
-    }, [isLoading]);
+        console.log(isLoading);
+    }, [isLoading, cartItems]);
 
     const getDistricts = async (provinceId: any) => {
         await axios.get(process.env.REACT_APP_GHN_API + `district?province_id=${provinceId}`, {
@@ -77,7 +77,6 @@ const Checkout = ({cartItems}: any) => {
                 "Token": process.env.REACT_APP_GHN_TOKEN,
             },
         }).then((response) => {
-            console.log(response.data)
             setFee(response.data.data.total);
         }).catch((error) => {
             console.log(error);
@@ -144,31 +143,77 @@ const Checkout = ({cartItems}: any) => {
 
     const handleCreateOrder = () => {
         setIsLoading(true)
-        if (name === "" || phone === "" || address === "" ||
-            selectedProvince === null || selectedProvince === "" || selectedDistrict === null
-            || selectedDistrict === "" || selectedWard === null || selectedWard === "") {
-            toast.error("Vui lòng nhập đầy đủ thông tin khách hàng")
+        setTimeout(async () => {
+            if (name === "" || phone === "" || address === "" ||
+                selectedProvince === null || selectedProvince === "" || selectedDistrict === null
+                || selectedDistrict === "" || selectedWard === null || selectedWard === "") {
+                toast.error("Vui lòng nhập đầy đủ thông tin khách hàng")
+                setIsLoading(false)
+                return;
+            }
+            switch (paymentType) {
+                case 'cod':
+                    // postOrderGHN(paymentType).then((response: any) => {
+                    //     console.log(response.data);
+                    //     toast.success('Đặt hàng thành công!');
+                    // }).catch((error) => {
+                    //     toast.error(error.response.data.code_message_value)
+                    //     console.log(error);
+                    // });
+                    break;
+                case 'vnpay':
+                    const idOrder = JSON.stringify(new Date().getTime())
+                    const products = cartItems.map((item: any) => ({
+                        product: item.id,
+                        quantity: item.quantity
+                    }));
+                    const data = {
+                        amount: cartTotalPrice + fee,
+                        orderInfo: idOrder
+                    };
+                    const dataOrder = {
+                        id: idOrder,
+                        fullname: name,
+                        province: selectedProvince,
+                        district: selectedDistrict,
+                        ward: selectedWard,
+                        address: address,
+                        payMethod: "vnpay",
+                        payment_status: true,
+                        note: note,
+                        status: 0,
+                        products: products,
+                    };
+                    await axios.post(`${process.env.REACT_APP_API_ENDPOINT}payment/create_payment`, data, {
+                        headers: {
+                            Accept: 'application/json',
+                            "Content-Type": "application/json",
+                        },
+                        withCredentials: true
+                    })
+                        .then((response) => {
+                            sessionStorage.setItem("order", JSON.stringify(dataOrder));
+                            window.location.href = response.data.url;
+                        })
+                        .catch((error) => {
+                            console.log(error);
+                            toast.error("Đã có lỗi xảy ra, vui lòng thử lại sau");
+                        })
+
+                    // postOrderGHN(paymentType).then((response: any) => {
+                    //     console.log(response.data);
+                    //     toast.success('Đặt hàng thành công!');
+                    // }).catch((error) => {
+                    //     toast.error(error.response.data.code_message_value)
+                    //     console.log(error);
+                    // });
+                    break;
+                case 'payos':
+                default:
+                    break;
+            }
             setIsLoading(false)
-            return;
-        }
-        switch (paymentType) {
-            case 'cod':
-                // postOrderGHN('cod').then((response: any) => {
-                //     console.log(response.data);
-                //     toast.success('Đặt hàng thành công!');
-                // }).catch((error) => {
-                //     toast.error(error.response.data.code_message_value)
-                //     console.log(error);
-                // });
-
-                break;
-            case 'vnpay':
-
-                break;
-            case 'payos':
-            default:
-                break;
-        }
+        }, 1000);
     }
 
     return (
@@ -389,9 +434,9 @@ const Checkout = ({cartItems}: any) => {
                                     <div className="place-order mt-25">
                                         {
                                             isLoading ? (
-                                                <div className="btn-hover d-flex justify-content-center">
-                                                    <ClipLoader color="#36d7b7"/>
-                                                </div>
+                                                <button className="btn-hover d-flex justify-content-center">
+                                                    <ClipLoader color="#36d7b7" size={14}/>
+                                                </button>
                                             ) : <button className="btn-hover" onClick={handleCreateOrder}>Đặt
                                                 hàng
                                             </button>
