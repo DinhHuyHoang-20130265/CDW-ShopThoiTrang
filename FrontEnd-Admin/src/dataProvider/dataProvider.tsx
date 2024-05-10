@@ -123,6 +123,7 @@ export const dataProvider: DataProvider = {
         }),
     // @ts-ignore
     getMany: async (resource: any, params: any) => {
+        console.log(resource, params)
         try {
             const ids = params.ids.map((cate: object | any) => typeof cate === "object" ? cate.id : cate)
             const query = {
@@ -140,27 +141,9 @@ export const dataProvider: DataProvider = {
 
             return Promise.resolve({data: json})
         } catch (error: any) {
-            if (error.status === 401) {
-                await httpClient(`${process.env.REACT_APP_API_URL}/auth/refresh-token`, {
-                    method: 'POST',
-                    headers: new Headers({
-                        Accept: 'application/json',
-                        'Content-Type': 'application/json'
-                    }),
-                    credentials: 'include',
-                }).then((response: any) => {
-                    console.log(response)
-                    Promise.resolve();
-                }).catch((error: any) => {
-                    console.log(error)
-                    // @ts-ignore
-                    return authProvider.logout();
-                })
-            } else {
-                console.log(error)
-                return Promise.reject({message: error.response.data.message});
-            }
-            return Promise.resolve({data: []})
+
+            console.log(error)
+            return Promise.reject({message: error.response.data.message});
         }
     },
     getManyReference: (resource: any, params: any) => Promise.resolve({data: []}),
@@ -468,5 +451,9 @@ export const dataProvider: DataProvider = {
         }).then(({json}) => ({
             data: json,
         })),
-    deleteMany: (resource: any, params: any) => Promise.resolve({data: []}),
+    deleteMany: (resource: any, params: any) => {
+        console.log("Delete many")
+        console.log(resource, params)
+        return Promise.resolve({data: []})
+    },
 };

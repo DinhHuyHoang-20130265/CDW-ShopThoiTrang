@@ -36,7 +36,9 @@ const Render = () => {
 
     return (
         isLoaded ?
-            <GoogleOAuthProvider clientId={"910519969681-toe1jki11dlo6blotqtm47npbu31t6rd.apps.googleusercontent.com"}>
+            <GoogleOAuthProvider
+                // @ts-ignore
+                clientId={process.env.REACT_APP_GOOGLE_LOGIN_API_CLIENT}>
                 <Provider store={store}>
                     <RouterProvider router={webRouter}/>
                 </Provider>

@@ -173,6 +173,7 @@ export interface OrderStatusHistory extends RaRecord {
     status: OrderStatus,
     createdDate: string,
 }
+
 export interface Order extends RaRecord {
     id: number,
     name: string,
@@ -189,6 +190,17 @@ export interface Order extends RaRecord {
     orderStatusHistories: OrderStatusHistory[],
 }
 
+export interface Review extends RaRecord {
+    id: number,
+    content: string,
+    rating: number,
+    status: boolean,
+    isDeleted: boolean,
+    type: number,
+    reviewedDate: string,
+    product: string,
+    reviewer: string,
+}
 
 declare global {
     interface Window {

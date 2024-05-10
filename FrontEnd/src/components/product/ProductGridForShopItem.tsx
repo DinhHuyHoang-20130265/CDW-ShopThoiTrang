@@ -16,9 +16,9 @@ const ProductGridForShopItem = ({
     const [modalShow, setModalShow] = useState(false);
     const {addToast} = useToasts();
 
-    const discountedPrice = product.promotions && product.promotions.length > 0 ? getDiscountPrice(product.price.price, product.promotions[0].discount) : null;
-    const finalProductPrice = +(product.price.price).toFixed(2);
-    const finalDiscountedPrice = discountedPrice !== null ? +(discountedPrice).toFixed(2) : 0;
+    const discountedPrice = getDiscountPrice(product.price.price, product.promotions[0])
+    const finalProductPrice = (product.price.price).toFixed(2);
+    const finalDiscountedPrice = discountedPrice !== null ? (discountedPrice).toFixed(2) : 0;
 
     return (
         <Fragment>

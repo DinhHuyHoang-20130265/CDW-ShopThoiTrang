@@ -47,16 +47,15 @@ const ShoppingCart = ({
                                             </thead>
                                             <tbody>
                                             {cartItems.map((cartItem: any, key: any) => {
-                                                console.log(cartItem)
                                                 const discountedPrice: any = getDiscountPrice(
-                                                    cartItem.price,
-                                                    cartItem.discount
+                                                    cartItem.price.price,
+                                                    cartItem.promotions[0]
                                                 );
                                                 const finalProductPrice = (
-                                                    cartItem.price
+                                                    cartItem.price.price
                                                 ).toFixed(2);
                                                 const finalDiscountedPrice = (
-                                                    discountedPrice
+                                                    discountedPrice === null ? cartItem.price.price : discountedPrice
                                                 ).toFixed(2);
 
                                                 discountedPrice != null
@@ -68,7 +67,7 @@ const ShoppingCart = ({
                                                         <tr key={key}>
                                                             <td className="product-thumbnail">
                                                                 <Link to={"/product/" + cartItem.id}>
-                                                                    <img className="img-fluid" src={cartItem.image[0]}
+                                                                    <img className="img-fluid" src={cartItem.imageUrl}
                                                                          alt=""/>
                                                                 </Link>
                                                             </td>
@@ -129,7 +128,7 @@ const ShoppingCart = ({
                                                                         disabled={
                                                                             cartItem !== undefined &&
                                                                             cartItem.quantity &&
-                                                                            cartItem.quantity >=
+                                                                            cartItem.quantity >
                                                                             cartItemStock(
                                                                                 cartItem,
                                                                                 cartItem.selectedProductColor,

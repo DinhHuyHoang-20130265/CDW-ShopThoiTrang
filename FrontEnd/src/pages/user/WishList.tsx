@@ -23,24 +23,24 @@ const Wishlist = ({cartItems, wishlistItems, deleteFromWishlist, deleteAllFromWi
                                         <table>
                                             <thead>
                                             <tr>
-                                                <th>Image</th>
-                                                <th>Product Name</th>
-                                                <th>Unit Price</th>
-                                                <th>Add To Cart</th>
-                                                <th>action</th>
+                                                <th>Ảnh</th>
+                                                <th>Tên sản phẩm</th>
+                                                <th>Giá</th>
+                                                <th>Thêm sản phẩm vào giỏ hàng</th>
+                                                <th></th>
                                             </tr>
                                             </thead>
                                             <tbody>
                                             {wishlistItems.map((wishlistItem: any, key: any) => {
                                                 const discountedPrice: any = getDiscountPrice(
-                                                    wishlistItem.price,
-                                                    wishlistItem.discount
+                                                    wishlistItem.price.price,
+                                                    wishlistItem.promotions[0]
                                                 );
                                                 const finalProductPrice = (
-                                                    wishlistItem.price
+                                                    wishlistItem.price.price
                                                 ).toFixed(2);
                                                 const finalDiscountedPrice = (
-                                                    discountedPrice
+                                                    discountedPrice === null ? wishlistItem.price.price : discountedPrice
                                                 ).toFixed(2);
                                                 const cartItem = cartItems.filter(
                                                     (item: any) => item.id === wishlistItem.id
@@ -50,7 +50,6 @@ const Wishlist = ({cartItems, wishlistItems, deleteFromWishlist, deleteAllFromWi
                                                         <td className="product-thumbnail">
                                                             <Link
                                                                 to={
-                                                                    process.env.PUBLIC_URL +
                                                                     "/product/" +
                                                                     wishlistItem.id
                                                                 }
@@ -58,8 +57,7 @@ const Wishlist = ({cartItems, wishlistItems, deleteFromWishlist, deleteAllFromWi
                                                                 <img
                                                                     className="img-fluid"
                                                                     src={
-                                                                        process.env.PUBLIC_URL +
-                                                                        wishlistItem.image[0]
+                                                                        wishlistItem.imageUrl
                                                                     }
                                                                     alt=""
                                                                 />
@@ -69,7 +67,6 @@ const Wishlist = ({cartItems, wishlistItems, deleteFromWishlist, deleteAllFromWi
                                                         <td className="product-name text-center">
                                                             <Link
                                                                 to={
-                                                                    process.env.PUBLIC_URL +
                                                                     "/product/" +
                                                                     wishlistItem.id
                                                                 }
@@ -91,10 +88,10 @@ const Wishlist = ({cartItems, wishlistItems, deleteFromWishlist, deleteAllFromWi
                                                         </td>
 
                                                         <td className="product-wishlist-cart">
-                                                            {wishlistItem.variation &&
-                                                            wishlistItem.variation.length >= 1 ? (
+                                                            {wishlistItem.variations &&
+                                                            wishlistItem.variations.length >= 1 ? (
                                                                 <Link
-                                                                    to={`${process.env.PUBLIC_URL}/product/${wishlistItem.id}`}
+                                                                    to={`/product/${wishlistItem.id}`}
                                                                 >
                                                                     Xem ngay
                                                                 </Link>
@@ -152,14 +149,14 @@ const Wishlist = ({cartItems, wishlistItems, deleteFromWishlist, deleteAllFromWi
                                     <div className="cart-shiping-update-wrapper">
                                         <div className="cart-shiping-update">
                                             <Link
-                                                to={process.env.PUBLIC_URL + "/shop-grid-standard"}
+                                                to={"/shop"}
                                             >
-                                                Continue Shopping
+                                                Tiếp tục mua sắm
                                             </Link>
                                         </div>
                                         <div className="cart-clear">
                                             <button onClick={() => deleteAllFromWishlist(addToast)}>
-                                                Clear Wishlist
+                                                Xoá toàn bộ danh sách yêu thích
                                             </button>
                                         </div>
                                     </div>
@@ -174,9 +171,9 @@ const Wishlist = ({cartItems, wishlistItems, deleteFromWishlist, deleteAllFromWi
                                         <i className="pe-7s-like"></i>
                                     </div>
                                     <div className="item-empty-area__text">
-                                        No items found in wishlist <br/>{" "}
-                                        <Link to={process.env.PUBLIC_URL + "/shop-grid-standard"}>
-                                            Add Items
+                                        Không có sản phẩm nào trong danh sách yêu thích <br/>{" "}
+                                        <Link to={"/shop"}>
+                                            Thêm sản phẩm
                                         </Link>
                                     </div>
                                 </div>
@@ -194,7 +191,6 @@ const mapStateToProps = (state: any) => {
     return {
         cartItems: state.cartData,
         wishlistItems: state.wishlistData,
-        currency: state.currencyData
     };
 };
 

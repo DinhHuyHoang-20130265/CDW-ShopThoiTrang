@@ -9,8 +9,6 @@ import {LightgalleryProvider, LightgalleryItem} from "react-lightgallery";
 const ProductImageGalleryLeftThumb = ({product, thumbPosition}: any) => {
     const [gallerySwiper, getGallerySwiper]: any = useState(null);
     const [thumbnailSwiper, getThumbnailSwiper]: any = useState(null);
-
-    // effect for swiper slider synchronize
     useEffect(() => {
         if (
             gallerySwiper !== null &&
@@ -27,18 +25,17 @@ const ProductImageGalleryLeftThumb = ({product, thumbPosition}: any) => {
     const gallerySwiperParams = {
         getSwiper: getGallerySwiper,
         spaceBetween: 10,
-        loopedSlides: 4,
-        loop: true,
-        effect: "fade"
+        loopedSlides: product.imgProducts.length,
+        loop: product.imgProducts.length > 3,
     };
 
     const thumbnailSwiperParams = {
         getSwiper: getThumbnailSwiper,
         spaceBetween: 10,
         slidesPerView: 4,
-        loopedSlides: 4,
         touchRatio: 0.2,
-        loop: true,
+        loopedSlides: product.imgProducts.length,
+        loop: product.imgProducts.length > 3,
         slideToClickedSlide: true,
         direction: "vertical",
         breakpoints: {
@@ -76,42 +73,41 @@ const ProductImageGalleryLeftThumb = ({product, thumbPosition}: any) => {
                     }`}
                 >
                     <div className="product-large-image-wrapper">
-                        {product.discount || product.new ? (
+                        {product.promotions[0] ? (
                             <div className="product-img-badges">
-                                {product.discount ? (
-                                    <span className="pink">-{product.discount}%</span>
+                                {product.promotions[0] ? (
+                                    <span className="pink">-{product.promotions[0].discount}%</span>
                                 ) : (
                                     ""
                                 )}
-                                {product.new ? <span className="purple">New</span> : ""}
+                                {product.variations ? <span className="purple">Còn hàng</span> : ""}
                             </div>
                         ) : (
                             ""
                         )}
                         <LightgalleryProvider>
                             <Swiper {...gallerySwiperParams}>
-                                {product.image &&
-                                    product.image.map((single: any, key: any) => {
-                                        return (
-                                            <div key={key}>
-                                                <LightgalleryItem
-                                                    group="any"
-                                                    src={process.env.PUBLIC_URL + single}
-                                                >
-                                                    <button>
-                                                        <i className="pe-7s-expand1"></i>
-                                                    </button>
-                                                </LightgalleryItem>
-                                                <div className="single-image">
-                                                    <img
-                                                        src={process.env.PUBLIC_URL + single}
-                                                        className="img-fluid"
-                                                        alt=""
-                                                    />
-                                                </div>
+                                {product.imgProducts.map((single: any, key: any) => {
+                                    return (
+                                        <div key={key}>
+                                            <LightgalleryItem
+                                                group="any"
+                                                src={single.url}
+                                            >
+                                                <button>
+                                                    <i className="pe-7s-expand1"></i>
+                                                </button>
+                                            </LightgalleryItem>
+                                            <div className="single-image">
+                                                <img
+                                                    src={single.url}
+                                                    className="img-fluid"
+                                                    alt=""
+                                                />
                                             </div>
-                                        );
-                                    })}
+                                        </div>
+                                    );
+                                })}
                             </Swiper>
                         </LightgalleryProvider>
                     </div>
@@ -125,13 +121,13 @@ const ProductImageGalleryLeftThumb = ({product, thumbPosition}: any) => {
                 >
                     <div className="product-small-image-wrapper product-small-image-wrapper--side-thumb">
                         <Swiper {...thumbnailSwiperParams}>
-                            {product.image &&
-                                product.image.map((single: any, key: any) => {
+                            {
+                                product.imgProducts.map((single: any, key: any) => {
                                     return (
                                         <div key={key}>
                                             <div className="single-image">
                                                 <img
-                                                    src={process.env.PUBLIC_URL + single}
+                                                    src={single.url}
                                                     className="img-fluid"
                                                     alt=""
                                                 />

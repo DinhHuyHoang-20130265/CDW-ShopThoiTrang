@@ -15,6 +15,7 @@ import WishList from "../pages/user/WishList";
 import Posts from "../pages/user/Posts";
 import PostDetail from "../pages/user/PostDetail";
 import NotFound404 from "../pages/NotFound404";
+import {PaymentResult} from "../pages/user/PaymentResult";
 
 export const webRouter = createBrowserRouter([
     {
@@ -70,7 +71,12 @@ export const webRouter = createBrowserRouter([
                 path: "contact",
                 element: <Contact/>,
                 loader: loadId
-            }, {
+            },
+            {
+                path: "/payment-result",
+                element: <PaymentResult/>
+            }
+            , {
                 path: "/*",
                 element: <NotFound404/>
             }

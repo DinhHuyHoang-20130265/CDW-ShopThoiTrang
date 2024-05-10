@@ -43,6 +43,10 @@ public class User implements UserDetails {
     private UserInfo userInfo;
 
     @JsonIgnore
+    @OneToMany(mappedBy = "reviewer", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    private List<Review> reviews;
+
+    @JsonIgnore
     @OneToMany(mappedBy = "user", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private Set<Order> orders;
 
@@ -80,11 +84,10 @@ public class User implements UserDetails {
     public Collection<? extends GrantedAuthority> getAuthorities() {
         Set<GrantedAuthority> authorities = new HashSet<>();
         authorities.add(new SimpleGrantedAuthority("ROLE_" + role.getName()));
-        resourceVariations.forEach(resourceVariation -> {
-            resourceVariation.getPermissions().forEach(permission -> {
-                authorities.add(new SimpleGrantedAuthority(resourceVariation.getResource().getName() + "_" + permission.getName()));
-            });
-        });
+        if (resourceVariations != null)
+            resourceVariations.forEach(resourceVariation ->
+                    resourceVariation.getPermissions().forEach(permission ->
+                            authorities.add(new SimpleGrantedAuthority(resourceVariation.getResource().getName() + "_" + permission.getName()))));
         return authorities;
     }
 

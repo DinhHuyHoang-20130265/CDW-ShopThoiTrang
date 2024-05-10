@@ -4,6 +4,7 @@ import {ToastProvider} from "react-toast-notifications";
 import {BreadcrumbsProvider} from "react-breadcrumbs-dynamic";
 import PropTypes from "prop-types";
 import LayoutUser from "./pages/layout/layoutUser";
+import {Toaster} from "react-hot-toast";
 
 function App() {
 
@@ -19,6 +20,10 @@ function App() {
                     </Fragment>
                 </div>
             </BreadcrumbsProvider>
+            <Toaster
+                position="top-center"
+                reverseOrder={false}
+            />
         </ToastProvider>
     );
 }

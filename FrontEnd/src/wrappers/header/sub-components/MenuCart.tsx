@@ -14,14 +14,14 @@ const MenuCart = ({cartData, deleteFromCart}: any) => {
                     <ul>
                         {cartData.map((single: any, key: any) => {
                             const discountedPrice: any = getDiscountPrice(
-                                single.price,
-                                single.discount
+                                single.price.price,
+                                single.promotions[0]
                             );
                             const finalProductPrice = (
-                                single.price
+                                single.price.price
                             ).toFixed(2);
                             const finalDiscountedPrice = (
-                                discountedPrice
+                                discountedPrice === null ? single.price.price : discountedPrice
                             ).toFixed(2);
 
                             discountedPrice != null
@@ -31,10 +31,10 @@ const MenuCart = ({cartData, deleteFromCart}: any) => {
                             return (
                                 <li className="single-shopping-cart" key={key}>
                                     <div className="shopping-cart-img">
-                                        <Link to={process.env.PUBLIC_URL + "/product/" + single.id}>
+                                        <Link to={"/product/" + single.id}>
                                             <img
                                                 alt=""
-                                                src={process.env.PUBLIC_URL + single.image[0]}
+                                                src={single.imageUrl}
                                                 className="img-fluid"
                                             />
                                         </Link>
@@ -42,13 +42,13 @@ const MenuCart = ({cartData, deleteFromCart}: any) => {
                                     <div className="shopping-cart-title">
                                         <h4>
                                             <Link
-                                                to={process.env.PUBLIC_URL + "/product/" + single.id}
+                                                to={"/product/" + single.id}
                                             >
                                                 {" "}
                                                 {single.name}{" "}
                                             </Link>
                                         </h4>
-                                        <h6>Qty: {single.quantity}</h6>
+                                        <h6>Số lượng: {single.quantity}</h6>
                                         <span>
                       {discountedPrice !== null
                           ? "đ" + finalDiscountedPrice
@@ -57,8 +57,8 @@ const MenuCart = ({cartData, deleteFromCart}: any) => {
                                         {single.selectedProductColor &&
                                         single.selectedProductSize ? (
                                             <div className="cart-item-variation">
-                                                <span>Color: {single.selectedProductColor}</span>
-                                                <span>Size: {single.selectedProductSize}</span>
+                                                <span>Màu: {single.selectedProductColor}</span>
+                                                <span>Kích thước: {single.selectedProductSize}</span>
                                             </div>
                                         ) : (
                                             ""
@@ -75,26 +75,26 @@ const MenuCart = ({cartData, deleteFromCart}: any) => {
                     </ul>
                     <div className="shopping-cart-total">
                         <h4>
-                            Total :{" "}
+                            Tổng :{" "}
                             <span className="shop-total">
                 {"đ" + cartTotalPrice.toFixed(2)}
               </span>
                         </h4>
                     </div>
                     <div className="shopping-cart-btn btn-hover text-center">
-                        <Link className="default-btn" to={process.env.PUBLIC_URL + "/shopping-cart"}>
-                            view cart
+                        <Link className="default-btn" to={"/cart"}>
+                            Xem giỏ hàng
                         </Link>
                         <Link
                             className="default-btn"
-                            to={process.env.PUBLIC_URL + "/checkout"}
+                            to={"/checkout"}
                         >
-                            checkout
+                            Thanh toán
                         </Link>
                     </div>
                 </Fragment>
             ) : (
-                <p className="text-center">No items added to cart</p>
+                <p className="text-center">Bạn chưa có sản phẩm nào trong giỏ hàng</p>
             )}
         </div>
     );

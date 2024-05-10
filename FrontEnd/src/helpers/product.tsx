@@ -9,8 +9,8 @@ export const getProducts = (products: any[], category: any, type: string, limit:
 };
 
 // get product discount price
-export const getDiscountPrice = (price: any, discount: any) => {
-    return discount && discount > 0 ? price - price * (discount / 100) : null;
+export const getDiscountPrice = (price: any, promotion: any) => {
+    return promotion && promotion.discount > 0 ? price - price * (promotion.discount / 100) : null;
 };
 
 // get product cart quantity
@@ -105,6 +105,7 @@ export const getIndividualCategories = (products: any[]) => {
             product.categories.map((single: any) => {
                 if (productCategories.find(item => item.id === single.id) === undefined)
                     return productCategories.push(single);
+                return null;
             })
         );
     });
@@ -134,8 +135,9 @@ export const getIndividualColors = (products: any[]) => {
         return (
             product.variations &&
             product.variations.map((single: any) => {
-                if (productColors.find(item => item.color == single.color) === undefined)
+                if (productColors.find(item => item.color === single.color) === undefined)
                     return productColors.push(single.color);
+                return null;
             })
         );
     });
@@ -153,6 +155,7 @@ export const getProductsIndividualSizes = (products: any[]) => {
                 return single.sizes.map((single: any) => {
                     if (productSizes.find(item => item.size === single.size) === undefined)
                         return productSizes.push(single.size);
+                    return null;
                 });
             })
         );
