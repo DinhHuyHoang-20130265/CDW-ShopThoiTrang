@@ -30,11 +30,11 @@ const Contact = () => {
                                     </div>
                                     <div className="contact-info-dec">
                                         <p>
-                                            <a href="mailto:urname@email.com">urname@email.com</a>
+                                            <a href="mailto:urname@email.com">ptshop@email.com</a>
                                         </p>
-                                        <p>
-                                            <a href="//urwebsitenaem.com">urwebsitenaem.com</a>
-                                        </p>
+                                        {/*<p>*/}
+                                        {/*    <a href="//urwebsitenaem.com">urwebsitenaem.com</a>*/}
+                                        {/*</p>*/}
                                     </div>
                                 </div>
                                 <div className="single-contact-info">
@@ -81,12 +81,12 @@ const Contact = () => {
                         <div className="col-lg-8 col-md-7">
                             <div className="contact-form">
                                 <div className="contact-title mb-30">
-                                    <h2>Get In Touch</h2>
+                                    <h2>Liên lạc</h2>
                                 </div>
                                 <form className="contact-form-style">
                                     <div className="row">
                                         <div className="col-lg-6">
-                                            <input name="name" placeholder="Name*" type="text"/>
+                                            <input name="name" placeholder="Họ tên*" type="text"/>
                                         </div>
                                         <div className="col-lg-6">
                                             <input name="email" placeholder="Email*" type="email"/>
@@ -94,18 +94,18 @@ const Contact = () => {
                                         <div className="col-lg-12">
                                             <input
                                                 name="subject"
-                                                placeholder="Subject*"
+                                                placeholder="Chủ đề*"
                                                 type="text"
                                             />
                                         </div>
                                         <div className="col-lg-12">
                         <textarea
                             name="message"
-                            placeholder="Your Message*"
+                            placeholder="Nội dung*"
                             defaultValue={""}
                         />
                                             <button className="submit" type="submit">
-                                                SEND
+                                                Gửi
                                             </button>
                                         </div>
                                     </div>
