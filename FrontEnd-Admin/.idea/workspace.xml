@@ -4,19 +4,12 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="89893dc3-088e-47ef-a82c-f709754202c6" name="Changes" comment="updated: finished review list">
-      <change afterPath="$PROJECT_DIR$/../BackEnd/src/main/java/vn/edu/hcmuaf/cdw/ShopThoiTrang/service/GoogleService.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../BackEnd/src/main/java/vn/edu/hcmuaf/cdw/ShopThoiTrang/service/impl/GoogleServiceImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../BackEnd/src/main/java/vn/edu/hcmuaf/cdw/ShopThoiTrang/controller/AuthController.java" beforeDir="false" afterPath="$PROJECT_DIR$/../BackEnd/src/main/java/vn/edu/hcmuaf/cdw/ShopThoiTrang/controller/AuthController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../BackEnd/src/main/java/vn/edu/hcmuaf/cdw/ShopThoiTrang/service/ReviewService.java" beforeDir="false" afterPath="$PROJECT_DIR$/../BackEnd/src/main/java/vn/edu/hcmuaf/cdw/ShopThoiTrang/service/ReviewService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../BackEnd/src/main/java/vn/edu/hcmuaf/cdw/ShopThoiTrang/service/impl/ReviewServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/../BackEnd/src/main/java/vn/edu/hcmuaf/cdw/ShopThoiTrang/service/impl/ReviewServiceImpl.java" afterDir="false" />
+    <list default="true" id="89893dc3-088e-47ef-a82c-f709754202c6" name="Changes" comment="add edit promotion">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/dataProvider/dataProvider.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/dataProvider/dataProvider.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/reviews/ReviewEdit.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/reviews/ReviewEdit.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/reviews/ReviewListDesktop.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/reviews/ReviewListDesktop.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../FrontEnd/.env" beforeDir="false" afterPath="$PROJECT_DIR$/../FrontEnd/.env" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../FrontEnd/src/pages/user/LoginRegister.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/../FrontEnd/src/pages/user/LoginRegister.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../FrontEnd/src/wrappers/header/IconGroup.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/../FrontEnd/src/wrappers/header/IconGroup.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/products/Aside.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/products/Aside.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/products/ProductList.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/products/ProductList.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/products/ProductShow.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/products/ProductShow.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/promotion/PromotionList.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/promotion/PromotionList.tsx" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -34,21 +27,6 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
   </component>
-  <component name="GitHubPullRequestSearchHistory">{
-  &quot;lastFilter&quot;: {
-    &quot;state&quot;: &quot;OPEN&quot;,
-    &quot;assignee&quot;: &quot;DinhHuyHoang-20130265&quot;
-  }
-}</component>
-  <component name="GithubPullRequestsUISettings">{
-  &quot;selectedUrlAndAccountId&quot;: {
-    &quot;url&quot;: &quot;https://github.com/DinhHuyHoang-20130265/CDW-ShopThoiTrang.git&quot;,
-    &quot;accountId&quot;: &quot;dd6f2130-194f-469e-9a72-6e72cbed251b&quot;
-  }
-}</component>
-  <component name="HighlightingSettingsPerFile">
-    <setting file="file://$PROJECT_DIR$/src/authProvider.tsx" root0="FORCE_HIGHLIGHTING" />
-  </component>
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
   </component>
@@ -63,25 +41,25 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "git-widget-placeholder": "DinhHuyHoang",
-    "ignore.virus.scanning.warn.message": "true",
-    "last_opened_file_path": "D:/CDW-ShopThoiTrang/FrontEnd-Admin",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_interpreter_path": "node",
-    "nodejs_package_manager_path": "npm",
-    "npm.npm start.executor": "Run",
-    "settings.editor.selected.configurable": "preferences.pluginManager",
-    "ts.external.directory.path": "D:\\CDW-ShopThoiTrang\\FrontEnd-Admin\\node_modules\\typescript\\lib",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;NguyenNgocHuy&quot;,
+    &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;D:/ChuyenDeWeb/CDW-ShopThoiTrang/FrontEnd-Admin/src/orders&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_interpreter_path&quot;: &quot;node&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;npm.npm start.executor&quot;: &quot;Run&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.keymap&quot;,
+    &quot;ts.external.directory.path&quot;: &quot;D:\\ChuyenDeWeb\\CDW-ShopThoiTrang\\FrontEnd-Admin\\node_modules\\typescript\\lib&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="D:\ChuyenDeWeb\CDW-ShopThoiTrang\FrontEnd-Admin\src\orders" />
@@ -107,13 +85,6 @@
       <envs />
       <method v="2" />
     </configuration>
-  </component>
-  <component name="SharedIndexes">
-    <attachedChunks>
-      <set>
-        <option value="bundled-js-predefined-1d06a55b98c1-74d2a5396914-JavaScript-WS-241.14494.235" />
-      </set>
-    </attachedChunks>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
@@ -153,22 +124,7 @@
       <workItem from="1713351333380" duration="350000" />
       <workItem from="1713353115000" duration="12162000" />
       <workItem from="1713415033170" duration="4213000" />
-      <workItem from="1713444764874" duration="593000" />
-      <workItem from="1713531547544" duration="24000" />
-      <workItem from="1713531586000" duration="177000" />
-      <workItem from="1713623763737" duration="595000" />
-      <workItem from="1713629580761" duration="1235000" />
-      <workItem from="1713635923490" duration="496000" />
-      <workItem from="1713717477085" duration="71000" />
-      <workItem from="1713717562755" duration="66000" />
-      <workItem from="1713717643081" duration="5391000" />
-      <workItem from="1713784770266" duration="4293000" />
-      <workItem from="1713805930848" duration="3532000" />
-      <workItem from="1713853105022" duration="2900000" />
-      <workItem from="1713879552203" duration="3529000" />
-      <workItem from="1714048684086" duration="66000" />
-      <workItem from="1714054807310" duration="284000" />
-      <workItem from="1714055253904" duration="75000" />
+      <workItem from="1713444764874" duration="7169000" />
     </task>
     <task id="LOCAL-00001" summary="update product for admin (50%&#10;)">
       <option name="closed" value="true" />
@@ -330,31 +286,7 @@
       <option name="project" value="LOCAL" />
       <updated>1713369279551</updated>
     </task>
-    <task id="LOCAL-00021" summary="updated: created button review, review controller backend">
-      <option name="closed" value="true" />
-      <created>1713719296817</created>
-      <option name="number" value="00021" />
-      <option name="presentableId" value="LOCAL-00021" />
-      <option name="project" value="LOCAL" />
-      <updated>1713719296817</updated>
-    </task>
-    <task id="LOCAL-00022" summary="updated: updated review (50%)">
-      <option name="closed" value="true" />
-      <created>1713723124896</created>
-      <option name="number" value="00022" />
-      <option name="presentableId" value="LOCAL-00022" />
-      <option name="project" value="LOCAL" />
-      <updated>1713723124896</updated>
-    </task>
-    <task id="LOCAL-00023" summary="updated: finished review list">
-      <option name="closed" value="true" />
-      <created>1713786660051</created>
-      <option name="number" value="00023" />
-      <option name="presentableId" value="LOCAL-00023" />
-      <option name="project" value="LOCAL" />
-      <updated>1713786660051</updated>
-    </task>
-    <option name="localTasksCounter" value="24" />
+    <option name="localTasksCounter" value="21" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -394,9 +326,6 @@
     <MESSAGE value="add list promotion" />
     <MESSAGE value="add edit promotion" />
     <MESSAGE value="update edit promotion (add product to promotion)" />
-    <MESSAGE value="updated: created button review, review controller backend" />
-    <MESSAGE value="updated: updated review (50%)" />
-    <MESSAGE value="updated: finished review list" />
-    <option name="LAST_COMMIT_MESSAGE" value="updated: finished review list" />
+    <option name="LAST_COMMIT_MESSAGE" value="update edit promotion (add product to promotion)" />
   </component>
 </project>

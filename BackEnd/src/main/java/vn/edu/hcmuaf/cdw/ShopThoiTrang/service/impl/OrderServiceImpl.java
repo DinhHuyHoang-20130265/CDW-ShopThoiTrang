@@ -3,8 +3,10 @@ package vn.edu.hcmuaf.cdw.ShopThoiTrang.service.impl;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import jakarta.persistence.EntityManager;
 import jakarta.persistence.criteria.Join;
 import jakarta.persistence.criteria.Predicate;
+import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -12,8 +14,10 @@ import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 import vn.edu.hcmuaf.cdw.ShopThoiTrang.entity.*;
-import vn.edu.hcmuaf.cdw.ShopThoiTrang.reponsitory.OrderRepository;
+import vn.edu.hcmuaf.cdw.ShopThoiTrang.reponsitory.*;
+import vn.edu.hcmuaf.cdw.ShopThoiTrang.service.OrderDetailService;
 import vn.edu.hcmuaf.cdw.ShopThoiTrang.service.OrderService;
+import vn.edu.hcmuaf.cdw.ShopThoiTrang.service.OrderStatusHistoryService;
 
 import java.nio.charset.StandardCharsets;
 
@@ -22,6 +26,24 @@ public class OrderServiceImpl implements OrderService {
 
     @Autowired
     private OrderRepository orderRepository;
+
+    @Autowired
+    private OrderStatusRepository orderStatusRepository;
+
+    @Autowired
+    private OrderDetailRepository orderDetailRepository;
+
+    @Autowired
+    private OrderStatusHistoryRepository orderStatusHistoryRepository;
+
+    @Autowired
+    private OrderStatusHistoryService orderStatusHistoryService;
+
+    @Autowired
+    private SizeRepository sizeRepository;
+
+    @Autowired
+    private EntityManager entityManager;
 
 
     @Override
@@ -64,4 +86,66 @@ public class OrderServiceImpl implements OrderService {
     public Order getOrderById(Long id) {
         return orderRepository.findById(id).orElse(null);
     }
+
+    @Transactional
+    @Override
+    public String createOrder(Order order) {
+        Order orderNew = new Order();
+
+        // set information for order
+        orderNew.setName(order.getName());
+        orderNew.setPhone(order.getPhone());
+        orderNew.setNote(order.getNote());
+        orderNew.setTotalAmount(order.getTotalAmount());
+        orderNew.setOrderDate(new java.sql.Timestamp(System.currentTimeMillis()));
+
+        // set shipping information for order
+        orderNew.setProvince(order.getProvince());
+        orderNew.setDistrict(order.getDistrict());
+        orderNew.setWard(order.getWard());
+        orderNew.setAddress(order.getAddress());
+        orderNew.setShippingFee(order.getShippingFee());
+        orderNew.setShippingCode(order.getShippingCode());
+
+        // set user for order
+        orderNew.setUser(order.getUser());
+
+        // set status for order
+        OrderStatus orderStatus = orderStatusRepository.findById(1L).orElseThrow(() -> new RuntimeException("Order status not found"));
+        orderNew.setStatus(orderStatus);
+
+        // save order
+        Order savedOrder = orderRepository.save(orderNew);
+
+        // save order details
+        for (OrderDetail orderDetail : order.getOrderDetails()) {
+            orderDetail.setOrder(savedOrder);
+            orderDetailRepository.save(orderDetail);
+        }
+
+        // update stock
+        for (OrderDetail orderDetail : order.getOrderDetails()) {
+            Size size = sizeRepository.findById(orderDetail.getSize().getId()).orElseThrow(() -> new RuntimeException("Size not found"));
+            if (size.getStock() < orderDetail.getQuantity()) {
+                throw new RuntimeException("Not enough stock");
+            }
+            size.setStock(size.getStock() - orderDetail.getQuantity());
+            sizeRepository.save(size);
+        }
+
+        // save order status history after saving the order
+        OrderStatusHistory orderStatusHistory = new OrderStatusHistory();
+        orderStatusHistory.setOrder(savedOrder);
+        orderStatusHistory.setCreatedDate(new java.sql.Timestamp(System.currentTimeMillis()));
+        orderStatusHistory.setStatus(orderStatus);
+        orderStatusHistoryService.saveOrderStatusHistory(orderStatusHistory);
+        return "Order created successfully";
+    }
+
+
+
+
+
+
+
 }

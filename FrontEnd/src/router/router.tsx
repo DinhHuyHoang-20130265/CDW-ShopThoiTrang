@@ -16,6 +16,7 @@ import Posts from "../pages/user/Posts";
 import PostDetail from "../pages/user/PostDetail";
 import NotFound404 from "../pages/NotFound404";
 import {PaymentResult} from "../pages/user/PaymentResult";
+import {loadIdPost} from "../pages/user/PostDetail";
 
 export const webRouter = createBrowserRouter([
     {
@@ -40,6 +41,7 @@ export const webRouter = createBrowserRouter([
             }, {
                 path: "post-detail/:id",
                 element: <PostDetail/>,
+                loader: loadIdPost
             }, {
                 path: "cart",
                 element: <ShoppingCart/>,
