@@ -2,6 +2,8 @@ import React, {Fragment, useEffect, useState} from "react";
 import PropTypes from "prop-types";
 import {connect} from "react-redux";
 import {Link} from "react-router-dom";
+// @ts-ignore
+import CryptoJS from 'crypto-js';
 import {getDiscountPrice} from "../../helpers/product";
 import Breadcrumb from "../../wrappers/breadcrumb/Breadcrumb";
 import axios from "axios";
@@ -10,6 +12,7 @@ import RadioGroup from '@mui/material/RadioGroup';
 import {FormControl, FormControlLabel, FormLabel} from "@mui/material";
 import toast from "react-hot-toast";
 import {ClipLoader} from "react-spinners";
+import useScript from "react-script-hook";
 
 const Checkout = ({cartItems}: any) => {
     let cartTotalPrice = 0;
@@ -30,9 +33,17 @@ const Checkout = ({cartItems}: any) => {
     const [fee, setFee] = useState(0);
     const [paymentType, setPaymentType] = useState('cod');
 
+
     useEffect(() => {
-        console.log(isLoading);
     }, [isLoading, cartItems]);
+
+    // payos init
+    const [loading, error]: any = useScript({
+        src: process.env.REACT_APP_PAYOS_SCRIPT || "",
+        checkForExisting: true,
+    });
+    const RETURN_URL = "https://c1b9-1-54-161-30.ngrok-free.app/api/payos";
+    const CANCEL_URL = "https://c1b9-1-54-161-30.ngrok-free.app/api/payos";
 
     const getDistricts = async (provinceId: any) => {
         await axios.get(process.env.REACT_APP_GHN_API + `district?province_id=${provinceId}`, {
@@ -101,7 +112,7 @@ const Checkout = ({cartItems}: any) => {
     const postOrderGHN = async (payment_type: any) => {
         return await axios.post(process.env.REACT_APP_GHN_FEE_API + "create",
             {
-                payment_type_id: 1,
+                payment_type_id: 2,
                 note: note,
                 required_note: "KHONGCHOXEMHANG",
                 from_name: "Shop2h",
@@ -125,7 +136,7 @@ const Checkout = ({cartItems}: any) => {
                         name: cartItem.name + " - Màu: " + cartItem.selectedProductColor + " - Size: " + cartItem.selectedProductSize,
                         code: cartItem.id + "",
                         quantity: cartItem.quantity,
-                        price: getDiscountPrice(cartItem.price.price, cartItem.promotions[0]) != null ?
+                        price: getDiscountPrice(cartItem.price.price, cartItem.promotions[0]) === null ?
                             cartItem.price.price : getDiscountPrice(cartItem.price.price, cartItem.promotions[0]),
                         category: {
                             level1: cartItem.categories[0].name,
@@ -144,76 +155,159 @@ const Checkout = ({cartItems}: any) => {
     const handleCreateOrder = () => {
         setIsLoading(true)
         setTimeout(async () => {
-            if (name === "" || phone === "" || address === "" ||
-                selectedProvince === null || selectedProvince === "" || selectedDistrict === null
-                || selectedDistrict === "" || selectedWard === null || selectedWard === "") {
-                toast.error("Vui lòng nhập đầy đủ thông tin khách hàng")
-                setIsLoading(false)
-                return;
-            }
-            switch (paymentType) {
-                case 'cod':
-                    // postOrderGHN(paymentType).then((response: any) => {
-                    //     console.log(response.data);
-                    //     toast.success('Đặt hàng thành công!');
-                    // }).catch((error) => {
-                    //     toast.error(error.response.data.code_message_value)
-                    //     console.log(error);
-                    // });
-                    break;
-                case 'vnpay':
-                    const idOrder = JSON.stringify(new Date().getTime())
-                    const products = cartItems.map((item: any) => ({
-                        product: item.id,
-                        quantity: item.quantity
-                    }));
-                    const data = {
-                        amount: cartTotalPrice + fee,
-                        orderInfo: idOrder
-                    };
-                    const dataOrder = {
-                        id: idOrder,
-                        fullname: name,
-                        province: selectedProvince,
-                        district: selectedDistrict,
-                        ward: selectedWard,
-                        address: address,
-                        payMethod: "vnpay",
-                        payment_status: true,
-                        note: note,
-                        status: 0,
-                        products: products,
-                    };
-                    await axios.post(`${process.env.REACT_APP_API_ENDPOINT}payment/create_payment`, data, {
-                        headers: {
-                            Accept: 'application/json',
-                            "Content-Type": "application/json",
-                        },
-                        withCredentials: true
-                    })
-                        .then((response) => {
-                            sessionStorage.setItem("order", JSON.stringify(dataOrder));
-                            window.location.href = response.data.url;
-                        })
-                        .catch((error) => {
+                if (name === "" || phone === "" || address === "" ||
+                    selectedProvince === null || selectedProvince === "" || selectedDistrict === null
+                    || selectedDistrict === "" || selectedWard === null || selectedWard === "") {
+                    toast.error("Vui lòng nhập đầy đủ thông tin khách hàng")
+                    setIsLoading(false)
+                    return;
+                }
+                switch (paymentType) {
+                    case 'cod':
+                        postOrderGHN(paymentType).then((response: any) => {
+                            console.log(response.data);
+                            toast.success('Đặt hàng thành công!');
+                        }).catch((error) => {
+                            toast.error(error.response.data.code_message_value)
                             console.log(error);
-                            toast.error("Đã có lỗi xảy ra, vui lòng thử lại sau");
+                        });
+                        break;
+                    case 'vnpay':
+                        const idOrder = JSON.stringify(new Date().getTime())
+                        const products = cartItems.map((item: any) => ({
+                            product: item.id,
+                            quantity: item.quantity
+                        }));
+                        const data = {
+                            amount: cartTotalPrice + fee,
+                            orderInfo: idOrder
+                        };
+                        const dataOrder = {
+                            id: idOrder,
+                            fullname: name,
+                            province: selectedProvince,
+                            district: selectedDistrict,
+                            ward: selectedWard,
+                            address: address,
+                            payMethod: "vnpay",
+                            payment_status: true,
+                            note: note,
+                            status: 0,
+                            products: products,
+                        };
+                        await axios.post(`${process.env.REACT_APP_API_ENDPOINT}payment/create_payment`, data, {
+                            headers: {
+                                Accept: 'application/json',
+                                "Content-Type": "application/json",
+                            },
+                            withCredentials: true
                         })
+                            .then((response) => {
+                                sessionStorage.setItem("order", JSON.stringify(dataOrder));
+                                window.location.href = response.data.url;
+                            })
+                            .catch((error) => {
+                                console.log(error);
+                                toast.error("Đã có lỗi xảy ra, vui lòng thử lại sau");
+                            })
 
-                    // postOrderGHN(paymentType).then((response: any) => {
-                    //     console.log(response.data);
-                    //     toast.success('Đặt hàng thành công!');
-                    // }).catch((error) => {
-                    //     toast.error(error.response.data.code_message_value)
-                    //     console.log(error);
-                    // });
-                    break;
-                case 'payos':
-                default:
-                    break;
+                        // postOrderGHN(paymentType).then((response: any) => {
+                        //     console.log(response.data);
+                        //     toast.success('Đặt hàng thành công!');
+                        // }).catch((error) => {
+                        //     toast.error(error.response.data.code_message_value)
+                        //     console.log(error);
+                        // });
+                        break;
+                    case 'payos':
+                        let date = new Date();
+                        date.setMinutes(date.getMinutes() + 10);
+                        let unixTimestamp = Math.floor(date.getTime() / 1000);
+                        let amount = 5000
+                        let data_checksum = `amount=${amount}&cancelUrl=${CANCEL_URL}&description=VQRIO123&orderCode=${unixTimestamp}&returnUrl=${RETURN_URL}`;
+                        console.log(data_checksum);
+                        // Tạo một chữ ký với HMAC_SHA256
+                        let signature = CryptoJS.HmacSHA256(data_checksum, process.env.REACT_APP_PAYOS_CHECKSUM_KEY).toString(CryptoJS.enc.Hex);
+
+                        await axios.post('https://api-merchant.payos.vn/v2/payment-requests', {
+                            orderCode: unixTimestamp,
+                            amount: amount,
+                            description: "VQRIO123",
+                            buyerName: name,
+                            buyerEmail: "buyer-email@gmail.com",
+                            buyerPhone: phone,
+                            buyerAddress: address + ", " + selectedWard + ", " + selectedDistrict + ", " + selectedProvince,
+                            items: cartItems.map((cartItem: any) => {
+                                return {
+                                    name: cartItem.name + " - Màu: " + cartItem.selectedProductColor + " - Size: " + cartItem.selectedProductSize,
+                                    quantity: cartItem.quantity,
+                                    price: getDiscountPrice(cartItem.price.price, cartItem.promotions[0]) === null ?
+                                        cartItem.price.price : getDiscountPrice(cartItem.price.price, cartItem.promotions[0]),
+                                }
+                            }),
+                            cancelUrl: CANCEL_URL,
+                            returnUrl: RETURN_URL,
+                            expiredAt: unixTimestamp,
+                            signature: signature
+                        }, {
+                            headers: {
+                                "Content-Type": "application/json",
+                                "x-client-id": process.env.REACT_APP_PAYOS_CLIENT_ID,
+                                "x-api-key": process.env.REACT_APP_PAYOS_API_KEY
+                            },
+
+                        }).then((response) => {
+                            console.log(response)
+                            let checkoutResponse = response.data.data;
+                            let url = checkoutResponse.checkoutUrl;
+
+                            const eventSource = new EventSource(`${process.env.REACT_APP_API_ENDPOINT}payosse/${unixTimestamp}`, {
+                                withCredentials: true,
+                            });
+
+                            eventSource.onopen = function (event: any) {
+                                console.log(event);
+                            }
+
+                            eventSource.onmessage = (event) => {
+                                const json = JSON.parse(event.data);
+                                if (json.code === '01' || json.code === '00') {
+                                    eventSource.close();
+                                    const convertObjectToQueryString = (obj: any) => {
+                                        const params = new URLSearchParams();
+                                        Object.keys(obj).forEach((key) => {
+                                            params.append(key, obj[key]);
+                                        });
+                                        return params.toString();
+                                    };
+
+                                    const queryString = convertObjectToQueryString(json);
+                                    window.location.href = '/payment-result-payos?' + queryString;
+                                } else {
+                                }
+                            };
+
+                            eventSource.onerror = function (error) {
+                                console.error('EventSource failed:', error);
+                                eventSource.close();
+                            };
+
+                            const newWindow = window.open(url, '_blank', 'noopener,noreferrer')
+                            if (newWindow) newWindow.opener = null
+
+                        }).catch((error) => {
+                            console.log(error);
+                        })
+                        break;
+                    default:
+                        break;
+                }
+                setIsLoading(false)
             }
-            setIsLoading(false)
-        }, 1000);
+            ,
+            1000
+        )
+        ;
     }
 
     return (
