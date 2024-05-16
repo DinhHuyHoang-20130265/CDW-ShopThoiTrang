@@ -3,7 +3,6 @@ package vn.edu.hcmuaf.cdw.ShopThoiTrang.entity;
 import jakarta.persistence.*;
 import lombok.*;
 
-import java.sql.Date;
 import java.sql.Timestamp;
 import java.util.Set;
 

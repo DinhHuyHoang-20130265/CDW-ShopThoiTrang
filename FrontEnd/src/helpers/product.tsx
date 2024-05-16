@@ -10,7 +10,7 @@ export const getProducts = (products: any[], category: any, type: string, limit:
 
 // get product discount price
 export const getDiscountPrice = (price: any, promotion: any) => {
-    return promotion && promotion.discount > 0 ? price - price * (promotion.discount / 100) : null;
+    return promotion != null && promotion != undefined && promotion.discount > 0 ? price - price * (promotion.discount / 100) : null;
 };
 
 // get product cart quantity

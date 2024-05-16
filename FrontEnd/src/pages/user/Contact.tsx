@@ -1,8 +1,15 @@
 import React, {Fragment} from "react";
-import LocationMap from "../../components/map/LocationMap";
 import Breadcrumb from "../../wrappers/breadcrumb/Breadcrumb";
 
 const Contact = () => {
+
+    const mapboxgl = require('mapbox-gl/dist/mapbox-gl.js');
+
+    mapboxgl.accessToken = process.env.REACT_APP_MAPBOX_TOKEN;
+    const map = new mapboxgl.Map({
+        container: 'contact-map',
+        style: 'mapbox://styles/mapbox/streets-v11'
+    });
 
     return (
         <Fragment>
@@ -10,7 +17,7 @@ const Contact = () => {
             <div className="contact-area pt-100 pb-100">
                 <div className="container">
                     <div className="contact-map mb-10">
-                        <LocationMap latitude="10.867464707529257" longitude="106.78793636514895"/>
+                        <div id="contact-map"/>
                     </div>
                     <div className="custom-row-2">
                         <div className="col-lg-4 col-md-5">

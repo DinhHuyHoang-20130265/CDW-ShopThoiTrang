@@ -16,6 +16,7 @@ import Posts from "../pages/user/Posts";
 import PostDetail from "../pages/user/PostDetail";
 import NotFound404 from "../pages/NotFound404";
 import {PaymentResult} from "../pages/user/PaymentResult";
+import {PaymentResultPayOS} from "../pages/user/PaymentResultPayOS";
 
 export const webRouter = createBrowserRouter([
     {
@@ -75,6 +76,10 @@ export const webRouter = createBrowserRouter([
             {
                 path: "/payment-result",
                 element: <PaymentResult/>
+            },
+            {
+                path: "/payment-result-payos",
+                element: <PaymentResultPayOS/>
             }
             , {
                 path: "/*",
