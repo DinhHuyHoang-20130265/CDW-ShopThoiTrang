@@ -1,7 +1,51 @@
-import React, {Fragment} from "react";
+import React, {Fragment, useState} from "react";
 import Breadcrumb from "../../wrappers/breadcrumb/Breadcrumb";
+import {useToasts} from "react-toast-notifications";
+import axios from "axios";
 
 const Contact = () => {
+    const { addToast } = useToasts();
+    const [formData, setFormData] = useState({
+        name: '',
+        email: '',
+        message: ''
+    });
+
+    const {name, email, message} = formData;
+
+    const onChange: any = (e: any) => {
+        setFormData({...formData, [e.target.name]: e.target.value});
+    };
+
+    const onSubmit = async (e: any) => {
+        e.preventDefault();
+        try {
+            const config = {
+                headers: {
+                    Accept: 'application/json',
+                    "Content-Type": "application/json"
+                },
+                params: {
+                    name: formData.name,
+                    email: formData.email,
+                    message: formData.message
+                }
+            };
+            console.log(config);
+            const res = await axios.post('http://localhost:8080/api/contact', null, config);
+
+            addToast("Gửi liên hệ thành công", { appearance: 'success' });
+
+            // Đặt lại form
+            setFormData({
+                name: '',
+                email: '',
+                message: ''
+            });
+        } catch (err: any) {
+            console.error(err.response.data);
+        }
+    };
 
     const mapboxgl = require('mapbox-gl/dist/mapbox-gl.js');
 
@@ -37,11 +81,11 @@ const Contact = () => {
                                     </div>
                                     <div className="contact-info-dec">
                                         <p>
-                                            <a href="mailto:urname@email.com">urname@email.com</a>
+                                            <a href="mailto:urname@email.com">ptshop@email.com</a>
                                         </p>
-                                        <p>
-                                            <a href="//urwebsitenaem.com">urwebsitenaem.com</a>
-                                        </p>
+                                        {/*<p>*/}
+                                        {/*    <a href="//urwebsitenaem.com">urwebsitenaem.com</a>*/}
+                                        {/*</p>*/}
                                     </div>
                                 </div>
                                 <div className="single-contact-info">
@@ -88,31 +132,36 @@ const Contact = () => {
                         <div className="col-lg-8 col-md-7">
                             <div className="contact-form">
                                 <div className="contact-title mb-30">
-                                    <h2>Get In Touch</h2>
+                                    <h2>Liên lạc</h2>
                                 </div>
-                                <form className="contact-form-style">
+                                <form className="contact-form-style" onSubmit={e => onSubmit(e)}>
                                     <div className="row">
-                                        <div className="col-lg-6">
-                                            <input name="name" placeholder="Name*" type="text"/>
-                                        </div>
-                                        <div className="col-lg-6">
-                                            <input name="email" placeholder="Email*" type="email"/>
+                                        <div className="col-lg-12">
+                                            <input type="text"
+                                                   placeholder="Họ tên*"
+                                                   name="name"
+                                                   value={name}
+                                                   onChange={e => onChange(e)}
+                                                   required/>
                                         </div>
                                         <div className="col-lg-12">
-                                            <input
-                                                name="subject"
-                                                placeholder="Subject*"
-                                                type="text"
+                                            <input type="email"
+                                                   placeholder="Email*"
+                                                   name="email"
+                                                   value={email}
+                                                   onChange={e => onChange(e)}
+                                                   required/>
+                                        </div>
+                                        <div className="col-lg-12">
+                                            <textarea
+                                                placeholder="Nội dung*"
+                                                name="message"
+                                                value={message}
+                                                onChange={e => onChange(e)}
+                                                required
                                             />
-                                        </div>
-                                        <div className="col-lg-12">
-                        <textarea
-                            name="message"
-                            placeholder="Your Message*"
-                            defaultValue={""}
-                        />
                                             <button className="submit" type="submit">
-                                                SEND
+                                                Gửi
                                             </button>
                                         </div>
                                     </div>

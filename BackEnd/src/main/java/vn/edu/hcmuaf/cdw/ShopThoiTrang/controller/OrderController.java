@@ -3,6 +3,7 @@ package vn.edu.hcmuaf.cdw.ShopThoiTrang.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import vn.edu.hcmuaf.cdw.ShopThoiTrang.entity.Order;
 import vn.edu.hcmuaf.cdw.ShopThoiTrang.service.OrderService;
 
 @RestController
@@ -24,5 +25,10 @@ public class OrderController {
     @GetMapping("/{id}")
     public ResponseEntity<?> getOrderById(@PathVariable Long id) {
         return ResponseEntity.ok(orderService.getOrderById(id));
+    }
+
+    @PostMapping
+    public ResponseEntity<?> saveOrder(@RequestBody Order order) {
+        return ResponseEntity.ok(orderService.createOrder(order));
     }
 }

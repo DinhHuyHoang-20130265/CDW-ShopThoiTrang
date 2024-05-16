@@ -1,5 +1,7 @@
 package vn.edu.hcmuaf.cdw.ShopThoiTrang.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -13,6 +15,7 @@ import java.util.Set;
 @NoArgsConstructor
 @AllArgsConstructor
 @ToString
+@Builder
 public class Order {
 
     @Id
@@ -21,6 +24,9 @@ public class Order {
 
     private String name;
     private String phone;
+    private String province;
+    private String district;
+    private String ward;
     private String address;
 
     @Column(name = "order_date")
@@ -34,10 +40,25 @@ public class Order {
     @Column(name = "shipping_fee")
     private Double shippingFee;
 
+    @Column(name = "shipping_code")
+    private String shippingCode;
+
     @Column(name = "total_amount")
     private Double totalAmount;
 
-    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @Column(name = "payment_method")
+    private String paymentMethod;
+
+    @Column(name = "payment_status")
+    private String paymentStatus;
+
+    @Column(name = "payment_date")
+    private Timestamp paymentDate;
+
+    @Column(name = "payment_code")
+    private String paymentCode;
+
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "user_id")
     private User user;
 

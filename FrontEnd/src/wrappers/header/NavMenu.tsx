@@ -12,6 +12,11 @@ const NavMenu = ({categories, menuWhiteClass, sidebarMenu}: any) => {
             <nav>
                 <ul>
                     <li>
+                        <Link to={"/about"}>
+                            Giới thiệu
+                        </Link>
+                    </li>
+                    <li>
                         <Link to={process.env.PUBLIC_URL + "/"}> Trang chủ {sidebarMenu ? (
                                 <span> <i className="fa fa-angle-right"></i> </span>)
                             : ("")}
@@ -161,101 +166,14 @@ const NavMenu = ({categories, menuWhiteClass, sidebarMenu}: any) => {
                     </li>
                     <li>
                         <Link to={process.env.PUBLIC_URL + "/shop-grid-standard"}>
-                            {["collection"]}
+                            Khuyến mãi
                         </Link>
                     </li>
+
                     <li>
-                        <Link to={process.env.PUBLIC_URL + "/"}>
-                            {["pages"]}
-                            {sidebarMenu ? (
-                                <span>
-                  <i className="fa fa-angle-right"></i>
-                </span>
-                            ) : (
-                                <i className="fa fa-angle-down"/>
-                            )}
-                        </Link>
-                        <ul className="submenu">
-                            <li>
-                                <Link to={process.env.PUBLIC_URL + "/cart"}>
-                                    {["cart"]}
-                                </Link>
-                            </li>
-                            <li>
-                                <Link to={process.env.PUBLIC_URL + "/checkout"}>
-                                    {["checkout"]}
-                                </Link>
-                            </li>
-                            <li>
-                                <Link to={process.env.PUBLIC_URL + "/wishlist"}>
-                                    {["wishlist"]}
-                                </Link>
-                            </li>
-                            <li>
-                                <Link to={process.env.PUBLIC_URL + "/compare"}>
-                                    {["compare"]}
-                                </Link>
-                            </li>
-                            <li>
-                                <Link to={process.env.PUBLIC_URL + "/my-account"}>
-                                    {["my_account"]}
-                                </Link>
-                            </li>
-                            <li>
-                                <Link to={process.env.PUBLIC_URL + "/login-register"}>
-                                    {["login_register"]}
-                                </Link>
-                            </li>
-                            <li>
-                                <Link to={process.env.PUBLIC_URL + "/about"}>
-                                    {["about_us"]}
-                                </Link>
-                            </li>
-                            <li>
-                                <Link to={process.env.PUBLIC_URL + "/contact"}>
-                                    {["contact_us"]}
-                                </Link>
-                            </li>
-                            <li>
-                                <Link to={process.env.PUBLIC_URL + "/not-found"}>
-                                    {["404_page"]}
-                                </Link>
-                            </li>
-                        </ul>
-                    </li>
-                    <li>
-                        <Link to={process.env.PUBLIC_URL + "/blog-standard"}>
+                        <Link to={"/post"}>
                             Blog
-                            {sidebarMenu ? (
-                                <span>
-                  <i className="fa fa-angle-right"></i>
-                </span>
-                            ) : (
-                                <i className="fa fa-angle-down"/>
-                            )}
                         </Link>
-                        <ul className="submenu">
-                            <li>
-                                <Link to={process.env.PUBLIC_URL + "/blog-standard"}>
-                                    {["blog_standard"]}
-                                </Link>
-                            </li>
-                            <li>
-                                <Link to={process.env.PUBLIC_URL + "/blog-no-sidebar"}>
-                                    {["blog_no_sidebar"]}
-                                </Link>
-                            </li>
-                            <li>
-                                <Link to={process.env.PUBLIC_URL + "/blog-right-sidebar"}>
-                                    {["blog_right_sidebar"]}
-                                </Link>
-                            </li>
-                            <li>
-                                <Link to={process.env.PUBLIC_URL + "/blog-details-standard"}>
-                                    {["blog_details_standard"]}
-                                </Link>
-                            </li>
-                        </ul>
                     </li>
                     <li>
                         <Link to={process.env.PUBLIC_URL + "/contact"}>

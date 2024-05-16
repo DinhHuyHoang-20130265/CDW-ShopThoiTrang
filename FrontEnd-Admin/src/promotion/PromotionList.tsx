@@ -1,15 +1,15 @@
 import * as React from 'react';
 import {
-    BooleanField,
+    BooleanField, BooleanInput, Count,
     CreateButton,
     DatagridConfigurable,
     DateField,
     EditButton,
     ExportButton,
     FilterButton, FunctionField,
-    List,
+    List, NullableBooleanInput, NumberField,
     Pagination,
-    SelectColumnsButton, SelectField,
+    SelectColumnsButton, SelectField, SelectInput,
     TextField,
     TextInput,
     TopToolbar, useGetList, useListContext, useListController,
@@ -27,46 +27,58 @@ const ListActions = () => (
 
 const postFilters = () => [
     <TextInput label="Tìm kiếm..." source="q" alwaysOn/>,
-    <TextInput label="Tên" source="name"/>,
-    <BooleanField label="Trạng thái" source="status"/>
+    <NullableBooleanInput label="Trạng thái" source="status"/>
 ];
 
 const PromotionList = () => {
-    const { data, isLoading }: any = useListController();
+    const {data, isLoading}: any = useListController();
 
     if (isLoading) return null;
 
-    const isPromotionExpired = (promotion: any) => {
+    const checkPromotionStatus = (promotion:any) => {
         const currentDate = new Date();
         const startDate = new Date(promotion.startDate);
         const endDate = new Date(promotion.endDate);
-        return currentDate >= startDate && currentDate <= endDate;
+
+        if (currentDate < startDate) {
+            return 'Chưa diễn ra';
+        } else if (currentDate >= startDate && currentDate <= endDate) {
+            return 'Đang diễn ra';
+        } else {
+            return 'Đã kết thúc';
+        }
     };
 
     return (
         data ? (
             <List
-                sort={{ field: 'name', order: 'ASC' }}
+                sort={{field: 'name', order: 'ASC'}}
                 perPage={20}
                 pagination={false}
                 component="div"
-                actions={<ListActions />}
+                actions={<ListActions/>}
                 filters={postFilters()}
             >
                 <DatagridConfigurable>
-                    <TextField source="id" label={"Id"} />
-                    <TextField source="name" label={"Tên"} />
-                    <TextField source="description" label={"Mô tả"} />
-                    <DateField source="startDate" label={"Ngày bắt đầu"} />
-                    <DateField source="endDate" label={"Ngày kết thúc"} />
-                    <BooleanField source="status" label={"Trạng thái"} />
+                    <TextField source="id" label={"Mã"}/>
+                    <TextField source="name" label={"Tên"}/>
+                    <DateField source="startDate" label={"Ngày bắt đầu"}/>
+                    <DateField source="endDate" label={"Ngày kết thúc"}/>
+                    <BooleanField source="status" label={"Trạng thái"}/>
                     <FunctionField
                         label="Hoạt động"
-                        render={(record : any) => (
-                            <span>{isPromotionExpired(record) ? 'Hoạt động' : 'Hết hạn'}</span>
+                        render={(record: any) => (
+                            <span>{checkPromotionStatus(record)}</span>
                         )}
                     />
-                    <EditButton />
+                    <NumberField source="discount" label={"Giảm giá"}/>
+                    <FunctionField
+                        label="SL sản phẩm"
+                        render={(record: any) => (
+                            <span>{record.products.length}</span>
+                        )}
+                    />
+                    <EditButton/>
                 </DatagridConfigurable>
             </List>
         ) : <div>Không có khuyến mãi</div>

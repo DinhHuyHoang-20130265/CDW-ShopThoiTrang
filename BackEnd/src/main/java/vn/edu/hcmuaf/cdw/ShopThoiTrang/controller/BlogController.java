@@ -24,6 +24,11 @@ public class BlogController {
         return ResponseEntity.ok(blogs);
     }
 
+    @GetMapping("/user")
+    public ResponseEntity<?> getBlogsStatusTrue() {
+        return ResponseEntity.ok(blogService.getBlogsStatusTrue());
+    }
+
     @GetMapping("/{id}")
     public ResponseEntity<?> getBlogById(@PathVariable Long id) {
         return ResponseEntity.ok(blogService.getBlogById(id));
@@ -38,5 +43,7 @@ public class BlogController {
     public ResponseEntity<?> updateBlog(@PathVariable Long id, @RequestBody Blog blog) {
         return ResponseEntity.ok(blogService.updateBlog(id, blog));
     }
+
+
 
 }
