@@ -9,7 +9,7 @@ import {
     ReferenceField,
     SelectInput,
     TextField,
-    Toolbar,
+    Toolbar, useEditController, useNotify,
     useRecordContext,
     useTranslate,
 } from 'react-admin';
@@ -84,26 +84,46 @@ const CustomerAddress = () => {
 const Spacer = () => <Box mb={1}>&nbsp;</Box>;
 
 const OrderForm = () => {
-    const [status, setStatus] = useState([]);
+    const addNotify = useNotify();
+    const [statuses, setStatuses] = useState([]);
+    const record = useRecordContext<Order>();
+    console.log(record);
+
+    const [statusId, setStatusId] = useState(record.status.id);
 
     useEffect(() => {
             const fetchStatus = async () => {
-                const {data}: any = await axios.get(`${process.env.REACT_APP_API_URL}/order-status`,{
+                const {data}: any = await axios.get(`${process.env.REACT_APP_API_URL}/order-status`, {
                     headers: {
                         'Content-Type': 'application/json',
                         Accept: 'application/json',
                     }
                 })
                 if (data) {
-                    setStatus(data);
+                    setStatuses(data);
                 }
             };
             fetchStatus();
         }, []
     );
-    console.log(status);
+
+    const updateStatus = async (orderId: number, statusId: number) => {
+        try {
+            await axios.put(`${process.env.REACT_APP_API_URL}/order/${orderId}/status/${statusId}`, null, {
+                headers: {
+                    'Content-Type': 'application/json',
+                    Accept: 'application/json',
+                }
+            }).then((res) => {
+                addNotify('Cập nhật trạng thái đơn hàng thành công', { type: 'success' });
+            });
+        } catch (err: any) {
+            addNotify('Cập nhật trạng thái đơn hàng thất bại' + err, { type: 'error' });
+
+        }
+    }
     return (
-        <Form warnWhenUnsavedChanges>
+        <Form warnWhenUnsavedChanges onSubmit={() => updateStatus(record.id, statusId)}>
             <Box maxWidth="50em">
                 <PrevNextButtons
                     filterDefaultValues={{statusId: 1}}
@@ -133,10 +153,15 @@ const OrderForm = () => {
                                         <SelectInput
                                             source="status.id"
                                             label={"Trạng thái"}
-                                            choices={status.map((item: any) => ({
+                                            choices={statuses.map((item: any) => ({
                                                 id: item.id,
                                                 name: item.name
                                             }))}
+                                            onChange={(e: any) => {
+                                                setStatusId(e.target.value);
+                                            }
+                                            }
+
                                         />
                                     </Grid>
                                     <Grid item xs={12} sm={12} md={6}>
@@ -168,7 +193,7 @@ const OrderForm = () => {
                             Sản phẩm
                         </Typography>
                         <div>
-                            <ListItem />
+                            <ListItem/>
                         </div>
                         <Spacer/>
 
@@ -176,7 +201,7 @@ const OrderForm = () => {
                             Thanh toán
                         </Typography>
                         <div>
-                            <Total />
+                            <Total/>
                         </div>
                     </CardContent>
                     <Toolbar/>

@@ -8,7 +8,6 @@ import {Category, Customer} from '../types';
 
 const LinkToUser = () => {
     const record = useRecordContext();
-    console.log(record?.user?.id);
     if (!record) return null;
     return (
         <Button
