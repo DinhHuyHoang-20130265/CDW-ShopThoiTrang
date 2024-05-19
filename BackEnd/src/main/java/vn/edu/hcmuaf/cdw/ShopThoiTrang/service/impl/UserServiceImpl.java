@@ -59,6 +59,26 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public String changePassword(Long id, String oldPassword, String newPassword) {
+        User user = userRepository.findById(id).orElseThrow(() -> new RuntimeException("User not found"));
+        if (!passwordEncoder.matches(oldPassword, user.getPasswordEncrypted())) {
+            return "Mật khẩu cũ không đúng!";
+        }
+        user.setPasswordEncrypted(passwordEncoder.encode(newPassword));
+        userRepository.save(user);
+        return "Đổi mật khẩu thành công!";
+    }
+
+    @Override
+    public String updateInfo(Long id, String name, String phone, String email) {
+        UserInfo userInfo = userInfoRepository.findById(id).orElseThrow(() -> new RuntimeException("User info not found"));
+        userInfo.setFullName(name);
+        userInfo.setPhone(phone);
+        userInfo.setEmail(email);
+        return userInfoRepository.save(userInfo) != null ? "Cập nhật thông tin thành công!" : "Cập nhật thông tin thất bại!";
+    }
+
+    @Override
     public User getUserByUsername(String username) {
         return userRepository.findByUsername(username).orElse(null);
     }

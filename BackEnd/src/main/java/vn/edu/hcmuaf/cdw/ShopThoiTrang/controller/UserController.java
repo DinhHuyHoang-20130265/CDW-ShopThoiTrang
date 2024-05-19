@@ -90,4 +90,15 @@ public class UserController {
         userService.deleteUser(id);
         return ResponseEntity.ok("Deleted");
     }
+
+    @PostMapping("/change-password")
+    public ResponseEntity<?> changePassword(@RequestParam String id, @RequestParam String oldPassword, @RequestParam String newPassword) {
+        return ResponseEntity.ok(userService.changePassword(Long.parseLong(id), oldPassword, newPassword));
+    }
+
+    @PostMapping("/update-info")
+    public ResponseEntity<?> updateInfo(@RequestParam String id, @RequestParam String name, @RequestParam String phone, @RequestParam String email) {
+
+        return ResponseEntity.ok(userService.updateInfo(Long.parseLong(id), name, phone, email));
+    }
 }

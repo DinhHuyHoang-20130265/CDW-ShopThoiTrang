@@ -15,6 +15,10 @@ import java.util.List;
 public interface UserService {
     UserDto getUserById(Long id);
 
+    String changePassword(Long id, String oldPassword, String newPassword);
+
+    String updateInfo(Long id, String name, String phone, String email);
+
     User getUserByUsername(String username);
 
     ResponseEntity<?> getAuthorities(String username);

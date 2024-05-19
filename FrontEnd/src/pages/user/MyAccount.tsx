@@ -5,9 +5,11 @@ import Image from 'react-bootstrap/Image';
 import Breadcrumb from "../../wrappers/breadcrumb/Breadcrumb";
 import {Button, Col, Container, Modal, Row, Table} from "react-bootstrap";
 import axios from "axios";
-import {TextField} from "@mui/material";
+import {useToasts} from "react-toast-notifications";
+
 
 const MyAccount = () => {
+    const {addToast} = useToasts();
     const user: any = localStorage.getItem('user');
     const idUser: any = JSON.parse(user) ? JSON.parse(user).id : null;
     const [showOrderDetailModal, setshowOrderDetailModal] = useState(false);
@@ -15,6 +17,13 @@ const MyAccount = () => {
     const [orderDetail, setOrderDetail]: any = useState(null);
     const [orderStatus, setOrderStatus]: any = useState(null);
 
+    const [fullName, setFullName] = useState('');
+    const [phone, setPhone] = useState('');
+    const [email, setEmail] = useState('');
+
+    const [newPassword, setNewPassword] = useState('');
+    const [confirmPassword, setConfirmPassword] = useState('');
+    const [oldPassword, setOldPassword] = useState('');
 
     const [userProfile, setUserProfile]: any = useState(null);
     useEffect(() => {
@@ -32,8 +41,6 @@ const MyAccount = () => {
         }
         , []);
 
-    console.log(userProfile);
-
     const displaySelectedImage = (event: any) => {
         const selectedImage: any = document.getElementById('selectedAvatar');
         const fileInput = event.target;
@@ -47,6 +54,68 @@ const MyAccount = () => {
             reader.readAsDataURL(fileInput.files[0]);
         }
     };
+
+    const updateProfile = () => {
+        const selectedImage: any = document.getElementById('selectedAvatar');
+        axios.post(`http://localhost:8080/api/user/update-profile`, null, {
+            headers: {
+                Accept: 'application/json',
+                "Content-Type": "application/json"
+            },
+            params: {
+                id: userProfile.id,
+                fullName: fullName,
+                phone: phone,
+                email: email,
+                avtUrl: selectedImage.src
+            }
+        }).then(response => {
+            addToast("Cập nhật thông tin thành công", {
+                appearance: 'success',
+                autoDismiss: true,
+                autoDismissTimeout: 3000
+            });
+        }).catch(error => {
+            addToast("Cập nhật thông tin thất bại", {appearance: 'error', autoDismiss: true, autoDismissTimeout: 3000});
+        });
+    }
+
+    const changePassword = () => {
+        if (newPassword !== confirmPassword) {
+            addToast("Nhập lại mật khẩu không khớp", {
+                appearance: 'error',
+                autoDismiss: true,
+                autoDismissTimeout: 3000
+            });
+            return;
+        }
+        axios.post(`http://localhost:8080/api/user/change-password`, null, {
+            headers: {
+                Accept: 'application/json',
+                "Content-Type": "application/json"
+            },
+            params: {
+                id: userProfile.id,
+                oldPassword: oldPassword,
+                newPassword: newPassword
+            }
+        }).then(response => {
+                if (response.data === 'Mật khẩu cũ không đúng!') {
+                    addToast("Mật khẩu cũ không đúng!", {
+                        appearance: 'error',
+                        autoDismiss: true,
+                        autoDismissTimeout: 3000
+                    });
+                } else {
+                    addToast("Đổi mật khẩu thành công!", {
+                        appearance: 'success',
+                        autoDismiss: true,
+                        autoDismissTimeout: 3000
+                    });
+                }
+            }
+        )
+    }
 
     return (
         userProfile &&
@@ -83,7 +152,8 @@ const MyAccount = () => {
                                                                 <div className="btn btn-primary btn-rounded">
                                                                     <label className="form-label text-white m-1"
                                                                            htmlFor="customFile2">Chọn ảnh</label>
-                                                                    <input type="file" className="form-control d-none"
+                                                                    <input type="file"
+                                                                           className="form-control d-none"
                                                                            id="customFile2"
                                                                            onChange={displaySelectedImage}/>
                                                                 </div>
@@ -94,19 +164,24 @@ const MyAccount = () => {
                                                             <div className="billing-info">
                                                                 <label>Họ tên</label>
                                                                 <input type="text"
-                                                                       value={userProfile.userInfo.fullName}/>
+                                                                       value={userProfile.userInfo.fullName}
+                                                                       onChange={(e) => setFullName(e.target.value)}/>
                                                             </div>
                                                         </div>
                                                         <div className="col-lg-6 col-md-6">
                                                             <div className="billing-info">
                                                                 <label>Số điện thoại</label>
-                                                                <input type="text" value={userProfile.userInfo.phone}/>
+                                                                <input type="text"
+                                                                       value={userProfile.userInfo.phone}
+                                                                       onChange={(e) => setPhone(e.target.value)}/>
                                                             </div>
                                                         </div>
                                                         <div className="col-lg-12 col-md-12">
                                                             <div className="billing-info">
                                                                 <label>Email</label>
-                                                                <input type="email" value={userProfile.userInfo.email}/>
+                                                                <input type="email"
+                                                                       value={userProfile.userInfo.email}
+                                                                       onChange={(e) => setEmail(e.target.value)}/>
                                                             </div>
                                                         </div>
                                                         {/*<div className="col-lg-12 col-md-12">*/}
@@ -118,7 +193,7 @@ const MyAccount = () => {
                                                     </div>
                                                     <div className="billing-back-btn">
                                                         <div className="billing-btn">
-                                                            <button type="submit">Lưu thay đổi</button>
+                                                            <button type="submit" onClick={updateProfile}>Lưu thay đổi</button>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -135,20 +210,29 @@ const MyAccount = () => {
                                                     <div className="row">
                                                         <div className="col-lg-12 col-md-12">
                                                             <div className="billing-info">
-                                                                <label>Mật khẩu</label>
-                                                                <input type="password"/>
+                                                                <label>Mật khẩu cũ</label>
+                                                                <input type="password"
+                                                                       onChange={(e) => setOldPassword(e.target.value)}/>
                                                             </div>
                                                         </div>
                                                         <div className="col-lg-12 col-md-12">
                                                             <div className="billing-info">
-                                                                <label>Nhập lại mật khẩu</label>
-                                                                <input type="password"/>
+                                                                <label>Mật khẩu mới</label>
+                                                                <input type="password"
+                                                                       onChange={(e) => setNewPassword(e.target.value)}/>
+                                                            </div>
+                                                        </div>
+                                                        <div className="col-lg-12 col-md-12">
+                                                            <div className="billing-info">
+                                                                <label>Nhập lại mật khẩu mới</label>
+                                                                <input type="password"
+                                                                       onChange={(e) => setConfirmPassword(e.target.value)}/>
                                                             </div>
                                                         </div>
                                                     </div>
                                                     <div className="billing-back-btn">
                                                         <div className="billing-btn">
-                                                            <button type="submit">Đổi mật khẩu</button>
+                                                            <button onClick={changePassword}>Đổi mật khẩu</button>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -331,9 +415,5 @@ const OrderDetailModal = ({order}: any) => {
     );
 
 }
-
-MyAccount.propTypes = {
-    location: PropTypes.object
-};
 
 export default MyAccount;
