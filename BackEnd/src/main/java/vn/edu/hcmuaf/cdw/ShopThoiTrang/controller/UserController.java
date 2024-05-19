@@ -10,6 +10,7 @@ import vn.edu.hcmuaf.cdw.ShopThoiTrang.entity.Product;
 import vn.edu.hcmuaf.cdw.ShopThoiTrang.entity.User;
 import vn.edu.hcmuaf.cdw.ShopThoiTrang.model.dto.CreateUserDTO;
 import vn.edu.hcmuaf.cdw.ShopThoiTrang.model.dto.UpdateUserDTO;
+import vn.edu.hcmuaf.cdw.ShopThoiTrang.model.dto.UserDto;
 import vn.edu.hcmuaf.cdw.ShopThoiTrang.service.UserInfoService;
 import vn.edu.hcmuaf.cdw.ShopThoiTrang.service.UserService;
 
@@ -69,8 +70,8 @@ public class UserController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<User> getUserById(@PathVariable Long id) {
-        User user = userService.getUserById(id);
+    public ResponseEntity<UserDto> getUserById(@PathVariable Long id) {
+        UserDto user = userService.getUserById(id);
         return ResponseEntity.ok(user);
     }
 

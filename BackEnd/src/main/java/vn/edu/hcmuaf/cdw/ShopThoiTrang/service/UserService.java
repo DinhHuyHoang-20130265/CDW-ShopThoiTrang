@@ -7,12 +7,13 @@ import org.springframework.http.ResponseEntity;
 import vn.edu.hcmuaf.cdw.ShopThoiTrang.entity.User;
 import vn.edu.hcmuaf.cdw.ShopThoiTrang.model.dto.CreateUserDTO;
 import vn.edu.hcmuaf.cdw.ShopThoiTrang.model.dto.UpdateUserDTO;
+import vn.edu.hcmuaf.cdw.ShopThoiTrang.model.dto.UserDto;
 
 import java.io.UnsupportedEncodingException;
 import java.util.List;
 
 public interface UserService {
-    User getUserById(Long id);
+    UserDto getUserById(Long id);
 
     User getUserByUsername(String username);
 

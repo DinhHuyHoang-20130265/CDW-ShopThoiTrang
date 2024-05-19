@@ -21,6 +21,7 @@ import vn.edu.hcmuaf.cdw.ShopThoiTrang.JWT.JwtUtils;
 import vn.edu.hcmuaf.cdw.ShopThoiTrang.entity.*;
 import vn.edu.hcmuaf.cdw.ShopThoiTrang.model.dto.CreateUserDTO;
 import vn.edu.hcmuaf.cdw.ShopThoiTrang.model.dto.UpdateUserDTO;
+import vn.edu.hcmuaf.cdw.ShopThoiTrang.model.dto.UserDto;
 import vn.edu.hcmuaf.cdw.ShopThoiTrang.reponsitory.ResourceRepository;
 import vn.edu.hcmuaf.cdw.ShopThoiTrang.reponsitory.ResourceVariationRepository;
 import vn.edu.hcmuaf.cdw.ShopThoiTrang.reponsitory.UserInfoRepository;
@@ -53,8 +54,8 @@ public class UserServiceImpl implements UserService {
     private PasswordEncoder passwordEncoder;
 
     @Override
-    public User getUserById(Long id) {
-        return userRepository.findById(id).get();
+    public UserDto getUserById(Long id) {
+        return userRepository.findById(id).map(UserDto::new).orElse(null);
     }
 
     @Override
