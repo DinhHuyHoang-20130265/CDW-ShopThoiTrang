@@ -12,6 +12,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.domain.Specification;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import vn.edu.hcmuaf.cdw.ShopThoiTrang.entity.*;
 import vn.edu.hcmuaf.cdw.ShopThoiTrang.reponsitory.*;
@@ -142,10 +143,24 @@ public class OrderServiceImpl implements OrderService {
         return "Order created successfully";
     }
 
+    @Override
+    public ResponseEntity<?> updateOrderStatus(Long orderId, Long orderStatusId) {
+        Order order = orderRepository.findById(orderId).orElseThrow(() -> new RuntimeException("Order not found"));
+        OrderStatus orderStatus = orderStatusRepository.findById(orderStatusId).orElseThrow(() -> new RuntimeException("Order status not found"));
+        order.setStatus(orderStatus);
+        Order savedOrder = orderRepository.save(order);
 
-
-
-
+        if (savedOrder != null) {
+            OrderStatusHistory orderStatusHistory = new OrderStatusHistory();
+            orderStatusHistory.setOrder(order);
+            orderStatusHistory.setCreatedDate(new java.sql.Timestamp(System.currentTimeMillis()));
+            orderStatusHistory.setStatus(orderStatus);
+            orderStatusHistoryService.saveOrderStatusHistory(orderStatusHistory);
+            return ResponseEntity.ok("Order status updated successfully");
+        } else {
+            return ResponseEntity.badRequest().body("Order status update failed");
+        }
+    }
 
 
 }

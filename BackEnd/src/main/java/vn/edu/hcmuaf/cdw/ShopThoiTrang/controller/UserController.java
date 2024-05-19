@@ -96,7 +96,7 @@ public class UserController {
         return ResponseEntity.ok(userService.changePassword(Long.parseLong(id), oldPassword, newPassword));
     }
 
-    @PostMapping("/update-info")
+    @PutMapping("/update-info")
     public ResponseEntity<?> updateInfo(@RequestParam String id, @RequestParam String name, @RequestParam String phone, @RequestParam String email) {
 
         return ResponseEntity.ok(userService.updateInfo(Long.parseLong(id), name, phone, email));

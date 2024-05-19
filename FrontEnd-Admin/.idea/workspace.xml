@@ -5,11 +5,10 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="89893dc3-088e-47ef-a82c-f709754202c6" name="Changes" comment="add edit promotion">
+      <change beforePath="$PROJECT_DIR$/../BackEnd/src/main/java/vn/edu/hcmuaf/cdw/ShopThoiTrang/controller/UserController.java" beforeDir="false" afterPath="$PROJECT_DIR$/../BackEnd/src/main/java/vn/edu/hcmuaf/cdw/ShopThoiTrang/controller/UserController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/products/Aside.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/products/Aside.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/products/ProductList.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/products/ProductList.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/products/ProductShow.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/products/ProductShow.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/promotion/PromotionList.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/promotion/PromotionList.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/orders/LinkToUser.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/orders/LinkToUser.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../FrontEnd/src/pages/user/MyAccount.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/../FrontEnd/src/pages/user/MyAccount.tsx" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -125,6 +124,7 @@
       <workItem from="1713353115000" duration="12162000" />
       <workItem from="1713415033170" duration="4213000" />
       <workItem from="1713444764874" duration="7169000" />
+      <workItem from="1716120790442" duration="1137000" />
     </task>
     <task id="LOCAL-00001" summary="update product for admin (50%&#10;)">
       <option name="closed" value="true" />

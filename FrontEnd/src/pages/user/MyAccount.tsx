@@ -57,17 +57,17 @@ const MyAccount = () => {
 
     const updateProfile = () => {
         const selectedImage: any = document.getElementById('selectedAvatar');
-        axios.post(`http://localhost:8080/api/user/update-profile`, null, {
+        axios.put(`http://localhost:8080/api/user/update-info`, null, {
             headers: {
                 Accept: 'application/json',
                 "Content-Type": "application/json"
-            },
+            }, withCredentials: true
+            ,
             params: {
                 id: userProfile.id,
-                fullName: fullName,
+                name: fullName,
                 phone: phone,
                 email: email,
-                avtUrl: selectedImage.src
             }
         }).then(response => {
             addToast("Cập nhật thông tin thành công", {
@@ -193,7 +193,8 @@ const MyAccount = () => {
                                                     </div>
                                                     <div className="billing-back-btn">
                                                         <div className="billing-btn">
-                                                            <button type="submit" onClick={updateProfile}>Lưu thay đổi</button>
+                                                            <button type="submit" onClick={updateProfile}>Lưu thay đổi
+                                                            </button>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -360,6 +361,14 @@ const OrderDetailModal = ({order}: any) => {
                             <th>Địa chỉ</th>
                             <td>{order.address}, {order.ward}, {order.district}, {order.province}</td>
                         </tr>
+                        <tr>
+                            <th>
+                                Ghi chú
+                            </th>
+                            <td>
+                                {order.note}
+                            </td>
+                        </tr>
                         </tbody>
                     </Table>
 
@@ -373,7 +382,7 @@ const OrderDetailModal = ({order}: any) => {
                             <th>Giá</th>
                         </tr>
                         </thead>
-                        <tbody>
+                        <tbody className={"mb-20"}>
                         {order.orderDetails.map((orderDetail: any, index: number) => (
                             <tr key={index}>
                                 <td>{index + 1}</td>
@@ -387,21 +396,54 @@ const OrderDetailModal = ({order}: any) => {
                         </tbody>
                     </Table>
 
+                    <Table striped>
+                    <tbody>
+                    <tr>
+                        <th colSpan={3}>Tạm tính</th>
+                        <td>{order.totalAmount}</td>
+                    </tr>
+                    <tr>
+                        <th colSpan={3}>Phí vận chuyển</th>
+                        <td>{order.shippingFee}</td>
+                    </tr>
+                    <tr>
+                        <th colSpan={3}>Tổng tiền</th>
+                        <td>{order.totalAmount + order.shippingFee}</td>
+                    </tr>
+                    </tbody>
+                    </Table>
+
                     <h4 className={"mt-25"}>Thông tin đơn hàng</h4>
                     <Table striped>
                         <tbody>
                         <tr>
-                            <th>Tạm tính</th>
-                            <td>{order.totalAmount}</td>
+                            <th>Phương thức thanh toán</th>
+                            {/*3 method : cod, payos, vnpay*/}
+                            <td>{order.paymentMethod === "cod"
+                                ? "COD"
+                                : order.paymentMethod === "payos"
+                                    ? "PayOS"
+                                    : "VNPay"}</td>
                         </tr>
                         <tr>
-                            <th>Phí vận chuyển</th>
-                            <td>{order.shippingFee}</td>
+                            <th>Trạng thái thanh toán</th>
+                            <td>{order.paymentStatus === "yes" ? "Đã thanh toán" : "Chưa thanh toán"}</td>
                         </tr>
+                        {order.paymentMethod === "vnpay" || order.paymentMethod === "payos" && order.paymentStatus === "yes" && (
+                            <tr>
+                                <th>Mã thanh toán</th>
+                                <td>{order.paymentCode}</td>
+                            </tr>
+                        )}
                         <tr>
-                            <th>Tổng tiền</th>
-                            <td>{order.totalAmount + order.shippingFee}</td>
+                            <th>
+                                Mã vận đơn
+                            </th>
+                            <td>
+                                {order.shippingCode}
+                            </td>
                         </tr>
+
                         </tbody>
                     </Table>
 

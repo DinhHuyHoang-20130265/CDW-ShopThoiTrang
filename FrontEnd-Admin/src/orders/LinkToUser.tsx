@@ -8,6 +8,7 @@ import {Category, Customer} from '../types';
 
 const LinkToUser = () => {
     const record = useRecordContext();
+    console.log(record?.user?.id);
     if (!record) return null;
     return (
         <Button
@@ -16,10 +17,10 @@ const LinkToUser = () => {
             color="primary"
             component={Link}
             to={{
-                pathname: `/user/${record?.user.id}`,
+                pathname: `/user/${record?.user?.id}`,
 
             }}
-            sx={{ display: 'inline-flex', alignItems: 'center' }}>{record?.user.username}</Button>
+            sx={{ display: 'inline-flex', alignItems: 'center' }}>{record?.user?.username}</Button>
     );
 };
 
