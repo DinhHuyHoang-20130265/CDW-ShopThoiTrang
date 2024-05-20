@@ -1,5 +1,6 @@
 import {useState} from "react";
 import axios from 'axios';
+import toast from "react-hot-toast";
 
 function useForm(setLoading: any) {
     const [status, setStatus]: any = useState(0);
@@ -27,6 +28,7 @@ function useForm(setLoading: any) {
             setLoading(false);
         }).catch((error) => {
             console.error('There was an error!', error);
+            toast.error("Đã có lỗi xảy ra, vui lòng thử lại sau!")
             setStatus(error.response.status);
             setLoading(false);
         });

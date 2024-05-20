@@ -13,7 +13,7 @@ export const addToCart = (
 ) => {
     return (dispatch: any) => {
         if (addToast) {
-            addToast("Thêm sản phẩm vào giỏ haàng thành công", {appearance: "success", autoDismiss: true});
+            addToast("Thêm sản phẩm vào giỏ hàng thành công", {appearance: "success", autoDismiss: true});
         }
         dispatch({
             type: ADD_TO_CART,

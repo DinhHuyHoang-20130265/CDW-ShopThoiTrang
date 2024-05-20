@@ -1,11 +1,31 @@
 import PropTypes from "prop-types";
-import React, {Fragment, useState} from "react";
+import React, {Fragment, useEffect, useState} from "react";
 import Accordion from "react-bootstrap/Accordion";
 import Image from 'react-bootstrap/Image';
 import Breadcrumb from "../../wrappers/breadcrumb/Breadcrumb";
 import {Col, Container, Row, Table} from "react-bootstrap";
+import axios from "axios";
 
 const MyAccount = () => {
+    if (localStorage.getItem("user") === null || localStorage.getItem("user") === "")
+        window.location.href = "/login-register";
+    useEffect(() => {
+        const fetch = axios.get(`${process.env.REACT_APP_API_ENDPOINT}user/info`, {
+            headers: {
+                Accept: 'application/json',
+                "Content-Type": "application/json",
+            },
+            withCredentials: true
+
+        })
+            .then((response) => {
+                console.log(response.data);
+            })
+            .catch((error) => {
+                console.error(error);
+            });
+        fetch.then();
+    }, []);
 
     const displaySelectedImage = (event: any) => {
         const selectedImage: any = document.getElementById('selectedAvatar');

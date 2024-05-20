@@ -10,9 +10,44 @@ import {composeWithDevTools} from "@redux-devtools/extension";
 import {thunk} from "redux-thunk";
 import {fetchProducts} from "./store/actions/productActions";
 import axios from "axios";
+import toast from "react-hot-toast";
 
 
 const Render = () => {
+
+    axios.interceptors.response.use(
+        response => {
+            return response
+        },
+        async function (error) {
+            const originalRequest = error.config
+            if (error.response.status === 400 && originalRequest._retry) {
+                toast.error("Hết phiên đăng nhập, vui lòng đăng nhập lại!")
+                localStorage.removeItem('user');
+                window.location.href = "/login-register"
+                return Promise.reject(error)
+            }
+
+            if (error.response.status === 401 && !originalRequest._retry) {
+                originalRequest._retry = true
+                const res = await axios
+                    .post(`${process.env.REACT_APP_API_ENDPOINT}auth/refresh-token`,
+                        {}, {
+                            headers: {
+                                Accept: 'application/json',
+                                "Content-Type": "application/json",
+                            },
+                            withCredentials: true
+                        });
+                if (res.status === 200)
+                    return axios(originalRequest);
+            }
+            toast.error("Đã có lỗi xảy ra, vui lòng thử lại sau!")
+            window.location.href = "/login-register"
+            localStorage.removeItem('user');
+            return Promise.reject(error)
+        }
+    );
     const store = legacy_createStore(
         rootReducer,
         load(),
@@ -21,7 +56,7 @@ const Render = () => {
     const [isLoaded, setIsLoaded] = React.useState(false);
     useEffect(() => {
         const fectch = async () => {
-            await axios.get(`http://localhost:8080/api/product/user`, {
+            await axios.get(`${process.env.REACT_APP_API_ENDPOINT}product/user`, {
                 headers: {
                     Accept: 'application/json',
                     "Content-Type": "application/json"
