@@ -66,5 +66,6 @@ public class Order {
     private Set<OrderDetail> orderDetails;
 
     @OneToMany(mappedBy = "order", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @OrderBy("createdDate DESC")
     private Set<OrderStatusHistory> orderStatusHistories;
 }

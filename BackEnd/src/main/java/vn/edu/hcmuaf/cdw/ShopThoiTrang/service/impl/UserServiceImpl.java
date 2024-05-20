@@ -21,6 +21,7 @@ import vn.edu.hcmuaf.cdw.ShopThoiTrang.JWT.JwtUtils;
 import vn.edu.hcmuaf.cdw.ShopThoiTrang.entity.*;
 import vn.edu.hcmuaf.cdw.ShopThoiTrang.model.dto.CreateUserDTO;
 import vn.edu.hcmuaf.cdw.ShopThoiTrang.model.dto.UpdateUserDTO;
+import vn.edu.hcmuaf.cdw.ShopThoiTrang.model.dto.UserDto;
 import vn.edu.hcmuaf.cdw.ShopThoiTrang.reponsitory.ResourceRepository;
 import vn.edu.hcmuaf.cdw.ShopThoiTrang.reponsitory.ResourceVariationRepository;
 import vn.edu.hcmuaf.cdw.ShopThoiTrang.reponsitory.UserInfoRepository;
@@ -53,8 +54,28 @@ public class UserServiceImpl implements UserService {
     private PasswordEncoder passwordEncoder;
 
     @Override
-    public User getUserById(Long id) {
-        return userRepository.findById(id).get();
+    public UserDto getUserById(Long id) {
+        return userRepository.findById(id).map(UserDto::new).orElse(null);
+    }
+
+    @Override
+    public String changePassword(Long id, String oldPassword, String newPassword) {
+        User user = userRepository.findById(id).orElseThrow(() -> new RuntimeException("User not found"));
+        if (!passwordEncoder.matches(oldPassword, user.getPasswordEncrypted())) {
+            return "Mật khẩu cũ không đúng!";
+        }
+        user.setPasswordEncrypted(passwordEncoder.encode(newPassword));
+        userRepository.save(user);
+        return "Đổi mật khẩu thành công!";
+    }
+
+    @Override
+    public String updateInfo(Long id, String name, String phone, String email) {
+        UserInfo userInfo = userInfoRepository.findById(id).orElseThrow(() -> new RuntimeException("User info not found"));
+        userInfo.setFullName(name);
+        userInfo.setPhone(phone);
+        userInfo.setEmail(email);
+        return userInfoRepository.save(userInfo) != null ? "Cập nhật thông tin thành công!" : "Cập nhật thông tin thất bại!";
     }
 
     @Override
