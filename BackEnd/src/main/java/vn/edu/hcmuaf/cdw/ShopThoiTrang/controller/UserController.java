@@ -10,6 +10,7 @@ import vn.edu.hcmuaf.cdw.ShopThoiTrang.entity.Product;
 import vn.edu.hcmuaf.cdw.ShopThoiTrang.entity.User;
 import vn.edu.hcmuaf.cdw.ShopThoiTrang.model.dto.CreateUserDTO;
 import vn.edu.hcmuaf.cdw.ShopThoiTrang.model.dto.UpdateUserDTO;
+import vn.edu.hcmuaf.cdw.ShopThoiTrang.model.dto.UserDto;
 import vn.edu.hcmuaf.cdw.ShopThoiTrang.service.UserInfoService;
 import vn.edu.hcmuaf.cdw.ShopThoiTrang.service.UserService;
 
@@ -69,8 +70,8 @@ public class UserController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<User> getUserById(@PathVariable Long id) {
-        User user = userService.getUserById(id);
+    public ResponseEntity<UserDto> getUserById(@PathVariable Long id) {
+        UserDto user = userService.getUserById(id);
         return ResponseEntity.ok(user);
     }
 
@@ -88,5 +89,16 @@ public class UserController {
     public ResponseEntity<?> deleteProduct(@PathVariable Long id) {
         userService.deleteUser(id);
         return ResponseEntity.ok("Deleted");
+    }
+
+    @PostMapping("/change-password")
+    public ResponseEntity<?> changePassword(@RequestParam String id, @RequestParam String oldPassword, @RequestParam String newPassword) {
+        return ResponseEntity.ok(userService.changePassword(Long.parseLong(id), oldPassword, newPassword));
+    }
+
+    @PutMapping("/update-info")
+    public ResponseEntity<?> updateInfo(@RequestParam String id, @RequestParam String name, @RequestParam String phone, @RequestParam String email) {
+
+        return ResponseEntity.ok(userService.updateInfo(Long.parseLong(id), name, phone, email));
     }
 }
