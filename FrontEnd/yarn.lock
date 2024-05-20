@@ -2620,6 +2620,13 @@
   dependencies:
     "@types/react" "*"
 
+"@types/react-currency-format@^1.0.4":
+  version "1.0.4"
+  resolved "https://registry.npmjs.org/@types/react-currency-format/-/react-currency-format-1.0.4.tgz"
+  integrity sha512-qHxKxe7MSGbWkxTj6DAgnKFnc/zXrRPljxaBnw29IlLyBmTBXZjGuCnn3UBH+tzHrYBFt4mkmxbWqpyeq6Ls0g==
+  dependencies:
+    "@types/react" "*"
+
 "@types/react-dom@^18.0.0", "@types/react-dom@^18.2.21":
   version "18.2.21"
   resolved "https://registry.npmjs.org/@types/react-dom/-/react-dom-18.2.21.tgz"

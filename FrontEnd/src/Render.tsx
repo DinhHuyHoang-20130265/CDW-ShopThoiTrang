@@ -42,9 +42,7 @@ const Render = () => {
                 if (res.status === 200)
                     return axios(originalRequest);
             }
-            toast.error("Đã có lỗi xảy ra, vui lòng thử lại sau!")
-            window.location.href = "/login-register"
-            localStorage.removeItem('user');
+            toast.error("Đã có lỗi xảy ra, vui lòng thử lại sau! :" + error)
             return Promise.reject(error)
         }
     );

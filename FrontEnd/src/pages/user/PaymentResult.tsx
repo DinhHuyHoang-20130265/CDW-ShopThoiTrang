@@ -1,7 +1,5 @@
 import {Link, useLocation} from 'react-router-dom';
-// @ts-ignore
 import CurrencyFormat from "react-currency-format";
-import {useDispatch} from "react-redux";
 import axios from "axios";
 import {useEffect} from "react";
 import moment from "moment";
@@ -10,30 +8,28 @@ export const PaymentResult = () => {
     const location = useLocation();
     const queryParams = new URLSearchParams(location.search);
 
+    const type = queryParams.get('type');
     const vnp_Amount: any = queryParams.get('vnp_Amount');
     const vnp_OrderInfo = queryParams.get('vnp_OrderInfo');
     const vnp_BankCode = queryParams.get('vnp_BankCode');
     const vnp_PayDate = queryParams.get('vnp_PayDate');
     const vnp_ResponseCode = queryParams.get('vnp_ResponseCode');
     const PayDate = moment(vnp_PayDate, 'YYYYMMDDHHmmss').format('YYYY-MM-DD HH:mm:ss');
-    //insert order into db
-
-    const dispatch = useDispatch();
 
     const order = sessionStorage.getItem("order");
-    // useEffect(() => {
-    //     if (order !== null && vnp_ResponseCode === "00") {
-    //         const parsedOrder = JSON.parse(order);
-    //         try {
-    //             axios.post("http://localhost:8080/api/v1/order/create", parsedOrder).then((r) => {
-    //                 sessionStorage.removeItem("order");
-    //             });
-    //             console.log(order)
-    //         } catch (error) {
-    //             console.error("Error creating order:", error);
-    //         }
-    //     }
-    // }, []);
+    useEffect(() => {
+        if (order !== null && vnp_ResponseCode === "00") {
+            const parsedOrder = JSON.parse(order);
+            try {
+                axios.post("http://localhost:8080/api/v1/order/create", parsedOrder).then((r) => {
+                    sessionStorage.removeItem("order");
+                });
+                console.log(order)
+            } catch (error) {
+                console.error("Error creating order:", error);
+            }
+        }
+    }, []);
 
     return (
         <div>

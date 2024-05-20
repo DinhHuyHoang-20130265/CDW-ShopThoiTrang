@@ -28,10 +28,10 @@ const Checkout = ({cartItems}: any) => {
     const [address, setAddress] = useState("");
     const [note, setNote] = useState("");
     const [email, setEmail] = useState("");
+    const [userId, setUserId] = useState(-1);
 
     const [fee, setFee] = useState(0);
     const [paymentType, setPaymentType] = useState('cod');
-
 
     useEffect(() => {
     }, [isLoading, cartItems]);
@@ -40,6 +40,7 @@ const Checkout = ({cartItems}: any) => {
         const user = localStorage.getItem('user');
         if (user) {
             const userObj = JSON.parse(user);
+            setUserId(userObj.id);
             const fetchInfo = async () => {
                 await axios.get(`${process.env.REACT_APP_API_ENDPOINT}user/${userObj.id}`, {
                     headers: {
@@ -47,8 +48,8 @@ const Checkout = ({cartItems}: any) => {
                         "Content-Type": "application/json",
                     },
                     withCredentials: true
-                }).then((response) => {
-                    setName(response.data.fullName);
+                }).then((response: any) => {
+                    setName(response.data.userInfo.fullName);
                     setPhone(response.data.userInfo.phone);
                     setEmail(response.data.userInfo.email);
                 }).catch((error) => {
@@ -172,6 +173,41 @@ const Checkout = ({cartItems}: any) => {
     const handleCreateOrder = () => {
         setIsLoading(true)
         setTimeout(async () => {
+            let date = new Date();
+            date.setMinutes(date.getMinutes() + 10);
+            let unixTimestamp = Math.floor(date.getTime() / 1000);
+
+            const orderDetails = cartItems.map((item: any) => (
+                {
+                    id: item.id,
+                    price: getDiscountPrice(item.price.price, item.promotions[0]) === null ?
+                        item.price.price : getDiscountPrice(item.price.price, item.promotions[0]),
+                    variation_id: item.variations.find((variation: any) => variation.color === item.selectedProductColor).id,
+                    sizes_id: item.variations.find((variation: any) =>
+                        variation.color === item.selectedProductColor).sizes.find((size: any) =>
+                        size.size === item.selectedProductSize).id,
+                    quantity: item.quantity,
+                }
+            ));
+            console.log(orderDetails)
+            const dataCart = {
+                id: unixTimestamp,
+                fullname: name,
+                phone: phone,
+                user_id: userId !== -1 ? userId : null,
+                province: selectedProvince,
+                district: selectedDistrict,
+                ward: selectedWard,
+                address: address,
+                payMethod: paymentType,
+                payment_status: "no",
+                shippingFee: fee,
+                shippingCode: "",
+                totalAmount: cartTotalPrice,
+                note: note,
+                status: 0,
+                orderDetails: orderDetails,
+            };
             if (name === "" || phone === "" || address === "" ||
                 selectedProvince === null || selectedProvince === "" || selectedDistrict === null
                 || selectedDistrict === "" || selectedWard === null || selectedWard === "") {
@@ -179,35 +215,24 @@ const Checkout = ({cartItems}: any) => {
                 setIsLoading(false)
                 return;
             }
-
-            let date = new Date();
-            date.setMinutes(date.getMinutes() + 10);
-            let unixTimestamp = Math.floor(date.getTime() / 1000);
-
-            const products = cartItems.map((item: any) => ({
-                product: item.id,
-                quantity: item.quantity
-            }));
-
-            const dataCart = {
-                id: unixTimestamp,
-                fullname: name,
-                province: selectedProvince,
-                district: selectedDistrict,
-                ward: selectedWard,
-                address: address,
-                payMethod: "vnpay",
-                payment_status: true,
-                note: note,
-                status: 0,
-                products: products,
-            };
             switch (paymentType) {
                 case 'cod':
-                    postOrderGHN(paymentType).then((response: any) => {
-                        console.log(response.data);
-                        sessionStorage.setItem("order", JSON.stringify(dataCart));
-                        toast.success('Đặt hàng thành công!');
+                    postOrderGHN(paymentType).then(async (response: any) => {
+                        dataCart.shippingCode = response.data.data.order_code;
+
+                        await axios.post(`${process.env.REACT_APP_API_ENDPOINT}order`, dataCart, {
+                            headers: {
+                                Accept: 'application/json',
+                                "Content-Type": "application/json",
+                            },
+                            withCredentials: true
+                        }).then((response) => {
+                            console.log(response.data);
+                            window.location.href = '/payment-result?order=' + unixTimestamp + '&status=success&type=cod';
+                            toast.success('Đặt hàng thành công!');
+                        }).catch((error) => {
+                            toast.error(error.response.data.code_message_value)
+                        })
                     }).catch((error) => {
                         toast.error(error.response.data.code_message_value)
                         console.log(error);
@@ -253,7 +278,7 @@ const Checkout = ({cartItems}: any) => {
                         amount: amount,
                         description: "THANH TOAN DON HANG " + unixTimestamp + " PAYOS",
                         buyerName: name,
-                        buyerEmail: "buyer-email@gmail.com",
+                        buyerEmail: email,
                         buyerPhone: phone,
                         buyerAddress: address + ", " + selectedWard + ", " + selectedDistrict + ", " + selectedProvince,
                         items: cartItems.map((cartItem: any) => {
@@ -340,7 +365,7 @@ const Checkout = ({cartItems}: any) => {
                                         <div className="col-lg-6 col-md-6">
                                             <div className="billing-info mb-20">
                                                 <label>Họ tên</label>
-                                                <input type="text" required
+                                                <input type="text" required value={name ? name : ""}
                                                        onChange={(e: any) => setName(e.target.value)}
                                                 />
                                             </div>
@@ -348,7 +373,7 @@ const Checkout = ({cartItems}: any) => {
                                         <div className="col-lg-6 col-md-6">
                                             <div className="billing-info mb-20">
                                                 <label>Số điện thoại</label>
-                                                <input type="text" required
+                                                <input type="text" required value={phone ? phone : ""}
                                                        onChange={(e: any) => setPhone(e.target.value)}
                                                 />
                                             </div>

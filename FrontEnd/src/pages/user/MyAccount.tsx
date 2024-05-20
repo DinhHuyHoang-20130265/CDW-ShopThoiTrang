@@ -1,4 +1,3 @@
-import PropTypes from "prop-types";
 import React, {Fragment, useEffect, useState} from "react";
 import Accordion from "react-bootstrap/Accordion";
 import Image from 'react-bootstrap/Image';
@@ -6,11 +5,12 @@ import Breadcrumb from "../../wrappers/breadcrumb/Breadcrumb";
 import {Button, Col, Container, Modal, Row, Table} from "react-bootstrap";
 import axios from "axios";
 import {useToasts} from "react-toast-notifications";
-
+import {Navigate} from "react-router-dom";
 
 const MyAccount = () => {
     const {addToast} = useToasts();
     const user: any = localStorage.getItem('user');
+
     const idUser: any = JSON.parse(user) ? JSON.parse(user).id : null;
     const [showOrderDetailModal, setshowOrderDetailModal] = useState(false);
     const [showOrderStatusModal, setshowOrderStatusModal] = useState(false);
@@ -26,20 +26,27 @@ const MyAccount = () => {
     const [oldPassword, setOldPassword] = useState('');
 
     const [userProfile, setUserProfile]: any = useState(null);
+
+    const checkUser = () => {
+        if (!user)
+            return <Navigate to={'/login-register'}/>
+    }
+
+    checkUser();
+
     useEffect(() => {
-            const fetchUserProfile = async () => {
-                await axios.get(`http://localhost:8080/api/user/${idUser}`, {
-                    headers: {
-                        Accept: 'application/json',
-                        "Content-Type": "application/json"
-                    }
-                }).then(response => {
-                    setUserProfile(response.data);
-                })
-            }
-            fetchUserProfile().then();
+        const fetchUserProfile = async () => {
+            await axios.get(`${process.env.REACT_APP_API_ENDPOINT}user/${idUser}`, {
+                headers: {
+                    Accept: 'application/json',
+                    "Content-Type": "application/json"
+                }
+            }).then(response => {
+                setUserProfile(response.data);
+            })
         }
-        , []);
+        fetchUserProfile().then();
+    }, []);
 
     const displaySelectedImage = (event: any) => {
         const selectedImage: any = document.getElementById('selectedAvatar');
@@ -79,7 +86,7 @@ const MyAccount = () => {
         }
 
         const selectedImage: any = document.getElementById('selectedAvatar');
-        axios.put(`http://localhost:8080/api/user/update-info`, null, {
+        axios.put(`${process.env.REACT_APP_API_ENDPOINT}user/update-info`, null, {
             headers: {
                 Accept: 'application/json',
                 "Content-Type": "application/json"
@@ -92,12 +99,14 @@ const MyAccount = () => {
                 email: email,
             }
         }).then(response => {
+            console.log(response)
             addToast("Cập nhật thông tin thành công", {
                 appearance: 'success',
                 autoDismiss: true,
                 autoDismissTimeout: 3000
             });
         }).catch(error => {
+            console.log(error)
             addToast("Cập nhật thông tin thất bại", {appearance: 'error', autoDismiss: true, autoDismissTimeout: 3000});
         });
     }
@@ -119,7 +128,7 @@ const MyAccount = () => {
             });
             return;
         }
-        axios.post(`http://localhost:8080/api/user/change-password`, null, {
+        axios.post(`${process.env.REACT_APP_API_ENDPOINT}user/change-password`, null, {
             headers: {
                 Accept: 'application/json',
                 "Content-Type": "application/json"
@@ -146,7 +155,6 @@ const MyAccount = () => {
             }
         )
     }
-
 
     return (
         userProfile &&
@@ -355,6 +363,46 @@ const MyAccount = () => {
     );
 };
 
+const formatStatus = (status: any) => {
+    let style: {};
+
+    switch (status.name) {
+        case 'CHỜ XÁC NHẬN':
+            style = {color: 'blue', fontWeight: 'bold'};
+            break;
+        case 'THÀNH CÔNG':
+            style = {color: 'green', fontWeight: 'bold'};
+            break;
+        case 'ĐANG XỬ LÝ':
+            style = {color: 'gray', fontWeight: 'bold'};
+            break;
+        case 'ĐÃ HỦY':
+            style = {color: 'red', fontWeight: 'bold'};
+            break;
+        default:
+            style = {color: 'black', fontWeight: 'bold'};
+    }
+
+    return <span style={style}>{status.name}</span>;
+}
+
+const formatDate = (date: any) => {
+    const d = new Date(date);
+    const day = String(d.getDate()).padStart(2, '0');
+    const month = String(d.getMonth() + 1).padStart(2, '0');
+    const year = d.getFullYear();
+
+    const hour = String(d.getHours()).padStart(2, '0');
+    const minute = String(d.getMinutes()).padStart(2, '0');
+    const second = String(d.getSeconds()).padStart(2, '0');
+
+    return `${day}/${month}/${year} ${hour}:${minute}:${second}`;
+}
+
+const formatPrice = (price: any) => {
+    return price.toLocaleString('it-IT', {style: 'currency', currency: 'VND'});
+}
+
 const OrderDetailModal = ({order}: any) => {
     return (
         <Container>
@@ -479,46 +527,6 @@ const OrderDetailModal = ({order}: any) => {
         </Container>
     );
 
-}
-
-const formatDate = (date: any) => {
-    const d = new Date(date);
-    const day = String(d.getDate()).padStart(2, '0');
-    const month = String(d.getMonth() + 1).padStart(2, '0');
-    const year = d.getFullYear();
-
-    const hour = String(d.getHours()).padStart(2, '0');
-    const minute = String(d.getMinutes()).padStart(2, '0');
-    const second = String(d.getSeconds()).padStart(2, '0');
-
-    return `${day}/${month}/${year} ${hour}:${minute}:${second}`;
-}
-
-const formatPrice = (price: any) => {
-    return price.toLocaleString('it-IT', {style: 'currency', currency: 'VND'});
-}
-
-function formatStatus(status: any) {
-    let style = {};
-
-    switch (status.name) {
-        case 'CHỜ XÁC NHẬN':
-            style = {color: 'blue', fontWeight: 'bold'};
-            break;
-        case 'THÀNH CÔNG':
-            style = {color: 'green', fontWeight: 'bold'};
-            break;
-        case 'ĐANG XỬ LÝ':
-            style = {color: 'gray', fontWeight: 'bold'};
-            break;
-        case 'ĐÃ HỦY':
-            style = {color: 'red', fontWeight: 'bold'};
-            break;
-        default:
-            style = {color: 'black', fontWeight: 'bold'};
-    }
-
-    return <span style={style}>{status.name}</span>;
 }
 
 export default MyAccount;
