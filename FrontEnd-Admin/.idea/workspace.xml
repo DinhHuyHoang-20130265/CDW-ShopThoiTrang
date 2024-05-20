@@ -5,7 +5,6 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="89893dc3-088e-47ef-a82c-f709754202c6" name="Changes" comment="add update status order">
-      <change beforePath="$PROJECT_DIR$/../BackEnd/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/../BackEnd/src/main/resources/application.properties" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../FrontEnd/src/pages/user/MyAccount.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/../FrontEnd/src/pages/user/MyAccount.tsx" afterDir="false" />
     </list>

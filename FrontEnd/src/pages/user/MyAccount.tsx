@@ -56,6 +56,27 @@ const MyAccount = () => {
     };
 
     const updateProfile = () => {
+        if (fullName === '' || phone === '' || email === '') {
+            addToast("Vui lòng nhập đầy đủ thông tin", {
+                appearance: 'error',
+                autoDismiss: true,
+                autoDismissTimeout: 3000
+            });
+            return;
+        }
+
+        // check info change
+        if (fullName === userProfile.userInfo.fullName &&
+            phone === userProfile.userInfo.phone &&
+            email === userProfile.userInfo.email) {
+            addToast("Không có thông tin nào thay đổi", {
+                appearance: 'error',
+                autoDismiss: true,
+                autoDismissTimeout: 3000
+            });
+            return;
+        }
+
         const selectedImage: any = document.getElementById('selectedAvatar');
         axios.put(`http://localhost:8080/api/user/update-info`, null, {
             headers: {
@@ -81,6 +102,14 @@ const MyAccount = () => {
     }
 
     const changePassword = () => {
+        if (oldPassword === '' || newPassword === '' || confirmPassword === '') {
+            addToast("Vui lòng nhập đầy đủ thông tin", {
+                appearance: 'error',
+                autoDismiss: true,
+                autoDismissTimeout: 3000
+            });
+            return;
+        }
         if (newPassword !== confirmPassword) {
             addToast("Nhập lại mật khẩu không khớp", {
                 appearance: 'error',
@@ -146,7 +175,8 @@ const MyAccount = () => {
                                                                      className="rounded-circle" style={{
                                                                     width: '200px',
                                                                     height: '200px',
-                                                                    objectFit: 'cover'
+                                                                    objectFit: 'cover',
+                                                                    border: '1px solid #ccc'
                                                                 }} alt="example placeholder"/>
                                                             </div>
                                                             <div className="d-flex justify-content-center">
@@ -185,12 +215,6 @@ const MyAccount = () => {
                                                                        onChange={(e) => setEmail(e.target.value)}/>
                                                             </div>
                                                         </div>
-                                                        {/*<div className="col-lg-12 col-md-12">*/}
-                                                        {/*    <div className="billing-info">*/}
-                                                        {/*        <label>Địa chỉ</label>*/}
-                                                        {/*        <input type="text"/>*/}
-                                                        {/*    </div>*/}
-                                                        {/*</div>*/}
                                                     </div>
                                                     <div className="billing-back-btn">
                                                         <div className="billing-btn">
