@@ -117,6 +117,7 @@ const MyAccount = () => {
         )
     }
 
+
     return (
         userProfile &&
         <>
@@ -257,8 +258,8 @@ const MyAccount = () => {
                                                         <tr key={index}>
                                                             <td>{index + 1}</td>
                                                             <td>{order.id}</td>
-                                                            <td>{order.totalAmount + order.shippingFee}</td>
-                                                            <td>{order.status.name}</td>
+                                                            <td>{formatPrice(order.totalAmount + order.shippingFee)}</td>
+                                                            <td>{formatStatus(order.status)}</td>
                                                             <td>
                                                                 <Button variant="primary" onClick={() => {
                                                                     setOrderDetail(order);
@@ -284,6 +285,7 @@ const MyAccount = () => {
                 size="lg"
                 aria-labelledby="contained-modal-title-vcenter"
                 centered
+                onHide={() => setshowOrderDetailModal(false)}
             >
                 <Modal.Header closeButton>
                     <Modal.Title id="contained-modal-title-vcenter">
@@ -298,15 +300,17 @@ const MyAccount = () => {
                         setshowOrderDetailModal(false)
                         setshowOrderStatusModal(true);
                     }}>Chi tiết</Button>
-                    <Button onClick={() => setshowOrderDetailModal(false)}>Đóng</Button>
                 </Modal.Footer>
             </Modal>
 
             <Modal
                 show={showOrderStatusModal}
-                size="lg"
                 aria-labelledby="contained-modal-title-vcenter"
                 centered
+                onHide={() => {
+                    setshowOrderStatusModal(false)
+                    setshowOrderDetailModal(true);
+                }}
             >
                 <Modal.Header closeButton>
                     <Modal.Title id="contained-modal-title-vcenter">
@@ -316,16 +320,10 @@ const MyAccount = () => {
                 <Modal.Body>
                     {orderStatus && orderStatus.map((status: any, index: number) => (
                         <div key={index}>
-                            <p>{status.createdDate} - {status.status.name} </p>
+                            <p>{formatDate(status.createdDate)} - {formatStatus(status.status)} </p>
                         </div>
                     ))}
                 </Modal.Body>
-                <Modal.Footer>
-                    <Button onClick={() => {
-                        setshowOrderStatusModal(false)
-                        setshowOrderDetailModal(true);
-                    }}>Đóng</Button>
-                </Modal.Footer>
             </Modal>
 
         </>
@@ -342,12 +340,9 @@ const OrderDetailModal = ({order}: any) => {
                         <tbody>
                         <tr>
                             <th>Ngày tạo</th>
-                            <td>{order.orderDate}</td>
+                            <td>{formatDate(order.orderDate)}</td>
                         </tr>
-                        <tr>
-                            <th>Trạng thái</th>
-                            <td>{order.status.name}</td>
-                        </tr>
+
                         <tr>
                             <th>Họ tên</th>
                             <td>{order.name}</td>
@@ -390,27 +385,27 @@ const OrderDetailModal = ({order}: any) => {
                                     ({orderDetail.variation.color} / {orderDetail.size.size})
                                 </td>
                                 <td>{orderDetail.quantity}</td>
-                                <td>{orderDetail.price}</td>
+                                <td>{formatPrice(orderDetail.price)}</td>
                             </tr>
                         ))}
                         </tbody>
                     </Table>
 
                     <Table striped>
-                    <tbody>
-                    <tr>
-                        <th colSpan={3}>Tạm tính</th>
-                        <td>{order.totalAmount}</td>
-                    </tr>
-                    <tr>
-                        <th colSpan={3}>Phí vận chuyển</th>
-                        <td>{order.shippingFee}</td>
-                    </tr>
-                    <tr>
-                        <th colSpan={3}>Tổng tiền</th>
-                        <td>{order.totalAmount + order.shippingFee}</td>
-                    </tr>
-                    </tbody>
+                        <tbody>
+                        <tr>
+                            <th colSpan={3}>Tạm tính</th>
+                            <td>{formatPrice(order.totalAmount)}</td>
+                        </tr>
+                        <tr>
+                            <th colSpan={3}>Phí vận chuyển</th>
+                            <td>{formatPrice(order.shippingFee)}</td>
+                        </tr>
+                        <tr>
+                            <th colSpan={3}>Tổng tiền</th>
+                            <td>{formatPrice(order.totalAmount + order.shippingFee)}</td>
+                        </tr>
+                        </tbody>
                     </Table>
 
                     <h4 className={"mt-25"}>Thông tin đơn hàng</h4>
@@ -443,7 +438,10 @@ const OrderDetailModal = ({order}: any) => {
                                 {order.shippingCode}
                             </td>
                         </tr>
-
+                        <tr>
+                            <th>Trạng thái</th>
+                            <td>{formatStatus(order.status)}</td>
+                        </tr>
                         </tbody>
                     </Table>
 
@@ -456,6 +454,46 @@ const OrderDetailModal = ({order}: any) => {
         </Container>
     );
 
+}
+
+const formatDate = (date: any) => {
+    const d = new Date(date);
+    const day = String(d.getDate()).padStart(2, '0');
+    const month = String(d.getMonth() + 1).padStart(2, '0');
+    const year = d.getFullYear();
+
+    const hour = String(d.getHours()).padStart(2, '0');
+    const minute = String(d.getMinutes()).padStart(2, '0');
+    const second = String(d.getSeconds()).padStart(2, '0');
+
+    return `${day}/${month}/${year} ${hour}:${minute}:${second}`;
+}
+
+const formatPrice = (price: any) => {
+    return price.toLocaleString('it-IT', {style: 'currency', currency: 'VND'});
+}
+
+function formatStatus(status: any) {
+    let style = {};
+
+    switch (status.name) {
+        case 'CHỜ XÁC NHẬN':
+            style = {color: 'blue', fontWeight: 'bold'};
+            break;
+        case 'THÀNH CÔNG':
+            style = {color: 'green', fontWeight: 'bold'};
+            break;
+        case 'ĐANG XỬ LÝ':
+            style = {color: 'gray', fontWeight: 'bold'};
+            break;
+        case 'ĐÃ HỦY':
+            style = {color: 'red', fontWeight: 'bold'};
+            break;
+        default:
+            style = {color: 'black', fontWeight: 'bold'};
+    }
+
+    return <span style={style}>{status.name}</span>;
 }
 
 export default MyAccount;
