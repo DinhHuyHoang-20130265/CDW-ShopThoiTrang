@@ -4,19 +4,19 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.itextpdf.text.*;
-import com.itextpdf.text.pdf.Barcode128;
-import com.itextpdf.text.pdf.PdfPCell;
-import com.itextpdf.text.pdf.PdfPTable;
-import com.itextpdf.text.pdf.PdfWriter;
+import com.itextpdf.text.pdf.*;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.criteria.Join;
 import jakarta.persistence.criteria.Predicate;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.ByteArrayResource;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.domain.Specification;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import vn.edu.hcmuaf.cdw.ShopThoiTrang.entity.*;
@@ -27,6 +27,7 @@ import vn.edu.hcmuaf.cdw.ShopThoiTrang.service.OrderDetailService;
 import vn.edu.hcmuaf.cdw.ShopThoiTrang.service.OrderService;
 import vn.edu.hcmuaf.cdw.ShopThoiTrang.service.OrderStatusHistoryService;
 
+import java.io.ByteArrayOutputStream;
 import java.io.FileOutputStream;
 import java.nio.charset.StandardCharsets;
 import java.util.Set;
@@ -66,8 +67,7 @@ public class OrderServiceImpl implements OrderService {
     @Override
     public Page<Order> getAllOrders(String filter, int page, int perPage, String sortBy, String order) {
         Sort.Direction direction = Sort.Direction.ASC;
-        if (order.equalsIgnoreCase("DESC"))
-            direction = Sort.Direction.DESC;
+        if (order.equalsIgnoreCase("DESC")) direction = Sort.Direction.DESC;
 
         JsonNode filterJson;
         try {
@@ -190,66 +190,128 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
-    public void exportOrder(Long orderId) {
-        Order order = orderRepository.findById(orderId)
-                .orElseThrow(() -> new RuntimeException("Order not found"));
+    public ResponseEntity<?> exportOrder(Long orderId) {
+        Order order = orderRepository.findById(orderId).orElseThrow(() -> new RuntimeException("Order not found"));
         Set<OrderDetail> orderDetails = order.getOrderDetails();
 
         Document document = new Document();
+        ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
         try {
-            PdfWriter writer = PdfWriter.getInstance(document, new FileOutputStream("order_" + orderId + ".pdf"));
+            PdfWriter writer = PdfWriter.getInstance(document, byteArrayOutputStream);
             document.open();
-            document.addTitle("Order #" + orderId);
 
-            Font boldFont = new Font(Font.FontFamily.TIMES_ROMAN, 12, Font.BOLD);
-            Font regularFont = new Font(Font.FontFamily.TIMES_ROMAN, 12, Font.NORMAL);
+            BaseFont bf = BaseFont.createFont("src/main/java/vn/edu/hcmuaf/cdw/ShopThoiTrang/font/arial.ttf", BaseFont.IDENTITY_H, BaseFont.EMBEDDED);
+            Font boldFont = new Font(bf, 20, Font.BOLD);
+            Font regularFont = new Font(bf, 12, Font.NORMAL);
 
-            // Add header
-            document.add(new Paragraph("Order Details", boldFont));
-            document.add(new Paragraph("Order ID: " + orderId, regularFont));
-            document.add(new Paragraph("Customer: " + order.getName(), regularFont));
-            document.add(new Paragraph("Order Date: " + order.getOrderDate(), regularFont));
-            document.add(Chunk.NEWLINE);
-
-            // Add table for order details
-            PdfPTable table = new PdfPTable(3);
-            table.setWidthPercentage(100);
-            table.setWidths(new int[]{3, 1, 1});
-
-            // Add table headers
-            addTableHeader(table);
-
-            // Add table rows
-            for (OrderDetail orderDetail : orderDetails) {
-                table.addCell(new PdfPCell(new Phrase(orderDetail.getProductId().getName(), regularFont)));
-                table.addCell(new PdfPCell(new Phrase(String.valueOf(orderDetail.getQuantity()), regularFont)));
-                table.addCell(new PdfPCell(new Phrase(String.valueOf(orderDetail.getPrice()), regularFont)));
-            }
-            document.add(table);
+            Paragraph title = new Paragraph("Hóa đơn #" + orderId, boldFont);
+            title.setAlignment(Element.ALIGN_CENTER);
+            document.add(title);
 
             // Add barcode
             Barcode128 barcode = new Barcode128();
             barcode.setCode(orderId.toString());
             Image barcodeImage = barcode.createImageWithBarcode(writer.getDirectContent(), BaseColor.BLACK, BaseColor.BLACK);
-            barcodeImage.scalePercent(200);
+            barcodeImage.scalePercent(100);
+            barcodeImage.setAlignment(Image.ALIGN_RIGHT);
+            float top = document.top();
+            barcodeImage.setAbsolutePosition(document.right() - barcodeImage.getScaledWidth(), top - barcodeImage.getScaledHeight());
             document.add(barcodeImage);
+
+            document.add(Chunk.NEWLINE);
+
+            PdfPTable tableInfo = new PdfPTable(2);
+            tableInfo.setWidthPercentage(100);
+            tableInfo.setWidths(new int[]{1, 1});
+
+
+            tableInfo.addCell(new PdfPCell(new Phrase("Khách hàng", regularFont)));
+            tableInfo.addCell(new PdfPCell(new Phrase(order.getName(), regularFont)));
+
+            tableInfo.addCell(new PdfPCell(new Phrase("Số điện thoại", regularFont)));
+            tableInfo.addCell(new PdfPCell(new Phrase(order.getPhone(), regularFont)));
+
+            tableInfo.addCell(new PdfPCell(new Phrase("Địa chỉ", regularFont)));
+            tableInfo.addCell(new PdfPCell(new Phrase(order.getAddress(), regularFont)));
+
+            tableInfo.addCell(new PdfPCell(new Phrase("Ghi chú", regularFont)));
+            tableInfo.addCell(new PdfPCell(new Phrase(order.getNote(), regularFont)));
+
+            tableInfo.addCell(new PdfPCell(new Phrase("Ngày đặt hàng", regularFont)));
+            tableInfo.addCell(new PdfPCell(new Phrase(order.getOrderDate().toString(), regularFont)));
+
+            tableInfo.addCell(new PdfPCell(new Phrase("Phương thức thanh toán", regularFont)));
+            tableInfo.addCell(new PdfPCell(new Phrase(order.getPaymentMethod(), regularFont)));
+
+            tableInfo.addCell(new PdfPCell(new Phrase("Trạng thái thanh toán", regularFont)));
+            tableInfo.addCell(new PdfPCell(new Phrase(order.getPaymentStatus(), regularFont)));
+
+            document.add(tableInfo);
+
+            document.add(Chunk.NEWLINE);
+
+            // Add table for order details
+            PdfPTable table = new PdfPTable(4);
+            table.setWidthPercentage(100);
+            table.setWidths(new int[]{1, 3, 1, 1});
+
+            // Add table headers
+            addTableHeader(table, regularFont);
+
+            // Add table rows
+            int count = 1;
+            for (OrderDetail orderDetail : orderDetails) {
+                table.addCell(new PdfPCell(new Phrase(String.valueOf(count++), regularFont)));
+                table.addCell(new PdfPCell(new Phrase(orderDetail.getProductId().getName() + " / (" + orderDetail.getVariation().getColor() + " / " + orderDetail.getSize().getSize() + ")", regularFont)));
+                table.addCell(new PdfPCell(new Phrase(String.valueOf(orderDetail.getQuantity()), regularFont)));
+                table.addCell(new PdfPCell(new Phrase(String.valueOf(formatPrice(orderDetail.getPrice())), regularFont)));
+            }
+
+            PdfPCell cellTotal1 = new PdfPCell(new Phrase("Tạm tính", regularFont));
+            cellTotal1.setColspan(3);
+            table.addCell(cellTotal1);
+
+            PdfPCell cellTotal2 = new PdfPCell(new Phrase(String.valueOf(formatPrice(order.getTotalAmount())), regularFont));
+            table.addCell(cellTotal2);
+
+            PdfPCell cellShippingFee = new PdfPCell(new Phrase("Phí vận chuyển", regularFont));
+            cellShippingFee.setColspan(3);
+            table.addCell(cellShippingFee);
+
+            PdfPCell cellShippingFeeValue = new PdfPCell(new Phrase(String.valueOf(formatPrice(order.getShippingFee())), regularFont));
+            table.addCell(cellShippingFeeValue);
+
+            PdfPCell cellTotal = new PdfPCell(new Phrase("Tổng tiền",  new Font(bf, 16, Font.BOLD)));
+            cellTotal.setColspan(3);
+            table.addCell(cellTotal);
+
+            PdfPCell cellTotalValue = new PdfPCell(new Phrase(String.valueOf(formatPrice(order.getTotalAmount() + order.getShippingFee())),  new Font(bf, 16, Font.BOLD)));
+            table.addCell(cellTotalValue);
+
+            document.add(table);
 
             document.close();
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
+        HttpHeaders headers = new HttpHeaders();
+        headers.add(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=order_" + orderId + ".pdf");
+
+        return ResponseEntity.ok().headers(headers).contentType(MediaType.APPLICATION_PDF).body(new ByteArrayResource(byteArrayOutputStream.toByteArray()));
     }
 
-    private void addTableHeader(PdfPTable table) {
-        Stream.of("Product", "Quantity", "Price")
-                .forEach(columnTitle -> {
-                    PdfPCell header = new PdfPCell();
-                    header.setBackgroundColor(BaseColor.LIGHT_GRAY);
-                    header.setBorderWidth(2);
-                    header.setPhrase(new Phrase(columnTitle));
-                    table.addCell(header);
-                });
+    private void addTableHeader(PdfPTable table, Font font) {
+        Stream.of("#", "Tên sản phẩm", "Số lượng", "Giá").forEach(columnTitle -> {
+            PdfPCell header = new PdfPCell();
+            header.setBackgroundColor(BaseColor.LIGHT_GRAY);
+            header.setBorderWidth(2);
+            header.setPhrase(new Phrase(columnTitle, font));
+            table.addCell(header);
+        });
     }
 
+    private String formatPrice(double price) {
+        return String.format("%,.0f", price);
+    }
 
 }

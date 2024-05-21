@@ -15,5 +15,5 @@ public interface OrderService {
 
     ResponseEntity<?> updateOrderStatus(Long orderId, Long orderStatusId);
 
-    void exportOrder(Long orderId);
+    ResponseEntity<?> exportOrder(Long orderId);
 }
