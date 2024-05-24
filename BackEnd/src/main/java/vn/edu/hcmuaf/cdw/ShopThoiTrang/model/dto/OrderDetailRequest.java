@@ -8,8 +8,7 @@ import lombok.Data;
 public class OrderDetailRequest {
     private Long id;
     private Double price;
-    private Long productId;
-    private Long variationId;
-    private Long sizesId;
+    private Long variation_id;
+    private Long sizes_id;
     private Integer quantity;
 }

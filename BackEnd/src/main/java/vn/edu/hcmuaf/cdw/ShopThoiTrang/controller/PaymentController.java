@@ -26,7 +26,7 @@ public class PaymentController {
         String vnp_Command = "pay";
         String orderType = "other";
         long amount = req.getAmount() * 100;
-        String bankCode = "NCB";
+        String bankCode = "VNBANK";
 
         String vnp_TxnRef = String.valueOf(req.getOrderInfo());
         String vnp_IpAddr = "127.0.0.1";
