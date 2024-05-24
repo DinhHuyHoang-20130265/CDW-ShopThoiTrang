@@ -5,7 +5,7 @@ import Nav from "react-bootstrap/Nav";
 import SectionTitle from "../../components/section-title/SectionTitle";
 import ProductGrid from "./ProductGrid";
 
-const TabProduct = ({spaceTopClass, spaceBottomClass, bgColorClass, category}: any) => {
+const TabProduct = ({spaceTopClass, spaceBottomClass, bgColorClass}: any) => {
     return (
         <div
             className={`product-area ${spaceTopClass ? spaceTopClass : ""} ${spaceBottomClass ? spaceBottomClass : ""} ${bgColorClass ? bgColorClass : ""}`}>
@@ -22,11 +22,6 @@ const TabProduct = ({spaceTopClass, spaceBottomClass, bgColorClass, category}: a
                             </Nav.Link>
                         </Nav.Item>
                         <Nav.Item>
-                            <Nav.Link eventKey="bestSeller">
-                                <h4>Bán chạy</h4>
-                            </Nav.Link>
-                        </Nav.Item>
-                        <Nav.Item>
                             <Nav.Link eventKey="saleItems">
                                 <h4>Giảm giá</h4>
                             </Nav.Link>
@@ -36,18 +31,7 @@ const TabProduct = ({spaceTopClass, spaceBottomClass, bgColorClass, category}: a
                         <Tab.Pane eventKey="newArrival">
                             <div className="row">
                                 <ProductGrid
-                                    category={category}
                                     type="new"
-                                    limit={8}
-                                    spaceBottomClass="mb-25"
-                                />
-                            </div>
-                        </Tab.Pane>
-                        <Tab.Pane eventKey="bestSeller">
-                            <div className="row">
-                                <ProductGrid
-                                    category={category}
-                                    type="bestSeller"
                                     limit={8}
                                     spaceBottomClass="mb-25"
                                 />
@@ -56,7 +40,6 @@ const TabProduct = ({spaceTopClass, spaceBottomClass, bgColorClass, category}: a
                         <Tab.Pane eventKey="saleItems">
                             <div className="row">
                                 <ProductGrid
-                                    category={category}
                                     type="saleItems"
                                     limit={8}
                                     spaceBottomClass="mb-25"

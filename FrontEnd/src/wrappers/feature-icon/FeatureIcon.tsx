@@ -7,26 +7,26 @@ const FeatureIcon = ({spaceTopClass, spaceBottomClass}: any) => {
             {
                 "id": 1,
                 "image": "/assets/icon-img/support-1.png",
-                "title": "Free Shipping",
-                "subtitle": "Free shipping on all order"
+                "title": "Miễn phí vận chuyển",
+                "subtitle": "Miễn phí vận chuyển cho tất cả đơn hàng có hoá đơn trên 500.000đ"
             },
             {
                 "id": 2,
                 "image": "/assets/icon-img/support-2.png",
-                "title": "Support 24/7",
-                "subtitle": "Free shipping on all order"
+                "title": "Hỗ trợ 24/7",
+                "subtitle": "Hỗ trợ trực tuyến 24/7 cho tất cả khách hàng"
             },
             {
                 "id": 3,
                 "image": "/assets/icon-img/support-3.png",
-                "title": "Money Return",
-                "subtitle": "Free shipping on all order"
+                "title": "Hoàn tiền 100%",
+                "subtitle": "Hoàn tiền 100% nếu sản phẩm không đúng như mô tả"
             },
             {
                 "id": 4,
                 "image": "/assets/icon-img/support-4.png",
-                "title": "Order Discount",
-                "subtitle": "Free shipping on all order"
+                "title": "Giảm giá hàng tháng",
+                "subtitle": "Giảm giá hàng tháng cho tất cả khách hàng thân thiết"
             }
         ]
 

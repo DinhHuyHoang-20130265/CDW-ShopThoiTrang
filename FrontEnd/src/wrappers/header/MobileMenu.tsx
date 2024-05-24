@@ -54,13 +54,10 @@ const MobileMenu = () => {
             </button>
             <div className="offcanvas-wrapper">
                 <div className="offcanvas-inner-content">
-                    {/* mobile search */}
                     <MobileMenuSearch/>
 
-                    {/* mobile nav menu */}
                     <MobileNavMenu/>
 
-                    {/* mobile widgets */}
                     <MobileWidgets/>
                 </div>
             </div>
