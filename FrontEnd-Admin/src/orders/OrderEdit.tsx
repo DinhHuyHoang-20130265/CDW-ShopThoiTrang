@@ -115,7 +115,6 @@ const OrderForm = () => {
                     Accept: 'application/json',
                 }
             }).then((res) => {
-                res.data;
                 addNotify('Cập nhật trạng thái đơn hàng thành công', {type: 'success'});
             });
         } catch (err: any) {
@@ -149,7 +148,7 @@ const OrderForm = () => {
         }
     }
     return (
-        <Form warnWhenUnsavedChanges onSubmit={() => updateStatus(record.id, statusId)}>
+        <Form warnWhenUnsavedChanges>
             <Box maxWidth="50em">
                 <PrevNextButtons
                     filterDefaultValues={{statusId: 1}}
@@ -233,6 +232,9 @@ const OrderForm = () => {
                     <Toolbar>
                         <Button onClick={() => exportOrder(record.id)} color="primary" variant="contained">
                             Xuất đơn hàng
+                        </Button>
+                        <Button onClick={() => updateStatus(record.id, statusId)} color="primary" variant="contained">
+                            Cập nhật trạng thái
                         </Button>
                     </Toolbar>
                 </Card>
