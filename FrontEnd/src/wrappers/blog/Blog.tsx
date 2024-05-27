@@ -1,39 +1,22 @@
-import React from "react";
+import React, {useEffect, useState} from "react";
 import BlogItem from "../../components/blog/BlogItem";
 import SectionTitle from "../../components/section-title/SectionTitle";
+import axios from "axios";
 
 const Blog = ({spaceTopClass, spaceBottomClass}: any) => {
-
-    const blogFeaturedData = [
-            {
-                "id": 1,
-                "image": "/assets/img/blog/blog-1.jpg",
-                "category": ["lifestyle", "men"],
-                "title": "A guide to latest trends",
-                "url": "/blog-details-standard",
-                "author": "Admin",
-                "authorUrl": "/blog-standard"
-            },
-            {
-                "id": 2,
-                "image": "/assets/img/blog/blog-2.jpg",
-                "category": ["lifestyle"],
-                "title": "Five ways to lead a happy life",
-                "url": "/blog-details-standard",
-                "author": "Admin",
-                "authorUrl": "/blog-standard"
-            },
-            {
-                "id": 3,
-                "image": "/assets/img/blog/blog-3.jpg",
-                "category": ["lifestyle"],
-                "title": "Tips on having a happy life",
-                "url": "/blog-details-standard",
-                "author": "Admin",
-                "authorUrl": "/blog-standard"
-            }
-        ]
-    ;
+    const [blogData, setBlogData] = useState([]);
+    useEffect(() => {
+        const fetchData = async () => {
+            await axios.get(`${process.env.REACT_APP_API_ENDPOINT}blog/user`)
+                .then((res) => {
+                    setBlogData(res.data.slice(0, 3));
+                })
+                .catch((err) => {
+                    console.log(err);
+                });
+        }
+        fetchData();
+    }, []);
 
     return (
         <div
@@ -48,7 +31,7 @@ const Blog = ({spaceTopClass, spaceBottomClass}: any) => {
                     spaceClass="mb-55"
                 />
                 <div className="row">
-                    {blogFeaturedData.map((singlePost: any) => {
+                    {blogData.map((singlePost: any) => {
                         return (
                             <BlogItem singlePost={singlePost} key={singlePost.id}/>
                         );

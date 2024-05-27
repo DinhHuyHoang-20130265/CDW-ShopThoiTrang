@@ -1,23 +1,23 @@
 import React, {Fragment} from "react";
+import parse from 'html-react-parser';
+import {Comments, FacebookProvider} from "react-facebook";
 
 const Post = ({post}: any) => {
     return (
         <Fragment>
             <div className="blog-details-top">
-                <div style={{marginBottom:'30px'}}>
-                <h1 style={{textAlign:'center', marginBottom: '20px'}}>{post.title}</h1>
-                <p>{post.description}</p>
+                <div style={{marginBottom: '30px'}}>
+                    <h1 style={{textAlign: 'center', marginBottom: '20px'}}>{post.title}</h1>
+                    <p>{post.description}</p>
                 </div>
                 <div className="blog-details-img">
                     <img
                         alt=""
-                        src={post.thumbnail? post.thumbnail : "https://via.placeholder.com/800x400"}
+                        src={post.thumbnail ? post.thumbnail : "https://via.placeholder.com/800x400"}
                     />
                 </div>
                 <div className="blog-details-content">
-                    <p>
-                        {post.content}
-                    </p>
+                    {parse(post.content)}
                     <div className="blog-meta-2">
                         <ul>
                             <li>{post.createDate}</li>
