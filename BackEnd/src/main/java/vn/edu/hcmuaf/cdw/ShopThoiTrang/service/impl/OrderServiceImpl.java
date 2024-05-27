@@ -6,6 +6,10 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.itextpdf.text.*;
 import com.itextpdf.text.pdf.*;
 import jakarta.persistence.EntityManager;
+import com.itextpdf.text.pdf.Barcode128;
+import com.itextpdf.text.pdf.PdfPCell;
+import com.itextpdf.text.pdf.PdfPTable;
+import com.itextpdf.text.pdf.PdfWriter;
 import jakarta.persistence.criteria.Join;
 import jakarta.persistence.criteria.Predicate;
 import jakarta.transaction.Transactional;
@@ -30,8 +34,11 @@ import vn.edu.hcmuaf.cdw.ShopThoiTrang.service.OrderStatusHistoryService;
 import java.io.ByteArrayOutputStream;
 import java.io.FileOutputStream;
 import java.nio.charset.StandardCharsets;
+import java.sql.Timestamp;
 import java.util.Set;
 import java.util.stream.Stream;
+
+import static org.springframework.http.HttpStatus.EXPECTATION_FAILED;
 
 @Service
 public class OrderServiceImpl implements OrderService {
@@ -67,7 +74,8 @@ public class OrderServiceImpl implements OrderService {
     @Override
     public Page<Order> getAllOrders(String filter, int page, int perPage, String sortBy, String order) {
         Sort.Direction direction = Sort.Direction.ASC;
-        if (order.equalsIgnoreCase("DESC")) direction = Sort.Direction.DESC;
+        if (order.equalsIgnoreCase("DESC"))
+            direction = Sort.Direction.DESC;
 
         JsonNode filterJson;
         try {
@@ -106,10 +114,11 @@ public class OrderServiceImpl implements OrderService {
 
     @Transactional
     @Override
-    public String createOrder(CreateOrderRequest order) {
+    public ResponseEntity<?> createOrder(CreateOrderRequest order) {
         Order orderNew = new Order();
 
         // set information for order
+        orderNew.setGenerated_order_id(order.getId());
         orderNew.setName(order.getName());
         orderNew.setPhone(order.getPhone());
         orderNew.setNote(order.getNote());
@@ -125,16 +134,17 @@ public class OrderServiceImpl implements OrderService {
         orderNew.setShippingCode(order.getShippingCode());
 
         // set user for order
-        orderNew.setUser(userRepository.findById(order.getUserId()).orElseThrow(() -> new RuntimeException("User not found")));
+        orderNew.setUser(userRepository.findById(order.getUser_id()).orElseThrow(() -> new RuntimeException("User not found")));
 
         // set status for order
-        OrderStatus orderStatus = orderStatusRepository.findById(1L).orElseThrow(() -> new RuntimeException("Order status not found"));
+        OrderStatus orderStatus = orderStatusRepository.findById(Long.parseLong(order.getStatus())).orElseThrow(() -> new RuntimeException("Order status not found"));
         orderNew.setStatus(orderStatus);
 
         // set payment information for order
         orderNew.setPaymentMethod(order.getPaymentMethod());
+        orderNew.setPaymentCode(order.getPaymentCode());
         orderNew.setPaymentStatus(order.getPaymentStatus());
-        orderNew.setPaymentDate(order.getPaymentDate());
+        orderNew.setPaymentDate(Timestamp.valueOf(order.getPaymentDate()));
 
         // save order
         Order savedOrder = orderRepository.save(orderNew);
@@ -142,9 +152,9 @@ public class OrderServiceImpl implements OrderService {
         // save order details
         for (OrderDetailRequest orderDetail : order.getOrderDetails()) {
             OrderDetail newOrderDetail = new OrderDetail();
-            newOrderDetail.setProductId(productRepository.findById(orderDetail.getProductId()).orElseThrow(() -> new RuntimeException("Product not found")));
-            newOrderDetail.setVariation(variationRepository.findById(orderDetail.getVariationId()).orElseThrow(() -> new RuntimeException("Variation not found")));
-            newOrderDetail.setSize(sizeRepository.findById(orderDetail.getSizesId()).orElseThrow(() -> new RuntimeException("Size not found")));
+            newOrderDetail.setProductId(productRepository.findById(orderDetail.getId()).orElseThrow(() -> new RuntimeException("Product not found")));
+            newOrderDetail.setVariation(variationRepository.findById(orderDetail.getVariation_id()).orElseThrow(() -> new RuntimeException("Variation not found")));
+            newOrderDetail.setSize(sizeRepository.findById(orderDetail.getSizes_id()).orElseThrow(() -> new RuntimeException("Size not found")));
             newOrderDetail.setPrice(orderDetail.getPrice());
             newOrderDetail.setQuantity(orderDetail.getQuantity());
             newOrderDetail.setOrder(savedOrder);
@@ -153,9 +163,9 @@ public class OrderServiceImpl implements OrderService {
 
         // update stock
         for (OrderDetailRequest orderDetail : order.getOrderDetails()) {
-            Size size = sizeRepository.findById(orderDetail.getSizesId()).orElseThrow(() -> new RuntimeException("Size not found"));
+            Size size = sizeRepository.findById(orderDetail.getSizes_id()).orElseThrow(() -> new RuntimeException("Size not found"));
             if (size.getStock() < orderDetail.getQuantity()) {
-                throw new RuntimeException("Not enough stock");
+                return ResponseEntity.status(EXPECTATION_FAILED).body("Not enough stock");
             }
             size.setStock(size.getStock() - orderDetail.getQuantity());
             sizeRepository.save(size);
@@ -167,7 +177,7 @@ public class OrderServiceImpl implements OrderService {
         orderStatusHistory.setCreatedDate(new java.sql.Timestamp(System.currentTimeMillis()));
         orderStatusHistory.setStatus(orderStatus);
         orderStatusHistoryService.saveOrderStatusHistory(orderStatusHistory);
-        return "Order created successfully";
+        return ResponseEntity.ok("Order created successfully");
     }
 
     @Override

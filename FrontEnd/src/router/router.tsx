@@ -15,9 +15,9 @@ import WishList from "../pages/user/WishList";
 import Posts from "../pages/user/Posts";
 import PostDetail from "../pages/user/PostDetail";
 import NotFound404 from "../pages/NotFound404";
-import {PaymentResult} from "../pages/user/PaymentResult";
+import PaymentResult from "../pages/user/PaymentResult";
 import {loadIdPost} from "../pages/user/PostDetail";
-import {PaymentResultPayOS} from "../pages/user/PaymentResultPayOS";
+import PaymentResultPayOS from "../pages/user/PaymentResultPayOS";
 
 export const webRouter = createBrowserRouter([
     {

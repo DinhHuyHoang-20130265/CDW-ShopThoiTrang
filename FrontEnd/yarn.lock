@@ -2454,6 +2454,11 @@
   dependencies:
     "@types/node" "*"
 
+"@types/crypto-js@^4.2.2":
+  version "4.2.2"
+  resolved "https://registry.npmjs.org/@types/crypto-js/-/crypto-js-4.2.2.tgz"
+  integrity sha512-sDOLlVbHhXpAUAL0YHDUUwDZf3iN4Bwi4W6a0W0b+QcAezUbRtH4FVb+9J4h+XFPW7l/gQ9F8qC7P+Ec4k8QVQ==
+
 "@types/eslint-scope@^3.7.3":
   version "3.7.7"
   resolved "https://registry.npmjs.org/@types/eslint-scope/-/eslint-scope-3.7.7.tgz"
@@ -2612,6 +2617,13 @@
   version "1.0.7"
   resolved "https://registry.npmjs.org/@types/react-breadcrumbs-dynamic/-/react-breadcrumbs-dynamic-1.0.7.tgz"
   integrity sha512-UcK+NxwHjHXUejOtYinX9NZjiNb4Xpx4GT/oYNaeM/HCOoOkdWYcY3Iu945LTrzErR3H+o4Dtm80s+uzGlO2Zw==
+  dependencies:
+    "@types/react" "*"
+
+"@types/react-currency-format@^1.0.4":
+  version "1.0.4"
+  resolved "https://registry.npmjs.org/@types/react-currency-format/-/react-currency-format-1.0.4.tgz"
+  integrity sha512-qHxKxe7MSGbWkxTj6DAgnKFnc/zXrRPljxaBnw29IlLyBmTBXZjGuCnn3UBH+tzHrYBFt4mkmxbWqpyeq6Ls0g==
   dependencies:
     "@types/react" "*"
 

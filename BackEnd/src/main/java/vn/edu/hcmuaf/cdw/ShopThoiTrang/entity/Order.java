@@ -22,6 +22,7 @@ public class Order {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    private Long generated_order_id;
     private String name;
     private String phone;
     private String province;

@@ -12,7 +12,9 @@ const ProductGrid = ({
                          cartItems,
                          wishlistItems,
                          sliderClassName,
-                         spaceBottomClass
+                         spaceBottomClass,
+                         type,
+                         limit
                      }: any) => {
     return (
         <Fragment>

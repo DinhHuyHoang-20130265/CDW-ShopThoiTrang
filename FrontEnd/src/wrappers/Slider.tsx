@@ -7,17 +7,17 @@ const Slider = () => {
     const sliderData = [
         {
             "id": 1,
-            "title": "Smart Products",
-            "subtitle": "Winter Offer 2020 Collection",
-            "image": "https://en.wikiarquitectura.com/wp-content/uploads/2017/01/Mona-17.jpg",
-            "url": "/img1"
+            "title": "Bộ sưu tập mùa đông 2020",
+            "subtitle": "Bộ sưu tập mùa đông 2020",
+            "image": "https://i.pinimg.com/originals/98/bd/a1/98bda1939fee82d91a6d925a6934eb32.png",
+            "url": "https://i.pinimg.com/originals/98/bd/a1/98bda1939fee82d91a6d925a6934eb32.png"
         },
         {
             "id": 2,
-            "title": "Smart Products",
-            "subtitle": "Summer Offer 2020 Collection",
-            "image": "https://static.zerochan.net/Mahou.Shoujo.Madoka%E2%98%86Magica.full.512292.jpg",
-            "url": "/img2"
+            "title": "Bộ sưu tập mùa hè 2020",
+            "subtitle": "Bộ sưu tập mùa hè 2020",
+            "image": "https://wallpapers.com/images/hd/fashion-model-runway-stride-99ncit4xjfmpcueu.jpg",
+            "url": "https://wallpapers.com/images/hd/fashion-model-runway-stride-99ncit4xjfmpcueu.jpg"
         }
     ]
 

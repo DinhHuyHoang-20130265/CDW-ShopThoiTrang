@@ -2,12 +2,14 @@ package vn.edu.hcmuaf.cdw.ShopThoiTrang.model.dto;
 
 import lombok.Builder;
 import lombok.Data;
+
 import java.sql.Timestamp;
 import java.util.Set;
 
 @Data
 @Builder
 public class CreateOrderRequest {
+    private Long id;
     private String name;
     private String phone;
     private String province;
@@ -15,13 +17,14 @@ public class CreateOrderRequest {
     private String ward;
     private String address;
     private String note;
+    private String status;
     private Double shippingFee;
     private String shippingCode;
     private Double totalAmount;
     private String paymentMethod;
     private String paymentStatus;
-    private Timestamp paymentDate;
+    private String paymentDate;
     private String paymentCode;
-    private Long userId;
+    private Long user_id;
     private Set<OrderDetailRequest> orderDetails;
 }
