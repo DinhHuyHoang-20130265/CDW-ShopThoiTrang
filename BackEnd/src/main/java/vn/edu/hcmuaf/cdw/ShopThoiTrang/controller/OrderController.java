@@ -3,7 +3,6 @@ package vn.edu.hcmuaf.cdw.ShopThoiTrang.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import vn.edu.hcmuaf.cdw.ShopThoiTrang.entity.Order;
 import vn.edu.hcmuaf.cdw.ShopThoiTrang.model.dto.CreateOrderRequest;
 import vn.edu.hcmuaf.cdw.ShopThoiTrang.service.OrderService;
 
@@ -30,7 +29,7 @@ public class OrderController {
 
     @PostMapping
     public ResponseEntity<?> saveOrder(@RequestBody CreateOrderRequest order) {
-        return ResponseEntity.ok(orderService.createOrder(order));
+        return orderService.createOrder(order);
     }
 
     @PutMapping("/{id}/status/{statusId}")

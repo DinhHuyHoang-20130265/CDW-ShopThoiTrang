@@ -1,8 +1,7 @@
 import React, {Fragment, useEffect, useState} from "react";
 import PropTypes from "prop-types";
 import {connect} from "react-redux";
-import {Link} from "react-router-dom";
-// @ts-ignore
+import {Link, useNavigate} from "react-router-dom";
 import CryptoJS from 'crypto-js';
 import {getDiscountPrice} from "../../helpers/product";
 import Breadcrumb from "../../wrappers/breadcrumb/Breadcrumb";
@@ -12,9 +11,9 @@ import RadioGroup from '@mui/material/RadioGroup';
 import {FormControl, FormControlLabel, FormLabel} from "@mui/material";
 import toast from "react-hot-toast";
 import {ClipLoader} from "react-spinners";
-import useScript from "react-script-hook";
+import {deleteAllFromCart} from "../../store/actions/cartActions";
 
-const Checkout = ({cartItems}: any) => {
+const Checkout = ({cartItems, deleteAllFromCart}: any) => {
     let cartTotalPrice = 0;
     const [isLoading, setIsLoading]: any = useState(false);
     const [provinces, setProvinces] = useState([]);
@@ -29,21 +28,43 @@ const Checkout = ({cartItems}: any) => {
     const [phone, setPhone] = useState("");
     const [address, setAddress] = useState("");
     const [note, setNote] = useState("");
+    const [email, setEmail] = useState("");
+    const [userId, setUserId] = useState(-1);
 
     const [fee, setFee] = useState(0);
     const [paymentType, setPaymentType] = useState('cod');
-
-
+    const navigate = useNavigate();
     useEffect(() => {
     }, [isLoading, cartItems]);
 
-    // payos init
-    const [loading, error]: any = useScript({
-        src: process.env.REACT_APP_PAYOS_SCRIPT || "",
-        checkForExisting: true,
-    });
-    const RETURN_URL = "https://c1b9-1-54-161-30.ngrok-free.app/api/payos";
-    const CANCEL_URL = "https://c1b9-1-54-161-30.ngrok-free.app/api/payos";
+    useEffect(() => {
+        const user = localStorage.getItem('user');
+        if (user) {
+            const userObj = JSON.parse(user);
+            setUserId(userObj.id);
+            const fetchInfo = async () => {
+                await axios.get(`${process.env.REACT_APP_API_ENDPOINT}user/${userObj.id}`, {
+                    headers: {
+                        Accept: 'application/json',
+                        "Content-Type": "application/json",
+                    },
+                    withCredentials: true
+                }).then((response: any) => {
+                    setName(response.data.userInfo.fullName);
+                    setPhone(response.data.userInfo.phone);
+                    setEmail(response.data.userInfo.email);
+                }).catch((error) => {
+                    console.log(error);
+                })
+            }
+            fetchInfo();
+        } else {
+            navigate("/login-register");
+        }
+    }, [navigate]);
+
+    const RETURN_URL = "https://a262-42-112-74-243.ngrok-free.app/api/payos";
+    const CANCEL_URL = "https://a262-42-112-74-243.ngrok-free.app/api/payos";
 
     const getDistricts = async (provinceId: any) => {
         await axios.get(process.env.REACT_APP_GHN_API + `district?province_id=${provinceId}`, {
@@ -112,7 +133,7 @@ const Checkout = ({cartItems}: any) => {
     const postOrderGHN = async (payment_type: any) => {
         return await axios.post(process.env.REACT_APP_GHN_FEE_API + "create",
             {
-                payment_type_id: 2,
+                payment_type_id: payment_type === "cod" ? 2 : 1,
                 note: note,
                 required_note: "KHONGCHOXEMHANG",
                 from_name: "Shop2h",
@@ -155,96 +176,157 @@ const Checkout = ({cartItems}: any) => {
     const handleCreateOrder = () => {
         setIsLoading(true)
         setTimeout(async () => {
-                if (name === "" || phone === "" || address === "" ||
-                    selectedProvince === null || selectedProvince === "" || selectedDistrict === null
-                    || selectedDistrict === "" || selectedWard === null || selectedWard === "") {
-                    toast.error("Vui lòng nhập đầy đủ thông tin khách hàng")
-                    setIsLoading(false)
-                    return;
+            let date = new Date();
+            date.setMinutes(date.getMinutes() + 10);
+            let unixTimestamp = Math.floor(date.getTime() / 1000);
+
+            let orderDetails = cartItems.map((item: any) => (
+                {
+                    id: item.id,
+                    price: getDiscountPrice(item.price.price, item.promotions[0]) === null ?
+                        item.price.price : getDiscountPrice(item.price.price, item.promotions[0]),
+                    variation_id: item.variations.find((variation: any) => variation.color === item.selectedProductColor).id,
+                    sizes_id: item.variations.find((variation: any) =>
+                        variation.color === item.selectedProductColor).sizes.find((size: any) =>
+                        size.size === item.selectedProductSize).id,
+                    quantity: item.quantity,
                 }
-                switch (paymentType) {
-                    case 'cod':
-                        postOrderGHN(paymentType).then((response: any) => {
+            ));
+            console.log(orderDetails)
+            let dataCart = {
+                id: unixTimestamp,
+                name: name,
+                phone: phone,
+                user_id: userId !== -1 ? userId : null,
+                province: selectedProvince,
+                district: selectedDistrict,
+                ward: selectedWard,
+                address: address,
+                paymentMethod: paymentType,
+                paymentCode: "",
+                paymentDate: "",
+                paymentStatus: "no",
+                shippingFee: fee,
+                shippingCode: "",
+                totalAmount: cartTotalPrice,
+                note: note,
+                status: 1,
+                orderDetails: orderDetails,
+            };
+            if (name === "" || phone === "" || address === "" ||
+                selectedProvince === null || selectedProvince === "" || selectedDistrict === null
+                || selectedDistrict === "" || selectedWard === null || selectedWard === "") {
+                toast.error("Vui lòng nhập đầy đủ thông tin khách hàng")
+                setIsLoading(false)
+                return;
+            }
+            let shipping_create_status = false;
+            switch (paymentType) {
+                case 'cod':
+                    postOrderGHN(paymentType).then(async (response: any) => {
+                        dataCart = {...dataCart, shippingCode: response.data.data.order_code};
+                        console.log(dataCart);
+                        await axios.post(`${process.env.REACT_APP_API_ENDPOINT}order`, dataCart, {
+                            headers: {
+                                Accept: 'application/json',
+                                "Content-Type": "application/json",
+                            },
+                            withCredentials: true
+                        }).then((response) => {
                             console.log(response.data);
+                            deleteAllFromCart(null);
                             toast.success('Đặt hàng thành công!');
+                            navigate("/home");
                         }).catch((error) => {
                             toast.error(error.response.data.code_message_value)
-                            console.log(error);
+                        })
+                    }).catch((error) => {
+                        toast.error(error.response.data.code_message_value)
+                        console.log(error);
+                    });
+                    break;
+                case 'vnpay':
+                    const data = {
+                        amount: cartTotalPrice + fee,
+                        orderInfo: unixTimestamp
+                    };
+                    await postOrderGHN(paymentType).then(async (response: any) => {
+                        dataCart = {...dataCart, shippingCode: response.data.data.order_code};
+                        shipping_create_status = true;
+                        console.log(response.data);
+                    }).catch((error) => {
+                        toast.error(error.response.data.code_message_value)
+                        console.log(error);
+                    });
+                    if (shipping_create_status) {
+                        const body: any = cartItems.map((cartItem: any) => {
+                            return {
+                                name: cartItem.name + " - Màu: " + cartItem.selectedProductColor + " - Size: " + cartItem.selectedProductSize,
+                                quantity: cartItem.quantity,
+                                price: getDiscountPrice(cartItem.price.price, cartItem.promotions[0]) === null ?
+                                    cartItem.price.price : getDiscountPrice(cartItem.price.price, cartItem.promotions[0]),
+                            }
                         });
-                        break;
-                    case 'vnpay':
-                        const idOrder = JSON.stringify(new Date().getTime())
-                        const products = cartItems.map((item: any) => ({
-                            product: item.id,
-                            quantity: item.quantity
-                        }));
-                        const data = {
-                            amount: cartTotalPrice + fee,
-                            orderInfo: idOrder
-                        };
-                        const dataOrder = {
-                            id: idOrder,
-                            fullname: name,
-                            province: selectedProvince,
-                            district: selectedDistrict,
-                            ward: selectedWard,
-                            address: address,
-                            payMethod: "vnpay",
-                            payment_status: true,
-                            note: note,
-                            status: 0,
-                            products: products,
-                        };
                         await axios.post(`${process.env.REACT_APP_API_ENDPOINT}payment/create_payment`, data, {
                             headers: {
                                 Accept: 'application/json',
                                 "Content-Type": "application/json",
                             },
                             withCredentials: true
+                        }).then((response) => {
+                            localStorage.setItem("order", JSON.stringify(dataCart));
+                            localStorage.setItem("orderbody", JSON.stringify(body));
+                            window.location.href = response.data.url;
+                        }).catch((error) => {
+                            axios.post('https://dev-online-gateway.ghn.vn/shiip/public-api/v2/switch-status/cancel', {
+                                order_codes: [dataCart.shippingCode],
+                            }, {
+                                headers: {
+                                    "Content-Type": "application/json",
+                                    "Token": process.env.REACT_APP_GHN_TOKEN,
+                                    "ShopId": process.env.REACT_APP_GHN_SHOP_ID,
+                                }
+                            })
+                            console.log(error);
+                            toast.error("Đã có lỗi xảy ra, vui lòng thử lại sau");
                         })
-                            .then((response) => {
-                                sessionStorage.setItem("order", JSON.stringify(dataOrder));
-                                window.location.href = response.data.url;
-                            })
-                            .catch((error) => {
-                                console.log(error);
-                                toast.error("Đã có lỗi xảy ra, vui lòng thử lại sau");
-                            })
-
-                        // postOrderGHN(paymentType).then((response: any) => {
-                        //     console.log(response.data);
-                        //     toast.success('Đặt hàng thành công!');
-                        // }).catch((error) => {
-                        //     toast.error(error.response.data.code_message_value)
-                        //     console.log(error);
-                        // });
-                        break;
-                    case 'payos':
-                        let date = new Date();
-                        date.setMinutes(date.getMinutes() + 10);
-                        let unixTimestamp = Math.floor(date.getTime() / 1000);
-                        let amount = 5000
-                        let data_checksum = `amount=${amount}&cancelUrl=${CANCEL_URL}&description=VQRIO123&orderCode=${unixTimestamp}&returnUrl=${RETURN_URL}`;
+                    }
+                    break;
+                case 'payos':
+                    await postOrderGHN(paymentType).then(async (response: any) => {
+                        dataCart = {...dataCart, shippingCode: response.data.data.order_code};
+                        shipping_create_status = true;
+                        console.log(response.data);
+                    }).catch((error) => {
+                        toast.error(error.response.data.code_message_value)
+                        console.log(error);
+                    });
+                    if (shipping_create_status) {
+                        let amount = cartTotalPrice + fee;
+                        let description = "DON HANG " + unixTimestamp;
+                        let data_checksum = `amount=${amount}&cancelUrl=${CANCEL_URL}&description=${description}&orderCode=${unixTimestamp}&returnUrl=${RETURN_URL}`;
                         console.log(data_checksum);
                         // Tạo một chữ ký với HMAC_SHA256
-                        let signature = CryptoJS.HmacSHA256(data_checksum, process.env.REACT_APP_PAYOS_CHECKSUM_KEY).toString(CryptoJS.enc.Hex);
-
+                        let checksum_key: any = process.env.REACT_APP_PAYOS_CHECKSUM_KEY;
+                        let signature = CryptoJS.HmacSHA256(data_checksum, checksum_key).toString(CryptoJS.enc.Hex);
+                        console.log(signature)
+                        const body: any = cartItems.map((cartItem: any) => {
+                            return {
+                                name: cartItem.name + " - Màu: " + cartItem.selectedProductColor + " - Size: " + cartItem.selectedProductSize,
+                                quantity: cartItem.quantity,
+                                price: getDiscountPrice(cartItem.price.price, cartItem.promotions[0]) === null ?
+                                    cartItem.price.price : getDiscountPrice(cartItem.price.price, cartItem.promotions[0]),
+                            }
+                        });
                         await axios.post('https://api-merchant.payos.vn/v2/payment-requests', {
                             orderCode: unixTimestamp,
                             amount: amount,
-                            description: "VQRIO123",
+                            description: description,
                             buyerName: name,
-                            buyerEmail: "buyer-email@gmail.com",
+                            buyerEmail: email,
                             buyerPhone: phone,
                             buyerAddress: address + ", " + selectedWard + ", " + selectedDistrict + ", " + selectedProvince,
-                            items: cartItems.map((cartItem: any) => {
-                                return {
-                                    name: cartItem.name + " - Màu: " + cartItem.selectedProductColor + " - Size: " + cartItem.selectedProductSize,
-                                    quantity: cartItem.quantity,
-                                    price: getDiscountPrice(cartItem.price.price, cartItem.promotions[0]) === null ?
-                                        cartItem.price.price : getDiscountPrice(cartItem.price.price, cartItem.promotions[0]),
-                                }
-                            }),
+                            items: body,
                             cancelUrl: CANCEL_URL,
                             returnUrl: RETURN_URL,
                             expiredAt: unixTimestamp,
@@ -257,6 +339,8 @@ const Checkout = ({cartItems}: any) => {
                             },
 
                         }).then((response) => {
+                            localStorage.setItem("order", JSON.stringify(dataCart));
+                            localStorage.setItem("orderbody", JSON.stringify(body));
                             console.log(response)
                             let checkoutResponse = response.data.data;
                             let url = checkoutResponse.checkoutUrl;
@@ -272,6 +356,7 @@ const Checkout = ({cartItems}: any) => {
                             eventSource.onmessage = (event) => {
                                 const json = JSON.parse(event.data);
                                 if (json.code === '01' || json.code === '00') {
+                                    localStorage.setItem("order", JSON.stringify(dataCart));
                                     eventSource.close();
                                     const convertObjectToQueryString = (obj: any) => {
                                         const params = new URLSearchParams();
@@ -296,18 +381,25 @@ const Checkout = ({cartItems}: any) => {
                             if (newWindow) newWindow.opener = null
 
                         }).catch((error) => {
+                            axios.post('https://dev-online-gateway.ghn.vn/shiip/public-api/v2/switch-status/cancel', {
+                                order_codes: [dataCart.shippingCode],
+                            }, {
+                                headers: {
+                                    "Content-Type": "application/json",
+                                    "Token": process.env.REACT_APP_GHN_TOKEN,
+                                    "ShopId": process.env.REACT_APP_GHN_SHOP_ID,
+                                }
+                            })
+                            toast.error("Đã có lỗi xảy ra, vui lòng thử lại sau: ", error.response);
                             console.log(error);
                         })
-                        break;
-                    default:
-                        break;
-                }
-                setIsLoading(false)
+                    }
+                    break;
+                default:
+                    break;
             }
-            ,
-            1000
-        )
-        ;
+            setIsLoading(false)
+        }, 1000)
     }
 
     return (
@@ -324,7 +416,7 @@ const Checkout = ({cartItems}: any) => {
                                         <div className="col-lg-6 col-md-6">
                                             <div className="billing-info mb-20">
                                                 <label>Họ tên</label>
-                                                <input type="text" required
+                                                <input type="text" required value={name ? name : ""}
                                                        onChange={(e: any) => setName(e.target.value)}
                                                 />
                                             </div>
@@ -332,7 +424,7 @@ const Checkout = ({cartItems}: any) => {
                                         <div className="col-lg-6 col-md-6">
                                             <div className="billing-info mb-20">
                                                 <label>Số điện thoại</label>
-                                                <input type="text" required
+                                                <input type="text" required value={phone ? phone : ""}
                                                        onChange={(e: any) => setPhone(e.target.value)}
                                                 />
                                             </div>
@@ -475,10 +567,6 @@ const Checkout = ({cartItems}: any) => {
                                                     <li>{"đ" + cartTotalPrice.toFixed(2)}</li>
                                                 </ul>
                                                 <ul>
-                                                    <li className="your-order-shipping">Mã giảm giá</li>
-                                                    <li></li>
-                                                </ul>
-                                                <ul>
                                                     <li className="your-order-shipping">Phí vận chuyển</li>
                                                     <li>{fee !== 0 && fee.toFixed(2)} đ</li>
                                                 </ul>
@@ -573,5 +661,11 @@ const mapStateToProps = (state: any) => {
         cartItems: state.cartData
     }
 }
-
-export default connect(mapStateToProps)(Checkout)
+const mapDispatchToProps = (dispatch: any) => {
+    return {
+        deleteAllFromCart: (addToast: any) => {
+            dispatch(deleteAllFromCart(addToast));
+        }
+    };
+};
+export default connect(mapStateToProps, mapDispatchToProps)(Checkout)

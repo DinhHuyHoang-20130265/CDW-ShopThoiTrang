@@ -5,12 +5,21 @@ export const getProducts = (products: any[], category: any, type: string, limit:
             product => product.categories.filter((single: any) => single === category)[0]
         )
         : products;
+    if (type && type === "new") {
+        const newProducts = finalProducts.sort((a, b) => {
+            return new Date(a.releaseDate).getTime() - new Date(b.releaseDate).getTime();
+        });
+        return newProducts.slice(0, limit ? limit : newProducts.length);
+    } else if (type && type === "saleItems") {
+        const saleItems = finalProducts.filter(product => product.promotions.length > 0);
+        return saleItems.slice(0, limit ? limit : saleItems.length);
+    }
     return finalProducts.slice(0, limit ? limit : finalProducts.length);
 };
 
 // get product discount price
 export const getDiscountPrice = (price: any, promotion: any) => {
-    return promotion != null && promotion != undefined && promotion.discount > 0 ? price - price * (promotion.discount / 100) : null;
+    return promotion !== null && promotion !== undefined && promotion.discount > 0 ? price - price * (promotion.discount / 100) : null;
 };
 
 // get product cart quantity

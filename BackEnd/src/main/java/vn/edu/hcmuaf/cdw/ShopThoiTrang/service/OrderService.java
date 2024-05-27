@@ -11,7 +11,7 @@ public interface OrderService {
 
     Order getOrderById(Long id);
 
-    String createOrder(CreateOrderRequest order);
+    ResponseEntity<?> createOrder(CreateOrderRequest order);
 
     ResponseEntity<?> updateOrderStatus(Long orderId, Long orderStatusId);
 

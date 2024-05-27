@@ -18,9 +18,9 @@ const SliderSingle = ({data, sliderClassName}: any) => {
                             <div className="slider-btn btn-hover">
                                 <Link
                                     className="animated"
-                                    to={process.env.PUBLIC_URL + data.url}
+                                    to={"/shop"}
                                 >
-                                    SHOP NOW
+                                    MUA SẮM NGAY
                                 </Link>
                             </div>
                         </div>
@@ -29,7 +29,8 @@ const SliderSingle = ({data, sliderClassName}: any) => {
                         <div className="slider-single-img slider-animated-1">
                             <img
                                 className="animated img-fluid "
-                                src={process.env.PUBLIC_URL + data.image}
+                                style={{padding: "20px", maxHeight: "600px"}}
+                                src={data.image}
                                 alt=""
                             />
                         </div>
