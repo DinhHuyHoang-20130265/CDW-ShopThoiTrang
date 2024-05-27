@@ -75,7 +75,7 @@ const Contact = () => {
             .setLngLat([lng, lat])
             .addTo(map.current);
 
-        return () => map.remove(); // Clean up on unmount
+        return () => map.current.remove(); // Clean up on unmount
     });
 
     return (
