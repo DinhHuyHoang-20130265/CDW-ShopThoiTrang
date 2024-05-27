@@ -18,7 +18,7 @@ const Shop = ({products}: any) => {
     const [currentPage, setCurrentPage] = useState(1);
     const [currentData, setCurrentData] = useState([]);
     const [sortedProducts, setSortedProducts] = useState([]);
-
+    const [searchValue, setSearchValue] = useState('');
     const pageLimit = 15;
 
     const getLayout = (layout: any) => {
@@ -36,33 +36,30 @@ const Shop = ({products}: any) => {
     }
 
     useEffect(() => {
-        let sortedProducts: any = getSortedProducts(products, sortType, sortValue);
+        let sortedProducts: any = getSortedProducts(products, sortType, sortValue).filter((product: any) => product.name.toLowerCase().includes(searchValue.toLowerCase()));
         sortedProducts = getSortedProducts(sortedProducts, filterSortType, filterSortValue);
         setSortedProducts(sortedProducts ? sortedProducts : products);
         setCurrentData(sortedProducts ? sortedProducts.slice(offset, offset + pageLimit) : products);
-    }, [offset, products, sortType, sortValue, filterSortType, filterSortValue]);
+    }, [offset, products, sortType, sortValue, filterSortType, filterSortValue, searchValue]);
 
     return (
         <Fragment>
             <Breadcrumb/>
 
-            {currentData.length > 1 ? <div className="shop-area pt-95 pb-100">
+            {currentData.length > 0 ? <div className="shop-area pt-95 pb-100">
                 <div className="container">
                     <div className="row">
                         <div className="col-lg-3 order-2 order-lg-1">
-                            {/* shop sidebar */}
-                            <ShopSidebar products={products} getSortParams={getSortParams}
+
+                            <ShopSidebar products={products} getSortParams={getSortParams} setSearchValue={setSearchValue}
                                          sideSpaceClass="mr-30"/>
                         </div>
                         <div className="col-lg-9 order-1 order-lg-2">
-                            {/* shop topbar default */}
                             <ShopTopbar getLayout={getLayout} getFilterSortParams={getFilterSortParams}
                                         productCount={sortedProducts.length} sortedProductCount={currentData.length}/>
 
-                            {/* shop page content default */}
                             <ShopProducts layout={layout} products={currentData}/>
 
-                            {/* shop product pagination */}
                             <div className="pro-pagination-style text-center mt-30">
                                 <Paginator
                                     totalRecords={sortedProducts.length}

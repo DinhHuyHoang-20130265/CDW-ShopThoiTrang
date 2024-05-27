@@ -1,10 +1,19 @@
-import React, {Fragment, useState} from "react";
+import React, {Fragment, useEffect, useRef, useState} from "react";
 import Breadcrumb from "../../wrappers/breadcrumb/Breadcrumb";
 import {useToasts} from "react-toast-notifications";
 import axios from "axios";
+// @ts-ignore
+import mapboxgl from 'mapbox-gl';
+import 'mapbox-gl/dist/mapbox-gl.css';
 
 const Contact = () => {
-    const { addToast } = useToasts();
+    mapboxgl.accessToken = process.env.REACT_APP_MAPBOX_API;
+    const mapContainer = useRef(null);
+    const map: any = useRef(null);
+    const [lng, setLng] = useState(106.79173930272047);
+    const [lat, setLat] = useState(10.871361497916812);
+    const [zoom, setZoom] = useState(18);
+    const {addToast} = useToasts();
     const [formData, setFormData] = useState({
         name: '',
         email: '',
@@ -32,27 +41,41 @@ const Contact = () => {
                 }
             };
             console.log(config);
-            const res = await axios.post('http://localhost:8080/api/contact', null, config);
+            await axios.post(`${process.env.REACT_APP_API_ENDPOINT}contact`, {}, config).then(res => {
+                addToast("Gửi liên hệ thành công", {appearance: 'success'});
 
-            addToast("Gửi liên hệ thành công", { appearance: 'success' });
-
-            // Đặt lại form
-            setFormData({
-                name: '',
-                email: '',
-                message: ''
+                // Đặt lại form
+                setFormData({
+                    name: '',
+                    email: '',
+                    message: ''
+                });
+            }).catch(err => {
+                console.error(err.response.data);
             });
         } catch (err: any) {
             console.error(err.response.data);
         }
     };
+    useEffect(() => {
+        if (map.current) {
+            const marker = new mapboxgl.Marker()
+                .setLngLat([lng, lat])
+                .addTo(map);
+            return;
+        } // initialize map only once
+        map.current = new mapboxgl.Map({
+            container: mapContainer.current,
+            style: 'mapbox://styles/mapbox/streets-v12',
+            center: [lng, lat],
+            zoom: zoom,
+        })
+        // Add marker
+        new mapboxgl.Marker()
+            .setLngLat([lng, lat])
+            .addTo(map.current);
 
-    const mapboxgl = require('mapbox-gl/dist/mapbox-gl.js');
-
-    mapboxgl.accessToken = process.env.REACT_APP_MAPBOX_TOKEN;
-    const map = new mapboxgl.Map({
-        container: 'contact-map',
-        style: 'mapbox://styles/mapbox/streets-v11'
+        return () => map.remove(); // Clean up on unmount
     });
 
     return (
@@ -61,7 +84,7 @@ const Contact = () => {
             <div className="contact-area pt-100 pb-100">
                 <div className="container">
                     <div className="contact-map mb-10">
-                        <div id="contact-map"/>
+                        <div style={{width: "100%", height: "90%"}} ref={mapContainer} className="map-container"/>
                     </div>
                     <div className="custom-row-2">
                         <div className="col-lg-4 col-md-5">
@@ -71,7 +94,6 @@ const Contact = () => {
                                         <i className="fa fa-phone"/>
                                     </div>
                                     <div className="contact-info-dec">
-                                        <p>+012 345 678 102</p>
                                         <p>+012 345 678 102</p>
                                     </div>
                                 </div>
@@ -83,9 +105,6 @@ const Contact = () => {
                                         <p>
                                             <a href="mailto:urname@email.com">ptshop@email.com</a>
                                         </p>
-                                        {/*<p>*/}
-                                        {/*    <a href="//urwebsitenaem.com">urwebsitenaem.com</a>*/}
-                                        {/*</p>*/}
                                     </div>
                                 </div>
                                 <div className="single-contact-info">
@@ -93,26 +112,15 @@ const Contact = () => {
                                         <i className="fa fa-map-marker"/>
                                     </div>
                                     <div className="contact-info-dec">
-                                        <p>Address goes here, </p>
-                                        <p>street, Crossroad 123.</p>
+                                        <p>Kp6, phường Linh Trung, TP Thủ Đức, TPHCM.</p>
                                     </div>
                                 </div>
                                 <div className="contact-social text-center">
-                                    <h3>Follow Us</h3>
+                                    <h3>Theo dõi chúng tôi qua</h3>
                                     <ul>
                                         <li>
                                             <a href="//facebook.com">
                                                 <i className="fa fa-facebook"/>
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a href="//pinterest.com">
-                                                <i className="fa fa-pinterest-p"/>
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a href="//thumblr.com">
-                                                <i className="fa fa-tumblr"/>
                                             </a>
                                         </li>
                                         <li>
