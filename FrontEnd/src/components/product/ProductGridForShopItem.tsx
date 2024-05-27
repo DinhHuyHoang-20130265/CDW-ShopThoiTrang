@@ -67,8 +67,8 @@ const ProductGridForShopItem = ({
                                     disabled={wishlistItem !== undefined}
                                     title={
                                         wishlistItem !== undefined
-                                            ? "Added to wishlist"
-                                            : "Add to wishlist"
+                                            ? "Đã thêm vào yêu thích"
+                                            : "Thêm vào yêu thích"
                                     }
                                     onClick={() => addToWishlist(product, addToast)}
                                 >
@@ -90,14 +90,14 @@ const ProductGridForShopItem = ({
                                         }
                                         disabled={cartItem !== undefined && cartItem.quantity > 0}
                                         title={
-                                            cartItem !== undefined ? "Added to cart" : "Add to cart"
+                                            cartItem !== undefined ? "Đã thêm vào giỏ hàng" : "Thêm vào giỏ hàng"
                                         }
                                     >
                                         {" "}
                                         <i className="pe-7s-cart"></i>{" "}
                                         {cartItem !== undefined && cartItem.quantity > 0
-                                            ? "Added"
-                                            : "Add to cart"}
+                                            ? "Đã thêm vào giỏ hàng"
+                                            : "Thêm vào giỏ hàng"}
                                     </button>
                                 ) : (
                                     <button disabled className="active">
@@ -106,7 +106,7 @@ const ProductGridForShopItem = ({
                                 )}
                             </div>
                             <div className="pro-same-action pro-quickview">
-                                <button onClick={() => setModalShow(true)} title="Quick View">
+                                <button onClick={() => setModalShow(true)} title="Xem nhanh">
                                     <i className="pe-7s-look"/>
                                 </button>
                             </div>
@@ -129,9 +129,7 @@ const ProductGridForShopItem = ({
                             {discountedPrice !== null ? (
                                 <Fragment>
                                     <span>{"đ" + finalDiscountedPrice}</span>{" "}
-                                    <span className="old">
-                    {"đ" + finalProductPrice}
-                  </span>
+                                    <span className="old">{"đ" + finalProductPrice}</span>
                                 </Fragment>
                             ) : (
                                 <span>{"đ" + finalProductPrice} </span>
@@ -255,8 +253,8 @@ const ProductGridForShopItem = ({
                                             disabled={wishlistItem !== undefined}
                                             title={
                                                 wishlistItem !== undefined
-                                                    ? "Added to wishlist"
-                                                    : "Add to wishlist"
+                                                    ? "Đã thêm vào yêu thích"
+                                                    : "Thêm vào yêu thích"
                                             }
                                             onClick={() => addToWishlist(product, addToast)}
                                         >

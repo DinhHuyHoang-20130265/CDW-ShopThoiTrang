@@ -10,8 +10,8 @@ const TabProduct = ({spaceTopClass, spaceBottomClass, bgColorClass}: any) => {
         <div
             className={`product-area ${spaceTopClass ? spaceTopClass : ""} ${spaceBottomClass ? spaceBottomClass : ""} ${bgColorClass ? bgColorClass : ""}`}>
             <div className="container">
-                <SectionTitle titleText="ƯU ĐÃI!" positionClass="text-center"/>
-                <Tab.Container defaultActiveKey="bestSeller">
+                <SectionTitle titleText="CÁC SẢN PHẨM" positionClass="text-center"/>
+                <Tab.Container defaultActiveKey={"newArrival"}>
                     <Nav
                         variant="pills"
                         className="product-tab-list pt-30 pb-55 text-center"

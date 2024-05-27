@@ -50,7 +50,7 @@ const IconGroup = ({
                 </button>
                 <div className="search-content">
                     <form action="#">
-                        <input type="text" placeholder="Search"/>
+                        <input type="text" placeholder="Tìm kiếm"/>
                         <button className="button-search">
                             <i className="pe-7s-search"/>
                         </button>

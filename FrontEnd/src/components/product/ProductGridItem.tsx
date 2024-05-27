@@ -17,9 +17,9 @@ const ProductGridItem = ({
     const [modalShow, setModalShow] = useState(false);
     const {addToast} = useToasts();
 
-    const discountedPrice = getDiscountPrice(product.price, product.discount);
-    const finalProductPrice = (product.price).toFixed(2);
-    const finalDiscountedPrice = discountedPrice !== null ? +(discountedPrice).toFixed(2) : 0;
+    const discountedPrice = getDiscountPrice(product.price.price, product.promotions[0])
+    const finalProductPrice = (product.price.price).toFixed(2);
+    const finalDiscountedPrice = discountedPrice !== null ? (discountedPrice).toFixed(2) : 0;
 
     return (
         <Fragment>
@@ -27,20 +27,29 @@ const ProductGridItem = ({
                 <div className={`product-wrap ${spaceBottomClass ? spaceBottomClass : ""}`}>
                     <div className="product-img">
                         <Link to={"/product/" + product.id}>
-                            <img className="default-img"
-                                 src={product.image[0]}
-                                 alt=""/>
-                            {product.image.length > 1 ? (
-                                <img className="hover-img" src={product.image[1]} alt=""/>) : ("")}
+                            <img
+                                className="default-img"
+                                src={product.imageUrl}
+                                alt=""
+                            />
+                            {product.imgProducts.length > 0 ? (
+                                <img
+                                    className="hover-img"
+                                    src={product.imgProducts[0]}
+                                    alt=""
+                                />
+                            ) : (
+                                ""
+                            )}
                         </Link>
-                        {product.discount || product.new ? (
+                        {product.promotions.length > 0 || product.variations ? (
                             <div className="product-img-badges">
-                                {product.discount ? (
-                                    <span className="pink">-{product.discount}%</span>
+                                {product.promotions.length > 0 && product.promotions[0].discount ? (
+                                    <span className="pink">-{product.promotions[0].discount}%</span>
                                 ) : (
                                     ""
                                 )}
-                                {product.new ? <span className="purple">New</span> : ""}
+                                {product.variations ? <span className="purple">Còn hàng</span> : ""}
                             </div>
                         ) : (
                             ""
@@ -53,8 +62,8 @@ const ProductGridItem = ({
                                     disabled={wishlistItem !== undefined}
                                     title={
                                         wishlistItem !== undefined
-                                            ? "Added to wishlist"
-                                            : "Add to wishlist"
+                                            ? "Đã thêm vào yêu thích"
+                                            : "Thêm vào yêu thích"
                                     }
                                     onClick={() => addToWishlist(product, addToast)}
                                 >
@@ -62,11 +71,11 @@ const ProductGridItem = ({
                                 </button>
                             </div>
                             <div className="pro-same-action pro-cart">
-                                {product.variation && product.variation.length >= 1 ? (
+                                {product.variations && product.variations.length >= 1 ? (
                                     <Link to={`/product/${product.id}`}>
                                         Xem ngay
                                     </Link>
-                                ) : product.stock && product.stock > 0 ? (
+                                ) : product.variations && product.variations.sizes && product.variations.sizes > 0 ? (
                                     <button
                                         onClick={() => addToCart(product, addToast)}
                                         className={
@@ -76,23 +85,23 @@ const ProductGridItem = ({
                                         }
                                         disabled={cartItem !== undefined && cartItem.quantity > 0}
                                         title={
-                                            cartItem !== undefined ? "Added to cart" : "Add to cart"
+                                            cartItem !== undefined ? "Đã thêm vào giỏ hàng" : "Thêm vào giỏ hàng"
                                         }
                                     >
                                         {" "}
                                         <i className="pe-7s-cart"></i>{" "}
                                         {cartItem !== undefined && cartItem.quantity > 0
-                                            ? "Added"
-                                            : "Add to cart"}
+                                            ? "Đã thêm vào giỏ hàng"
+                                            : "Thêm vào giỏ hàng"}
                                     </button>
                                 ) : (
                                     <button disabled className="active">
-                                        Out of Stock
+                                        Hết Hàng
                                     </button>
                                 )}
                             </div>
                             <div className="pro-same-action pro-quickview">
-                                <button onClick={() => setModalShow(true)} title="Quick View">
+                                <button onClick={() => setModalShow(true)} title="Xem nhanh">
                                     <i className="pe-7s-look"/>
                                 </button>
                             </div>
@@ -104,20 +113,18 @@ const ProductGridItem = ({
                                 {product.name}
                             </Link>
                         </h3>
-                        {product.rating && product.rating > 0 ? (
-                            <div className="product-rating">
-                                <ProductRating ratingValue={product.rating}/>
-                            </div>
-                        ) : (
-                            ""
-                        )}
+                        {/*{product.rating && product.rating > 0 ? (*/}
+                        {/*    <div className="product-rating">*/}
+                        {/*        <ProductRating ratingValue={product.rating}/>*/}
+                        {/*    </div>*/}
+                        {/*) : (*/}
+                        {/*    ""*/}
+                        {/*)}*/}
                         <div className="product-price">
                             {discountedPrice !== null ? (
                                 <Fragment>
                                     <span>{"đ" + finalDiscountedPrice}</span>{" "}
-                                    <span className="old">
-                    {"đ" + finalProductPrice}
-                  </span>
+                                    <span className="old">{"đ" + finalProductPrice}</span>
                                 </Fragment>
                             ) : (
                                 <span>{"đ" + finalProductPrice} </span>
@@ -128,6 +135,7 @@ const ProductGridItem = ({
             </div>
             {/* product modal */}
             <ProductModal
+                key={product.id}
                 show={modalShow}
                 onHide={() => setModalShow(false)}
                 product={product}
