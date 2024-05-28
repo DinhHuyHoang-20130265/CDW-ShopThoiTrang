@@ -1,5 +1,5 @@
 import {Fragment, useState} from "react";
-import {getProductCartQuantity} from "../../helpers/product";
+import {formatCurrency, getProductCartQuantity} from "../../helpers/product";
 import ProductRating from "../../wrappers/product/sub-components/ProductRating";
 import {Link} from "react-router-dom";
 import {addToCart} from "../../store/actions/cartActions";
@@ -41,13 +41,13 @@ const ProductDescriptionInfo = ({
             <div className="product-details-price">
                 {discountedPrice !== null ? (
                     <Fragment>
-                        <span>{'đ' + finalDiscountedPrice}</span>{" "}
+                        <span>{formatCurrency(finalDiscountedPrice)}</span>{" "}
                         <span className="old">
-              {'đ' + finalProductPrice}
+              {formatCurrency(finalProductPrice)}
             </span>
                     </Fragment>
                 ) : (
-                    <span>{'đ' + finalProductPrice} </span>
+                    <span>{formatCurrency(finalProductPrice)} </span>
                 )}
             </div>
             <div className="pro-details-rating-wrap">

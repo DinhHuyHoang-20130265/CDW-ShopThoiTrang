@@ -5,21 +5,16 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="89893dc3-088e-47ef-a82c-f709754202c6" name="Changes" comment="add update status order">
-      <change beforePath="$PROJECT_DIR$/../BackEnd/src/main/java/vn/edu/hcmuaf/cdw/ShopThoiTrang/controller/ReviewController.java" beforeDir="false" afterPath="$PROJECT_DIR$/../BackEnd/src/main/java/vn/edu/hcmuaf/cdw/ShopThoiTrang/controller/ReviewController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../BackEnd/src/main/java/vn/edu/hcmuaf/cdw/ShopThoiTrang/entity/Review.java" beforeDir="false" afterPath="$PROJECT_DIR$/../BackEnd/src/main/java/vn/edu/hcmuaf/cdw/ShopThoiTrang/entity/Review.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../BackEnd/src/main/java/vn/edu/hcmuaf/cdw/ShopThoiTrang/entity/Variation.java" beforeDir="false" afterPath="$PROJECT_DIR$/../BackEnd/src/main/java/vn/edu/hcmuaf/cdw/ShopThoiTrang/entity/Variation.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../BackEnd/src/main/java/vn/edu/hcmuaf/cdw/ShopThoiTrang/reponsitory/ReviewRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/../BackEnd/src/main/java/vn/edu/hcmuaf/cdw/ShopThoiTrang/reponsitory/ReviewRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../BackEnd/src/main/java/vn/edu/hcmuaf/cdw/ShopThoiTrang/service/ReviewService.java" beforeDir="false" afterPath="$PROJECT_DIR$/../BackEnd/src/main/java/vn/edu/hcmuaf/cdw/ShopThoiTrang/service/ReviewService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../BackEnd/src/main/java/vn/edu/hcmuaf/cdw/ShopThoiTrang/service/impl/ReviewServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/../BackEnd/src/main/java/vn/edu/hcmuaf/cdw/ShopThoiTrang/service/impl/ReviewServiceImpl.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../FrontEnd/src/components/post/PostItem.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/../FrontEnd/src/components/post/PostItem.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../FrontEnd/src/components/product/ProductDescriptionInfo.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/../FrontEnd/src/components/product/ProductDescriptionInfo.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../FrontEnd/src/pages/user/ProductDetail.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/../FrontEnd/src/pages/user/ProductDetail.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../FrontEnd/src/wrappers/product/ProductDescriptionTab.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/../FrontEnd/src/wrappers/product/ProductDescriptionTab.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../FrontEnd/src/wrappers/product/ProductImageDescription.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/../FrontEnd/src/wrappers/product/ProductImageDescription.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../FrontEnd/src/components/product/ProductGridForShopItem.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/../FrontEnd/src/components/product/ProductGridForShopItem.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../FrontEnd/src/components/product/ProductGridItem.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/../FrontEnd/src/components/product/ProductGridItem.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../FrontEnd/src/helpers/product.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/../FrontEnd/src/helpers/product.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../FrontEnd/src/pages/user/ShoppingCart.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/../FrontEnd/src/pages/user/ShoppingCart.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../FrontEnd/src/store/actions/cartActions.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/../FrontEnd/src/store/actions/cartActions.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../FrontEnd/src/wrappers/header/sub-components/MenuCart.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/../FrontEnd/src/wrappers/header/sub-components/MenuCart.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../FrontEnd/src/wrappers/product/ProductModal.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/../FrontEnd/src/wrappers/product/ProductModal.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../FrontEnd/src/wrappers/product/sub-components/ProductRating.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/../FrontEnd/src/wrappers/product/sub-components/ProductRating.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../FrontEnd/yarn.lock" beforeDir="false" afterPath="$PROJECT_DIR$/../FrontEnd/yarn.lock" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />

@@ -1,7 +1,7 @@
 import React, {Fragment, useState} from "react";
 import {Link} from "react-router-dom";
 import {useToasts} from "react-toast-notifications";
-import {getDiscountPrice} from "../../helpers/product";
+import {formatCurrency, getDiscountPrice} from "../../helpers/product";
 import ProductRating from "../../wrappers/product/sub-components/ProductRating";
 import ProductModal from "../../wrappers/product/ProductModal";
 
@@ -123,11 +123,11 @@ const ProductGridItem = ({
                         <div className="product-price">
                             {discountedPrice !== null ? (
                                 <Fragment>
-                                    <span>{"đ" + finalDiscountedPrice}</span>{" "}
-                                    <span className="old">{"đ" + finalProductPrice}</span>
+                                    <span>{formatCurrency(finalDiscountedPrice)}</span>{" "}
+                                    <span className="old">{formatCurrency(finalProductPrice)}</span>
                                 </Fragment>
                             ) : (
-                                <span>{"đ" + finalProductPrice} </span>
+                                <span>{formatCurrency(finalProductPrice)} </span>
                             )}
                         </div>
                     </div>

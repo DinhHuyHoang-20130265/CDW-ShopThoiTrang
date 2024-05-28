@@ -186,4 +186,17 @@ export const toggleShopTopFilter = (e: any) => {
     e.currentTarget.classList.toggle("active");
 };
 
+export const formatCurrency = (num: any) => {
+    if (isNaN(num)) {
+        throw new Error('Input must be a number');
+    }
 
+    // Convert to number if it's a string representation of a number
+    const number = typeof num === 'string' ? parseFloat(num) : num;
+
+    // Use toLocaleString for currency formatting
+    const formattedNumber = number.toLocaleString('vi-VN');
+
+    // Append the currency symbol
+    return `${formattedNumber}đ`;
+};

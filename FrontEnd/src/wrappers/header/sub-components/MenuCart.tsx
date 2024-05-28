@@ -2,7 +2,7 @@ import PropTypes from "prop-types";
 import React, {Fragment} from "react";
 import {Link} from "react-router-dom";
 import {useToasts} from "react-toast-notifications";
-import {getDiscountPrice} from "../../../helpers/product";
+import {formatCurrency, getDiscountPrice} from "../../../helpers/product";
 
 const MenuCart = ({cartData, deleteFromCart}: any) => {
     let cartTotalPrice = 0;
@@ -51,8 +51,8 @@ const MenuCart = ({cartData, deleteFromCart}: any) => {
                                         <h6>Số lượng: {single.quantity}</h6>
                                         <span>
                       {discountedPrice !== null
-                          ? "đ" + finalDiscountedPrice
-                          : "đ" + finalProductPrice}
+                          ? formatCurrency(finalDiscountedPrice)
+                          : formatCurrency(finalProductPrice)}
                     </span>
                                         {single.selectedProductColor &&
                                         single.selectedProductSize ? (
@@ -77,7 +77,7 @@ const MenuCart = ({cartData, deleteFromCart}: any) => {
                         <h4>
                             Tổng :{" "}
                             <span className="shop-total">
-                {"đ" + cartTotalPrice.toFixed(2)}
+                {formatCurrency(cartTotalPrice)}
               </span>
                         </h4>
                     </div>

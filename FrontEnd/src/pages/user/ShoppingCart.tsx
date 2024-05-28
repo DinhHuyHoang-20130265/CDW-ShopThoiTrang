@@ -2,7 +2,7 @@ import React, {Fragment, useState} from "react";
 import {Link} from "react-router-dom";
 import {useToasts} from "react-toast-notifications";
 import {connect} from "react-redux";
-import {getDiscountPrice} from "../../helpers/product";
+import {formatCurrency, getDiscountPrice} from "../../helpers/product";
 import {
     addToCart,
     decreaseQuantity,
@@ -93,14 +93,14 @@ const ShoppingCart = ({
                                                                 {discountedPrice !== null ? (
                                                                     <Fragment>
                                                                     <span className="amount old">
-                                                                        {"đ" + finalProductPrice}
+                                                                        {formatCurrency(finalProductPrice)}
                                                                     </span>
                                                                         <span className="amount">
-                                                                        {"đ" + finalDiscountedPrice}
+                                                                        {formatCurrency(finalDiscountedPrice)}
                                                                     </span>
                                                                     </Fragment>) : (
                                                                     <span className="amount">
-                                                                    {"đ" + finalProductPrice}
+                                                                    {formatCurrency(finalProductPrice)}
                                                                 </span>)}
                                                             </td>
 
@@ -142,7 +142,7 @@ const ShoppingCart = ({
                                                             </td>
                                                             <td className="product-subtotal">
                                                                 {discountedPrice !== null
-                                                                    ? "đ" + (finalDiscountedPrice * cartItem.quantity).toFixed(2) : "đ" + (finalProductPrice * cartItem.quantity).toFixed(2)}
+                                                                    ? formatCurrency(finalDiscountedPrice * cartItem.quantity) : formatCurrency(finalProductPrice * cartItem.quantity)}
                                                             </td>
 
                                                             <td className="product-remove">
@@ -207,14 +207,14 @@ const ShoppingCart = ({
                                         <h5>
                                             Tạm tính{" "}
                                             <span>
-                                                {"đ" + cartTotalPrice.toFixed(2)}
+                                                {formatCurrency(cartTotalPrice)}
                                             </span>
                                         </h5>
 
                                         <h4 className="grand-totall-title">
                                             Tổng tiền{" "}
                                             <span>
-                                                {"đ" + cartTotalPrice.toFixed(2)}
+                                                {formatCurrency(cartTotalPrice)}
                                             </span>
                                         </h4>
                                         <Link to={"/checkout"}>

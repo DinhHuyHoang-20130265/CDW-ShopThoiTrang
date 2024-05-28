@@ -1,6 +1,6 @@
 import React, {Fragment, useEffect, useState} from "react";
 import Swiper from "react-id-swiper";
-import {getProductCartQuantity} from "../../helpers/product";
+import {formatCurrency, getProductCartQuantity} from "../../helpers/product";
 import {Modal} from "react-bootstrap";
 import {connect} from "react-redux";
 import ProductRating from "./sub-components/ProductRating";
@@ -141,18 +141,18 @@ function ProductModal(props: any) {
                                 <div className="product-details-price">
                                     {discountedprice !== null ? (
                                         <Fragment>
-                                            <span>{"đ" + finaldiscountedprice}</span>
+                                            <span>{formatCurrency(finaldiscountedprice)}</span>
                                             {" "}
-                                            <span className="old">{"đ" + finalproductprice}</span>
+                                            <span className="old">{formatCurrency(finalproductprice)}</span>
                                         </Fragment>
                                     ) : (
-                                        <span>{"đ" + finalproductprice} </span>
+                                        <span>{formatCurrency(finalproductprice)} </span>
                                     )}
                                 </div>
 
                                 <div className="pro-details-rating-wrap">
                                     <div className="pro-details-rating">
-                                        <ProductRating ratingValue={product.rating}/>
+                                        <ProductRating reviews={props.reviews}/>
                                     </div>
                                 </div>
                                 <div className="pro-details-list">
