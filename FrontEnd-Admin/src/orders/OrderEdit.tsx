@@ -2,7 +2,7 @@ import * as React from 'react';
 import {
     BooleanInput,
     DateField,
-    Edit,
+    Edit, ExportButton,
     Form,
     Labeled,
     PrevNextButtons,
@@ -14,7 +14,7 @@ import {
     useTranslate,
 } from 'react-admin';
 import {Link as RouterLink} from 'react-router-dom';
-import {Card, CardContent, Box, Grid, Typography, Link} from '@mui/material';
+import {Card, CardContent, Box, Grid, Typography, Link, Button} from '@mui/material';
 
 import {Order, Customer} from '../types';
 import ListItem from "./ListItem";
@@ -115,15 +115,40 @@ const OrderForm = () => {
                     Accept: 'application/json',
                 }
             }).then((res) => {
-                addNotify('Cập nhật trạng thái đơn hàng thành công', { type: 'success' });
+                addNotify('Cập nhật trạng thái đơn hàng thành công', {type: 'success'});
             });
         } catch (err: any) {
-            addNotify('Cập nhật trạng thái đơn hàng thất bại' + err, { type: 'error' });
+            addNotify('Cập nhật trạng thái đơn hàng thất bại' + err, {type: 'error'});
+
+        }
+    }
+
+    const exportOrder = async (orderId: number) => {
+        try {
+            const response = await axios.get(`${process.env.REACT_APP_API_URL}/order/${orderId}/export`, {
+                headers: {
+                    'Content-Type': 'application/json',
+                    Accept: 'application/json',
+                },
+                responseType: 'blob'
+            });
+
+            const url = window.URL.createObjectURL(new Blob([response.data]));
+            const link = document.createElement('a');
+            link.href = url;
+            link.setAttribute('download', `order_${orderId}.pdf`);
+            document.body.appendChild(link);
+            link.click();
+
+            addNotify('Xuất đơn hàng thành công', {type: 'success'});
+
+        } catch (err: any) {
+            addNotify('Xuất đơn hàng thất bại' + err, {type: 'error'});
 
         }
     }
     return (
-        <Form warnWhenUnsavedChanges onSubmit={() => updateStatus(record.id, statusId)}>
+        <Form warnWhenUnsavedChanges>
             <Box maxWidth="50em">
                 <PrevNextButtons
                     filterDefaultValues={{statusId: 1}}
@@ -204,7 +229,14 @@ const OrderForm = () => {
                             <Total/>
                         </div>
                     </CardContent>
-                    <Toolbar/>
+                    <Toolbar>
+                        <Button onClick={() => exportOrder(record.id)} color="primary" variant="contained">
+                            Xuất đơn hàng
+                        </Button>
+                        <Button onClick={() => updateStatus(record.id, statusId)} color="primary" variant="contained">
+                            Cập nhật trạng thái
+                        </Button>
+                    </Toolbar>
                 </Card>
             </Box>
         </Form>

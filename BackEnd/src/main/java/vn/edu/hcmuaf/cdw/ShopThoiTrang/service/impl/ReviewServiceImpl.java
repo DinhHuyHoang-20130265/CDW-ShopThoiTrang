@@ -11,7 +11,11 @@ import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 import vn.edu.hcmuaf.cdw.ShopThoiTrang.entity.Review;
+import vn.edu.hcmuaf.cdw.ShopThoiTrang.model.dto.ReviewRequest;
+import vn.edu.hcmuaf.cdw.ShopThoiTrang.reponsitory.OrderDetailRepository;
+import vn.edu.hcmuaf.cdw.ShopThoiTrang.reponsitory.ProductRepository;
 import vn.edu.hcmuaf.cdw.ShopThoiTrang.reponsitory.ReviewRepository;
+import vn.edu.hcmuaf.cdw.ShopThoiTrang.reponsitory.UserRepository;
 import vn.edu.hcmuaf.cdw.ShopThoiTrang.service.ReviewService;
 
 import java.nio.charset.StandardCharsets;
@@ -26,6 +30,32 @@ import java.util.stream.Stream;
 public class ReviewServiceImpl implements ReviewService {
     @Autowired
     private ReviewRepository reviewRepository;
+
+    @Autowired
+    ProductRepository productRepository;
+
+    @Autowired
+    OrderDetailRepository orderDetailRepository;
+
+    @Autowired
+    UserRepository userRepository;
+
+
+    @Override
+    public Review createReview(ReviewRequest reviewRequest) {
+        java.sql.Date date = new java.sql.Date(new Date().getTime());
+        Review review = new Review();
+        review.setContent(reviewRequest.getContent());
+        review.setRating(reviewRequest.getRating());
+        review.setStatus(true);
+        review.setType(0);
+        review.setProduct(productRepository.findById(reviewRequest.getProduct()).orElse(null));
+        review.setReviewedDate(date);
+        review.setDeleted(false);
+        review.setReviewer(userRepository.findById(reviewRequest.getReviewer()).orElse(null));
+        review.setOrderDetail(orderDetailRepository.findById(reviewRequest.getOrderDetail()).orElse(null));
+        return reviewRepository.save(review);
+    }
 
     @Override
     public Page<Review> getAllReviews(String filter, int start, int end, String sortBy, String order) {
