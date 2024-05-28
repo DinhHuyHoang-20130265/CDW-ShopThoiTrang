@@ -38,7 +38,7 @@ public class OrderController {
     }
 
     @GetMapping("/{id}/export")
-    public void exportOrder(@PathVariable Long id) {
-        orderService.exportOrder(id);
+    public ResponseEntity<?> exportOrder(@PathVariable Long id) {
+        return orderService.exportOrder(id);
     }
 }

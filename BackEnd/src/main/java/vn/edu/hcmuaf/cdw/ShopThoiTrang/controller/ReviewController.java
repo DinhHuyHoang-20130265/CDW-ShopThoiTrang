@@ -5,6 +5,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import vn.edu.hcmuaf.cdw.ShopThoiTrang.entity.Review;
+import vn.edu.hcmuaf.cdw.ShopThoiTrang.model.dto.ReviewRequest;
 import vn.edu.hcmuaf.cdw.ShopThoiTrang.service.ReviewService;
 
 import java.util.List;
@@ -14,6 +15,12 @@ import java.util.List;
 public class ReviewController {
     @Autowired
     private ReviewService reviewService;
+
+    @PostMapping
+    public ResponseEntity<Review> createReview(@RequestBody ReviewRequest review) {
+        Review createdReview = reviewService.createReview(review);
+        return ResponseEntity.ok(createdReview);
+    }
 
     @GetMapping
     public ResponseEntity<Page<Review>> getAllReviews(@RequestParam(defaultValue = "0") int start,
