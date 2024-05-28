@@ -15,9 +15,9 @@ const FooterCopyright = ({footerLogo, spaceBottomClass, colorClass}: any) => {
                 </Link>
             </div>
             <p>
-                © 2020{" "}
-                <a href="//hasthemes.com" rel="noopener noreferrer" target="_blank">
-                    Flone
+                © 2024{" "}
+                <a href="https://hcmuaf.edu.vn" rel="noopener noreferrer" target="_blank">
+                    NLU
                 </a>
                 .<br/> All Rights Reserved
             </p>

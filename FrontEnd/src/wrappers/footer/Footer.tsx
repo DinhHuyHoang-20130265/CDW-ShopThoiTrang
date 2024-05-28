@@ -55,7 +55,6 @@ const Footer = ({
                             sideMenu ? "col-xl-2 col-sm-4" : "col-lg-2 col-sm-4"
                         }`}
                     >
-
                         <FooterCopyright
                             footerLogo="/assets/logomain.png"
                             spaceBottomClass="mb-30"
