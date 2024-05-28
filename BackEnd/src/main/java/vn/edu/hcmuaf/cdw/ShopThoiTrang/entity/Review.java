@@ -32,7 +32,7 @@ public class Review {
     @JoinColumn(name = "product_id")
     private Product product;
 
-    @JsonBackReference
+    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "reviewed_by")
     private User reviewer;

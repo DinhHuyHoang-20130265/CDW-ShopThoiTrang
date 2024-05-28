@@ -6,21 +6,16 @@ import {connect} from "react-redux";
 import ProductRating from "./sub-components/ProductRating";
 
 function ProductModal(props: any) {
-    const {product} = props;
+    const {product}: any = props;
     const {discountedprice} = props;
     const {finalproductprice} = props;
     const {finaldiscountedprice} = props;
     const [gallerySwiper, getGallerySwiper]: any = useState(null);
     const [thumbnailSwiper, getThumbnailSwiper]: any = useState(null);
-    const [selectedProductColor, setSelectedProductColor] = useState(
-        product.variations ? product.variations[0].color : ""
-    );
-    const [selectedProductSize, setSelectedProductSize] = useState(
-        product.variations ? product.variations[0].sizes[0].size : ""
-    );
-    const [productStock, setProductStock] = useState(
-        product.variations ? product.variations[0].sizes[0].stock : 0
-    );
+
+    const [selectedProductColor, setSelectedProductColor] = useState("");
+    const [selectedProductSize, setSelectedProductSize] = useState("");
+    const [productStock, setProductStock] = useState(0);
     const [quantityCount, setQuantityCount] = useState(1);
 
     const wishlistItem = props.wishlistitem;
@@ -36,6 +31,18 @@ function ProductModal(props: any) {
         selectedProductColor,
         selectedProductSize
     );
+    useEffect(() => {
+        if (product.variations.length > 0) {
+            try {
+                setSelectedProductColor(product.variations[0].color);
+                setSelectedProductSize(product.variations[0].sizes[0].size);
+                setProductStock(product.variations[0].sizes[0].stock);
+            } catch (e) {
+                console.log(e);
+                console.log(product.id);
+            }
+        }
+    }, [props]);
 
     useEffect(() => {
         if (product.imgProducts.find((item: any) => item.url === product.imageUrl) === undefined)

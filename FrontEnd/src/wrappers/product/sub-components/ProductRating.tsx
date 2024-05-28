@@ -1,6 +1,8 @@
 import React, {Fragment} from "react";
 
-const ProductRating = ({ratingValue}: any) => {
+const ProductRating = ({reviews}: any) => {
+    const ratingValue = reviews.reduce((total: any, val: any) => total + val.rating, 0) / reviews.length;
+    console.log(ratingValue);
     let rating = [];
 
     for (let i = 0; i < 5; i++) {

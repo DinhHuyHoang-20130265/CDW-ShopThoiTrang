@@ -10,6 +10,7 @@ public interface ReviewService {
 
     Review createReview(ReviewRequest reviewRequest);
 
+    List<Review> getReviewsByProductId(Long productId);
 
     Page<Review> getAllReviews(String filter, int start, int end, String sortBy, String order);
 

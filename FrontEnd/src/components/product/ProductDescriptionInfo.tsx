@@ -15,7 +15,8 @@ const ProductDescriptionInfo = ({
                                     wishlistItem,
                                     addToast,
                                     addToCart,
-                                    addToWishlist
+                                    addToWishlist,
+                                    reviews
                                 }: any) => {
     const [selectedProductColor, setSelectedProductColor] = useState(
         product.variations ? product.variations[0].color : ""
@@ -51,7 +52,7 @@ const ProductDescriptionInfo = ({
             </div>
             <div className="pro-details-rating-wrap">
                 <div className="pro-details-rating">
-                    <ProductRating ratingValue={product.rating}/>
+                    <ProductRating reviews={reviews}/>
                 </div>
             </div>
             <div className="pro-details-list">
