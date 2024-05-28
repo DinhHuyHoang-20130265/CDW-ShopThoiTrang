@@ -20,9 +20,9 @@ const Checkout = ({cartItems, deleteAllFromCart}: any) => {
     const [districts, setDistricts] = useState([]);
     const [wards, setWards] = useState([]);
 
-    const [selectedProvince, setSelectedProvince] = useState(null);
+    const [selectedProvince, setSelectedProvince]: any = useState(null);
     const [selectedDistrict, setSelectedDistrict]: any = useState(null);
-    const [selectedWard, setSelectedWard] = useState(null);
+    const [selectedWard, setSelectedWard]: any = useState(null);
 
     const [name, setName] = useState("");
     const [phone, setPhone] = useState("");
@@ -140,9 +140,9 @@ const Checkout = ({cartItems, deleteAllFromCart}: any) => {
                 from_phone: "0373132765",
                 to_name: name,
                 to_phone: phone,
-                to_address: address + ", " + selectedWard + ", " + selectedDistrict + ", " + selectedProvince,
-                to_ward_code: selectedWard,
-                to_district_id: parseInt(selectedDistrict),
+                to_address: address + ", " + selectedWard.name + ", " + selectedDistrict.name + ", " + selectedProvince.name,
+                to_ward_code: selectedWard.id,
+                to_district_id: parseInt(selectedDistrict.id),
                 content: "Shop 2h - Đơn hàng của bạn",
                 weight: 200,
                 length: 1,
@@ -198,9 +198,9 @@ const Checkout = ({cartItems, deleteAllFromCart}: any) => {
                 name: name,
                 phone: phone,
                 user_id: userId !== -1 ? userId : null,
-                province: selectedProvince,
-                district: selectedDistrict,
-                ward: selectedWard,
+                province: selectedProvince.name,
+                district: selectedDistrict.name,
+                ward: selectedWard.name,
                 address: address,
                 paymentMethod: paymentType,
                 paymentCode: "",
@@ -214,8 +214,8 @@ const Checkout = ({cartItems, deleteAllFromCart}: any) => {
                 orderDetails: orderDetails,
             };
             if (name === "" || phone === "" || address === "" ||
-                selectedProvince === null || selectedProvince === "" || selectedDistrict === null
-                || selectedDistrict === "" || selectedWard === null || selectedWard === "") {
+                selectedProvince === null || selectedDistrict === null
+                || selectedWard === null) {
                 toast.error("Vui lòng nhập đầy đủ thông tin khách hàng")
                 setIsLoading(false)
                 return;
@@ -401,7 +401,6 @@ const Checkout = ({cartItems, deleteAllFromCart}: any) => {
             setIsLoading(false)
         }, 1000)
     }
-
     return (
         <Fragment>
             <Breadcrumb/>
@@ -435,7 +434,10 @@ const Checkout = ({cartItems, deleteAllFromCart}: any) => {
                                                 <label>Tỉnh/Thành phố</label>
                                                 <select required onChange={
                                                     (e: any) => {
-                                                        setSelectedProvince(e.target.value);
+                                                        setSelectedProvince({
+                                                            id: e.target.value,
+                                                            name: e.target.options[e.target.selectedIndex].text
+                                                        });
                                                         getDistricts(e.target.value);
                                                     }
                                                 }>
@@ -455,7 +457,10 @@ const Checkout = ({cartItems, deleteAllFromCart}: any) => {
                                                 <select required
                                                         onChange={
                                                             (e: any) => {
-                                                                setSelectedDistrict(e.target.value);
+                                                                setSelectedDistrict({
+                                                                    id: e.target.value,
+                                                                    name: e.target.options[e.target.selectedIndex].text
+                                                                });
                                                                 getWards(e.target.value);
                                                             }
                                                         }
@@ -475,8 +480,11 @@ const Checkout = ({cartItems, deleteAllFromCart}: any) => {
                                                 <label>Phường/Xã</label>
                                                 <select required onChange={
                                                     (e: any) => {
-                                                        setSelectedWard(e.target.value);
-                                                        calculateFee(process.env.REACT_APP_GHN_SHOP_DISTRICT_ID, process.env.REACT_APP_GHN_SHOP_WARD_CODE, selectedDistrict, e.target.value);
+                                                        setSelectedWard({
+                                                            id: e.target.value,
+                                                            name: e.target.options[e.target.selectedIndex].text
+                                                        });
+                                                        calculateFee(process.env.REACT_APP_GHN_SHOP_DISTRICT_ID, process.env.REACT_APP_GHN_SHOP_WARD_CODE, selectedDistrict.id, e.target.value);
                                                     }
                                                 }>
                                                     <option value="">Chọn phường/xã</option>
