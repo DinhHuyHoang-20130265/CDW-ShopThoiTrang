@@ -2,10 +2,12 @@ import React, {Fragment, useEffect, useState} from "react";
 import Accordion from "react-bootstrap/Accordion";
 import Image from 'react-bootstrap/Image';
 import Breadcrumb from "../../wrappers/breadcrumb/Breadcrumb";
-import {Button, Col, Container, Modal, Row, Table} from "react-bootstrap";
+import {Button, Col, Container, Form, Modal, Row, Table} from "react-bootstrap";
 import axios from "axios";
 import {useToasts} from "react-toast-notifications";
 import {Navigate} from "react-router-dom";
+import {Rating, TextField} from "@mui/material";
+import {forEach} from "react-bootstrap/ElementChildren";
 
 const MyAccount = () => {
     const {addToast} = useToasts();
@@ -14,6 +16,7 @@ const MyAccount = () => {
     const idUser: any = JSON.parse(user) ? JSON.parse(user).id : null;
     const [showOrderDetailModal, setshowOrderDetailModal] = useState(false);
     const [showOrderStatusModal, setshowOrderStatusModal] = useState(false);
+    const [showOrderReviewModal, setshowOrderReviewModal] = useState(false);
     const [orderDetail, setOrderDetail]: any = useState(null);
     const [orderStatus, setOrderStatus]: any = useState(null);
 
@@ -47,6 +50,8 @@ const MyAccount = () => {
         }
         fetchUserProfile().then();
     }, []);
+
+    console.log(userProfile)
 
     const displaySelectedImage = (event: any) => {
         const selectedImage: any = document.getElementById('selectedAvatar');
@@ -155,6 +160,16 @@ const MyAccount = () => {
             }
         )
     }
+
+    const checkReview = (order: any) => {
+        for (let i = 0; i < order.orderDetails.length; i++) {
+            if (order.orderDetails[i].review == null) {
+                return true;
+            }
+        }
+        return false;
+    }
+
 
     return (
         userProfile &&
@@ -300,6 +315,23 @@ const MyAccount = () => {
                                                                     setshowOrderDetailModal(true);
                                                                 }}>Xem chi tiết</Button>
                                                             </td>
+                                                            <td>
+                                                                {order.status.id === 5 && checkReview(order) && (
+                                                                    <Button variant="outline-warning" onClick={() => {
+                                                                        setshowOrderReviewModal(true);
+                                                                        setOrderDetail(order);
+                                                                    }}
+                                                                    > Đánh giá </Button>
+                                                                )}
+                                                                {order.status.id === 5 && !checkReview(order)  && (
+                                                                    <Button variant="outline-info" onClick={() => {
+                                                                        setshowOrderReviewModal(true);
+                                                                        setOrderDetail(order);
+                                                                    }
+                                                                    }
+                                                                    > Xem đánh giá </Button>
+                                                                )}
+                                                            </td>
                                                         </tr>
                                                     ))}
                                                     </tbody>
@@ -313,6 +345,8 @@ const MyAccount = () => {
                     </div>
                 </div>
             </Fragment>
+
+            {/* Modal Order Detail */}
             <Modal
                 show={showOrderDetailModal}
                 size="lg"
@@ -336,6 +370,7 @@ const MyAccount = () => {
                 </Modal.Footer>
             </Modal>
 
+            {/* Modal Order Status */}
             <Modal
                 show={showOrderStatusModal}
                 aria-labelledby="contained-modal-title-vcenter"
@@ -358,6 +393,24 @@ const MyAccount = () => {
                     ))}
                 </Modal.Body>
             </Modal>
+
+            {/*Modal Review*/}
+            <Modal
+                show={showOrderReviewModal}
+                aria-labelledby="contained-modal-title-vcenter"
+                centered
+                onHide={() => setshowOrderReviewModal(false)}
+            >
+                <Modal.Header closeButton>
+                    <Modal.Title id="contained-modal-title-vcenter">
+                        Đơn hàng #{orderDetail ? orderDetail.id : ''}
+                    </Modal.Title>
+                </Modal.Header>
+                <Modal.Body>
+                    <OrderReviewModal order={orderDetail} addToast={addToast} />
+                </Modal.Body>
+            </Modal>
+
 
         </>
     );
@@ -527,6 +580,137 @@ const OrderDetailModal = ({order}: any) => {
         </Container>
     );
 
+}
+
+const OrderReviewModal = ({order, addToast}: any) => {
+    const user: any = localStorage.getItem('user');
+
+    const idUser: any = JSON.parse(user) ? JSON.parse(user).id : null;
+    const [showReviewModal, setshowReviewModal] = useState(false);
+
+    const [rating, setRating] = useState(0);
+    const [comment, setComment] = useState('');
+    const [orderDetailId, setOrderDetail] = useState(null);
+    const [product, setProduct] = useState(null);
+
+
+
+    const submitReview = () => {
+        if (rating === 0 || comment === '') {
+            addToast("Vui lòng nhập đầy đủ thông tin", {
+                appearance: 'error',
+                autoDismiss: true,
+                autoDismissTimeout: 3000
+            });
+            return;
+        }
+
+        axios.post(`${process.env.REACT_APP_API_ENDPOINT}review`, {
+            content: comment,
+            rating: rating,
+            product: product,
+            reviewer: idUser,
+            orderDetail: orderDetailId
+        }, {
+            headers: {
+                Accept: 'application/json',
+                "Content-Type": "application/json"
+            }
+        }).then(response => {
+            addToast("Đánh giá thành công", {
+                appearance: 'success',
+                autoDismiss: true,
+                autoDismissTimeout: 3000
+            });
+        }).catch(error => {
+            console.log(error)
+        });
+    }
+    return (
+        <>
+            <Container>
+                <Row>
+                    <Col>
+                        <h4>Đánh giá đơn hàng</h4>
+                        <Table striped>
+                            <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>Tên sản phẩm</th>
+                                <th>Trạng thái</th>
+                            </tr>
+                            </thead>
+                            <tbody className={"mb-20"}>
+                            {order.orderDetails.map((orderDetail: any, index: number) => (
+                                <tr key={index}>
+                                    <td>{index + 1}</td>
+                                    <td>{orderDetail.productId.name} /
+                                        ({orderDetail.variation.color} / {orderDetail.size.size})
+                                    </td>
+                                    <td>
+                                        {orderDetail.review == null && (
+                                            <Button variant="outline-warning" onClick={() => {
+                                                setshowReviewModal(true);
+                                                setOrderDetail(orderDetail.id);
+                                                setProduct(orderDetail.productId.id)
+                                            }}
+                                            > Đánh giá </Button>
+                                        )}
+                                        {orderDetail.review != null && (
+                                            <>
+                                                <Rating name="read-only" value={orderDetail.review.rating} readOnly style={{textAlign: 'center'}}/>
+                                                <TextField
+                                                    id="outlined-multiline-static"
+                                                    multiline
+                                                    defaultValue={orderDetail.review.content}
+                                                    variant="outlined"
+                                                    disabled
+                                                />
+                                            </>
+                                        )}
+                                    </td>
+                                </tr>
+                            ))}
+                            </tbody>
+                        </Table>
+                    </Col>
+                </Row>
+            </Container>
+
+            {/* Modal Review */}
+            <Modal
+                show={showReviewModal}
+                aria-labelledby="contained-modal-title-vcenter"
+                centered
+                onHide={() => setshowReviewModal(false)}
+            >
+                <Modal.Header closeButton>
+                    <Modal.Title id="contained-modal-title-vcenter">
+                        Đánh giá sản phẩm
+                    </Modal.Title>
+                </Modal.Header>
+                <Modal.Body>
+                    <Form id={"reviewForm"}>
+                        <Form.Group className="mb-3" controlId="exampleForm.ControlTextarea1">
+                            <Rating
+                                name="half-rating"
+                                defaultValue={0}
+                                onChange={(event, newValue: any) => {
+                                    setRating(newValue);
+                                }}
+                            />
+                            <Form.Control as="textarea" rows={3} onChange={(e) => setComment(e.target.value)}/>
+
+                        </Form.Group>
+                        <Button variant="primary" onClick={submitReview}>Gửi đánh giá</Button>
+                    </Form>
+                </Modal.Body>
+                <Modal.Footer>
+                    <Button variant="secondary" onClick={() => setshowReviewModal(false)}>Đóng</Button>
+                </Modal.Footer>
+            </Modal>
+        </>
+    );
 }
 
 export default MyAccount;

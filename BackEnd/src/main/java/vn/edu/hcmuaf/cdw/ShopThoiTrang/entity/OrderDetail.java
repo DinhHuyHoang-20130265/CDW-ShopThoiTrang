@@ -36,4 +36,8 @@ public class OrderDetail {
 
     private int quantity;
     private double price;
+
+    @OneToOne
+    @JoinColumn(name = "review_id")
+    private Review review;
 }
