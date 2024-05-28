@@ -142,9 +142,9 @@ public class OrderServiceImpl implements OrderService {
 
         // set payment information for order
         orderNew.setPaymentMethod(order.getPaymentMethod());
-        orderNew.setPaymentCode(order.getPaymentCode());
+        orderNew.setPaymentCode((order.getPaymentCode() == null || order.getPaymentCode().isEmpty()) ? null : order.getPaymentCode());
         orderNew.setPaymentStatus(order.getPaymentStatus());
-        orderNew.setPaymentDate(Timestamp.valueOf(order.getPaymentDate()));
+        orderNew.setPaymentDate((order.getPaymentDate() == null || order.getPaymentDate().isEmpty()) ? null : Timestamp.valueOf(order.getPaymentDate()));
 
         // save order
         Order savedOrder = orderRepository.save(orderNew);
@@ -291,11 +291,11 @@ public class OrderServiceImpl implements OrderService {
             PdfPCell cellShippingFeeValue = new PdfPCell(new Phrase(String.valueOf(formatPrice(order.getShippingFee())), regularFont));
             table.addCell(cellShippingFeeValue);
 
-            PdfPCell cellTotal = new PdfPCell(new Phrase("Tổng tiền",  new Font(bf, 16, Font.BOLD)));
+            PdfPCell cellTotal = new PdfPCell(new Phrase("Tổng tiền", new Font(bf, 16, Font.BOLD)));
             cellTotal.setColspan(3);
             table.addCell(cellTotal);
 
-            PdfPCell cellTotalValue = new PdfPCell(new Phrase(String.valueOf(formatPrice(order.getTotalAmount() + order.getShippingFee())),  new Font(bf, 16, Font.BOLD)));
+            PdfPCell cellTotalValue = new PdfPCell(new Phrase(String.valueOf(formatPrice(order.getTotalAmount() + order.getShippingFee())), new Font(bf, 16, Font.BOLD)));
             table.addCell(cellTotalValue);
 
             document.add(table);
