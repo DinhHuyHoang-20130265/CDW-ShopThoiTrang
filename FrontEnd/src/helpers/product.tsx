@@ -50,15 +50,11 @@ export const getProductCartQuantity = (cartItems: any[], product: any, color: an
 
 //get products based on category
 export const getSortedProducts = (products: any[], sortType: string, sortValue: string) => {
+    console.log(products, sortType, sortValue)
     if (products && sortType && sortValue) {
         if (sortType === "category") {
             return products.filter(
                 product => product.categories.filter((single: any) => single.name === sortValue)[0]
-            );
-        }
-        if (sortType === "tag") {
-            return products.filter(
-                product => product.tag.filter((single: any) => single === sortValue)[0]
             );
         }
         if (sortType === "color") {
@@ -121,21 +117,6 @@ export const getIndividualCategories = (products: any[]) => {
     return getIndividualItemArray(productCategories);
 };
 
-// get individual tags
-export const getIndividualTags = (products: any[]) => {
-    let productTags: any[] = [];
-    products &&
-    products.map(product => {
-        return (
-            product.tag &&
-            product.tag.map((single: any) => {
-                return productTags.push(single);
-            })
-        );
-    });
-    return getIndividualItemArray(productTags);
-};
-
 // get individual colors
 export const getIndividualColors = (products: any[]) => {
     let productColors: any[] = [];
@@ -172,20 +153,6 @@ export const getProductsIndividualSizes = (products: any[]) => {
     return getIndividualItemArray(productSizes);
 };
 
-// get product individual sizes
-export const getIndividualSizes = (product: any) => {
-    let productSizes: any[] = [];
-    product.variations &&
-    product.variations.map((singleVariation: any) => {
-        return (
-            singleVariation.sizes &&
-            singleVariation.sizes.map((singleSize: any) => {
-                return productSizes.push(singleSize.name);
-            })
-        );
-    });
-    return getIndividualItemArray(productSizes);
-};
 
 export const setActiveSort = (e: any) => {
     const filterButtons = document.querySelectorAll(

@@ -5,6 +5,7 @@ import Post from "../../wrappers/blog/Post";
 import Comment from "../../wrappers/blog/Comment";
 import axios from "axios";
 import {useLoaderData} from "react-router";
+import PostComment from "../../components/post/PostComment";
 
 export function loadIdPost({params}: any) {
     return {id: parseInt(params.id)};
@@ -15,20 +16,19 @@ const PostDetail = () => {
     const [post, setPost] = useState(null);
     useEffect(() => {
         const fectch = async () => {
-            await axios.get(`http://localhost:8080/api/blog/` + received.id, {
+            await axios.get(`${process.env.REACT_APP_API_ENDPOINT}blog/` + received.id, {
                 headers: {
                     Accept: 'application/json',
                     "Content-Type": "application/json"
                 }
             }).then(response => {
-                console.log("hihi"+response.data)
                 setPost(response.data);
             })
         }
         fectch().then();
     }, [received]);
     console.log(post)
-    return ( post &&
+    return (post &&
         <Fragment>
             <Breadcrumb/>
             <div className="blog-area pt-100 pb-100">
@@ -37,6 +37,7 @@ const PostDetail = () => {
                         <div className="col-lg-9">
                             <div className="blog-details-wrapper ml-20">
                                 <Post post={post}/>
+                                <PostComment post={post} />
                             </div>
                         </div>
                         <div className="col-lg-3">
