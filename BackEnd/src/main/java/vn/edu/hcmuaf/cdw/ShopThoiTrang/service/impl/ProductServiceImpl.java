@@ -216,7 +216,6 @@ public class ProductServiceImpl implements ProductService {
     @Transactional
     public ResponseEntity<?> updateProduct(long productId, Product productUpdate, HttpServletRequest request) {
         Date currentDate = new Date(System.currentTimeMillis());
-
         String jwt = jwtUtils.getJwtFromCookies(request);
         if (jwt == null) {
             return ResponseEntity.badRequest().body("Token is null");
@@ -228,16 +227,14 @@ public class ProductServiceImpl implements ProductService {
         List<ImageProduct> newImageProducts = new ArrayList<>();
 
         // Cập nhật hoặc thêm mới các ảnh sản phẩm
-        for (ImageProduct newImageProduct : productUpdate.getImgProducts()) {
+        for (ImageProduct current : productUpdate.getImgProducts()) {
             ImageProduct existingImageProduct = existingProduct.getImgProducts().stream()
-                    .filter(i -> i.getUrl().equals(newImageProduct.getUrl()))
+                    .filter(i -> i.getUrl().equals(current.getUrl()))
                     .findFirst()
                     .orElse(null);
-            if (existingImageProduct != null) {
-                newImageProducts.add(existingImageProduct);
-            } else {
+            if (existingImageProduct == null) {
                 ImageProduct imageProduct = new ImageProduct();
-                imageProduct.setUrl(newImageProduct.getUrl());
+                imageProduct.setUrl(current.getUrl());
                 imageProduct.setReleaseDate(currentDate);
                 imageProduct.setUpdateDate(currentDate);
                 imageProduct.setReleaseBy(userRepository.findByUsername(username).orElse(null));
@@ -245,12 +242,13 @@ public class ProductServiceImpl implements ProductService {
                 imageProduct.setProduct(existingProduct);
                 imageProductRepository.save(imageProduct);
                 newImageProducts.add(imageProduct);
+            } else {
+                newImageProducts.add(existingImageProduct);
             }
         }
-
         // Xóa các ảnh không còn tồn tại
         for (ImageProduct existingImageProduct : existingProduct.getImgProducts()) {
-            if (newImageProducts.stream()
+            if (!newImageProducts.isEmpty() && newImageProducts.stream()
                     .noneMatch(i ->
                             i.getUrl().equals(existingImageProduct.getUrl()))) {
                 imageProductRepository.delete(existingImageProduct);
@@ -281,7 +279,7 @@ public class ProductServiceImpl implements ProductService {
                 // Cập nhật biến thể
                 existingVariation.setColor(updatedVariation.getColor());
                 existingVariation.setUpdateDate(currentDate);
-                existingVariation.setUpdateBy(updatedVariation.getUpdateBy());
+                existingVariation.setUpdateBy(userRepository.findByUsername(username).orElse(null));
                 updateSizes(existingVariation, updatedVariation.getSizes());
                 updatedVariations.add(existingVariation);
             } else {
@@ -290,8 +288,8 @@ public class ProductServiceImpl implements ProductService {
                 for (Variation variation : productUpdate.getVariations()) {
                     variation.setReleaseDate(currentDate);
                     variation.setUpdateDate(currentDate);
-                    variation.setReleaseBy(variation.getReleaseBy());
-                    variation.setUpdateBy(variation.getUpdateBy());
+                    variation.setReleaseBy(userRepository.findByUsername(username).orElse(null));
+                    variation.setUpdateBy(userRepository.findByUsername(username).orElse(null));
                     variation.setProduct(productUpdate);
 
                     List<Size> sizes = new ArrayList<>();
@@ -300,15 +298,15 @@ public class ProductServiceImpl implements ProductService {
                         size.setStock(size.getStock());
                         size.setUpdateDate(currentDate);
                         size.setReleaseDate(currentDate);
-                        size.setReleaseBy(size.getReleaseBy());
-                        size.setUpdateBy(size.getUpdateBy());
-                        size.setVariation(variation);
+                        size.setReleaseBy(userRepository.findByUsername(username).orElse(null));
+                        size.setUpdateBy(userRepository.findByUsername(username).orElse(null));
+                        Variation savedVariation = variationRepository.save(variation);
+                        size.setVariation(savedVariation);
 
                         sizeRepository.save(size);
                         sizes.add(size);
                     }
                     variation.setSizes(sizes);
-                    variationRepository.save(variation);
                     viariations.add(variation);
                 }
 
@@ -336,6 +334,8 @@ public class ProductServiceImpl implements ProductService {
 
 
         for (Variation variation : variationsToDelete) {
+            variation.setUpdateBy(null);
+            variation.setReleaseBy(null);
             existingProduct.getVariations().remove(variation); // Loại bỏ biến thể khỏi danh sách
             variationRepository.delete(variation); // Xóa biến thể khỏi cơ sở dữ liệu
         }
@@ -358,6 +358,7 @@ public class ProductServiceImpl implements ProductService {
                 existingSize.setStatus(updatedSize.isStatus());
                 existingSize.setUpdateDate(currentDate);
                 existingSize.setUpdateBy(updatedSize.getUpdateBy());
+                sizeRepository.save(existingSize);
             } else {
                 // Thêm mới kích thước
                 updatedSize.setSize(updatedSize.getSize());

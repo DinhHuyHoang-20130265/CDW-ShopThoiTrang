@@ -9,7 +9,7 @@ const httpClient = axios.create({
 httpClient.interceptors.response.use(
     response => response,
     async error => {
-        if (error.response && error.response.status === 401) {
+        if (error.response && (error.response.status === 401 || error.response.status === 403)) {
             await httpClient.post(`${process.env.REACT_APP_API_URL}/auth/refresh-token`, {
                 headers: {
                     Accept: 'application/json',
@@ -20,19 +20,24 @@ httpClient.interceptors.response.use(
                 console.log(response)
                 Promise.resolve();
             }).catch((error) => {
-                console.log(error)
-                // @ts-ignore
-                authProvider.logout().then(r => console.log(r));
-                window.location.href = '/#/login';
-            })
-
+                if (error.response.status === 400) {
+                    // @ts-ignore
+                    authProvider.logout();
+                    window.location.href = '/#/login';
+                    return Promise.reject({message: "Your session is expired. Please login again."});
+                }
+            });
         } else {
-            console.log(error)
-            return Promise.reject({message: error.response.data.message});
+            if (error.response.status === 400) {
+                // @ts-ignore
+                authProvider.logout();
+                window.location.href = '/#/login';
+                return Promise.reject({message: "Your session is expired. Please login again."});
+            }
+            return Promise.reject({message: "There was an error. Please try again."});
         }
     }
-);
-
+)
 export const authProvider: AuthProvider = {
 
     login: async ({username, password}) => {
@@ -50,7 +55,7 @@ export const authProvider: AuthProvider = {
             }
         }).catch((error) => {
             console.log(error)
-            return Promise.reject({message: error.response.data.message});
+            return Promise.reject({message: error.response});
         });
     },
     logout: async () => {
@@ -79,28 +84,7 @@ export const authProvider: AuthProvider = {
             if (response.status === 200) {
                 return Promise.resolve(response.data);
             }
-        }).catch(async (error) => {
-            if (error.status === 401) {
-                await httpClient.post(`${process.env.REACT_APP_API_URL}/auth/refresh-token`, {
-                    headers: {
-                        Accept: 'application/json',
-                        'Content-Type': 'application/json'
-                    },
-                    withCredentials: true
-                }).then((response: any) => {
-                    console.log(response)
-                    Promise.resolve();
-                }).catch((error) => {
-                    console.log(error)
-                    // @ts-ignore
-                    return authProvider.logout();
-                })
-            } else {
-                console.log(error)
-                return Promise.reject({message: error.response.data.message});
-            }
-        });
-
+        })
     },
     //@ts-ignore
     getIdentity: async () => {
@@ -121,26 +105,6 @@ export const authProvider: AuthProvider = {
                     avt: response.avtUrl
                 });
             } else console.log(response.status)
-        }).catch(async (error) => {
-            if (error.status === 401) {
-                await httpClient.post(`${process.env.REACT_APP_API_URL}/auth/refresh-token`, {
-                    headers: {
-                        Accept: 'application/json',
-                        'Content-Type': 'application/json'
-                    },
-                    withCredentials: true
-                }).then((response: any) => {
-                    console.log(response)
-                    Promise.resolve();
-                }).catch((error) => {
-                    console.log(error)
-                    // @ts-ignore
-                    return authProvider.logout();
-                })
-            } else {
-                console.log(error)
-                return Promise.reject({message: error.response.data.message});
-            }
-        });
+        })
     }
 }

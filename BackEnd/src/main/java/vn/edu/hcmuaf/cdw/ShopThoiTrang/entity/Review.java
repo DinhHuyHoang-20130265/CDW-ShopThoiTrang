@@ -13,7 +13,7 @@ import java.sql.Date;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-@ToString
+@ToString(exclude = {"product", "reviewer", "orderDetail"})
 @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 public class Review {
     @Id
