@@ -75,7 +75,8 @@ public class UserServiceImpl implements UserService {
         userInfo.setFullName(name);
         userInfo.setPhone(phone);
         userInfo.setEmail(email);
-        return userInfoRepository.save(userInfo) != null ? "Cập nhật thông tin thành công!" : "Cập nhật thông tin thất bại!";
+        userInfoRepository.save(userInfo);
+        return "Cập nhật thông tin thành công!";
     }
 
     @Override
@@ -85,7 +86,8 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public ResponseEntity<?> getAuthorities(String username) {
-        return ResponseEntity.ok(userRepository.findByUsername(username).get().getAuthorities().stream().map(GrantedAuthority::getAuthority).collect(Collectors.toList()));
+        User user = userRepository.findByUsername(username).orElse(null);
+        return user == null ? ResponseEntity.status(HttpStatus.NOT_FOUND).body("User not found") : ResponseEntity.ok(user.getAuthorities().stream().map(GrantedAuthority::getAuthority).collect(Collectors.toList()));
     }
 
     @Override

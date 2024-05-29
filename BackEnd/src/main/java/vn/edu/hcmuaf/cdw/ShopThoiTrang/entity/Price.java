@@ -12,7 +12,7 @@ import java.sql.Date;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-@ToString
+@ToString(exclude = {"product"})
 public class Price {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
