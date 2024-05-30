@@ -1,8 +1,7 @@
 import React from "react";
-import PropTypes from "prop-types";
 import {setActiveSort} from "../../helpers/product";
 
-const ShopCategories = ({categories, getSortParams}: any) => {
+const ShopCategories = ({categories, setCategories, categoriesSelected}: any) => {
     return (
         <div className="sidebar-widget">
             <h4 className="pro-sidebar-title">Danh mục </h4>
@@ -10,28 +9,31 @@ const ShopCategories = ({categories, getSortParams}: any) => {
                 {categories ? (
                     <ul>
                         <li>
-                            <div className="sidebar-widget-list-left">
-                                <button
-                                    onClick={e => {
-                                        getSortParams("category", "");
-                                        setActiveSort(e);
-                                    }}
-                                >
-                                    <span className="checkmark"/> Tất cả
+                            <div className="sidebar-widget-list-left list-check-category">
+                                <button onClick={e => {
+                                    setCategories([]);
+                                    setActiveSort(e, "all", "list-check-category");
+
+                                }}>
+                                    <span className="checkmark"/>Tất cả
                                 </button>
                             </div>
                         </li>
                         {categories.map((category: any, key: any) => {
                             return (
                                 <li key={key}>
-                                    <div className="sidebar-widget-list-left">
+                                    <div className="sidebar-widget-list-left list-check-category">
                                         <button
                                             onClick={e => {
-                                                getSortParams("category", category.name);
-                                                setActiveSort(e);
+                                                setActiveSort(e, "", "list-check-category");
+                                                const isActive = e.currentTarget.classList.contains('active');
+                                                if (isActive) {
+                                                    setCategories([...categoriesSelected, category.name]);
+                                                } else {
+                                                    setCategories(categoriesSelected.filter((item: any) => item !== category.name));
+                                                }
                                             }}
                                         >
-                                            {" "}
                                             <span className="checkmark"/> {category.name}{" "}
                                         </button>
                                     </div>
@@ -45,11 +47,6 @@ const ShopCategories = ({categories, getSortParams}: any) => {
             </div>
         </div>
     );
-};
-
-ShopCategories.propTypes = {
-    categories: PropTypes.array,
-    getSortParams: PropTypes.func
 };
 
 export default ShopCategories;

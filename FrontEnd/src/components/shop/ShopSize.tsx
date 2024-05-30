@@ -1,8 +1,7 @@
 import React from "react";
-import PropTypes from "prop-types";
 import {setActiveSort} from "../../helpers/product";
 
-const ShopSize = ({ sizes, getSortParams } : any) => {
+const ShopSize = ({sizes, setSizes, sizesSelected}: any) => {
     return (
         <div className="sidebar-widget mt-40">
             <h4 className="pro-sidebar-title">Kích thước </h4>
@@ -10,30 +9,34 @@ const ShopSize = ({ sizes, getSortParams } : any) => {
                 {sizes ? (
                     <ul>
                         <li>
-                            <div className="sidebar-widget-list-left">
+                            <div className="sidebar-widget-list-left list-check-size">
                                 <button
                                     onClick={e => {
-                                        getSortParams("size", "");
-                                        setActiveSort(e);
+                                        setSizes([]);
+                                        setActiveSort(e, "all", "list-check-size");
                                     }}
                                 >
-                                    <span className="checkmark" /> Tất cả{" "}
+                                    <span className="checkmark"/> Tất cả{" "}
                                 </button>
                             </div>
                         </li>
-                        {sizes.map((size : any, key : any) => {
+                        {sizes.map((size: any, key: any) => {
                             return (
                                 <li key={key}>
-                                    <div className="sidebar-widget-list-left">
+                                    <div className="sidebar-widget-list-left list-check-size">
                                         <button
-                                            className="text-uppercase"
                                             onClick={e => {
-                                                getSortParams("size", size);
-                                                setActiveSort(e);
+                                                setActiveSort(e, "", "list-check-size");
+                                                const isActive = e.currentTarget.classList.contains('active');
+                                                if (isActive) {
+                                                    setSizes([...sizesSelected, size]);
+                                                } else {
+                                                    setSizes(sizesSelected.filter((item: any) => item !== size));
+                                                }
                                             }}
                                         >
                                             {" "}
-                                            <span className="checkmark" />
+                                            <span className="checkmark"/>
                                             {size}{" "}
                                         </button>
                                     </div>
@@ -47,11 +50,6 @@ const ShopSize = ({ sizes, getSortParams } : any) => {
             </div>
         </div>
     );
-};
-
-ShopSize.propTypes = {
-    getSortParams: PropTypes.func,
-    sizes: PropTypes.array
 };
 
 export default ShopSize;
