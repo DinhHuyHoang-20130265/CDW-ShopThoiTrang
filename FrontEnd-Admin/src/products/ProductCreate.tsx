@@ -17,6 +17,7 @@ import {
 import React, {useEffect, useState} from "react";
 import {Category, Product} from "../types";
 import {Grid, InputAdornment, Typography} from "@mui/material";
+import {ColorInput} from "react-admin-color-picker";
 
 
 const RichTextInput = React.lazy(() =>
@@ -123,6 +124,7 @@ export const ProductCreate = (props: any) => {
                     <ArrayInput source={`variations`} label={`Biến thể`} fullWidth>
                         <SimpleFormIterator>
                             <TextInput source="color" label="Màu sắc"/>
+                            <ColorInput source="colorCode" label="Mã màu" isRequired={true}/>
                             <ArrayInput sx={{marginLeft: 10}} source={`sizes`} label={`Sizes`}>
                                 <SimpleFormIterator inline>
                                     <TextInput source="size" label="Kích cỡ"/>

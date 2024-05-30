@@ -6,16 +6,12 @@
   <component name="ChangeListManager">
     <list default="true" id="89893dc3-088e-47ef-a82c-f709754202c6" name="Changes" comment="add update status order">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../FrontEnd/src/assets/scss/_product.scss" beforeDir="false" afterPath="$PROJECT_DIR$/../FrontEnd/src/assets/scss/_product.scss" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../FrontEnd/src/components/product/ProductDescriptionInfo.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/../FrontEnd/src/components/product/ProductDescriptionInfo.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../FrontEnd/src/components/section-title/SectionTitleWithText.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/../FrontEnd/src/components/section-title/SectionTitleWithText.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../FrontEnd/src/pages/user/About.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/../FrontEnd/src/pages/user/About.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../FrontEnd/src/pages/user/LoginRegister.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/../FrontEnd/src/pages/user/LoginRegister.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../FrontEnd/src/wrappers/fun-fact/FunFact.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/../FrontEnd/src/wrappers/fun-fact/FunFact.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../FrontEnd/src/wrappers/product/ProductDescriptionTab.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/../FrontEnd/src/wrappers/product/ProductDescriptionTab.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../FrontEnd/src/wrappers/product/ProductModal.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/../FrontEnd/src/wrappers/product/ProductModal.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../FrontEnd/src/wrappers/team-member/TeamMember.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/../FrontEnd/src/wrappers/team-member/TeamMember.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../FrontEnd/src/wrappers/text-grid/TextGrid.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/../FrontEnd/src/wrappers/text-grid/TextGrid.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/products/ProductCreate.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/products/ProductCreate.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/products/ProductEdit.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/products/ProductEdit.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/products/ProductList.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/products/ProductList.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/products/ProductShow.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/products/ProductShow.tsx" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -33,6 +29,18 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
   </component>
+  <component name="GitHubPullRequestSearchHistory"><![CDATA[{
+  "lastFilter": {
+    "state": "OPEN",
+    "assignee": "DinhHuyHoang-20130265"
+  }
+}]]></component>
+  <component name="GithubPullRequestsUISettings"><![CDATA[{
+  "selectedUrlAndAccountId": {
+    "url": "https://github.com/DinhHuyHoang-20130265/CDW-ShopThoiTrang.git",
+    "accountId": "dd6f2130-194f-469e-9a72-6e72cbed251b"
+  }
+}]]></component>
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
   </component>
@@ -53,7 +61,7 @@
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "git-widget-placeholder": "DinhHuyHoang",
     "ignore.virus.scanning.warn.message": "true",
-    "last_opened_file_path": "D:/ChuyenDeWeb/CDW-ShopThoiTrang/FrontEnd-Admin/src/orders",
+    "last_opened_file_path": "D:/CDW-ShopThoiTrang/FrontEnd-Admin",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
@@ -91,6 +99,13 @@
       <envs />
       <method v="2" />
     </configuration>
+  </component>
+  <component name="SharedIndexes">
+    <attachedChunks>
+      <set>
+        <option value="bundled-js-predefined-1d06a55b98c1-91d5c284f522-JavaScript-WS-241.15989.105" />
+      </set>
+    </attachedChunks>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
@@ -141,6 +156,7 @@
       <workItem from="1716857211177" duration="606000" />
       <workItem from="1716909708785" duration="594000" />
       <workItem from="1717070930013" duration="765000" />
+      <workItem from="1717085271628" duration="5992000" />
     </task>
     <task id="LOCAL-00001" summary="update product for admin (50%&#10;)">
       <option name="closed" value="true" />

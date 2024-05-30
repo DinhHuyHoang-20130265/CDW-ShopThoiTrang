@@ -278,6 +278,7 @@ public class ProductServiceImpl implements ProductService {
             if (existingVariation != null) {
                 // Cập nhật biến thể
                 existingVariation.setColor(updatedVariation.getColor());
+                existingVariation.setColorCode(updatedVariation.getColorCode());
                 existingVariation.setUpdateDate(currentDate);
                 existingVariation.setUpdateBy(userRepository.findByUsername(username).orElse(null));
                 updateSizes(existingVariation, updatedVariation.getSizes());
