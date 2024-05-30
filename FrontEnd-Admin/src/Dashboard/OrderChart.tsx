@@ -49,7 +49,13 @@ const OrderChart = (props: { orders?: Order[] }) => {
             <CardContent>
                 <div style={{ width: '100%', height: 300 }}>
                     <ResponsiveContainer>
-                        <AreaChart data={getRevenuePerDay(orders)}>
+                        <AreaChart data={getRevenuePerDay(orders)}
+                                   margin={{
+                                       top: 10,
+                                       right: 30,
+                                       left: 30,
+                                       bottom: 0,
+                                   }}>
                             <defs>
                                 <linearGradient
                                     id="colorUv"
@@ -81,7 +87,7 @@ const OrderChart = (props: { orders?: Order[] }) => {
                                 ]}
                                 tickFormatter={dateFormatter}
                             />
-                            <YAxis dataKey="total" name="Revenue" unit="€" />
+                            <YAxis dataKey="total" name="Revenue" unit="đ" type="number" />
                             <CartesianGrid strokeDasharray="3 3" />
                             <Tooltip
                                 cursor={{ strokeDasharray: '3 3' }}

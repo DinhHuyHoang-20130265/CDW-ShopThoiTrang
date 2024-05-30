@@ -6,6 +6,9 @@ import {useGetList} from "react-admin";
 import MonthlyRevenue from './MonthlyRevenue';
 import NbNewOrders from "./NbNewOrders";
 import OrderChart from "./OrderChart";
+import PendingOrders from "./PendingOrders";
+import PendingReviews from "./PendingReviews";
+import NewCustomers from "./NewCustomers";
 
 const Spacer = () => <span style={{width: '1em'}}/>;
 const VerticalSpacer = () => <span style={{height: '1em'}}/>;
@@ -64,22 +67,58 @@ const DashBoard = () => {
 
     console.log(aggregation)
 
-    return (
+    return isXSmall ? (
+        <div>
+            <div style={styles.flexColumn as CSSProperties}>
+                <MonthlyRevenue value={revenue} />
+                <VerticalSpacer />
+                <NbNewOrders value={nbNewOrders} />
+                <VerticalSpacer />
+                <PendingOrders orders={pendingOrders} />
+            </div>
+        </div>
+    ) : isSmall ? (
         <div style={styles.flexColumn as CSSProperties}>
+            <div style={styles.singleCol}>
+            </div>
             <div style={styles.flex}>
-                <VerticalSpacer/>
-                <MonthlyRevenue value={revenue}/>
-                <Spacer/>
-                <NbNewOrders value={nbNewOrders}/>
+                <MonthlyRevenue value={revenue} />
+                <Spacer />
+                <NbNewOrders value={nbNewOrders} />
             </div>
             <div style={styles.singleCol}>
-                <OrderChart orders={recentOrders}/>
+                <OrderChart orders={recentOrders} />
             </div>
-            {/*<div style={styles.singleCol}>*/}
-            {/*    <PendingOrders orders={pendingOrders}/>*/}
-            {/*</div>*/}
+            <div style={styles.singleCol}>
+                <PendingOrders orders={pendingOrders} />
+            </div>
         </div>
-    )
+    ) : (
+        <>
+            <div style={styles.flex}>
+                <div style={styles.leftCol}>
+                    <div style={styles.flex}>
+                        <MonthlyRevenue value={revenue} />
+                        <Spacer />
+                        <NbNewOrders value={nbNewOrders} />
+                    </div>
+                    <div style={styles.singleCol}>
+                        <OrderChart orders={recentOrders} />
+                    </div>
+                    <div style={styles.singleCol}>
+                        <PendingOrders orders={pendingOrders} />
+                    </div>
+                </div>
+                <div style={styles.rightCol}>
+                    <div style={styles.flex}>
+                        <PendingReviews />
+                        <Spacer />
+                        <NewCustomers />
+                    </div>
+                </div>
+            </div>
+        </>
+    );
 
 }
 
