@@ -11,10 +11,9 @@ import {animateScroll} from "react-scroll";
 
 const Shop = ({products}: any) => {
     const [layout, setLayout] = useState('grid three-column');
-    const [sortType, setSortType] = useState('');
-    const [sortValue, setSortValue] = useState('');
-    const [filterSortType, setFilterSortType] = useState('');
-    const [filterSortValue, setFilterSortValue] = useState('');
+    const [colors, setColors] = useState([]);
+    const [sizes, setSizes] = useState([]);
+    const [categories, setCategories] = useState([]);
     const [offset, setOffset] = useState(0);
     const [currentPage, setCurrentPage] = useState(1);
     const [currentData, setCurrentData] = useState([]);
@@ -27,22 +26,12 @@ const Shop = ({products}: any) => {
         setLayout(layout)
     }
 
-    const getSortParams = (sortType: any, sortValue: any) => {
-        setSortType(sortType);
-        setSortValue(sortValue);
-    }
-
-    const getFilterSortParams = (sortType: any, sortValue: any) => {
-        setFilterSortType(sortType);
-        setFilterSortValue(sortValue);
-    }
-
     useEffect(() => {
-        let sortedProducts: any = getSortedProducts(products, sortType, sortValue).filter((product: any) => product.name.toLowerCase().includes(searchValue.toLowerCase()));
-        sortedProducts = getSortedProducts(sortedProducts, filterSortType, filterSortValue);
+        let sortedProducts: any = products.filter((product: any) => product.name.toLowerCase().includes(searchValue.toLowerCase()));
+        sortedProducts = getSortedProducts(sortedProducts, colors, sizes, categories, searchValue, orderBy);
         setSortedProducts(sortedProducts ? sortedProducts : products);
         setCurrentData(sortedProducts ? sortedProducts.slice(offset, offset + pageLimit) : products);
-    }, [offset, products, sortType, sortValue, filterSortType, filterSortValue, searchValue]);
+    }, [offset, products, colors, sizes, categories, orderBy, searchValue]);
     useEffect(() => {
         animateScroll.scrollToTop();
     }, [currentPage]);
@@ -51,17 +40,19 @@ const Shop = ({products}: any) => {
         <Fragment>
             <Breadcrumb/>
 
-            {currentData.length > 0 ? <div className="shop-area pt-95 pb-100">
+            <div className="shop-area pt-95 pb-100">
                 <div className="container">
                     <div className="row">
                         <div className="col-lg-3 order-2 order-lg-1">
 
-                            <ShopSidebar products={products} getSortParams={getSortParams}
+                            <ShopSidebar products={products} setColors={setColors} setSizes={setSizes} sizes={sizes}
+                                         colors={colors} categories={categories}
+                                         setCategories={setCategories}
                                          setSearchValue={setSearchValue}
                                          sideSpaceClass="mr-30"/>
                         </div>
                         <div className="col-lg-9 order-1 order-lg-2">
-                            <ShopTopbar getLayout={getLayout} getFilterSortParams={getFilterSortParams}
+                            <ShopTopbar getLayout={getLayout} setOrderBy={setOrderBy}
                                         productCount={sortedProducts.length} sortedProductCount={currentData.length}/>
 
                             <ShopProducts layout={layout} products={currentData}/>
@@ -82,7 +73,7 @@ const Shop = ({products}: any) => {
                         </div>
                     </div>
                 </div>
-            </div> : ""}
+            </div>
         </Fragment>
     )
 }

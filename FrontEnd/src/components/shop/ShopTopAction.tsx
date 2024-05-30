@@ -1,19 +1,19 @@
 import {setActiveLayout} from "../../helpers/product";
-import PropTypes from "prop-types";
 
 const ShopTopAction = ({
                            getLayout,
-                           getFilterSortParams,
                            productCount,
-                           sortedProductCount
-                       } : any) => {
+                           sortedProductCount,
+                           setOrderBy
+                       }: any) => {
     return (
         <div className="shop-top-bar mb-35">
             <div className="select-shoing-wrap">
                 <div className="shop-select">
-                    <select
-                        onChange={e => getFilterSortParams("filterSort", e.target.value)}
-                    >
+                    <select onChange={e => {
+                        console.log(e)
+                        setOrderBy(e.target.value)
+                    }}>
                         <option value="default">Mặc định</option>
                         <option value="priceHighToLow">Giá - Cao đến Thấp</option>
                         <option value="priceLowToHigh">Giá - Thấp đến Cao</option>
@@ -31,7 +31,7 @@ const ShopTopAction = ({
                         setActiveLayout(e);
                     }}
                 >
-                    <i className="fa fa-th-large" />
+                    <i className="fa fa-th-large"/>
                 </button>
                 <button
                     onClick={e => {
@@ -39,7 +39,7 @@ const ShopTopAction = ({
                         setActiveLayout(e);
                     }}
                 >
-                    <i className="fa fa-th" />
+                    <i className="fa fa-th"/>
                 </button>
                 <button
                     onClick={e => {
@@ -47,18 +47,10 @@ const ShopTopAction = ({
                         setActiveLayout(e);
                     }}
                 >
-                    <i className="fa fa-list-ul" />
+                    <i className="fa fa-list-ul"/>
                 </button>
             </div>
         </div>
     );
 };
-
-ShopTopAction.propTypes = {
-    getFilterSortParams: PropTypes.func,
-    getLayout: PropTypes.func,
-    productCount: PropTypes.number,
-    sortedProductCount: PropTypes.number
-};
-
 export default ShopTopAction;

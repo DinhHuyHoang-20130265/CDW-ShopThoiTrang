@@ -49,47 +49,55 @@ export const getProductCartQuantity = (cartItems: any[], product: any, color: an
 };
 
 //get products based on category
-export const getSortedProducts = (products: any[], sortType: string, sortValue: string) => {
-    if (products && sortType && sortValue) {
-        if (sortType === "category") {
-            return products.filter(
-                product => product.categories.filter((single: any) => single.name === sortValue)[0]
-            );
+export const getSortedProducts = (products: any[], colors: string[], sizes: string[], categories: string[], searchValue: string, orderBy: string) => {
+    let filteredProducts = [...products];
+    if (products.length > 0) {
+        filteredProducts = filteredProducts.filter((product: any) => product.name.toLowerCase().includes(searchValue.toLowerCase()));
+        if (colors.length > 0) {
+            filteredProducts = filteredProducts.filter(item => {
+                const arrayCheck = item.variations.map((item: any) => item.color)
+                return colors.every(color => arrayCheck.includes(color))
+            });
         }
-        if (sortType === "color") {
-            return products.filter(
-                product =>
-                    product.variations &&
-                    product.variations.filter((single: any) => single.color === sortValue)[0]
-            );
+        if (sizes.length > 0) {
+            filteredProducts = filteredProducts.filter(product => {
+                let productSizes: any[] = [];
+                product.variations.map((variation: any) => {
+                    variation.sizes.map((size: any) => {
+                        if (productSizes.find(item => item === size.size) === undefined)
+                            productSizes.push(size.size);
+                    })
+                })
+                return sizes.every(size => productSizes.includes(size));
+            });
         }
-        if (sortType === "size") {
-            return products.filter(
-                product =>
-                    product.variations &&
-                    product.variations.filter(
-                        (single: any) => single.sizes.filter((single: any) => single.size === sortValue)[0]
-                    )[0]
-            );
+        if (categories.length > 0) {
+            filteredProducts = filteredProducts.filter(item => {
+                const arrayCheck = item.categories.map((item: any) => item.name);
+                return categories.every(category => arrayCheck.includes(category))
+            });
         }
-        if (sortType === "filterSort") {
-            let sortProducts = [...products];
-            if (sortValue === "default") {
-                return sortProducts;
-            }
-            if (sortValue === "priceHighToLow") {
-                return sortProducts.sort((a, b): any => {
-                    return b.price.price - a.price.price;
-                });
-            }
-            if (sortValue === "priceLowToHigh") {
-                return sortProducts.sort((a, b) => {
-                    return a.price.price - b.price.price;
-                });
-            }
+        console.log(orderBy)
+        if (orderBy === "default") {
+            return filteredProducts;
         }
-    }
-    return products;
+        if (orderBy === "priceHighToLow") {
+            return filteredProducts.sort((a, b): any => {
+                const price_a = getDiscountPrice(a.price.price, a.promotions[0]) || a.price.price;
+                const price_b = getDiscountPrice(b.price.price, b.promotions[0]) || b.price.price;
+                return price_b - price_a;
+            });
+        }
+        if (orderBy === "priceLowToHigh") {
+            return filteredProducts.sort((a, b) => {
+                const price_a = getDiscountPrice(a.price.price, a.promotions[0]) || a.price.price;
+                const price_b = getDiscountPrice(b.price.price, b.promotions[0]) || b.price.price;
+                return price_a - price_b;
+            });
+        }
+        return filteredProducts;
+    } else
+        return filteredProducts;
 };
 
 // get individual element
@@ -153,14 +161,21 @@ export const getProductsIndividualSizes = (products: any[]) => {
 };
 
 
-export const setActiveSort = (e: any) => {
-    const filterButtons = document.querySelectorAll(
-        ".sidebar-widget-list-left button, .sidebar-widget-tag button, .product-filter button"
-    );
-    filterButtons.forEach(item => {
-        item.classList.remove("active");
-    });
-    e.currentTarget.classList.add("active");
+export const setActiveSort = (e: any, type: string, list_target: string) => {
+    if (type === 'all') {
+        const filterButtons = document.querySelectorAll(
+            `.sidebar-widget-list-left.${list_target} button`
+        );
+        filterButtons.forEach(item => {
+            item.classList.remove("active");
+        });
+        e.currentTarget.classList.add("active");
+    } else {
+        document.querySelectorAll(
+            `.sidebar-widget-list-left.${list_target} button`
+        )[0].classList.remove("active");
+        e.currentTarget.classList.toggle("active");
+    }
 };
 
 export const setActiveLayout = (e: any) => {
