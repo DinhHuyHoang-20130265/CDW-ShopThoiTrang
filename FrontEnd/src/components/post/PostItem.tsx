@@ -31,7 +31,7 @@ const PostItem = ({post}: any) => {
                         </Link>
                     </h4>
                     <p>
-                        {post.description}
+                        {post.description.substring(0, 90)} ...
                     </p>
                     <div className="blog-share-comment">
                         <div className="blog-btn-2">

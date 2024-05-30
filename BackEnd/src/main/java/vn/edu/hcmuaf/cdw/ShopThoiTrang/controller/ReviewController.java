@@ -24,6 +24,12 @@ public class ReviewController {
         return ResponseEntity.ok(createdReview);
     }
 
+    @GetMapping("/product/{productId}")
+    public ResponseEntity<List<Review>> getReviewsByProductId(@PathVariable Long productId) {
+        List<Review> reviews = reviewService.getReviewsByProductId(productId);
+        return ResponseEntity.ok(reviews);
+    }
+
     @GetMapping
     public ResponseEntity<Page<Review>> getAllReviews(@RequestParam(defaultValue = "0") int start,
                                                       @RequestParam(defaultValue = "{}") String filter,

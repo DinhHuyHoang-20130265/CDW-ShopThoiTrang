@@ -21,6 +21,9 @@ public class Variation {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
     private String color;
+
+    @Column(name = "color_code")
+    private String colorCode;
     private boolean status;
 
     @Column(name = "released_date")

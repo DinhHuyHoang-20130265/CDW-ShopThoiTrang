@@ -33,6 +33,7 @@ import PromotionEdit from "./promotion/PromotionEdit";
 import PromotionCreate from "./promotion/PromotionCreate";
 import ReviewList from "./reviews/ReviewList";
 import ReviewEdit from "./reviews/ReviewEdit";
+import DashBoard from "./Dashboard/DashBoard";
 
 const App = () => {
     return (
@@ -42,6 +43,7 @@ const App = () => {
             title="Admin"
             dataProvider={dataProvider}
             disableTelemetry
+            dashboard={DashBoard}
         >
             <Resource name="user"
                       list={UserList}

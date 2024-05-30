@@ -1,8 +1,9 @@
-import React, {Fragment, useState} from "react";
+import React, {Fragment, useEffect, useState} from "react";
 import {Link} from "react-router-dom";
 import {useToasts} from "react-toast-notifications";
-import {getDiscountPrice} from "../../helpers/product";
+import {formatCurrency, getDiscountPrice} from "../../helpers/product";
 import ProductModal from "../../wrappers/product/ProductModal";
+import axios from "axios";
 
 const ProductGridForShopItem = ({
                                     product,
@@ -19,6 +20,21 @@ const ProductGridForShopItem = ({
     const discountedPrice = getDiscountPrice(product.price.price, product.promotions[0])
     const finalProductPrice = (product.price.price).toFixed(2);
     const finalDiscountedPrice = discountedPrice !== null ? (discountedPrice).toFixed(2) : 0;
+
+    const [reviews, setReviews] = useState([]);
+    useEffect(() => {
+        const fectch = async () => {
+            await axios.get(`${process.env.REACT_APP_API_ENDPOINT}review/product/${product.id}`, {
+                headers: {
+                    Accept: 'application/json',
+                    "Content-Type": "application/json"
+                }
+            }).then((response: any) => {
+                setReviews(response.data);
+            })
+        }
+        fectch();
+    }, []);
 
     return (
         <Fragment>
@@ -128,11 +144,11 @@ const ProductGridForShopItem = ({
                         <div className="product-price">
                             {discountedPrice !== null ? (
                                 <Fragment>
-                                    <span>{"đ" + finalDiscountedPrice}</span>{" "}
-                                    <span className="old">{"đ" + finalProductPrice}</span>
+                                    <span>{formatCurrency( finalDiscountedPrice)}</span>{" "}
+                                    <span className="old">{formatCurrency(finalProductPrice) }</span>
                                 </Fragment>
                             ) : (
-                                <span>{"đ" + finalProductPrice} </span>
+                                <span>{formatCurrency(finalProductPrice) } </span>
                             )}
                         </div>
                     </div>
@@ -184,14 +200,14 @@ const ProductGridForShopItem = ({
                                     {discountedPrice !== null ? (
                                         <Fragment>
                       <span>
-                        {"đ" + finalDiscountedPrice}
+                        {formatCurrency( finalDiscountedPrice) }
                       </span>{" "}
                                             <span className="old">
-                        {"đ" + finalProductPrice}
+                        {formatCurrency(finalProductPrice)  }
                       </span>
                                         </Fragment>
                                     ) : (
-                                        <span>{"đ" + finalProductPrice} </span>
+                                        <span>{formatCurrency(finalProductPrice) } </span>
                                     )}
                                 </div>
                                 {/*{product.rating && product.rating > 0 ? (*/}
@@ -282,6 +298,7 @@ const ProductGridForShopItem = ({
                 addtocart={addToCart}
                 addtowishlist={addToWishlist}
                 addtoast={addToast}
+                reviews={reviews}
             />
         </Fragment>
     );
