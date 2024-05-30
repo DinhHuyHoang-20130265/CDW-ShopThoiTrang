@@ -11,20 +11,16 @@ const About = () => {
         <Fragment>
             <Breadcrumb/>
 
-            {/* section title with text */}
             <SectionTitleWithText spaceTopClass="pt-100" spaceBottomClass="pb-95"/>
 
-            {/* text grid */}
             <TextGrid spaceBottomClass="pb-70"/>
 
-            {/* fun fact */}
             <FunFact
                 spaceTopClass="pt-100"
                 spaceBottomClass="pb-70"
                 bgClass="bg-gray-3"
             />
 
-            {/* team member */}
             <TeamMember spaceTopClass="pt-95" spaceBottomClass="pb-70"/>
         </Fragment>
     );
