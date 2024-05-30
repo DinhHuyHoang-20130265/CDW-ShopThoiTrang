@@ -31,7 +31,7 @@ public class Order {
     private String address;
 
     @Column(name = "order_date")
-    private Timestamp OrderDate;
+    private Timestamp orderDate;
     private String note;
 
     @ManyToOne(fetch = FetchType.EAGER)

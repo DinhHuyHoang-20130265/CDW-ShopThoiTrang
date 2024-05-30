@@ -5,16 +5,11 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="89893dc3-088e-47ef-a82c-f709754202c6" name="Changes" comment="add update status order">
-      <change beforePath="$PROJECT_DIR$/../BackEnd/src/main/java/vn/edu/hcmuaf/cdw/ShopThoiTrang/entity/Review.java" beforeDir="false" afterPath="$PROJECT_DIR$/../BackEnd/src/main/java/vn/edu/hcmuaf/cdw/ShopThoiTrang/entity/Review.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Dashboard/DashBoard.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../FrontEnd/src/components/product/ProductDescriptionInfo.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/../FrontEnd/src/components/product/ProductDescriptionInfo.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../FrontEnd/src/components/product/ProductGridForShopItem.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/../FrontEnd/src/components/product/ProductGridForShopItem.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../FrontEnd/src/components/product/ProductGridItem.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/../FrontEnd/src/components/product/ProductGridItem.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../FrontEnd/src/helpers/product.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/../FrontEnd/src/helpers/product.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../FrontEnd/src/pages/user/ShoppingCart.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/../FrontEnd/src/pages/user/ShoppingCart.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../FrontEnd/src/store/actions/cartActions.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/../FrontEnd/src/store/actions/cartActions.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../FrontEnd/src/wrappers/header/sub-components/MenuCart.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/../FrontEnd/src/wrappers/header/sub-components/MenuCart.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../FrontEnd/src/wrappers/product/ProductModal.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/../FrontEnd/src/wrappers/product/ProductModal.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/App.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/App.tsx" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -24,8 +19,8 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
-        <option value="TypeScript File" />
         <option value="TypeScript JSX File" />
+        <option value="TypeScript File" />
       </list>
     </option>
   </component>
@@ -139,6 +134,7 @@
       <workItem from="1716811716906" duration="433000" />
       <workItem from="1716857211177" duration="606000" />
       <workItem from="1716909708785" duration="594000" />
+      <workItem from="1717070930013" duration="765000" />
     </task>
     <task id="LOCAL-00001" summary="update product for admin (50%&#10;)">
       <option name="closed" value="true" />
@@ -349,6 +345,7 @@
     <MESSAGE value="add edit promotion" />
     <MESSAGE value="update edit promotion (add product to promotion)" />
     <MESSAGE value="add update status order" />
-    <option name="LAST_COMMIT_MESSAGE" value="add update status order" />
+    <MESSAGE value="fix conflict" />
+    <option name="LAST_COMMIT_MESSAGE" value="fix conflict" />
   </component>
 </project>

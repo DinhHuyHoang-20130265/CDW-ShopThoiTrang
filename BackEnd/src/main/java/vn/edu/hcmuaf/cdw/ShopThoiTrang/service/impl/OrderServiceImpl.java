@@ -5,7 +5,6 @@ import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.itextpdf.text.*;
 import com.itextpdf.text.pdf.*;
-import jakarta.persistence.EntityManager;
 import com.itextpdf.text.pdf.Barcode128;
 import com.itextpdf.text.pdf.PdfPCell;
 import com.itextpdf.text.pdf.PdfPTable;
@@ -27,14 +26,15 @@ import vn.edu.hcmuaf.cdw.ShopThoiTrang.entity.*;
 import vn.edu.hcmuaf.cdw.ShopThoiTrang.model.dto.CreateOrderRequest;
 import vn.edu.hcmuaf.cdw.ShopThoiTrang.model.dto.OrderDetailRequest;
 import vn.edu.hcmuaf.cdw.ShopThoiTrang.reponsitory.*;
-import vn.edu.hcmuaf.cdw.ShopThoiTrang.service.OrderDetailService;
 import vn.edu.hcmuaf.cdw.ShopThoiTrang.service.OrderService;
 import vn.edu.hcmuaf.cdw.ShopThoiTrang.service.OrderStatusHistoryService;
 
 import java.io.ByteArrayOutputStream;
-import java.io.FileOutputStream;
 import java.nio.charset.StandardCharsets;
+import java.sql.Date;
 import java.sql.Timestamp;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Set;
 import java.util.stream.Stream;
 
@@ -97,11 +97,24 @@ public class OrderServiceImpl implements OrderService {
                 Join<Order, OrderStatus> statusJoin = root.join("status");
                 predicate = criteriaBuilder.and(predicate, criteriaBuilder.equal(statusJoin.get("id"), filterJson.get("statusId").asLong()));
             }
+            if(filterJson.has("date_gte")){
+                SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'");
+                try {
+                    java.util.Date date = dateFormat.parse(filterJson.get("date_gte").asText());
+                    Timestamp dateGte = new Timestamp(date.getTime());
+                    predicate = criteriaBuilder.and(predicate, criteriaBuilder.greaterThanOrEqualTo(root.get("orderDate"), dateGte));
+                } catch (ParseException e) {
+                    throw new RuntimeException(e);
+                }
+            }
             return predicate;
         };
 
         if (sortBy.equals("price")) {
             return orderRepository.findAll(specification, PageRequest.of(page, perPage, Sort.by(direction, "totalAmount")));
+        }
+        if (sortBy.equals("OrderDate")) {
+            return orderRepository.findAll(specification, PageRequest.of(page, perPage, Sort.by(direction, "orderDate")));
         }
 
         return orderRepository.findAll(specification, PageRequest.of(page, perPage, Sort.by(direction, sortBy)));
