@@ -1,8 +1,7 @@
 import React from "react";
-import PropTypes from "prop-types";
 import {setActiveSort} from "../../helpers/product";
 
-const ShopColor = ({ colors, getSortParams } : any) => {
+const ShopColor = ({colors, setColors, colorsSelected}: any) => {
     return (
         <div className="sidebar-widget mt-50">
             <h4 className="pro-sidebar-title">Màu sắc </h4>
@@ -10,28 +9,33 @@ const ShopColor = ({ colors, getSortParams } : any) => {
                 {colors ? (
                     <ul>
                         <li>
-                            <div className="sidebar-widget-list-left">
+                            <div className="sidebar-widget-list-left list-check-color">
                                 <button
                                     onClick={e => {
-                                        getSortParams("color", "");
-                                        setActiveSort(e);
+                                        setColors([]);
+                                        setActiveSort(e, "all", "list-check-color");
                                     }}
                                 >
-                                    <span className="checkmark" /> Tất cả{" "}
+                                    <span className="checkmark"/> Tất cả{" "}
                                 </button>
                             </div>
                         </li>
-                        {colors.map((color : any, key : any) => {
+                        {colors.map((color: any, key: any) => {
                             return (
                                 <li key={key}>
-                                    <div className="sidebar-widget-list-left">
+                                    <div className="sidebar-widget-list-left list-check-color">
                                         <button
                                             onClick={e => {
-                                                getSortParams("color", color);
-                                                setActiveSort(e);
+                                                setActiveSort(e, "", "list-check-color");
+                                                const isActive = e.currentTarget.classList.contains('active');
+                                                if (isActive) {
+                                                    setColors([...colorsSelected, color]);
+                                                } else {
+                                                    setColors(colorsSelected.filter((item: any) => item !== color));
+                                                }
                                             }}
                                         >
-                                            <span className="checkmark" /> {color}{" "}
+                                            <span className="checkmark"/> {color}{" "}
                                         </button>
                                     </div>
                                 </li>
@@ -44,11 +48,6 @@ const ShopColor = ({ colors, getSortParams } : any) => {
             </div>
         </div>
     );
-};
-
-ShopColor.propTypes = {
-    colors: PropTypes.array,
-    getSortParams: PropTypes.func
 };
 
 export default ShopColor;
