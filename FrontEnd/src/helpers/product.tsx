@@ -50,7 +50,6 @@ export const getProductCartQuantity = (cartItems: any[], product: any, color: an
 
 //get products based on category
 export const getSortedProducts = (products: any[], sortType: string, sortValue: string) => {
-    console.log(products, sortType, sortValue)
     if (products && sortType && sortValue) {
         if (sortType === "category") {
             return products.filter(
@@ -79,7 +78,7 @@ export const getSortedProducts = (products: any[], sortType: string, sortValue: 
                 return sortProducts;
             }
             if (sortValue === "priceHighToLow") {
-                return sortProducts.sort((a, b) => {
+                return sortProducts.sort((a, b): any => {
                     return b.price.price - a.price.price;
                 });
             }

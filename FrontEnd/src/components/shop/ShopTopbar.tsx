@@ -10,7 +10,6 @@ const ShopTopbar = ({
                     } : any) => {
     return (
         <Fragment>
-            {/* shop top action */}
             <ShopTopAction
                 getLayout={getLayout}
                 getFilterSortParams={getFilterSortParams}

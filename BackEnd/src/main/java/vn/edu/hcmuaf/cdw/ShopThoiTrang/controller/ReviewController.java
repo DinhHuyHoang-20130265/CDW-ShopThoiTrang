@@ -1,5 +1,6 @@
 package vn.edu.hcmuaf.cdw.ShopThoiTrang.controller;
 
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
@@ -8,6 +9,7 @@ import vn.edu.hcmuaf.cdw.ShopThoiTrang.entity.Review;
 import vn.edu.hcmuaf.cdw.ShopThoiTrang.model.dto.ReviewRequest;
 import vn.edu.hcmuaf.cdw.ShopThoiTrang.service.ReviewService;
 
+import java.util.LinkedHashMap;
 import java.util.List;
 
 @RestController
@@ -51,8 +53,10 @@ public class ReviewController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Review> updateReview(@PathVariable Long id, @RequestBody Review review) {
-        Review updatedReview = reviewService.updateReview(id, review);
+    public ResponseEntity<Review> updateReview(@PathVariable Long id, @RequestBody Object type) {
+        LinkedHashMap<String, Integer> map;
+        map = (LinkedHashMap<String, Integer>) type;
+        Review updatedReview = reviewService.updateReview(id, map.get("type"));
         return ResponseEntity.ok(updatedReview);
     }
 
