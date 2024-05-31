@@ -73,7 +73,7 @@ const App = () => {
 
             <Resource name="import-invoice"
                       list={ImportInvoiceList}
-                      create={ImportInvoiceCreate}
+                      create={ImportInvoiceList}
                       icon={ArrowDownwardRoundedIcon}
                       options={{label: "Nhập hàng"}}
             />
