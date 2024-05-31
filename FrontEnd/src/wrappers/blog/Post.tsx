@@ -1,6 +1,5 @@
 import React, {Fragment} from "react";
 import parse from 'html-react-parser';
-import {Comments, FacebookProvider} from "react-facebook";
 
 const Post = ({post}: any) => {
     return (

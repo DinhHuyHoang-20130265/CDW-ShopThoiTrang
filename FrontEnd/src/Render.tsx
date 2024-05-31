@@ -1,4 +1,4 @@
-import {GoogleOAuthProvider} from "@react-oauth/google";
+import {googleLogout, GoogleOAuthProvider} from "@react-oauth/google";
 import {Provider} from "react-redux";
 import {RouterProvider} from "react-router-dom";
 import {webRouter} from "./router/router";
@@ -23,6 +23,7 @@ const Render = () => {
             let originalRequest = error.config
             if (error.response.status === 400 && originalRequest._retry) {
                 retryCount = 0;
+                googleLogout();
                 toast.error("Hết phiên đăng nhập, vui lòng đăng nhập lại!")
                 localStorage.removeItem('user');
                 window.location.href = "/login-register"
@@ -32,7 +33,8 @@ const Render = () => {
             if ((error.response.status === 401 || error.response.status === 403) && !originalRequest._retry) {
                 originalRequest._retry = true
 
-                if (retryCount >= 3) {
+                if (retryCount >= 1) {
+                    googleLogout();
                     toast.error("Hết phiên đăng nhập, vui lòng đăng nhập lại!")
                     localStorage.removeItem('user');
                     window.location.href = "/login-register"
@@ -52,6 +54,7 @@ const Render = () => {
                             retryCount = 0;
                             return axios(originalRequest);
                         } else {
+                            googleLogout();
                             retryCount = 0;
                             toast.error("Hết phiên đăng nhập, vui lòng đăng nhập lại!")
                             localStorage.removeItem('user');
@@ -60,14 +63,18 @@ const Render = () => {
                         }
                     }).catch((error) => {
                         retryCount = 0;
+                        googleLogout();
                         toast.error("Hết phiên đăng nhập, vui lòng đăng nhập lại!")
                         localStorage.removeItem('user');
                         window.location.href = "/login-register"
                         return Promise.reject(error)
                     });
+            } else if (error.response.status === 406) {
+                return Promise.reject(error)
+            } else {
+                toast.error("Đã có lỗi xảy ra, vui lòng thử lại sau! :" + error)
+                return Promise.reject(error)
             }
-            toast.error("Đã có lỗi xảy ra, vui lòng thử lại sau! :" + error)
-            return Promise.reject(error)
         }
     );
     const store = legacy_createStore(
