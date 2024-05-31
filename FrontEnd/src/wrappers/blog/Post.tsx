@@ -17,11 +17,13 @@ const Post = ({post}: any) => {
                     />
                 </div>
                 <div className="blog-details-content">
-                    {parse(post.content)}
                     <div className="blog-meta-2">
                         <ul>
                             <li>{post.createDate}</li>
                         </ul>
+                    </div>
+                    <div style={{paddingTop: "40px"}} className={"blog-content"}>
+                        {parse(post.content)}
                     </div>
                 </div>
             </div>
