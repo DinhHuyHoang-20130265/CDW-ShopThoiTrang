@@ -6,26 +6,26 @@ const FunFact = ({spaceTopClass, spaceBottomClass, bgClass}: any) => {
             {
                 "id": "1",
                 "iconClass": "pe-7s-portfolio",
-                "countNum": 360,
-                "title": "project done"
+                "countNum": 50,
+                "title": "Các sản phẩm đã hoàn thiện"
             },
             {
                 "id": "2",
                 "iconClass": "pe-7s-cup",
-                "countNum": 690,
-                "title": "cups of coffee"
+                "countNum": 10,
+                "title": "Hơn 10 giải thướng"
             },
             {
                 "id": "3",
                 "iconClass": "pe-7s-light",
-                "countNum": 100,
-                "title": "branding"
+                "countNum": 1000,
+                "title": "Khách hàng"
             },
             {
                 "id": "4",
                 "iconClass": "pe-7s-smile",
-                "countNum": 420,
-                "title": "happy clients"
+                "countNum": 5,
+                "title": "Chi nhánh tại TP.HCM"
             }
         ]
     ;

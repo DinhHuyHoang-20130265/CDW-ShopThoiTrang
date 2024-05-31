@@ -9,8 +9,6 @@ const ProductDescriptionTab = ({spaceBottomClass, productFullDesc, product, revi
 
     console.log(reviews);
 
-
-
     return (
         <div className={`description-review-area ${spaceBottomClass}`}>
             <div className="container">

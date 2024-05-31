@@ -1,6 +1,8 @@
 package vn.edu.hcmuaf.cdw.ShopThoiTrang.service.impl;
 
 import jakarta.servlet.http.HttpServletRequest;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.*;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -31,6 +33,7 @@ import java.util.stream.Collectors;
 @Service
 public class AuthServiceImpl implements AuthService {
 
+    private static final Logger log = LoggerFactory.getLogger(AuthServiceImpl.class);
     @Autowired
     private UserRepository userRepository;
 
@@ -195,6 +198,9 @@ public class AuthServiceImpl implements AuthService {
         if (userInfoRepository.existsByEmail(signupDto.getEmail())) {
             return new ResponseEntity<>("Email already exists", HttpStatus.BAD_REQUEST);
         }
+        if (userRepository.existsByUsername(signupDto.getUsername())) {
+            return new ResponseEntity<>("Username already exists", HttpStatus.BAD_REQUEST);
+        }
         String otp = generateOTP();
         otpMap.put(signupDto.getEmail(), otp);
 
@@ -227,6 +233,8 @@ public class AuthServiceImpl implements AuthService {
 
     @Override
     public ResponseEntity<?> isValidEmail(SignupDto signupDto) {
+        System.out.println(signupDto);
+        System.out.println(otpMap);
         if (otpMap.isEmpty() || !isOTPValid(signupDto.getEmail(), otpMap)) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("OTP has expired.");
         }

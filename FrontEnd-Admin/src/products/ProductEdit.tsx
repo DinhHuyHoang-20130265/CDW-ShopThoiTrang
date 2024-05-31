@@ -13,6 +13,7 @@ import {Product} from "../types";
 import {ProductEditDetails} from "./ProductEditDetails";
 import {Grid, Typography} from "@mui/material";
 import {useWatch} from "react-hook-form";
+import {ColorInput} from "react-admin-color-picker";
 
 
 const RichTextInput = React.lazy(() =>
@@ -73,7 +74,7 @@ const ReturnedImg = () => {
 
 export const ProductEdit = (props: any) => {
     return (
-        <Edit title={<ProductTitle/>}  hasShow={false}>
+        <Edit title={<ProductTitle/>} hasShow={false}>
             <TabbedForm>
                 <TabbedForm.Tab
                     label="Ảnh"
@@ -107,9 +108,10 @@ export const ProductEdit = (props: any) => {
                     sx={{maxWidth: '100%'}}
                 >
                     <ArrayInput source={`variations`} label={`Biến thể`} fullWidth>
-                        <SimpleFormIterator inline>
+                        <SimpleFormIterator inline >
                             <NumberInput source={"id"} label={"ID"} disabled sx={{width: 80}}/>
                             <TextInput source="color" label="Màu sắc"/>
+                            <ColorInput source="colorCode" label="Mã màu" isRequired={true}/>
                             <ArrayInput sx={{marginLeft: 10}} source={`sizes`} label={`Sizes`}>
                                 <SimpleFormIterator inline>
                                     <NumberInput source={"id"} label={"ID"} disabled sx={{width: 80}}/>

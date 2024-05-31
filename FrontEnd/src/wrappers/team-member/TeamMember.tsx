@@ -7,39 +7,21 @@ const TeamMember = ({spaceTopClass, spaceBottomClass}: any) => {
     const teamMemberData = [
         {
             "id": "1",
-            "image": "/assets/img/team/team-1.jpg",
+            "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRQME4teY0Rb0HDGQAmFUrlzHHoUyUIrxo4euDFoVZs_tfcut-i72ivjdK5vGYpORtaP60&usqp=CAU",
             "fbLink": "//www.facebook.com",
             "twitterLink": "//www.twitter.com",
             "instagramLink": "//www.instagram.com",
-            "name": "Mr.Mike Banding",
-            "position": "Manager"
+            "name": "Đinh Huy Hoàng",
+            "position": "Thành viên"
         },
         {
             "id": "2",
-            "image": "/assets/img/team/team-3.jpg",
+            "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRQME4teY0Rb0HDGQAmFUrlzHHoUyUIrxo4euDFoVZs_tfcut-i72ivjdK5vGYpORtaP60&usqp=CAU",
             "fbLink": "//www.facebook.com",
             "twitterLink": "//www.twitter.com",
             "instagramLink": "//www.instagram.com",
-            "name": "Mr.Peter Pan",
-            "position": "Developer"
-        },
-        {
-            "id": "3",
-            "image": "/assets/img/team/team-2.jpg",
-            "fbLink": "//www.facebook.com",
-            "twitterLink": "//www.twitter.com",
-            "instagramLink": "//www.instagram.com",
-            "name": "Ms.Sophia",
-            "position": "Designer"
-        },
-        {
-            "id": "4",
-            "image": "/assets/img/team/team-4.jpg",
-            "fbLink": "//www.facebook.com",
-            "twitterLink": "//www.twitter.com",
-            "instagramLink": "//www.instagram.com",
-            "name": "Mr.John Lee",
-            "position": "Chairman"
+            "name": "Nguyễn Ngọc Huy",
+            "position": "Thành viên"
         }
     ]
 
@@ -52,13 +34,12 @@ const TeamMember = ({spaceTopClass, spaceBottomClass}: any) => {
             <div className="container">
 
                 <TeamMemberSectionTitle
-                    titleText="Team Members"
-                    subTitleText="Lorem ipsum dolor sit amet conse ctetu."
+                    titleText="Nhóm của chúng tôi"
                     positionClass="text-center"
                     spaceClass="mb-60"
                 />
 
-                <div className="row">
+                <div className="row" style={{"justifyContent": "center"}}>
                     {teamMemberData &&
                         teamMemberData.map((single, key) => {
                             return (
