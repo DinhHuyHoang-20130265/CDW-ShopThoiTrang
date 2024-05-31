@@ -49,7 +49,7 @@ const CustomerDetails = () => {
                 to={`/user/${record?.id}`}
                 style={{textDecoration: 'none'}}
             >
-                {record?.user.userInfo.fullName} ({record?.user.username})
+                {record?.user?.userInfo?.fullName} ({record?.user?.username})
             </Typography>
             <br/>
             <Typography
@@ -58,7 +58,7 @@ const CustomerDetails = () => {
                 href={`mailto:${record?.email}`}
                 style={{textDecoration: 'none'}}
             >
-                {record?.user.userInfo.email}
+                {record?.user?.userInfo?.email}
             </Typography>
         </div>
     );

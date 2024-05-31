@@ -80,7 +80,7 @@ public class ReviewServiceImpl implements ReviewService {
                 predicate = criteriaBuilder.and(predicate, criteriaBuilder.like(root.get("content"), "%" + filterJson.get("q").asText().toLowerCase() + "%"));
             }
             if (filterJson.has("type")) {
-                predicate = criteriaBuilder.and(predicate, criteriaBuilder.equal(root.get("type"), filterJson.get("type").asText()));
+                predicate = criteriaBuilder.and(predicate, criteriaBuilder.equal(root.get("type"), filterJson.get("type").asInt()));
             }
             if (filterJson.has("reviewer.id")) {
                 predicate = criteriaBuilder.and(predicate, criteriaBuilder.equal(root.get("reviewer").get("id"), filterJson.get("reviewer.id").asLong()));
