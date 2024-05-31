@@ -6,12 +6,6 @@
   <component name="ChangeListManager">
     <list default="true" id="89893dc3-088e-47ef-a82c-f709754202c6" name="Changes" comment="add update status order">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/products/ProductCreate.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/products/ProductCreate.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/products/ProductEdit.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/products/ProductEdit.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/products/ProductList.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/products/ProductList.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/products/ProductShow.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/products/ProductShow.tsx" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -29,18 +23,18 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
   </component>
-  <component name="GitHubPullRequestSearchHistory"><![CDATA[{
-  "lastFilter": {
-    "state": "OPEN",
-    "assignee": "DinhHuyHoang-20130265"
+  <component name="GitHubPullRequestSearchHistory">{
+  &quot;lastFilter&quot;: {
+    &quot;state&quot;: &quot;OPEN&quot;,
+    &quot;assignee&quot;: &quot;DinhHuyHoang-20130265&quot;
   }
-}]]></component>
-  <component name="GithubPullRequestsUISettings"><![CDATA[{
-  "selectedUrlAndAccountId": {
-    "url": "https://github.com/DinhHuyHoang-20130265/CDW-ShopThoiTrang.git",
-    "accountId": "dd6f2130-194f-469e-9a72-6e72cbed251b"
+}</component>
+  <component name="GithubPullRequestsUISettings">{
+  &quot;selectedUrlAndAccountId&quot;: {
+    &quot;url&quot;: &quot;https://github.com/DinhHuyHoang-20130265/CDW-ShopThoiTrang.git&quot;,
+    &quot;accountId&quot;: &quot;dd6f2130-194f-469e-9a72-6e72cbed251b&quot;
   }
-}]]></component>
+}</component>
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
   </component>
@@ -59,7 +53,7 @@
   "keyToString": {
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
-    "git-widget-placeholder": "DinhHuyHoang",
+    "git-widget-placeholder": "NguyenNgocHuy",
     "ignore.virus.scanning.warn.message": "true",
     "last_opened_file_path": "D:/CDW-ShopThoiTrang/FrontEnd-Admin",
     "node.js.detected.package.eslint": "true",
@@ -70,7 +64,7 @@
     "nodejs_package_manager_path": "npm",
     "npm.npm start.executor": "Run",
     "settings.editor.selected.configurable": "preferences.keymap",
-    "ts.external.directory.path": "D:\\CDW-ShopThoiTrang\\FrontEnd-Admin\\node_modules\\typescript\\lib",
+    "ts.external.directory.path": "D:\\ChuyenDeWeb\\CDW-ShopThoiTrang\\FrontEnd-Admin\\node_modules\\typescript\\lib",
     "vue.rearranger.settings.migration": "true"
   }
 }]]></component>
