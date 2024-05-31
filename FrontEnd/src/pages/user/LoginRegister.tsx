@@ -82,7 +82,7 @@ const LoginRegister = () => {
                                         <Tab.Pane eventKey="login">
                                             <div className="login-form-container">
                                                 <div className="login-register-form">
-                                                    {status === 404 ?
+                                                    {(status === 404 || status === 406) ?
                                                         <p className={"text-danger align-text-bottom center"}
                                                            style={{textAlign: "center", fontSize: 20}}>Không
                                                             tìm thấy tên đăng
@@ -147,7 +147,7 @@ const LoginRegister = () => {
                                                                 <GoogleLogin
                                                                     onSuccess={loginGoogleHandle}
                                                                     onError={() => {
-                                                                        console.error("Error");
+                                                                        console.error("error");
                                                                     }}
                                                                 />
                                                             </div>
