@@ -5,18 +5,25 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import jakarta.persistence.criteria.Predicate;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
+import vn.edu.hcmuaf.cdw.ShopThoiTrang.JWT.JwtUtils;
 import vn.edu.hcmuaf.cdw.ShopThoiTrang.entity.ImportInvoice;
+import vn.edu.hcmuaf.cdw.ShopThoiTrang.entity.ImportInvoiceDetail;
 import vn.edu.hcmuaf.cdw.ShopThoiTrang.entity.Size;
+import vn.edu.hcmuaf.cdw.ShopThoiTrang.entity.User;
+import vn.edu.hcmuaf.cdw.ShopThoiTrang.model.request.ImportInvoiceDetailRequest;
 import vn.edu.hcmuaf.cdw.ShopThoiTrang.model.request.ImportInvoiceRequest;
 import vn.edu.hcmuaf.cdw.ShopThoiTrang.reponsitory.*;
 import vn.edu.hcmuaf.cdw.ShopThoiTrang.service.ImportInvoiceService;
 
+import java.net.http.HttpRequest;
 import java.nio.charset.StandardCharsets;
 import java.sql.Date;
 import java.util.ArrayList;
@@ -37,6 +44,18 @@ public class ImportInvoiceServiceImpl implements ImportInvoiceService {
     @Autowired
     private SizeRepository sizeRepository;
 
+    @Autowired
+    private ImportInvoiceDetailRepository importInvoiceDetailRepository;
+
+    @Autowired
+    private JwtUtils jwtUtils;
+
+    @Autowired
+    private HttpServletRequest HttpRequest;
+
+    @Autowired
+    private UserRepository userRepository;
+
     @Override
     public Page<ImportInvoice> getImportInvoices(String filter, int page, int perPage, String sortBy, String order) {
         Sort.Direction direction = Sort.Direction.ASC;
@@ -51,9 +70,6 @@ public class ImportInvoiceServiceImpl implements ImportInvoiceService {
         }
         Specification<ImportInvoice> specification = (root, query, criteriaBuilder) -> {
             Predicate predicate = criteriaBuilder.conjunction();
-            if (filterJson.has("importPrice")) {
-                predicate = criteriaBuilder.and(predicate, criteriaBuilder.like(root.get("importPrice"), "%" + filterJson.get("importPrice").asText() + "%"));
-            }
             if (filterJson.has("importDate")) {
                 predicate = criteriaBuilder.and(predicate, criteriaBuilder.like(root.get("importDate"), "%" + filterJson.get("importDate").asText() + "%"));
             }
@@ -79,24 +95,30 @@ public class ImportInvoiceServiceImpl implements ImportInvoiceService {
     }
 
     @Override
-    public List<ImportInvoice> saveImportInvoices(List<ImportInvoiceRequest> importInvoiceRequests) {
-        Date date = new Date(System.currentTimeMillis());
-        List<ImportInvoice> importInvoices = new ArrayList<>();
-        for (ImportInvoiceRequest importInvoiceRequest : importInvoiceRequests) {
-            ImportInvoice importInvoice = new ImportInvoice();
-            importInvoice.setImportDate(date);
-            importInvoice.setProduct(productRepository.findById(importInvoiceRequest.getIdProduct()).get());
-            importInvoice.setVariation(variationRepository.findById(importInvoiceRequest.getIdVariation()).get());
-            importInvoice.setSize(sizeRepository.findById(importInvoiceRequest.getIdSize()).get());
-            importInvoice.setQuantity(importInvoiceRequest.getQuantity());
-            importInvoice.setImportPrice(importInvoiceRequest.getImportPrice());
-            importInvoiceRepository.save(importInvoice);
-            importInvoices.add(importInvoice);
+    @Transactional
+    public ImportInvoice saveImportInvoice(List<ImportInvoiceDetailRequest> importInvoice) {
+        User importBy = userRepository.findByUsername(jwtUtils.getUserNameFromJwtToken(jwtUtils.getJwtFromCookies(HttpRequest))).get();
+        ImportInvoice newImportInvoice = new ImportInvoice();
+        newImportInvoice.setImportInvoiceDetails(new ArrayList<>());
+        newImportInvoice.setImportDate(new Date(System.currentTimeMillis()));
+        newImportInvoice.setImportBy(importBy);
 
-            Size size = sizeRepository.findById(importInvoiceRequest.getIdSize()).get();
-            size.setStock(size.getStock() + importInvoiceRequest.getQuantity());
-            sizeRepository.save(size);
+        double totalPrice = 0;
+        for (ImportInvoiceDetailRequest importInvoiceDetailRequest : importInvoice) {
+            ImportInvoiceDetail newImportInvoiceDetail = new ImportInvoiceDetail();
+            newImportInvoiceDetail.setImportInvoice(newImportInvoice);
+            newImportInvoiceDetail.setProduct(productRepository.findById(importInvoiceDetailRequest.getProduct()).get());
+            newImportInvoiceDetail.setVariation(variationRepository.findById(importInvoiceDetailRequest.getVariation()).get());
+            newImportInvoiceDetail.setSize(sizeRepository.findById(importInvoiceDetailRequest.getSize()).get());
+            newImportInvoiceDetail.setQuantity(importInvoiceDetailRequest.getQuantity());
+            newImportInvoiceDetail.setImportPrice(importInvoiceDetailRequest.getImportPrice());
+            importInvoiceDetailRepository.save(newImportInvoiceDetail);
+            newImportInvoice.getImportInvoiceDetails().add(newImportInvoiceDetail);
+            totalPrice += newImportInvoiceDetail.getImportPrice() * newImportInvoiceDetail.getQuantity();
         }
-        return importInvoices;
+        newImportInvoice.setTotalPrice(totalPrice);
+        importInvoiceRepository.save(newImportInvoice);
+        return newImportInvoice;
     }
+
 }

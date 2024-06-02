@@ -237,7 +237,7 @@ export const dataProvider: DataProvider = {
             }
         }
         await httpClient.post(`${process.env.REACT_APP_API_URL}/${resource}`,
-            JSON.stringify(resource === "import-invoice" ? params.data.ImportInvoiceRequest
+            JSON.stringify(resource === "import-invoice" ? params.data.ImportInvoiceDetails
                 : (categories !== null ? {
                     ...params.data,
                     categories: categories,

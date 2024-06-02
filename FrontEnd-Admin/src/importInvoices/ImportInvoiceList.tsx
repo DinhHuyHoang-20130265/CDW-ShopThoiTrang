@@ -1,27 +1,28 @@
 import * as React from 'react';
 import {
     ArrayInput,
-    Create,
+    Create, CreateButton,
     DatagridConfigurable,
-    DateField,
+    DateField, DateInput,
     ExportButton,
-    FilterButton,
+    FilterButton, FormTab, FunctionField,
     List,
     NumberField, NumberInput,
     Pagination,
-    SelectColumnsButton,
-    SimpleForm, SimpleFormIterator,
+    SelectColumnsButton, ShowButton,
+    SimpleForm, SimpleFormIterator, TabbedForm,
     TextField,
     TextInput,
-    TopToolbar
+    TopToolbar, useListController
 } from 'react-admin';
 import {Stack} from '@mui/material';
+import ImportInvoiceShow from "./ImportInvoiceShow";
 
 const ListActions = () => (
     <TopToolbar>
         <SelectColumnsButton/>
         <FilterButton/>
-        <ExportButton label={"Xuất File"}/>
+        <CreateButton label={"Nhập hàng"}/>
     </TopToolbar>
 );
 
@@ -30,42 +31,41 @@ const postFilters = [
 ];
 
 const ImportInvoiceList = () => {
-    return (
-        <Stack spacing={4}>
-            <Create>
-                <SimpleForm>
-                    <ArrayInput source="ImportInvoiceRequest" label={"Nhập hàng"}>
-                        <SimpleFormIterator inline>
-                            <TextInput source="idProduct" helperText={false} label={"Mã sản phẩm"} />
-                            <TextInput source="idVariation" helperText={false} label={"Mã màu"}/>
-                            <TextInput source="idSize" helperText={false} label={"Mã size"}/>
-                            <NumberInput source="quantity" helperText={false} label={"Số lượng"}/>
-                            <NumberInput step={1000} source="importPrice" helperText={false} label={"Giá nhập"}/>
-                        </SimpleFormIterator>
-                    </ArrayInput>
-                </SimpleForm>
-            </Create>
-            <List
-                sort={{field: 'id', order: 'ASC'}}
-                perPage={10}
-                pagination={false}
-                component="div"
-                actions={<ListActions/>}
-                filters={postFilters}
-            >
-                <DatagridConfigurable>
-                    <TextField source="id"/>
-                    <TextField source="product.name" label={"Tên"}/>
-                    <TextField source="variation.color" label={"Màu sắc"}/>
-                    <TextField source="size.size" label={"Kích thước"}/>
-                    <NumberField source="importPrice" label={"Giá nhập"}/>
-                    <NumberField source="quantity" label={"Số lượng"}/>
-                    <DateField source="importDate" label={"Ngày nhập"}/>
+    const {data, isLoading}: any = useListController();
 
-                </DatagridConfigurable>
-                <Pagination/>
-            </List>
-        </Stack>
+    if (isLoading) return null;
+
+    const getQuantity = (record: any) => {
+        let quantity = 0;
+        for (let i = 0; i < record.importInvoiceDetails.length; i++) {
+            quantity += record.importInvoiceDetails[i].quantity;
+        }
+        return quantity;
+    }
+
+    return data && (
+        <List
+            sort={{field: 'id', order: 'ASC'}}
+            perPage={10}
+            pagination={false}
+            component="div"
+            actions={<ListActions/>}
+            filters={postFilters}
+        >
+            <DatagridConfigurable
+                rowClick="expand"
+                expand={<ImportInvoiceShow />}
+            >
+                <TextField source="id" label={"Mã nhập hàng"}/>
+                <DateField source="importDate" label={"Ngày nhập hàng"}/>
+                <TextField source="importBy.username" label={"Người nhập hàng"}/>
+                <FunctionField render={(record: any) => (
+                    <span>{getQuantity(record)}</span>
+                )} label={"Số lượng"}/>
+                <NumberField source="totalPrice" label={"Tổng tiền"}/>
+            </DatagridConfigurable>
+            <Pagination/>
+        </List>
     )
 };
 

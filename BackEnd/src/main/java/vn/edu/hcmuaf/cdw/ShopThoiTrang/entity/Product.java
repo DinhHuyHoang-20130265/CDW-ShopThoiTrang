@@ -68,9 +68,9 @@ public class Product {
             inverseJoinColumns = @JoinColumn(name = "promotion_id"))
     private List<Promotion> promotions;
 
-    @JsonIgnore
+    @JsonBackReference
     @OneToMany(mappedBy = "product", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    private List<ImportInvoice> importInvoices;
+    private List<ImportInvoiceDetail> importInvoiceDetails;
 
     @JsonIgnore
     @OneToMany(mappedBy = "productId", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
