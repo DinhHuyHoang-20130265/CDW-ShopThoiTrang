@@ -4,26 +4,17 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="89893dc3-088e-47ef-a82c-f709754202c6" name="Changes" comment="update UI Blog for admin">
-      <change afterPath="$PROJECT_DIR$/../BackEnd/src/main/java/vn/edu/hcmuaf/cdw/ShopThoiTrang/entity/ImportInvoiceDetail.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../BackEnd/src/main/java/vn/edu/hcmuaf/cdw/ShopThoiTrang/model/request/ImportInvoiceDetailRequest.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../BackEnd/src/main/java/vn/edu/hcmuaf/cdw/ShopThoiTrang/reponsitory/ImportInvoiceDetailRepository.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/importInvoices/ImportInvoiceShow.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../BackEnd/src/main/java/vn/edu/hcmuaf/cdw/ShopThoiTrang/controller/ImportInvoiceController.java" beforeDir="false" afterPath="$PROJECT_DIR$/../BackEnd/src/main/java/vn/edu/hcmuaf/cdw/ShopThoiTrang/controller/ImportInvoiceController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../BackEnd/src/main/java/vn/edu/hcmuaf/cdw/ShopThoiTrang/entity/ImportInvoice.java" beforeDir="false" afterPath="$PROJECT_DIR$/../BackEnd/src/main/java/vn/edu/hcmuaf/cdw/ShopThoiTrang/entity/ImportInvoice.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../BackEnd/src/main/java/vn/edu/hcmuaf/cdw/ShopThoiTrang/entity/Product.java" beforeDir="false" afterPath="$PROJECT_DIR$/../BackEnd/src/main/java/vn/edu/hcmuaf/cdw/ShopThoiTrang/entity/Product.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../BackEnd/src/main/java/vn/edu/hcmuaf/cdw/ShopThoiTrang/entity/Size.java" beforeDir="false" afterPath="$PROJECT_DIR$/../BackEnd/src/main/java/vn/edu/hcmuaf/cdw/ShopThoiTrang/entity/Size.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../BackEnd/src/main/java/vn/edu/hcmuaf/cdw/ShopThoiTrang/entity/Variation.java" beforeDir="false" afterPath="$PROJECT_DIR$/../BackEnd/src/main/java/vn/edu/hcmuaf/cdw/ShopThoiTrang/entity/Variation.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../BackEnd/src/main/java/vn/edu/hcmuaf/cdw/ShopThoiTrang/model/request/ImportInvoiceRequest.java" beforeDir="false" afterPath="$PROJECT_DIR$/../BackEnd/src/main/java/vn/edu/hcmuaf/cdw/ShopThoiTrang/model/request/ImportInvoiceRequest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../BackEnd/src/main/java/vn/edu/hcmuaf/cdw/ShopThoiTrang/service/ImportInvoiceService.java" beforeDir="false" afterPath="$PROJECT_DIR$/../BackEnd/src/main/java/vn/edu/hcmuaf/cdw/ShopThoiTrang/service/ImportInvoiceService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../BackEnd/src/main/java/vn/edu/hcmuaf/cdw/ShopThoiTrang/service/impl/ImportInvoiceServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/../BackEnd/src/main/java/vn/edu/hcmuaf/cdw/ShopThoiTrang/service/impl/ImportInvoiceServiceImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../BackEnd/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/../BackEnd/src/main/resources/application.properties" afterDir="false" />
+    <list default="true" id="89893dc3-088e-47ef-a82c-f709754202c6" name="Changes" comment="update importInvoice">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/App.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/App.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Dashboard/DashBoard.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/Dashboard/DashBoard.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Dashboard/PendingReviews.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/Dashboard/PendingReviews.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/dataProvider/dataProvider.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/dataProvider/dataProvider.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/importInvoices/ImportInvoiceCreate.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/importInvoices/ImportInvoiceCreate.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/importInvoices/ImportInvoiceList.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/importInvoices/ImportInvoiceList.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/types.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/types.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/importInvoices/ImportInvoiceShow.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/importInvoices/ImportInvoiceShow.tsx" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -163,7 +154,8 @@
       <workItem from="1717070930013" duration="765000" />
       <workItem from="1717085271628" duration="5992000" />
       <workItem from="1717216480241" duration="3582000" />
-      <workItem from="1717305194313" duration="13719000" />
+      <workItem from="1717305194313" duration="14348000" />
+      <workItem from="1717393095413" duration="10433000" />
     </task>
     <task id="LOCAL-00001" summary="update product for admin (50%&#10;)">
       <option name="closed" value="true" />
@@ -349,7 +341,15 @@
       <option name="project" value="LOCAL" />
       <updated>1717218253107</updated>
     </task>
-    <option name="localTasksCounter" value="24" />
+    <task id="LOCAL-00024" summary="update importInvoice">
+      <option name="closed" value="true" />
+      <created>1717322147675</created>
+      <option name="number" value="00024" />
+      <option name="presentableId" value="LOCAL-00024" />
+      <option name="project" value="LOCAL" />
+      <updated>1717322147675</updated>
+    </task>
+    <option name="localTasksCounter" value="25" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -393,6 +393,7 @@
     <MESSAGE value="fix conflict" />
     <MESSAGE value="update import-invoice" />
     <MESSAGE value="update UI Blog for admin" />
-    <option name="LAST_COMMIT_MESSAGE" value="update UI Blog for admin" />
+    <MESSAGE value="update importInvoice" />
+    <option name="LAST_COMMIT_MESSAGE" value="update importInvoice" />
   </component>
 </project>

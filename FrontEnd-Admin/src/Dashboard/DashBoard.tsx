@@ -31,7 +31,6 @@ const DashBoard = () => {
         pagination: {page: 1, perPage: 50}
     })
 
-    console.log(orders)
 
     const aggregation = useMemo<State>(() => {
         if (!orders) return {};
@@ -65,7 +64,6 @@ const DashBoard = () => {
 
     const {nbNewOrders, pendingOrders, revenue, recentOrders} = aggregation;
 
-    console.log(aggregation)
 
     return isXSmall ? (
         <div>

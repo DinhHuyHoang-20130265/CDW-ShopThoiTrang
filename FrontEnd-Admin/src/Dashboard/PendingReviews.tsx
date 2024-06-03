@@ -32,7 +32,6 @@ const PendingReviews = () => {
         pagination: { page: 1, perPage: 100 },
     });
 
-    console.log("reviews", reviews)
 
     // Poor man's Suspense: hide the content until all the data is loaded,
     // including the reference customers.

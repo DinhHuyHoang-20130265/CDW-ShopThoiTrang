@@ -58,7 +58,7 @@ const ImportInvoiceShow = () => {
 
                     <Grid item xs={6}>
                         <Typography variant="h6" gutterBottom align="center">
-                            Order
+                            Người nhập hàng{' '}
                         </Typography>
                         <Typography gutterBottom align="center">
                             {record.importBy.userInfo.fullName}

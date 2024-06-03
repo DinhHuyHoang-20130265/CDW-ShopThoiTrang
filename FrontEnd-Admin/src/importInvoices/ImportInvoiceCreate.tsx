@@ -69,7 +69,7 @@ const ImportInvoiceCreate = () => {
     return (
         <Create>
             <SimpleForm warnWhenUnsavedChanges>
-                <ArrayInput source="ImportInvoiceDetails" label="Sản phẩm">
+                <ArrayInput source="importInvoiceDetails" label="Sản phẩm">
                     <SimpleFormIterator inline>
                         <NumberInput source="product" label="Mã sản phẩm" validate={required()} onChange={(e) => {
                             checkDataContains(data, e.target.value);

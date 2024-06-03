@@ -237,7 +237,7 @@ export const dataProvider: DataProvider = {
             }
         }
         await httpClient.post(`${process.env.REACT_APP_API_URL}/${resource}`,
-            JSON.stringify(resource === "import-invoice" ? params.data.ImportInvoiceDetails
+            JSON.stringify(resource === "import-invoice" ? params.data.importInvoiceDetails
                 : (categories !== null ? {
                     ...params.data,
                     categories: categories,
@@ -269,8 +269,8 @@ export const dataProvider: DataProvider = {
                     return Promise.resolve({ data: response.data[0] });
                 }
             console.log(response.data[0])
-            window.location.href = `/#/${resource}`;
-            return Promise.resolve({data:{id:response.data[0].id} });
+            // window.location.href = `/#/${resource}`;
+            return Promise.resolve({data:{id:response.data[0]} });
         })
     },
     update: async (resource: any, params: any) => {

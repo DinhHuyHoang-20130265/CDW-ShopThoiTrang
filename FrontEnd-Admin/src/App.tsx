@@ -1,5 +1,5 @@
 import * as React from 'react';
-import {Admin, Login, Resource} from 'react-admin';
+import {Admin, houseLightTheme, Login, radiantLightTheme, Resource} from 'react-admin';
 import {dataProvider} from "./dataProvider/dataProvider";
 import UserList from "./users/UserList";
 import {authProvider} from "./authProvider";
@@ -42,6 +42,7 @@ const App = () => {
             loginPage={Login}
             title="Admin"
             dataProvider={dataProvider}
+            theme={radiantLightTheme}
             disableTelemetry
             dashboard={DashBoard}
         >
