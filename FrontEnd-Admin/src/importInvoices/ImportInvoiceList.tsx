@@ -161,6 +161,7 @@ const ImportInvoiceList = () => {
                 rowClick="expand"
                 expandSingle
                 expand={<ImportInvoiceShow/>}
+                bulkActionButtons={false}
             >
                 <TextField source="id" label={"Mã nhập hàng"}/>
                 <DateField source="importDate" label={"Ngày nhập hàng"}/>

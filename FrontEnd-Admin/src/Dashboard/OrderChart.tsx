@@ -1,39 +1,46 @@
 import * as React from 'react';
-import { Card, CardHeader, CardContent } from '@mui/material';
+import { useState, useMemo } from 'react';
+import { Card, CardHeader, CardContent, FormControl, InputLabel, Select, MenuItem, TextField } from '@mui/material';
 import {
     ResponsiveContainer,
     AreaChart,
     Area,
     XAxis,
-    YAxis, Tooltip, CartesianGrid
+    YAxis,
+    Tooltip,
+    CartesianGrid
 } from 'recharts';
-import { useTranslate } from 'react-admin';
-import { format, subDays, addDays } from 'date-fns';
+import { format, subDays, addDays, startOfMonth, endOfMonth, parse, isValid } from 'date-fns';
 
 import { Order } from '../types';
 
-const lastDay = new Date();
-const lastMonthDays = Array.from({ length: 30 }, (_, i) => subDays(lastDay, i));
-const aMonthAgo = subDays(new Date(), 30);
+const dateFormatter = (date: number): string => new Date(date).toLocaleDateString();
+const monthFormatter = (month: string): string => format(new Date(month), 'MMM yyyy');
 
-const dateFormatter = (date: number): string =>
-    new Date(date).toLocaleDateString();
-
-const aggregateOrdersByDay = (orders: Order[]): { [key: string]: number } =>
+const aggregateOrdersByDay = (orders: Order[], startDate: Date, endDate: Date): { [key: string]: number } =>
     orders
-        .filter((order: Order) => order.status.id !== 7)
+        .filter(order => order.status.id !== 7 && new Date(order.orderDate) >= startDate && new Date(order.orderDate) <= endDate)
         .reduce((acc, curr) => {
             const day = format(new Date(curr.orderDate), 'yyyy-MM-dd');
-            if (!acc[day]) {
-                acc[day] = 0;
-            }
+            if (!acc[day]) acc[day] = 0;
             acc[day] += curr.totalAmount;
             return acc;
         }, {} as { [key: string]: number });
 
-const getRevenuePerDay = (orders: Order[]): TotalByDay[] => {
-    const daysWithRevenue = aggregateOrdersByDay(orders);
-    return lastMonthDays.map(date => ({
+const aggregateOrdersByMonth = (orders: Order[]): { [key: string]: number } =>
+    orders
+        .filter(order => order.status.id !== 7)
+        .reduce((acc, curr) => {
+            const month = format(startOfMonth(new Date(curr.orderDate)), 'yyyy-MM');
+            if (!acc[month]) acc[month] = 0;
+            acc[month] += curr.totalAmount;
+            return acc;
+        }, {} as { [key: string]: number });
+
+const getRevenuePerDay = (orders: Order[], startDate: Date, endDate: Date): TotalByDay[] => {
+    const daysWithRevenue = aggregateOrdersByDay(orders, startDate, endDate);
+    const totalDays = Array.from({ length: (endDate.getTime() - startDate.getTime()) / (1000 * 3600 * 24) + 1 }, (_, i) => addDays(startDate, i));
+    return totalDays.map(date => ({
         date: date.getTime(),
         total: daysWithRevenue[format(new Date(date), 'yyyy-MM-dd')] || 0,
     }));
@@ -41,15 +48,113 @@ const getRevenuePerDay = (orders: Order[]): TotalByDay[] => {
 
 const OrderChart = (props: { orders?: Order[] }) => {
     const { orders } = props;
-    if (!orders) return null;
+    const [timeFrame, setTimeFrame] = useState<string>('last30days');
+    const [customStartDate, setCustomStartDate] = useState<any>(subDays(new Date(), 30));
+    const [customEndDate, setCustomEndDate] = useState<any>(new Date());
+
+    const uniqueMonths = useMemo(() => {
+        const months = orders ? orders.map(order => format(startOfMonth(new Date(order.orderDate)), 'yyyy-MM')) : [];
+        return Array.from(new Set(months)).sort((a, b) => (a > b ? 1 : -1));
+    }, [orders]);
+
+    const handleChange = (event: React.ChangeEvent<{ value: unknown }>) => {
+        setTimeFrame(event.target.value as string);
+        setCustomStartDate('');
+        setCustomEndDate('');
+    };
+
+    const handleStartDateChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+        if (event.target.value > customEndDate) {
+            setCustomEndDate(event.target.value);
+        }
+        setCustomStartDate(event.target.value);
+    };
+
+    const handleEndDateChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+        if (event.target.value < customStartDate) {
+            setCustomStartDate(event.target.value);
+        }
+        setCustomEndDate(event.target.value);
+    };
+
+    let data;
+    let xAxisKey;
+    let xAxisFormatter;
+
+    if (orders) {
+        switch (timeFrame) {
+            case 'last30days':
+                data = getRevenuePerDay(orders, subDays(new Date(), 30), new Date());
+                xAxisKey = 'date';
+                xAxisFormatter = dateFormatter;
+                break;
+            case 'custom':
+                if (customStartDate && customEndDate && isValid(new Date(customStartDate)) && isValid(new Date(customEndDate))) {
+                    data = getRevenuePerDay(orders, new Date(customStartDate), new Date(customEndDate));
+                    xAxisKey = 'date';
+                    xAxisFormatter = dateFormatter;
+                } else {
+                    data = [];
+                }
+                break;
+            default:
+                const selectedMonthStart = parse(timeFrame, 'yyyy-MM', new Date());
+                const selectedMonthEnd = endOfMonth(selectedMonthStart);
+                data = getRevenuePerDay(orders, selectedMonthStart, selectedMonthEnd);
+                xAxisKey = 'date';
+                xAxisFormatter = dateFormatter;
+                break;
+        }
+    }
 
     return (
         <Card>
-            <CardHeader title={"Doanh thu theo ngày"} />
+            <CardHeader title={"Doanh thu"} />
             <CardContent>
+                <FormControl variant="outlined" fullWidth margin="normal">
+                    <InputLabel id="timeframe-select-label">Chọn thời gian</InputLabel>
+                    <Select
+                        labelId="timeframe-select-label"
+                        value={timeFrame}
+                        onChange={event => handleChange(event as any)}
+                        label="Chọn thời gian"
+                    >
+                        <MenuItem value="last30days">30 ngày trước</MenuItem>
+                        {uniqueMonths.map(month => (
+                            <MenuItem key={month} value={month}>
+                                {monthFormatter(month)}
+                            </MenuItem>
+                        ))}
+                        <MenuItem value="custom">Chọn thời gian</MenuItem>
+                    </Select>
+                </FormControl>
+                {timeFrame === 'custom' && (
+                    <div style={{ display: 'flex', gap: '1rem', marginBottom: '1rem' }}>
+                        <TextField
+                            label="Ngày bắt đầu"
+                            type="date"
+                            value={customStartDate}
+                            onChange={handleStartDateChange}
+                            InputLabelProps={{
+                                shrink: true,
+                            }}
+                            fullWidth
+                        />
+                        <TextField
+                            label="Ngày kết thúc"
+                            type="date"
+                            value={customEndDate}
+                            onChange={handleEndDateChange}
+                            InputLabelProps={{
+                                shrink: true,
+                            }}
+                            fullWidth
+                        />
+                    </div>
+                )}
                 <div style={{ width: '100%', height: 300 }}>
                     <ResponsiveContainer>
-                        <AreaChart data={getRevenuePerDay(orders)}
+                        <AreaChart data={data}
                                    margin={{
                                        top: 10,
                                        right: 30,
@@ -77,15 +182,12 @@ const OrderChart = (props: { orders?: Order[] }) => {
                                 </linearGradient>
                             </defs>
                             <XAxis
-                                dataKey="date"
-                                name="Date"
+                                dataKey={xAxisKey}
+                                name="Time"
                                 type="number"
                                 scale="time"
-                                domain={[
-                                    addDays(aMonthAgo, 1).getTime(),
-                                    new Date().getTime(),
-                                ]}
-                                tickFormatter={dateFormatter}
+                                domain={['dataMin', 'dataMax']}
+                                tickFormatter={xAxisFormatter}
                             />
                             <YAxis dataKey="total" name="Revenue" unit="đ" type="number" />
                             <CartesianGrid strokeDasharray="3 3" />
@@ -97,8 +199,8 @@ const OrderChart = (props: { orders?: Order[] }) => {
                                         currency: 'VND',
                                     }).format(value)
                                 }
-                                labelFormatter={(label: any) =>
-                                    dateFormatter(label)
+                                labelFormatter={(label: number | string) =>
+                                    timeFrame === 'last30days' || timeFrame === 'custom' ? dateFormatter(label as number) : monthFormatter(label as string)
                                 }
                             />
                             <Area
@@ -118,6 +220,11 @@ const OrderChart = (props: { orders?: Order[] }) => {
 
 interface TotalByDay {
     date: number;
+    total: number;
+}
+
+interface TotalByMonth {
+    month: string;
     total: number;
 }
 
