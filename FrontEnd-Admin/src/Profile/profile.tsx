@@ -1,26 +1,38 @@
-import * as React from 'react';
+import React, {
+    createContext,
+    useState,
+    useCallback,
+    useMemo,
+    useContext, useEffect
+} from "react";
 import {
-    Edit,
-    NullableBooleanInput,
     TextInput,
-    PasswordInput,
-    TabbedForm,
-    SimpleFormIterator,
-    ArrayInput,
-    AutocompleteInput,
-    ReferenceInput,
-    BooleanInput,
+    ImageInput,
+    ImageField,
+    useDataProvider,
+    useNotify,
+    SaveContextProvider,
+    useGetIdentity,
     email,
+    BooleanInput,
+    PasswordInput,
     Toolbar,
-    SaveButton, ImageInput, ImageField,
-} from 'react-admin';
-import {Grid, Box, Typography} from '@mui/material';
+    SaveButton,
+    TabbedForm,
+    NullableBooleanInput,
+    ArrayInput, SimpleFormIterator, ReferenceInput, AutocompleteInput
+} from "react-admin";
+import {checkPassword} from "../users/UserCreate";
+import {Box, Grid, Typography} from "@mui/material";
 
-import FullNameField from './FullNameField';
-import {useCallback, useEffect, useState} from "react";
-import {checkPassword} from "./UserCreate";
-import {useWatch} from 'react-hook-form';
+import {useWatch} from "react-hook-form";
 
+type ProfileContextType = {
+    profileVersion: number;
+    refreshProfile: () => void;
+};
+
+const ProfileContext = createContext<ProfileContextType | undefined>(undefined);
 export const ReturnedImg = () => {
     const isReturned = useWatch({name: 'userInfo.avtUrl'});
     return isReturned ?
@@ -53,42 +65,43 @@ export const ReturnedImg = () => {
             }}/>
         </ImageInput>;
 };
+export const ProfileProvider = ({children}: any) => {
+    const [profileVersion, setProfileVersion] = useState(0);
+    const context: ProfileContextType = useMemo(
+        () => ({
+            profileVersion,
+            refreshProfile: () =>
+                setProfileVersion((currentVersion) => currentVersion + 1)
+        }),
+        [profileVersion]
+    );
 
-const ReturnedRole = (props: any) => {
-    const isReturned = useWatch({name: 'role.id'});
-    useEffect(() => {
-        if (isReturned === 1 || isReturned === null || isReturned === undefined) {
-            props.setAdmin(false)
-        } else
-            props.setAdmin(true)
-    }, [isReturned, props]);
     return (
-        <ReferenceInput label="Role" source="role.id" reference="role">
-            <AutocompleteInput label={"Loại tài khoản"} optionText={"name"} optionValue={"id"}
-                               onChange={props.handleRoleChange} allowCreate={false}/>
-        </ReferenceInput>)
+        <ProfileContext.Provider value={context}>
+            {children}
+        </ProfileContext.Provider>
+    );
 };
 
-const UserEdit = () => {
-    const [admin, setAdmin] = useState(false)
-    const [password, setPassword] = useState(false)
+export const useProfile = (): ProfileContextType => {
+    const context = useContext(ProfileContext);
+    if (!context) {
+        throw new Error('useProfile must be used within a ProfileProvider');
+    }
+    return context;
+};
 
+export const ProfileEdit = ({staticContext, ...props}: any) => {
+    const dataProvider = useDataProvider();
+    const notify = useNotify();
+    const [saving, setSaving] = useState(false);
+    const {refreshProfile} = useProfile();
+    const [password, setPassword] = useState(false);
     const handlePassword = useCallback((event: any) => {
         setPassword(event.target.checked)
     }, []);
-
-    const handleRoleChange = (e: any) => {
-        if (e === 1 || e === null || e === undefined) {
-            setAdmin(false)
-        } else
-            setAdmin(true)
-    }
-
     const validateForm = (values: Record<any, any>): Record<any, any> => {
         const errors = {} as any;
-        if (!values.username) {
-            errors.username = 'username is required';
-        }
         if (!values.userInfo.fullName) {
             errors.userInfo = {...errors.userInfo, fullName: 'fullName is required'}
         }
@@ -111,41 +124,56 @@ const UserEdit = () => {
                 errors.confirm_password = 'password must be at least 8 characters, including uppercase, lowercase, and number';
             }
         }
-
-        if (!values.role.id) {
-            errors.role = {id: 'required a role'};
-        }
-        if (values.role && values.role.id !== 1) {
-            if (values.resourceVariations === null || values.resourceVariations === undefined || values.resourceVariations.length === 0) {
-                errors.resourceVariations = 'required at least one resource and one permission for that resource';
-            } else {
-                let resourceIds = new Set();
-                values.resourceVariations.forEach((item: any) => {
-                    let permissionIds = new Set();
-                    if (item.resource.id === undefined || item.resource.id === null || resourceIds.has(item.resource.id)) {
-                        errors.resourceVariations = 'resources cannot be duplicated or empty';
-                    } else
-                        resourceIds.add(item.resource.id)
-                    item.permissions.forEach((itemPer: any) => {
-                        if (itemPer.id === undefined || itemPer.id === null || permissionIds.has(itemPer.id)) {
-                            errors.resourceVariations = 'permissions cannot be duplicated or empty';
-                        } else
-                            permissionIds.add(itemPer.id)
-                    });
-                })
-            }
-        }
         return errors;
+    }
+    const {data, isLoading}: any = useGetIdentity();
+    const [profile, setProfile]: any = useState(null)
+    useEffect(() => {
+        if (data) {
+            dataProvider.getOne("user", {id: data.id}).then((response: any) => {
+                setProfile(response.data)
+            })
+        }
+    }, [data, dataProvider, isLoading]);
+
+    const handleSave = useCallback(
+        (values: any) => {
+            setSaving(true);
+            console.log(values)
+            dataProvider.update("user", {previousData: profile, id: profile.id, data: values})
+                .then(() => {
+                    setSaving(false);
+                    notify("Thay đổi thông tin cá nhân thành công");
+                    refreshProfile();
+                }).catch((error: any) => {
+                console.log(error)
+                setSaving(false);
+                notify("Thay đổi thông tin cá nhân thất bại");
+            });
+        }, [dataProvider, profile, notify, refreshProfile]);
+
+    const saveContext = useMemo(
+        () => ({
+            save: handleSave,
+            saving
+        }),
+        [saving, handleSave]);
+
+    if (isLoading || !profile) {
+        return null;
     }
 
     return (
-        <Edit title={<UserTitle/>} hasShow={false}>
-            <TabbedForm validate={validateForm} toolbar={<Toolbar>
-                <SaveButton
-                    label="Save"
-                    alwaysEnable
-                />
-            </Toolbar>}>
+        <SaveContextProvider value={saveContext}>
+            <TabbedForm validate={validateForm}
+                        record={profile}
+                        onSubmit={handleSave}
+                        toolbar={<Toolbar>
+                            <SaveButton
+                                label="Save"
+                                alwaysEnable
+                            />
+                        </Toolbar>}>
                 <TabbedForm.Tab
                     label="Thông tin"
                     sx={{maxWidth: '80em'}}
@@ -171,6 +199,7 @@ const UserEdit = () => {
                                             isRequired
                                             fullWidth
                                             label={"Tên đăng nhập"}
+                                            readOnly={true}
                                         />
                                     </Box>
                                 </Box>
@@ -250,49 +279,50 @@ const UserEdit = () => {
                                 <NullableBooleanInput
                                     label={"Đang hoạt động"}
                                     fullWidth
-                                    source="enabled"
+                                    source="enabled" readOnly={true}
                                 />
-                                <ReturnedRole handleRoleChange={handleRoleChange} setAdmin={setAdmin}/>
-                                {/*<ReferenceInput label="Role" source="role.id" reference="role">*/}
-                                {/*    <AutocompleteInput label={"Loại tài khoản"} optionText={"name"} optionValue={"id"}*/}
-                                {/*                       onChange={handleRoleChange} allowCreate={false}/>*/}
-                                {/*</ReferenceInput>*/}
+                                <ReferenceInput label="Role" source="role.id" reference="role">
+                                    <AutocompleteInput label={"Loại tài khoản"} optionText={"name"} optionValue={"id"}
+                                                       readOnly={true}/>
+                                </ReferenceInput>
                                 <Typography variant="h6" gutterBottom>
                                     Ảnh đại diện
                                 </Typography>
                                 <ReturnedImg/>
                             </Grid>
+
                         </Grid>
                     </div>
                 </TabbedForm.Tab>
                 <TabbedForm.Tab
-                    label="Phân quyền"
-                    path="role"
-                    sx={{maxWidth: '40em'}}
+                    label={"Phân quyền"}
+                    path={"role"}
+                    sx={{maxWidth: '80em'}}
                 >
-                    {admin ? <ArrayInput source={`resourceVariations`} label={`Phân Quyền`} fullWidth>
-                        <SimpleFormIterator inline>
-                            <ReferenceInput label="Tài nguyên" source="resource.id" reference="resource">
-                                <AutocompleteInput label={"Tài nguyên"} optionText={"name"} optionValue={"id"}
-                                                   isRequired={true}/>
-                            </ReferenceInput>
-                            <ArrayInput sx={{marginLeft: 10}} source={`permissions`} label={`Quyền`}>
-                                <SimpleFormIterator inline>
-                                    <ReferenceInput label="Quyền" source="id" reference="permission">
-                                        <AutocompleteInput label={"Quyền"} optionText={"name"} optionValue={"id"}
-                                                           isRequired={true}/>
-                                    </ReferenceInput>
-                                </SimpleFormIterator>
-                            </ArrayInput>
-                        </SimpleFormIterator>
-                    </ArrayInput> : <></>}
+                    {profile.role.name === "ADMIN" &&
+                        <ArrayInput source={`resourceVariations`} label={`Phân Quyền`} fullWidth
+                                    readOnly={true}>
+                            <SimpleFormIterator inline>
+                                <ReferenceInput label="Tài nguyên" source="resource.id" reference="resource"
+                                                readOnly>
+                                    <AutocompleteInput label={"Tài nguyên"} optionText={"name"}
+                                                       optionValue={"id"}
+                                                       isRequired={true} readOnly={true}/>
+                                </ReferenceInput>
+                                <ArrayInput sx={{marginLeft: 10}} source={`permissions`} label={`Quyền`}>
+                                    <SimpleFormIterator inline>
+                                        <ReferenceInput label="Quyền" source="id" reference="permission"
+                                                        readOnly>
+                                            <AutocompleteInput label={"Quyền"} optionText={"name"}
+                                                               optionValue={"id"}
+                                                               isRequired={true} readOnly={true}/>
+                                        </ReferenceInput>
+                                    </SimpleFormIterator>
+                                </ArrayInput>
+                            </SimpleFormIterator>
+                        </ArrayInput>}
                 </TabbedForm.Tab>
             </TabbedForm>
-        </Edit>
-    )
-        ;
+        </SaveContextProvider>
+    );
 };
-
-const UserTitle = () => <FullNameField size="32" sx={{margin: '5px 0'}}/>;
-
-export default UserEdit;

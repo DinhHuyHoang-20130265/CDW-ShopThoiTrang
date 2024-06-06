@@ -10,7 +10,7 @@ const httpClient = axios.create({
 httpClient.interceptors.response.use(
     response => response,
     async error => {
-        if (error.response && (error.response.status === 401 || error.response.status === 403)) {
+        if (error.response && (error.response.status === 401)) {
             await httpClient.post(`${process.env.REACT_APP_API_URL}/auth/refresh-token`, {
                 headers: {
                     Accept: 'application/json',
@@ -134,7 +134,6 @@ export const dataProvider: DataProvider = {
         return Promise.resolve({data: result})
     },
     getManyReference: (resource: any, params: any) => Promise.resolve({data: []}),
-    // @ts-ignore
     create: async (resource: any, params: any) => {
         if (resource !== 'import-invoice') {
             if (params.data.imageUrl === undefined || params.data.imageUrl === null) {
@@ -236,7 +235,7 @@ export const dataProvider: DataProvider = {
                 avtUrl = await imgProvider(selectedImg);
             }
         }
-        await httpClient.post(`${process.env.REACT_APP_API_URL}/${resource}`,
+        return await httpClient.post(`${process.env.REACT_APP_API_URL}/${resource}`,
             JSON.stringify(resource === "import-invoice" ? params.data.ImportInvoiceRequest
                 : (categories !== null ? {
                     ...params.data,
@@ -263,14 +262,14 @@ export const dataProvider: DataProvider = {
                 },
                 withCredentials: true
             }).then((response: any) => {
-                if (response.status === 200){
-                    console.log(response.data[0])
-                    window.location.href = `/#/${resource}`;
-                    return Promise.resolve({ data: response.data[0] });
-                }
+            if (response.status === 200) {
+                console.log(response.data[0])
+                window.location.href = `/#/${resource}`;
+                return Promise.resolve({data: response.data[0]});
+            }
             console.log(response.data[0])
             window.location.href = `/#/${resource}`;
-            return Promise.resolve({data:{id:response.data[0].id} });
+            return Promise.resolve({data: {id: response.data[0].id}});
         })
     },
     update: async (resource: any, params: any) => {

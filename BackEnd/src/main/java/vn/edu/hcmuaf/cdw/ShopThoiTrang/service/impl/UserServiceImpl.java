@@ -192,6 +192,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    @Transactional
     public User updateUser(Long id, UpdateUserDTO dto, HttpServletRequest request) {
         Date currentDate = new Date(System.currentTimeMillis());
         User user = userRepository.findById(id).orElseThrow(() -> new RuntimeException("User not found"));
