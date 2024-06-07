@@ -4,11 +4,14 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="89893dc3-088e-47ef-a82c-f709754202c6" name="Changes" comment="add importInvoice using excel file">
+    <list default="true" id="89893dc3-088e-47ef-a82c-f709754202c6" name="Changes" comment="update chart dashboard">
+      <change afterPath="$PROJECT_DIR$/src/Dashboard/OrderPieChart.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Dashboard/DashBoard.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/Dashboard/DashBoard.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Dashboard/MonthlyRevenue.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/Dashboard/MonthlyRevenue.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Dashboard/OrderChart.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/Dashboard/OrderChart.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/importInvoices/ImportInvoiceList.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/importInvoices/ImportInvoiceList.tsx" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -154,6 +157,10 @@
       <workItem from="1717484485150" duration="358000" />
       <workItem from="1717500792696" duration="1800000" />
       <workItem from="1717574003966" duration="11173000" />
+      <workItem from="1717606161441" duration="4274000" />
+      <workItem from="1717638711740" duration="8011000" />
+      <workItem from="1717692439726" duration="882000" />
+      <workItem from="1717739714741" duration="595000" />
     </task>
     <task id="LOCAL-00001" summary="update product for admin (50%&#10;)">
       <option name="closed" value="true" />
@@ -355,7 +362,15 @@
       <option name="project" value="LOCAL" />
       <updated>1717415502026</updated>
     </task>
-    <option name="localTasksCounter" value="26" />
+    <task id="LOCAL-00026" summary="update chart dashboard">
+      <option name="closed" value="true" />
+      <created>1717606217247</created>
+      <option name="number" value="00026" />
+      <option name="presentableId" value="LOCAL-00026" />
+      <option name="project" value="LOCAL" />
+      <updated>1717606217247</updated>
+    </task>
+    <option name="localTasksCounter" value="27" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -376,7 +391,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="fix" />
     <MESSAGE value="update product for admin (50%&#10;)" />
     <MESSAGE value="add category for admin" />
     <MESSAGE value="add blog api, add list blog for admin" />
@@ -401,6 +415,7 @@
     <MESSAGE value="update UI Blog for admin" />
     <MESSAGE value="update importInvoice" />
     <MESSAGE value="add importInvoice using excel file" />
-    <option name="LAST_COMMIT_MESSAGE" value="add importInvoice using excel file" />
+    <MESSAGE value="update chart dashboard" />
+    <option name="LAST_COMMIT_MESSAGE" value="update chart dashboard" />
   </component>
 </project>

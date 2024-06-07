@@ -9,6 +9,7 @@ import OrderChart from "./OrderChart";
 import PendingOrders from "./PendingOrders";
 import PendingReviews from "./PendingReviews";
 import NewCustomers from "./NewCustomers";
+import OrderPieChart from "./OrderPieChart";
 
 const Spacer = () => <span style={{width: '1em'}}/>;
 const VerticalSpacer = () => <span style={{height: '1em'}}/>;
@@ -35,9 +36,9 @@ const DashBoard = () => {
     const aggregation = useMemo<State>(() => {
         if (!orders) return {};
         const aggregations = orders
-            .filter((order : any) => order.status !== 'cancelled')
+            .filter((order: any) => order.status !== 'cancelled')
             .reduce(
-                (stats: OrderStats, order : any) => {
+                (stats: OrderStats, order: any) => {
                     if (order.status.id !== 7) {
                         stats.nbNewOrders++;
                         stats.revenue += order.totalAmount;
@@ -68,11 +69,11 @@ const DashBoard = () => {
     return isXSmall ? (
         <div>
             <div style={styles.flexColumn as CSSProperties}>
-                <MonthlyRevenue value={revenue} />
-                <VerticalSpacer />
-                <NbNewOrders value={nbNewOrders} />
-                <VerticalSpacer />
-                <PendingOrders orders={pendingOrders} />
+                <MonthlyRevenue value={revenue}/>
+                <VerticalSpacer/>
+                <NbNewOrders value={nbNewOrders}/>
+                <VerticalSpacer/>
+                <PendingOrders orders={pendingOrders}/>
             </div>
         </div>
     ) : isSmall ? (
@@ -80,38 +81,50 @@ const DashBoard = () => {
             <div style={styles.singleCol}>
             </div>
             <div style={styles.flex}>
-                <MonthlyRevenue value={revenue} />
-                <Spacer />
-                <NbNewOrders value={nbNewOrders} />
+                <MonthlyRevenue value={revenue}/>
+                <Spacer/>
+                <NbNewOrders value={nbNewOrders}/>
             </div>
             <div style={styles.singleCol}>
-                <OrderChart orders={recentOrders} />
+                <OrderChart orders={recentOrders}/>
             </div>
             <div style={styles.singleCol}>
-                <PendingOrders orders={pendingOrders} />
+                <PendingOrders orders={pendingOrders}/>
             </div>
         </div>
     ) : (
         <>
-            <div style={styles.flex}>
-                <div style={styles.leftCol}>
-                    <div style={styles.flex}>
-                        <MonthlyRevenue value={revenue} />
-                        <Spacer />
-                        <NbNewOrders value={nbNewOrders} />
+            <div style={{margin: "10px"}}>
+                <div>
+                    <div style={{display: "flex", flex: 1}}>
+                        <MonthlyRevenue value={revenue}/>
+                        <Spacer/>
+                        <NbNewOrders value={nbNewOrders}/>
+                        <Spacer/>
+                        <MonthlyRevenue value={revenue}/>
+                        <Spacer/>
+                        <NbNewOrders value={nbNewOrders}/>
                     </div>
                     <div style={styles.singleCol}>
-                        <OrderChart orders={recentOrders} />
-                    </div>
-                    <div style={styles.singleCol}>
-                        <PendingOrders orders={pendingOrders} />
+                        <OrderChart orders={recentOrders}/>
                     </div>
                 </div>
-                <div style={styles.rightCol}>
-                    <div style={styles.flex}>
-                        <PendingReviews />
-                        <Spacer />
-                        <NewCustomers />
+                <div style={styles.fullCol}>
+                    <div style={styles.leftCol}>
+                        <div>
+                            <OrderPieChart orders={recentOrders}/>
+                        </div>
+                        <div style={styles.singleCol}>
+                            <PendingOrders orders={pendingOrders}/>
+                        </div>
+
+                    </div>
+                    <div style={styles.rightCol}>
+                        <div style={styles.flex}>
+                            <PendingReviews/>
+                            <Spacer/>
+                            <NewCustomers/>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -140,5 +153,6 @@ const styles = {
     flexColumn: {display: 'flex', flexDirection: 'column'},
     leftCol: {flex: 1, marginRight: '0.5em'},
     rightCol: {flex: 1, marginLeft: '0.5em'},
+    fullCol: {marginTop: '1em', marginBottom: '1em', display: 'flex'},
     singleCol: {marginTop: '1em', marginBottom: '1em'},
 };

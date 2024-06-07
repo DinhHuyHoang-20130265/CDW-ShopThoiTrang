@@ -55,7 +55,7 @@ const PendingReviews = () => {
             title={"Đánh giá chờ xử lý"}
             subtitle={total}
         >
-            <List sx={{ display }}>
+            <List sx={{ display}}>
                 {reviews?.map((record: Review) => (
                     <ListItem
                         key={record.id}
@@ -63,6 +63,7 @@ const PendingReviews = () => {
                         component={Link}
                         to={`/review/${record.id}`}
                         alignItems="flex-start"
+                        onScroll={(e) => e.stopPropagation()}
                     >
                         <ListItemAvatar>
                             <ReferenceField

@@ -8,11 +8,13 @@ interface Props {
     value?: string;
 }
 
+
+
 const MonthlyRevenue = (props: Props) => {
     const { value } = props;
     return (
         <CardWithIcon
-            to="/commands"
+            to="/order"
             icon={DollarIcon}
             title={"Doanh thu hàng tháng"}
             subtitle={value}

@@ -1,6 +1,6 @@
 import * as React from 'react';
-import { useState, useMemo } from 'react';
-import { Card, CardHeader, CardContent, FormControl, InputLabel, Select, MenuItem, TextField } from '@mui/material';
+import {useState, useMemo} from 'react';
+import {Card, CardHeader, CardContent, FormControl, InputLabel, Select, MenuItem, TextField} from '@mui/material';
 import {
     ResponsiveContainer,
     AreaChart,
@@ -10,9 +10,9 @@ import {
     Tooltip,
     CartesianGrid
 } from 'recharts';
-import { format, subDays, addDays, startOfMonth, endOfMonth, parse, isValid } from 'date-fns';
+import {format, subDays, addDays, startOfMonth, endOfMonth, parse, isValid} from 'date-fns';
 
-import { Order } from '../types';
+import {Order} from '../types';
 
 const dateFormatter = (date: number): string => new Date(date).toLocaleDateString();
 const monthFormatter = (month: string): string => format(new Date(month), 'MMM yyyy');
@@ -39,7 +39,7 @@ const aggregateOrdersByMonth = (orders: Order[]): { [key: string]: number } =>
 
 const getRevenuePerDay = (orders: Order[], startDate: Date, endDate: Date): TotalByDay[] => {
     const daysWithRevenue = aggregateOrdersByDay(orders, startDate, endDate);
-    const totalDays = Array.from({ length: (endDate.getTime() - startDate.getTime()) / (1000 * 3600 * 24) + 1 }, (_, i) => addDays(startDate, i));
+    const totalDays = Array.from({length: (endDate.getTime() - startDate.getTime()) / (1000 * 3600 * 24) + 1}, (_, i) => addDays(startDate, i));
     return totalDays.map(date => ({
         date: date.getTime(),
         total: daysWithRevenue[format(new Date(date), 'yyyy-MM-dd')] || 0,
@@ -47,7 +47,7 @@ const getRevenuePerDay = (orders: Order[], startDate: Date, endDate: Date): Tota
 };
 
 const OrderChart = (props: { orders?: Order[] }) => {
-    const { orders } = props;
+    const {orders} = props;
     const [timeFrame, setTimeFrame] = useState<string>('last30days');
     const [customStartDate, setCustomStartDate] = useState<any>(subDays(new Date(), 30));
     const [customEndDate, setCustomEndDate] = useState<any>(new Date());
@@ -109,7 +109,7 @@ const OrderChart = (props: { orders?: Order[] }) => {
 
     return (
         <Card>
-            <CardHeader title={"Doanh thu"} />
+            <CardHeader title={"Doanh thu"}/>
             <CardContent>
                 <FormControl variant="outlined" fullWidth margin="normal">
                     <InputLabel id="timeframe-select-label">Chọn thời gian</InputLabel>
@@ -127,32 +127,32 @@ const OrderChart = (props: { orders?: Order[] }) => {
                         ))}
                         <MenuItem value="custom">Chọn thời gian</MenuItem>
                     </Select>
+                    {timeFrame === 'custom' && (
+                        <div style={{display: 'flex', gap: '1rem', marginBottom: '1rem'}}>
+                            <TextField
+                                label="Ngày bắt đầu"
+                                type="date"
+                                value={customStartDate}
+                                onChange={handleStartDateChange}
+                                InputLabelProps={{
+                                    shrink: true,
+                                }}
+                                fullWidth
+                            />
+                            <TextField
+                                label="Ngày kết thúc"
+                                type="date"
+                                value={customEndDate}
+                                onChange={handleEndDateChange}
+                                InputLabelProps={{
+                                    shrink: true,
+                                }}
+                                fullWidth
+                            />
+                        </div>
+                    )}
                 </FormControl>
-                {timeFrame === 'custom' && (
-                    <div style={{ display: 'flex', gap: '1rem', marginBottom: '1rem' }}>
-                        <TextField
-                            label="Ngày bắt đầu"
-                            type="date"
-                            value={customStartDate}
-                            onChange={handleStartDateChange}
-                            InputLabelProps={{
-                                shrink: true,
-                            }}
-                            fullWidth
-                        />
-                        <TextField
-                            label="Ngày kết thúc"
-                            type="date"
-                            value={customEndDate}
-                            onChange={handleEndDateChange}
-                            InputLabelProps={{
-                                shrink: true,
-                            }}
-                            fullWidth
-                        />
-                    </div>
-                )}
-                <div style={{ width: '100%', height: 300 }}>
+                <div style={{width: '100%', height: 300}}>
                     <ResponsiveContainer>
                         <AreaChart data={data}
                                    margin={{
@@ -189,10 +189,10 @@ const OrderChart = (props: { orders?: Order[] }) => {
                                 domain={['dataMin', 'dataMax']}
                                 tickFormatter={xAxisFormatter}
                             />
-                            <YAxis dataKey="total" name="Revenue" unit="đ" type="number" />
-                            <CartesianGrid strokeDasharray="3 3" />
+                            <YAxis dataKey="total" name="Revenue" unit="đ" type="number"/>
+                            <CartesianGrid strokeDasharray="3 3"/>
                             <Tooltip
-                                cursor={{ strokeDasharray: '3 3' }}
+                                cursor={{strokeDasharray: '3 3'}}
                                 formatter={(value: any) =>
                                     new Intl.NumberFormat(undefined, {
                                         style: 'currency',
