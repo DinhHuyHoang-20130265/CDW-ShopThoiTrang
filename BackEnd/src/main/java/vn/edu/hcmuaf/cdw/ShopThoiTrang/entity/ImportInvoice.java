@@ -1,6 +1,7 @@
 package vn.edu.hcmuaf.cdw.ShopThoiTrang.entity;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotNull;
 import lombok.*;
 
 import java.sql.Date;
@@ -21,24 +22,26 @@ public class ImportInvoice {
     @Column(name = "import_date")
     private Date importDate;
 
-    @ManyToOne(fetch = FetchType.EAGER )
+    @NotNull(message = "Nhập số lượng")
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "product_id")
     private Product product;
 
-    @ManyToOne(fetch = FetchType.EAGER )
+    @NotNull(message = "Nhập màu sắc")
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "variation_id")
     private Variation variation;
 
-    @ManyToOne(fetch = FetchType.EAGER )
+    @NotNull(message = "Nhập kích thước")
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "size_id")
     private Size size;
 
+    @NotNull(message = "Nhập số lượng")
     private int quantity;
 
+    @NotNull(message = "Nhập giá nhập")
     @Column(name = "import_price")
     private Double importPrice;
-
-
-
 
 }

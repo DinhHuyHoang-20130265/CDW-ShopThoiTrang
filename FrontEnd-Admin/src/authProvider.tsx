@@ -84,7 +84,8 @@ export const authProvider: AuthProvider = {
             withCredentials: true
         }).then((response) => {
             if (response.status === 200) {
-                return Promise.resolve(response.data);
+                console.log(response.data)
+                return Promise.resolve([response.data]);
             }
         })
     },

@@ -7,6 +7,7 @@ import com.fasterxml.jackson.databind.JsonSerializer;
 import com.fasterxml.jackson.databind.SerializerProvider;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotNull;
 import lombok.*;
 
 import java.io.IOException;
@@ -27,6 +28,8 @@ public class UserInfo {
 
     @Column(name = "full_name")
     private String fullName;
+
+    @NotNull(message = "Email is required")
     @Column(name = "email")
     private String email;
     @Column(name = "phone")

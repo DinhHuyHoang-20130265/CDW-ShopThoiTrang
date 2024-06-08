@@ -2,6 +2,7 @@ package vn.edu.hcmuaf.cdw.ShopThoiTrang.entity;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotNull;
 import lombok.*;
 
 import java.sql.Date;
@@ -19,10 +20,15 @@ public class Category {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
+
+    @NotNull(message = "Category name is required")
     private String name;
 
+    @NotNull(message = "Category description is required")
     @Column(name = "parent_id")
     private Long parentId;
+
+    @NotNull(message = "Category description is required")
     private boolean status;
 
     @Column(name = "released_date")

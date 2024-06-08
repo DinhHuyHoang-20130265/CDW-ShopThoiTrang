@@ -6,7 +6,7 @@ import {
     FunctionField,
     EditButton,
     ChipField,
-    SearchInput, DateInput, SelectColumnsButton, DatagridConfigurable, useRecordContext,
+    SearchInput, DateInput, SelectColumnsButton, DatagridConfigurable, useRecordContext, WrapperField, ArrayField,
 } from 'react-admin';
 
 import {
@@ -85,12 +85,7 @@ const ProductList = () => {
             ) : (
                 <DatagridConfigurable
                     rowClick="show"
-                    bulkActionButtons={
-                        <>
-                            <BulkUpdateButton data={{status: false}} label="Ẩn hết tất cả sản phẩm đã chọn"/>
-                            <BulkDeleteButton label={"Xoá"}/>
-                        </>
-                    }
+                    bulkActionButtons={false}
                 >
                     {/*<Test/>*/}
                     <NumberField source="id" label="ID"/>
@@ -114,8 +109,9 @@ const ProductList = () => {
                         sortable
                     />
 
-
-                    <EditButton/>
+                    <ArrayField label="Hành động">
+                        <EditButton/>
+                    </ArrayField>
                 </DatagridConfigurable>
             )}
         </List>

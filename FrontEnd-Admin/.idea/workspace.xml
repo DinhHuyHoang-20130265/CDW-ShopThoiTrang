@@ -4,16 +4,16 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="89893dc3-088e-47ef-a82c-f709754202c6" name="Changes" comment="add update status order">
-      <change afterPath="$PROJECT_DIR$/src/Layout/LayoutCustom.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Layout/MyAppBar.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Profile/profile.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../BackEnd/src/main/java/vn/edu/hcmuaf/cdw/ShopThoiTrang/entity/UserInfo.java" beforeDir="false" afterPath="$PROJECT_DIR$/../BackEnd/src/main/java/vn/edu/hcmuaf/cdw/ShopThoiTrang/entity/UserInfo.java" afterDir="false" />
+    <list default="true" id="89893dc3-088e-47ef-a82c-f709754202c6" name="Changes" comment="updated: finished update profile admin page">
+      <change beforePath="$PROJECT_DIR$/../BackEnd/src/main/java/vn/edu/hcmuaf/cdw/ShopThoiTrang/config/SecurityConfiguration.java" beforeDir="false" afterPath="$PROJECT_DIR$/../BackEnd/src/main/java/vn/edu/hcmuaf/cdw/ShopThoiTrang/config/SecurityConfiguration.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../BackEnd/src/main/java/vn/edu/hcmuaf/cdw/ShopThoiTrang/controller/PayOSController.java" beforeDir="false" afterPath="$PROJECT_DIR$/../BackEnd/src/main/java/vn/edu/hcmuaf/cdw/ShopThoiTrang/controller/PayOSController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../BackEnd/src/main/java/vn/edu/hcmuaf/cdw/ShopThoiTrang/controller/PayOSSSEController.java" beforeDir="false" afterPath="$PROJECT_DIR$/../BackEnd/src/main/java/vn/edu/hcmuaf/cdw/ShopThoiTrang/controller/PayOSSSEController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../BackEnd/src/main/java/vn/edu/hcmuaf/cdw/ShopThoiTrang/controller/ProductController.java" beforeDir="false" afterPath="$PROJECT_DIR$/../BackEnd/src/main/java/vn/edu/hcmuaf/cdw/ShopThoiTrang/controller/ProductController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/App.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/App.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/authProvider.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/authProvider.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/dataProvider/dataProvider.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/dataProvider/dataProvider.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/users/UserEdit.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/users/UserEdit.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/orders/OrderList.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/orders/OrderList.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/products/ProductList.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/products/ProductList.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/users/UserList.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/users/UserList.tsx" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -57,25 +57,25 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;DinhHuyHoang&quot;,
-    &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
-    &quot;last_opened_file_path&quot;: &quot;D:/CDW-ShopThoiTrang/FrontEnd-Admin&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;nodejs_interpreter_path&quot;: &quot;node&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;npm.npm start.executor&quot;: &quot;Run&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.keymap&quot;,
-    &quot;ts.external.directory.path&quot;: &quot;D:\\CDW-ShopThoiTrang\\FrontEnd-Admin\\node_modules\\typescript\\lib&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "git-widget-placeholder": "DinhHuyHoang",
+    "ignore.virus.scanning.warn.message": "true",
+    "last_opened_file_path": "D:/meta-backend",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_interpreter_path": "node",
+    "nodejs_package_manager_path": "npm",
+    "npm.npm start.executor": "Run",
+    "settings.editor.selected.configurable": "preferences.keymap",
+    "ts.external.directory.path": "D:\\CDW-ShopThoiTrang\\FrontEnd-Admin\\node_modules\\typescript\\lib",
+    "vue.rearranger.settings.migration": "true"
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="D:\ChuyenDeWeb\CDW-ShopThoiTrang\FrontEnd-Admin\src\orders" />
@@ -164,7 +164,8 @@
       <workItem from="1717502590324" duration="11000" />
       <workItem from="1717506363935" duration="4314000" />
       <workItem from="1717518653271" duration="325000" />
-      <workItem from="1717679679115" duration="11163000" />
+      <workItem from="1717679679115" duration="14213000" />
+      <workItem from="1717773415545" duration="1076000" />
     </task>
     <task id="LOCAL-00001" summary="update product for admin (50%&#10;)">
       <option name="closed" value="true" />
@@ -334,7 +335,15 @@
       <option name="project" value="LOCAL" />
       <updated>1716136307578</updated>
     </task>
-    <option name="localTasksCounter" value="22" />
+    <task id="LOCAL-00022" summary="updated: finished update profile admin page">
+      <option name="closed" value="true" />
+      <created>1717698775125</created>
+      <option name="number" value="00022" />
+      <option name="presentableId" value="LOCAL-00022" />
+      <option name="project" value="LOCAL" />
+      <updated>1717698775125</updated>
+    </task>
+    <option name="localTasksCounter" value="23" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -376,6 +385,7 @@
     <MESSAGE value="update edit promotion (add product to promotion)" />
     <MESSAGE value="add update status order" />
     <MESSAGE value="fix conflict" />
-    <option name="LAST_COMMIT_MESSAGE" value="fix conflict" />
+    <MESSAGE value="updated: finished update profile admin page" />
+    <option name="LAST_COMMIT_MESSAGE" value="updated: finished update profile admin page" />
   </component>
 </project>

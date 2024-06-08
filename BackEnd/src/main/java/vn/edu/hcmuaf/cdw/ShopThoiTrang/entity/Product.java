@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotNull;
 import lombok.*;
 
 import java.sql.Date;
@@ -22,11 +23,20 @@ public class Product {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
+
+    @NotNull(message = "Product name is required")
     private String name;
+
+    @NotNull(message = "Product description is required")
     private String description;
+
+    @NotNull(message = "Product content is required")
     private String content;
+
+    @NotNull(message = "Product status is required")
     private boolean status;
 
+    @NotNull(message = "Product img_url is required")
     @Column(name = "img_url")
     private String imageUrl;
 
