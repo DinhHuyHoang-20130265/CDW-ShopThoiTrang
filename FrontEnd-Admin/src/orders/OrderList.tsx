@@ -13,7 +13,7 @@ import {
     useGetList,
     DeleteButton,
     useResourceContext,
-    useRecordContext,
+    useRecordContext, Labeled,
 } from 'react-admin';
 
 import {
@@ -75,6 +75,7 @@ export const OrderList = () => {
                 >
                     <NumberField source="id" label="ID"/>
                     <TextField source="name" label="Tên"/>
+                    <FunctionField render={(record: any) => record?.orderDetails?.length} label="SL Sản Phẩm"/>
                     <NumberField source="totalAmount" label="Tổng tiền"/>
                     <LinkToUser/>
                     <EditButton/>

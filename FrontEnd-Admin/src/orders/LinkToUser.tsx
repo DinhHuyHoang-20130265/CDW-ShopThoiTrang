@@ -19,7 +19,9 @@ const LinkToUser = () => {
                 pathname: `/user/${record?.user?.id}`,
 
             }}
-            sx={{ display: 'inline-flex', alignItems: 'center' }}>{record?.user?.username}</Button>
+            sx={{ display: 'inline-flex', alignItems: 'center' }}>{record?.user?.username}
+        </Button>
+
     );
 };
 

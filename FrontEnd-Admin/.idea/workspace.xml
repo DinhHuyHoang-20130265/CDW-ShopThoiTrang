@@ -4,14 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="89893dc3-088e-47ef-a82c-f709754202c6" name="Changes" comment="update chart dashboard">
-      <change afterPath="$PROJECT_DIR$/src/Dashboard/OrderPieChart.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Dashboard/DashBoard.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/Dashboard/DashBoard.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Dashboard/MonthlyRevenue.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/Dashboard/MonthlyRevenue.tsx" afterDir="false" />
+    <list default="true" id="89893dc3-088e-47ef-a82c-f709754202c6" name="Changes" comment="update dashboard">
       <change beforePath="$PROJECT_DIR$/src/Dashboard/OrderChart.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/Dashboard/OrderChart.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/blogs/BlogList.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/blogs/BlogList.tsx" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -55,25 +50,25 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;NguyenNgocHuy&quot;,
-    &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
-    &quot;last_opened_file_path&quot;: &quot;D:/CDW-ShopThoiTrang/FrontEnd-Admin&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;nodejs_interpreter_path&quot;: &quot;node&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;npm.npm start.executor&quot;: &quot;Run&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.keymap&quot;,
-    &quot;ts.external.directory.path&quot;: &quot;D:\\ChuyenDeWeb\\CDW-ShopThoiTrang\\FrontEnd-Admin\\node_modules\\typescript\\lib&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "git-widget-placeholder": "NguyenNgocHuy",
+    "ignore.virus.scanning.warn.message": "true",
+    "last_opened_file_path": "C:/Users/Nguyen Ngoc Huy/Desktop/coreui-free-react-admin-template-main",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_interpreter_path": "node",
+    "nodejs_package_manager_path": "npm",
+    "npm.npm start.executor": "Run",
+    "settings.editor.selected.configurable": "preferences.keymap",
+    "ts.external.directory.path": "D:\\ChuyenDeWeb\\CDW-ShopThoiTrang\\FrontEnd-Admin\\node_modules\\typescript\\lib",
+    "vue.rearranger.settings.migration": "true"
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="D:\ChuyenDeWeb\CDW-ShopThoiTrang\FrontEnd-Admin\src\orders" />
@@ -160,7 +155,7 @@
       <workItem from="1717606161441" duration="4274000" />
       <workItem from="1717638711740" duration="8011000" />
       <workItem from="1717692439726" duration="882000" />
-      <workItem from="1717739714741" duration="595000" />
+      <workItem from="1717739714741" duration="5980000" />
     </task>
     <task id="LOCAL-00001" summary="update product for admin (50%&#10;)">
       <option name="closed" value="true" />
@@ -370,7 +365,15 @@
       <option name="project" value="LOCAL" />
       <updated>1717606217247</updated>
     </task>
-    <option name="localTasksCounter" value="27" />
+    <task id="LOCAL-00027" summary="update dashboard">
+      <option name="closed" value="true" />
+      <created>1717747985872</created>
+      <option name="number" value="00027" />
+      <option name="presentableId" value="LOCAL-00027" />
+      <option name="project" value="LOCAL" />
+      <updated>1717747985872</updated>
+    </task>
+    <option name="localTasksCounter" value="28" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -391,7 +394,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="update product for admin (50%&#10;)" />
     <MESSAGE value="add category for admin" />
     <MESSAGE value="add blog api, add list blog for admin" />
     <MESSAGE value="add edit blog for admin" />
@@ -416,6 +418,7 @@
     <MESSAGE value="update importInvoice" />
     <MESSAGE value="add importInvoice using excel file" />
     <MESSAGE value="update chart dashboard" />
-    <option name="LAST_COMMIT_MESSAGE" value="update chart dashboard" />
+    <MESSAGE value="update dashboard" />
+    <option name="LAST_COMMIT_MESSAGE" value="update dashboard" />
   </component>
 </project>

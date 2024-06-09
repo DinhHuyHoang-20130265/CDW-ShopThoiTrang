@@ -8,8 +8,8 @@ import {
     ListItemAvatar,
     ListItemText,
 } from '@mui/material';
-import CommentIcon from '@mui/icons-material/Comment';
-import { Link } from 'react-router-dom';
+import ReviewsRoundedIcon from '@mui/icons-material/ReviewsRounded';
+import {Link} from 'react-router-dom';
 
 import {
     ReferenceField,
@@ -19,44 +19,34 @@ import {
     useIsDataLoaded,
 } from 'react-admin';
 
-import { stringify } from 'query-string';
+import {stringify} from 'query-string';
 
 import CardWithIcon from './CardWithIcon';
 import StarRatingField from '../reviews/StarRatingField';
-import { Customer, Review } from '../types';
+import {Customer, Review} from '../types';
+import {useMemo} from "react";
 
-const PendingReviews = () => {
-    const { data: reviews, total, isLoading } = useGetList<Review>('review', {
-        filter: { type: 1 },
-        sort: { field: 'reviewedDate', order: 'DESC' },
-        pagination: { page: 1, perPage: 100 },
-    });
-
-
-    // Poor man's Suspense: hide the content until all the data is loaded,
-    // including the reference customers.
-    // As ReferenceField aggregates the calls to reference customers,
-    // if the first customer is loaded, then all the customers are loaded.
-    const isCustomerDataLoaded = useIsDataLoaded(
-        ['user', 'getMany', { ids: [String(reviews?.[0]?.reviewer)] }],
-        { enabled: !isLoading && reviews && reviews.length > 0 }
-    );
-    const display = isLoading || !isCustomerDataLoaded ? 'none' : 'block';
+const PendingReviews = (reviews: any) => {
+    // get reviews that have status pending
+    const pendingReviews = useMemo(() => {
+        if (!Array.isArray(reviews.reviews)) return [];
+        return reviews.reviews.filter((review: any) => review.type === 1);
+    }, [reviews]);
 
     return (
         <CardWithIcon
             to={{
-                pathname: '/reviews',
+                pathname: '/review',
                 search: stringify({
-                    filter: JSON.stringify({ status: 'pending' }),
+                    filter: JSON.stringify({status: 'pending'}),
                 }),
             }}
-            icon={CommentIcon}
+            icon={ReviewsRoundedIcon}
             title={"Đánh giá chờ xử lý"}
-            subtitle={total}
+            subtitle={pendingReviews.length}
         >
-            <List sx={{ display}}>
-                {reviews?.map((record: Review) => (
+            <List>
+                { pendingReviews.map((record: Review) => (
                     <ListItem
                         key={record.id}
                         button
@@ -87,7 +77,7 @@ const PendingReviews = () => {
                         </ListItemAvatar>
 
                         <ListItemText
-                            primary={<StarRatingField record={record} />}
+                            primary={<StarRatingField record={record}/>}
                             secondary={record.content}
                             sx={{
                                 overflowY: 'hidden',
@@ -103,13 +93,13 @@ const PendingReviews = () => {
             </List>
             <Box flexGrow={1}>&nbsp;</Box>
             <Button
-                sx={{ borderRadius: 0 }}
+                sx={{borderRadius: 0}}
                 component={Link}
                 to="/review"
                 size="small"
                 color="primary"
             >
-                <Box p={1} sx={{ color: 'primary.main' }}>
+                <Box p={1} sx={{color: 'primary.main'}}>
                     Xem tất cả
                 </Box>
             </Button>

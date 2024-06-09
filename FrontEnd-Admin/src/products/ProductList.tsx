@@ -28,9 +28,9 @@ const visitorFilters = [
 
 const VisitorListActions = () => (
     <TopToolbar>
-        <CreateButton/>
+        <CreateButton label="Tạo sản phẩm"/>
         <SelectColumnsButton/>
-        <ExportButton/>
+        {/*<ExportButton/>*/}
     </TopToolbar>
 );
 
@@ -102,7 +102,7 @@ const ProductList = () => {
                         label="Danh mục"
                         render={(record: any) => (
                             record.categories.map((category: any) => (
-                                <ChipField record={category} source="name" key={category.id}/>
+                                <ChipField sx={{margin:"2px"}} record={category} source="name" key={category.id}/>
                             ))
                         )}
                     />

@@ -13,9 +13,15 @@ import {
 import {format, subDays, addDays, startOfMonth, endOfMonth, parse, isValid} from 'date-fns';
 
 import {Order} from '../types';
+import {vi} from "date-fns/locale/vi";
 
 const dateFormatter = (date: number): string => new Date(date).toLocaleDateString();
-const monthFormatter = (month: string): string => format(new Date(month), 'MMM yyyy');
+const monthFormatter = (month: string): string => {
+    const date = new Date(month);
+    return format(date, "'Tháng' M 'năm' yyyy", { locale: vi });
+};
+
+const priceFormatter = (price: number): string => new Intl.NumberFormat('vi-VN', {style: 'currency', currency: 'VND'}).format(price);
 
 const aggregateOrdersByDay = (orders: Order[], startDate: Date, endDate: Date): { [key: string]: number } =>
     orders
@@ -111,7 +117,7 @@ const OrderChart = (props: { orders?: Order[] }) => {
         <Card>
             <CardHeader title={"Doanh thu"}/>
             <CardContent>
-                <FormControl variant="outlined" fullWidth margin="normal">
+                <FormControl variant="outlined" fullWidth margin="normal" sx={{display:"flex", flex:1}}>
                     <InputLabel id="timeframe-select-label">Chọn thời gian</InputLabel>
                     <Select
                         labelId="timeframe-select-label"
@@ -158,7 +164,7 @@ const OrderChart = (props: { orders?: Order[] }) => {
                                    margin={{
                                        top: 10,
                                        right: 30,
-                                       left: 30,
+                                       left: 40,
                                        bottom: 0,
                                    }}>
                             <defs>
@@ -189,7 +195,7 @@ const OrderChart = (props: { orders?: Order[] }) => {
                                 domain={['dataMin', 'dataMax']}
                                 tickFormatter={xAxisFormatter}
                             />
-                            <YAxis dataKey="total" name="Revenue" unit="đ" type="number"/>
+                            <YAxis dataKey="total" name="Revenue" tickFormatter={priceFormatter}/>
                             <CartesianGrid strokeDasharray="3 3"/>
                             <Tooltip
                                 cursor={{strokeDasharray: '3 3'}}
