@@ -51,38 +51,54 @@ const DashBoard = () => {
     // get month current
     const currentMonth = new Date().getMonth() + 1;
 
-    // i want get orders that have order date in month current
-    const ordersCurrentMonth = useMemo(() => {
-        if (!orders) return [];
-        return orders.filter((order: any) => {
-            const orderDate = new Date(order.orderDate);
-            return orderDate && orderDate.getMonth() + 1 === currentMonth && order.status.id !== 7;
-        });
-    }, [orders]);
+    // get month ago
+    const monthAgo = new Date().getMonth() > 0 ? new Date().getMonth() : 12;
+
+    // get orders by month
+    const useOrdersByMonth = (month: number) => {
+        return useMemo(() => {
+            if (!orders) return [];
+            return orders.filter((order: any) => {
+                const orderDate = new Date(order.orderDate);
+                return orderDate && orderDate.getMonth() + 1 === month && order.status.id !== 7;
+            });
+        }, [orders, month]);
+    };
+
+    const ordersCurrentMonth = useOrdersByMonth(currentMonth);
+    const ordersLastMonth = useOrdersByMonth(monthAgo);
 
     const getRevenue = (orders: Order[]) => {
         return orders.reduce((total: number, order: any) => total + order.totalAmount, 0);
     }
 
     // get user that have created date in month current
-    const usersCurrentMonth = useMemo(() => {
-        if (!users) return [];
-        return users.filter((user: any) => {
-            const createdDate = new Date(user.createdDate);
-            return createdDate && createdDate.getMonth() + 1 === currentMonth;
-        });
-    }, [users]);
+    const useUsersByMonth = (month: number) => {
+        return useMemo(() => {
+            if (!users) return [];
+            return users.filter((user: any) => {
+                const createdDate = new Date(user.createdDate);
+                return createdDate && createdDate.getMonth() + 1 === month;
+            });
+        }, [users, month]);
+    }
+
+    const usersCurrentMonth = useUsersByMonth(currentMonth);
+    const usersLastMonth = useUsersByMonth(monthAgo);
 
     // get reviews that have reviewed date in month current
-    const reviewsCurrentMonth = useMemo(() => {
-        if (!reviews) return [];
-        return reviews.filter((review: any) => {
-            const reviewedDate = new Date(review.reviewedDate);
-            return reviewedDate && reviewedDate.getMonth() + 1 === currentMonth;
-        });
-    }, [reviews]);
+    const useReviewsByMonth = (month: number) => {
+        return useMemo(() => {
+            if (!reviews) return [];
+            return reviews.filter((review: any) => {
+                const reviewedDate = new Date(review.reviewedDate);
+                return reviewedDate && reviewedDate.getMonth() + 1 === month;
+            });
+        }, [reviews, month]);
+    }
 
-    console.log(reviewsCurrentMonth);
+    const reviewsCurrentMonth = useReviewsByMonth(currentMonth);
+    const reviewsLastMonth = useReviewsByMonth(monthAgo);
 
     const aggregation = useMemo<State>(() => {
         if (!ordersMonth) return {};
@@ -116,6 +132,32 @@ const DashBoard = () => {
 
 
     const {nbNewOrders, pendingOrders, revenue, recentOrders} = aggregation;
+
+    const compareRevenue = (currentRevenue: number, lastRevenue: number) => {
+        if (lastRevenue === 0) {
+            // Nếu doanh thu tháng trước bằng 0, chúng ta cần xử lý đặc biệt để tránh chia cho 0
+            if (currentRevenue === 0) {
+                return {
+                    percentageChange: 0,
+                    isIncrease: false
+                };
+            } else {
+                return {
+                    percentageChange: 100,
+                    isIncrease: true
+                };
+            }
+        }
+
+        const change = currentRevenue - lastRevenue;
+        const percentageChange = (change / lastRevenue) * 100;
+        const isIncrease = change >= 0;
+
+        return {
+            percentageChange,
+            isIncrease
+        } as Percent;
+    };
 
     return isXSmall ? (
         <div>
@@ -153,13 +195,21 @@ const DashBoard = () => {
                             currency: 'VND',
                             minimumFractionDigits: 0,
                             maximumFractionDigits: 0,
-                        })}/>
+                        })}
+                        percent={compareRevenue(getRevenue(ordersCurrentMonth),getRevenue(ordersLastMonth))}
+                        />
                         <Spacer/>
-                        <NbNewOrders value={ordersCurrentMonth.length}/>
+                        <NbNewOrders value={ordersCurrentMonth.length}
+                                     percent={compareRevenue(ordersCurrentMonth.length,ordersLastMonth.length)}
+                        />
                         <Spacer/>
-                        <NbNewUsers value={usersCurrentMonth.length}/>
+                        <NbNewUsers value={usersCurrentMonth.length}
+                                    percent={compareRevenue(usersCurrentMonth.length,usersLastMonth.length)}
+                        />
                         <Spacer/>
-                        <NbNewReviews value={reviewsCurrentMonth.length}/>
+                        <NbNewReviews value={reviewsCurrentMonth.length}
+                                      percent={compareRevenue(reviewsCurrentMonth.length,reviewsLastMonth.length)}
+                        />
                     </div>
                     <div style={styles.singleCol}>
                         <OrderChart orders={orders}/>
@@ -202,6 +252,11 @@ interface State {
     pendingOrders?: Order[];
     recentOrders?: Order[];
     revenue?: string;
+}
+
+interface Percent {
+    percentageChange: number;
+    isIncrease: boolean;
 }
 
 const styles = {

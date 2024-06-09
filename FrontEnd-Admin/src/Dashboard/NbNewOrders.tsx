@@ -6,16 +6,18 @@ import CardWithIcon from './CardWithIcon';
 
 interface Props {
     value?: number;
+    percent?: any;
 }
 
 const NbNewOrders = (props: Props) => {
-    const { value } = props;
+    const { value,percent } = props;
     return (
         <CardWithIcon
             to="/commands"
             icon={ShoppingCartIcon}
             title={"Đơn hàng mới"}
             subtitle={value}
+            percent={percent}
         />
     );
 };

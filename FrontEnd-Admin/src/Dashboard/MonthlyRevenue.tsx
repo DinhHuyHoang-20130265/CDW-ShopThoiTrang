@@ -6,18 +6,20 @@ import CardWithIcon from './CardWithIcon';
 
 interface Props {
     value?: string;
+    percent?: any;
 }
 
 
 
 const MonthlyRevenue = (props: Props) => {
-    const { value } = props;
+    const { value,percent } = props;
     return (
         <CardWithIcon
             to="/order"
             icon={DollarIcon}
             title={"Doanh thu hàng tháng"}
             subtitle={value}
+            percent={percent}
         />
     );
 };

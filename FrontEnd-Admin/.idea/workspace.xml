@@ -4,9 +4,14 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="89893dc3-088e-47ef-a82c-f709754202c6" name="Changes" comment="update dashboard">
-      <change beforePath="$PROJECT_DIR$/src/Dashboard/OrderChart.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/Dashboard/OrderChart.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/blogs/BlogList.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/blogs/BlogList.tsx" afterDir="false" />
+    <list default="true" id="89893dc3-088e-47ef-a82c-f709754202c6" name="Changes" comment="update dashboard and css UI">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Dashboard/CardWithIcon.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/Dashboard/CardWithIcon.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Dashboard/DashBoard.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/Dashboard/DashBoard.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Dashboard/MonthlyRevenue.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/Dashboard/MonthlyRevenue.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Dashboard/NbNewOrders.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/Dashboard/NbNewOrders.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Dashboard/NbNewReviews.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/Dashboard/NbNewReviews.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Dashboard/NbNewUsers.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/Dashboard/NbNewUsers.tsx" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -50,25 +55,25 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "git-widget-placeholder": "NguyenNgocHuy",
-    "ignore.virus.scanning.warn.message": "true",
-    "last_opened_file_path": "C:/Users/Nguyen Ngoc Huy/Desktop/coreui-free-react-admin-template-main",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_interpreter_path": "node",
-    "nodejs_package_manager_path": "npm",
-    "npm.npm start.executor": "Run",
-    "settings.editor.selected.configurable": "preferences.keymap",
-    "ts.external.directory.path": "D:\\ChuyenDeWeb\\CDW-ShopThoiTrang\\FrontEnd-Admin\\node_modules\\typescript\\lib",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;NguyenNgocHuy&quot;,
+    &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/Nguyen Ngoc Huy/Desktop/coreui-free-react-admin-template-main&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_interpreter_path&quot;: &quot;node&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;npm.npm start.executor&quot;: &quot;Run&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.keymap&quot;,
+    &quot;ts.external.directory.path&quot;: &quot;D:\\ChuyenDeWeb\\CDW-ShopThoiTrang\\FrontEnd-Admin\\node_modules\\typescript\\lib&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="D:\ChuyenDeWeb\CDW-ShopThoiTrang\FrontEnd-Admin\src\orders" />
@@ -156,6 +161,8 @@
       <workItem from="1717638711740" duration="8011000" />
       <workItem from="1717692439726" duration="882000" />
       <workItem from="1717739714741" duration="5980000" />
+      <workItem from="1717916020428" duration="16141000" />
+      <workItem from="1717950798128" duration="2288000" />
     </task>
     <task id="LOCAL-00001" summary="update product for admin (50%&#10;)">
       <option name="closed" value="true" />
@@ -373,7 +380,15 @@
       <option name="project" value="LOCAL" />
       <updated>1717747985872</updated>
     </task>
-    <option name="localTasksCounter" value="28" />
+    <task id="LOCAL-00028" summary="update dashboard and css UI">
+      <option name="closed" value="true" />
+      <created>1717948478486</created>
+      <option name="number" value="00028" />
+      <option name="presentableId" value="LOCAL-00028" />
+      <option name="project" value="LOCAL" />
+      <updated>1717948478486</updated>
+    </task>
+    <option name="localTasksCounter" value="29" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -394,7 +409,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="add category for admin" />
     <MESSAGE value="add blog api, add list blog for admin" />
     <MESSAGE value="add edit blog for admin" />
     <MESSAGE value="add create blog for admin" />
@@ -419,6 +433,7 @@
     <MESSAGE value="add importInvoice using excel file" />
     <MESSAGE value="update chart dashboard" />
     <MESSAGE value="update dashboard" />
-    <option name="LAST_COMMIT_MESSAGE" value="update dashboard" />
+    <MESSAGE value="update dashboard and css UI" />
+    <option name="LAST_COMMIT_MESSAGE" value="update dashboard and css UI" />
   </component>
 </project>
