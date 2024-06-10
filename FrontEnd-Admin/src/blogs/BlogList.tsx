@@ -51,11 +51,11 @@ const BlogList = () => {
             filters={postFilters}
         >
             <DatagridConfigurable>
-                <TextField source="id"/>
-                <ImageField source="thumbnail" label="Thumbnail"/>
-                <TextField source="title"/>
-                <TextField source="description"/>
-                <DateField source="createDate"/>
+                <TextField source="id" label="ID"/>
+                <ImageField source="thumbnail" label="Ảnh"/>
+                <TextField source="title" label={"Tiêu đề"}/>
+                <TextField source="description" label={"Mô tả"} sx={{width: "200px"}}/>
+                <DateField source="createDate" label="Ngày tạo"/>
                 <BooleanField source="status" label="Trạng thái"/>
 
                 <>

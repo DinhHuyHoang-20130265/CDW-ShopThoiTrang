@@ -51,9 +51,9 @@ public class Size {
     @JoinColumn(name = "variation_id")
     private Variation variation;
 
-    @JsonIgnore
-    @OneToMany(mappedBy = "size", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-    private List<ImportInvoice> importInvoices;
+    @JsonBackReference
+    @OneToMany(mappedBy = "size", fetch = FetchType.EAGER , cascade = CascadeType.ALL)
+    private List<ImportInvoiceDetail> importInvoiceDetails;
 
     @JsonIgnore
     @OneToMany(mappedBy = "size", fetch = FetchType.LAZY, cascade = CascadeType.ALL)

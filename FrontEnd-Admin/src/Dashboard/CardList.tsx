@@ -12,15 +12,9 @@ interface Props {
     title?: string;
     subtitle?: ReactNode;
     children?: ReactNode;
-    percent?: Percent;
 }
 
-interface Percent {
-    percentageChange: number;
-    isIncrease: boolean;
-}
-
-const CardWithIcon = ({ icon, title, subtitle, to, children, percent }: Props) => (
+const CardWithIcon = ({ icon, title, subtitle, to, children }: Props) => (
     <Card
         sx={{
             minHeight: 52,
@@ -64,25 +58,9 @@ const CardWithIcon = ({ icon, title, subtitle, to, children, percent }: Props) =
                     {createElement(icon, { fontSize: 'large' })}
                 </Box>
                 <Box textAlign="right">
-                    <Typography color="textSecondary">{title}</Typography>
-                    <Typography variant="h5" component="h2">
-                        {subtitle || ' '}
-                    </Typography>
-                    <Typography variant="subtitle1" component="p">
-                        {percent ? (
-                            <span
-                                style={{
-                                    color: percent.isIncrease ? 'green' : 'red',
-                                }}
-                            >
-                                {percent.isIncrease ? createElement(TrendingUpRoundedIcon) : createElement(TrendingDownRoundedIcon)}
-                                {percent.percentageChange.toFixed(0)}%
-                                so với tháng trước
-                            </span>
-
-                        ) : (
-                            ' '
-                        )}
+                    {/*<Typography color="textSecondary">{title}</Typography>*/}
+                    <Typography variant="h5" component="h4">
+                        {title}  ({subtitle || ' '})
                     </Typography>
                 </Box>
             </Box>

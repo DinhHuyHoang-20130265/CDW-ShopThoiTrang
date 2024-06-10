@@ -4,16 +4,12 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="89893dc3-088e-47ef-a82c-f709754202c6" name="Changes" comment="updated: finished update profile admin page">
-      <change beforePath="$PROJECT_DIR$/../BackEnd/src/main/java/vn/edu/hcmuaf/cdw/ShopThoiTrang/config/SecurityConfiguration.java" beforeDir="false" afterPath="$PROJECT_DIR$/../BackEnd/src/main/java/vn/edu/hcmuaf/cdw/ShopThoiTrang/config/SecurityConfiguration.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../BackEnd/src/main/java/vn/edu/hcmuaf/cdw/ShopThoiTrang/controller/PayOSController.java" beforeDir="false" afterPath="$PROJECT_DIR$/../BackEnd/src/main/java/vn/edu/hcmuaf/cdw/ShopThoiTrang/controller/PayOSController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../BackEnd/src/main/java/vn/edu/hcmuaf/cdw/ShopThoiTrang/controller/PayOSSSEController.java" beforeDir="false" afterPath="$PROJECT_DIR$/../BackEnd/src/main/java/vn/edu/hcmuaf/cdw/ShopThoiTrang/controller/PayOSSSEController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../BackEnd/src/main/java/vn/edu/hcmuaf/cdw/ShopThoiTrang/controller/ProductController.java" beforeDir="false" afterPath="$PROJECT_DIR$/../BackEnd/src/main/java/vn/edu/hcmuaf/cdw/ShopThoiTrang/controller/ProductController.java" afterDir="false" />
+    <list default="true" id="89893dc3-088e-47ef-a82c-f709754202c6" name="Changes" comment="update dashboard (add bestSeller)">
+      <change afterPath="$PROJECT_DIR$/src/Dashboard/OutOfStock.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/authProvider.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/authProvider.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/orders/OrderList.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/orders/OrderList.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/products/ProductList.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/products/ProductList.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/users/UserList.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/users/UserList.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Dashboard/BestSeller.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/Dashboard/BestSeller.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Dashboard/DashBoard.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/Dashboard/DashBoard.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Dashboard/ProductItem.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/Dashboard/ProductItem.tsx" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -23,26 +19,26 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
-        <option value="TypeScript File" />
         <option value="TypeScript JSX File" />
+        <option value="TypeScript File" />
       </list>
     </option>
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
   </component>
-  <component name="GitHubPullRequestSearchHistory">{
-  &quot;lastFilter&quot;: {
-    &quot;state&quot;: &quot;OPEN&quot;,
-    &quot;assignee&quot;: &quot;DinhHuyHoang-20130265&quot;
+  <component name="GitHubPullRequestSearchHistory"><![CDATA[{
+  "lastFilter": {
+    "state": "OPEN",
+    "assignee": "DinhHuyHoang-20130265"
   }
-}</component>
-  <component name="GithubPullRequestsUISettings">{
-  &quot;selectedUrlAndAccountId&quot;: {
-    &quot;url&quot;: &quot;https://github.com/DinhHuyHoang-20130265/CDW-ShopThoiTrang.git&quot;,
-    &quot;accountId&quot;: &quot;dd6f2130-194f-469e-9a72-6e72cbed251b&quot;
+}]]></component>
+  <component name="GithubPullRequestsUISettings"><![CDATA[{
+  "selectedUrlAndAccountId": {
+    "url": "https://github.com/DinhHuyHoang-20130265/CDW-ShopThoiTrang.git",
+    "accountId": "dd6f2130-194f-469e-9a72-6e72cbed251b"
   }
-}</component>
+}]]></component>
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
   </component>
@@ -57,25 +53,25 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "git-widget-placeholder": "DinhHuyHoang",
-    "ignore.virus.scanning.warn.message": "true",
-    "last_opened_file_path": "D:/meta-backend",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_interpreter_path": "node",
-    "nodejs_package_manager_path": "npm",
-    "npm.npm start.executor": "Run",
-    "settings.editor.selected.configurable": "preferences.keymap",
-    "ts.external.directory.path": "D:\\CDW-ShopThoiTrang\\FrontEnd-Admin\\node_modules\\typescript\\lib",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;NguyenNgocHuy&quot;,
+    &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/Nguyen Ngoc Huy/Desktop/coreui-free-react-admin-template-main&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_interpreter_path&quot;: &quot;node&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;npm.npm start.executor&quot;: &quot;Run&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.keymap&quot;,
+    &quot;ts.external.directory.path&quot;: &quot;D:\\ChuyenDeWeb\\CDW-ShopThoiTrang\\FrontEnd-Admin\\node_modules\\typescript\\lib&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="D:\ChuyenDeWeb\CDW-ShopThoiTrang\FrontEnd-Admin\src\orders" />
@@ -101,13 +97,6 @@
       <envs />
       <method v="2" />
     </configuration>
-  </component>
-  <component name="SharedIndexes">
-    <attachedChunks>
-      <set>
-        <option value="bundled-js-predefined-1d06a55b98c1-91d5c284f522-JavaScript-WS-241.15989.105" />
-      </set>
-    </attachedChunks>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
@@ -159,13 +148,21 @@
       <workItem from="1716909708785" duration="594000" />
       <workItem from="1717070930013" duration="765000" />
       <workItem from="1717085271628" duration="5992000" />
-      <workItem from="1717437842270" duration="6082000" />
-      <workItem from="1717502330758" duration="109000" />
-      <workItem from="1717502590324" duration="11000" />
-      <workItem from="1717506363935" duration="4314000" />
-      <workItem from="1717518653271" duration="325000" />
-      <workItem from="1717679679115" duration="14213000" />
-      <workItem from="1717773415545" duration="1076000" />
+      <workItem from="1717216480241" duration="3582000" />
+      <workItem from="1717305194313" duration="14348000" />
+      <workItem from="1717393095413" duration="10433000" />
+      <workItem from="1717415366702" duration="2140000" />
+      <workItem from="1717484485150" duration="358000" />
+      <workItem from="1717500792696" duration="1800000" />
+      <workItem from="1717574003966" duration="11173000" />
+      <workItem from="1717606161441" duration="4274000" />
+      <workItem from="1717638711740" duration="8011000" />
+      <workItem from="1717692439726" duration="882000" />
+      <workItem from="1717739714741" duration="5980000" />
+      <workItem from="1717916020428" duration="16141000" />
+      <workItem from="1717950798128" duration="5598000" />
+      <workItem from="1717990270026" duration="7668000" />
+      <workItem from="1717998048485" duration="1062000" />
     </task>
     <task id="LOCAL-00001" summary="update product for admin (50%&#10;)">
       <option name="closed" value="true" />
@@ -335,15 +332,87 @@
       <option name="project" value="LOCAL" />
       <updated>1716136307578</updated>
     </task>
-    <task id="LOCAL-00022" summary="updated: finished update profile admin page">
+    <task id="LOCAL-00022" summary="update import-invoice">
       <option name="closed" value="true" />
-      <created>1717698775125</created>
+      <created>1717162566679</created>
       <option name="number" value="00022" />
       <option name="presentableId" value="LOCAL-00022" />
       <option name="project" value="LOCAL" />
-      <updated>1717698775125</updated>
+      <updated>1717162566680</updated>
     </task>
-    <option name="localTasksCounter" value="23" />
+    <task id="LOCAL-00023" summary="update UI Blog for admin">
+      <option name="closed" value="true" />
+      <created>1717218253107</created>
+      <option name="number" value="00023" />
+      <option name="presentableId" value="LOCAL-00023" />
+      <option name="project" value="LOCAL" />
+      <updated>1717218253107</updated>
+    </task>
+    <task id="LOCAL-00024" summary="update importInvoice">
+      <option name="closed" value="true" />
+      <created>1717322147675</created>
+      <option name="number" value="00024" />
+      <option name="presentableId" value="LOCAL-00024" />
+      <option name="project" value="LOCAL" />
+      <updated>1717322147675</updated>
+    </task>
+    <task id="LOCAL-00025" summary="add importInvoice using excel file">
+      <option name="closed" value="true" />
+      <created>1717415502026</created>
+      <option name="number" value="00025" />
+      <option name="presentableId" value="LOCAL-00025" />
+      <option name="project" value="LOCAL" />
+      <updated>1717415502026</updated>
+    </task>
+    <task id="LOCAL-00026" summary="update chart dashboard">
+      <option name="closed" value="true" />
+      <created>1717606217247</created>
+      <option name="number" value="00026" />
+      <option name="presentableId" value="LOCAL-00026" />
+      <option name="project" value="LOCAL" />
+      <updated>1717606217247</updated>
+    </task>
+    <task id="LOCAL-00027" summary="update dashboard">
+      <option name="closed" value="true" />
+      <created>1717747985872</created>
+      <option name="number" value="00027" />
+      <option name="presentableId" value="LOCAL-00027" />
+      <option name="project" value="LOCAL" />
+      <updated>1717747985872</updated>
+    </task>
+    <task id="LOCAL-00028" summary="update dashboard and css UI">
+      <option name="closed" value="true" />
+      <created>1717948478486</created>
+      <option name="number" value="00028" />
+      <option name="presentableId" value="LOCAL-00028" />
+      <option name="project" value="LOCAL" />
+      <updated>1717948478486</updated>
+    </task>
+    <task id="LOCAL-00029" summary="update dashboard (add percentage)">
+      <option name="closed" value="true" />
+      <created>1717953527361</created>
+      <option name="number" value="00029" />
+      <option name="presentableId" value="LOCAL-00029" />
+      <option name="project" value="LOCAL" />
+      <updated>1717953527361</updated>
+    </task>
+    <task id="LOCAL-00030" summary="update dashboard (pending order)">
+      <option name="closed" value="true" />
+      <created>1717992104473</created>
+      <option name="number" value="00030" />
+      <option name="presentableId" value="LOCAL-00030" />
+      <option name="project" value="LOCAL" />
+      <updated>1717992104473</updated>
+    </task>
+    <task id="LOCAL-00031" summary="update dashboard (add bestSeller)">
+      <option name="closed" value="true" />
+      <created>1717997853954</created>
+      <option name="number" value="00031" />
+      <option name="presentableId" value="LOCAL-00031" />
+      <option name="project" value="LOCAL" />
+      <updated>1717997853954</updated>
+    </task>
+    <option name="localTasksCounter" value="32" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -364,12 +433,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="fix" />
-    <MESSAGE value="update product for admin (50%&#10;)" />
-    <MESSAGE value="add category for admin" />
-    <MESSAGE value="add blog api, add list blog for admin" />
-    <MESSAGE value="add edit blog for admin" />
-    <MESSAGE value="add create blog for admin" />
     <MESSAGE value="update product for admin done (create, edit)" />
     <MESSAGE value="add api and list importInvoice for admin" />
     <MESSAGE value="updated: fix conflict" />
@@ -385,7 +448,16 @@
     <MESSAGE value="update edit promotion (add product to promotion)" />
     <MESSAGE value="add update status order" />
     <MESSAGE value="fix conflict" />
-    <MESSAGE value="updated: finished update profile admin page" />
-    <option name="LAST_COMMIT_MESSAGE" value="updated: finished update profile admin page" />
+    <MESSAGE value="update import-invoice" />
+    <MESSAGE value="update UI Blog for admin" />
+    <MESSAGE value="update importInvoice" />
+    <MESSAGE value="add importInvoice using excel file" />
+    <MESSAGE value="update chart dashboard" />
+    <MESSAGE value="update dashboard" />
+    <MESSAGE value="update dashboard and css UI" />
+    <MESSAGE value="update dashboard (add percentage)" />
+    <MESSAGE value="update dashboard (pending order)" />
+    <MESSAGE value="update dashboard (add bestSeller)" />
+    <option name="LAST_COMMIT_MESSAGE" value="update dashboard (add bestSeller)" />
   </component>
 </project>

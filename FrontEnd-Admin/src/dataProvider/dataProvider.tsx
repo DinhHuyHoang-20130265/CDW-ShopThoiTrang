@@ -134,6 +134,7 @@ export const dataProvider: DataProvider = {
         return Promise.resolve({data: result})
     },
     getManyReference: (resource: any, params: any) => Promise.resolve({data: []}),
+    // @ts-ignore
     create: async (resource: any, params: any) => {
         if (resource !== 'import-invoice') {
             if (params.data.imageUrl === undefined || params.data.imageUrl === null) {
@@ -236,7 +237,7 @@ export const dataProvider: DataProvider = {
             }
         }
         return await httpClient.post(`${process.env.REACT_APP_API_URL}/${resource}`,
-            JSON.stringify(resource === "import-invoice" ? params.data.ImportInvoiceRequest
+            JSON.stringify(resource === "import-invoice" ? params.data.importInvoiceDetails
                 : (categories !== null ? {
                     ...params.data,
                     categories: categories,

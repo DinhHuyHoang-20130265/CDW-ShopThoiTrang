@@ -22,7 +22,7 @@ public class Variation {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
-    @NotNull(message = "Please provide a name")
+    @NotNull(message = "Please provide a color")
     private String color;
 
     @NotNull(message = "Please provide a color code")
@@ -56,9 +56,9 @@ public class Variation {
     @OneToMany(mappedBy = "variation", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private List<Size> sizes;
 
-    @JsonIgnore
-    @OneToMany(mappedBy = "variation", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-    private List<ImportInvoice> importInvoices;
+    @JsonBackReference
+    @OneToMany(mappedBy = "variation", fetch = FetchType.EAGER , cascade = CascadeType.ALL)
+    private List<ImportInvoiceDetail> importInvoiceDetails;
 
     @JsonIgnore
     @OneToMany(mappedBy = "variation", fetch = FetchType.LAZY, cascade = CascadeType.ALL)

@@ -1,5 +1,5 @@
 import * as React from 'react';
-import {Admin, AppBar, CustomRoutes, Layout, Login, Resource} from 'react-admin';
+import {Admin, AppBar, CustomRoutes, Layout, Login, Resource, houseLightTheme, radiantLightTheme} from 'react-admin';
 import {dataProvider} from "./dataProvider/dataProvider";
 import UserList from "./users/UserList";
 import {authProvider} from "./authProvider";
@@ -46,6 +46,7 @@ const App = () => {
             title="Admin"
             layout={LayoutCustom}
             dataProvider={dataProvider}
+            theme={radiantLightTheme}
             disableTelemetry
             dashboard={DashBoard}
         >
@@ -81,7 +82,7 @@ const App = () => {
 
             <Resource name="import-invoice"
                       list={ImportInvoiceList}
-                      create={ImportInvoiceList}
+                      create={ImportInvoiceCreate}
                       icon={ArrowDownwardRoundedIcon}
                       options={{label: "Nhập hàng"}}
             />

@@ -5,6 +5,7 @@ import jakarta.validation.constraints.NotNull;
 import lombok.*;
 
 import java.sql.Date;
+import java.util.List;
 
 @Entity
 @Table(name = "import_invoices")
@@ -22,26 +23,14 @@ public class ImportInvoice {
     @Column(name = "import_date")
     private Date importDate;
 
-    @NotNull(message = "Nhập số lượng")
-    @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "product_id")
-    private Product product;
+    @NotNull(message = "Nhập giá")
+    @Column(name = "total_price")
+    private Double totalPrice;
 
-    @NotNull(message = "Nhập màu sắc")
-    @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "variation_id")
-    private Variation variation;
+    @ManyToOne(fetch = FetchType.EAGER )
+    @JoinColumn(name = "import_by")
+    private User importBy;
 
-    @NotNull(message = "Nhập kích thước")
-    @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "size_id")
-    private Size size;
-
-    @NotNull(message = "Nhập số lượng")
-    private int quantity;
-
-    @NotNull(message = "Nhập giá nhập")
-    @Column(name = "import_price")
-    private Double importPrice;
-
+    @OneToMany(mappedBy = "importInvoice", fetch = FetchType.LAZY)
+    private List<ImportInvoiceDetail> importInvoiceDetails;
 }
