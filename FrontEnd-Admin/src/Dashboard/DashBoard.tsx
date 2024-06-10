@@ -281,7 +281,9 @@ const DashBoard = () => {
                         <div style={styles.singleCol}>
                             <BestSeller products={bestSeller}/>
                         </div>
-
+                        <div style={styles.singleCol}>
+                            <PendingReviews reviews={reviews}/>
+                        </div>
                     </div>
                     <div style={styles.rightCol}>
                         <div style={styles.singleCol}>
