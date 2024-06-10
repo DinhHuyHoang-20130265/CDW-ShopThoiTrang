@@ -31,7 +31,7 @@ export const PendingOrder = (props: Props) => {
                 ) : (
                     <Avatar
                         src={`${order?.user?.userInfo?.avtUrl}?size=32x32`}
-                        sx={{ bgcolor: 'background.paper' }}
+                        sx={{ bgcolor: 'background.secondary' }}
                         alt={`${order?.user?.userInfo?.fullName}`}
                     />
                 )}

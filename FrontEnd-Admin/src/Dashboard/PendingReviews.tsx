@@ -25,6 +25,8 @@ import CardWithIcon from './CardWithIcon';
 import StarRatingField from '../reviews/StarRatingField';
 import {Customer, Review} from '../types';
 import {useMemo} from "react";
+import CardList from "./CardList";
+import {FixedSizeList} from "react-window";
 
 const PendingReviews = (reviews: any) => {
     // get reviews that have status pending
@@ -34,7 +36,7 @@ const PendingReviews = (reviews: any) => {
     }, [reviews]);
 
     return (
-        <CardWithIcon
+        <CardList
             to={{
                 pathname: '/review',
                 search: stringify({
@@ -45,52 +47,63 @@ const PendingReviews = (reviews: any) => {
             title={"Đánh giá chờ xử lý"}
             subtitle={pendingReviews.length}
         >
-            <List>
-                { pendingReviews.map((record: Review) => (
-                    <ListItem
-                        key={record.id}
-                        button
-                        component={Link}
-                        to={`/review/${record.id}`}
-                        alignItems="flex-start"
-                        onScroll={(e) => e.stopPropagation()}
-                    >
-                        <ListItemAvatar>
-                            <ReferenceField
-                                record={record}
-                                source="reviewer"
-                                reference="user"
-                                link={false}
+            <FixedSizeList
+                height={300}
+                width="100%"
+                itemCount={pendingReviews.length}
+                itemSize={60} // Adjust this according to your item size
+                layout="vertical"
+            >
+                {({ index, style }) => {
+                    const record = pendingReviews[index];
+                    return (
+                        <div style={style}>
+                            <ListItem
+                                key={record.id}
+                                button
+                                component={Link}
+                                to={`/review/${record.id}`}
+                                alignItems="flex-start"
+                                onScroll={(e) => e.stopPropagation()}
                             >
-                                <FunctionField<Customer>
-                                    render={customer => (
-                                        <Avatar
-                                            src={`${customer?.userInfo?.avtUrl}?size=32x32`}
-                                            sx={{
-                                                bgcolor: 'background.paper',
-                                            }}
-                                            alt={`${customer.userInfo.fullName}`}
+                                <ListItemAvatar>
+                                    <ReferenceField
+                                        record={record}
+                                        source="reviewer"
+                                        reference="user"
+                                        link={false}
+                                    >
+                                        <FunctionField<Customer>
+                                            render={customer => (
+                                                <Avatar
+                                                    src={`${customer?.userInfo?.avtUrl}?size=32x32`}
+                                                    sx={{
+                                                        bgcolor: 'background.paper',
+                                                    }}
+                                                    alt={`${customer.userInfo.fullName}`}
+                                                />
+                                            )}
                                         />
-                                    )}
-                                />
-                            </ReferenceField>
-                        </ListItemAvatar>
+                                    </ReferenceField>
+                                </ListItemAvatar>
 
-                        <ListItemText
-                            primary={<StarRatingField record={record}/>}
-                            secondary={record.content}
-                            sx={{
-                                overflowY: 'hidden',
-                                height: '4em',
-                                display: '-webkit-box',
-                                WebkitLineClamp: 2,
-                                WebkitBoxOrient: 'vertical',
-                                paddingRight: 0,
-                            }}
-                        />
-                    </ListItem>
-                ))}
-            </List>
+                                <ListItemText
+                                    primary={<StarRatingField record={record}/>}
+                                    secondary={record.content}
+                                    sx={{
+                                        overflowY: 'hidden',
+                                        height: '4em',
+                                        display: '-webkit-box',
+                                        WebkitLineClamp: 2,
+                                        WebkitBoxOrient: 'vertical',
+                                        paddingRight: 0,
+                                    }}
+                                />
+                            </ListItem>
+                        </div>
+                    );
+                }}
+            </FixedSizeList>
             <Box flexGrow={1}>&nbsp;</Box>
             <Button
                 sx={{borderRadius: 0}}
@@ -103,7 +116,7 @@ const PendingReviews = (reviews: any) => {
                     Xem tất cả
                 </Box>
             </Button>
-        </CardWithIcon>
+        </CardList>
     );
 };
 
