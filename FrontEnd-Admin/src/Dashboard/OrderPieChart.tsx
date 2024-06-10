@@ -82,7 +82,7 @@ const OrderPieChart = (props: { orders?: Order[] }) => {
                             fontWeight: 'bold',
                         },
                     }}
-                    height={300}
+                    height={360}
                 />
             </CardContent>
         </Card>
