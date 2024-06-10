@@ -42,7 +42,7 @@ const PendingReviews = (reviews: any) => {
                     const review = pendingReviews[index];
                     return (
                         <div style={style}>
-                            <ListItem key={review.id} button component={Link} to={`/review/${review.id}`}>
+                            <ListItem key={review.id} button  component={Link} to={`/review/${review.id}`}>
                                 <ListItemAvatar>
                                     <Avatar>
                                         <ReviewsRoundedIcon/>
