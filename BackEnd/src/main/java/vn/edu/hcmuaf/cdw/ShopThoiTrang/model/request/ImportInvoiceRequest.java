@@ -2,8 +2,10 @@ package vn.edu.hcmuaf.cdw.ShopThoiTrang.model.request;
 
 
 import lombok.*;
+import vn.edu.hcmuaf.cdw.ShopThoiTrang.entity.User;
 
 import java.sql.Date;
+import java.util.List;
 
 @Data
 @NonNull
@@ -11,11 +13,8 @@ import java.sql.Date;
 @NoArgsConstructor
 @Builder
 public class ImportInvoiceRequest {
-
     private Date importDate;
-    private long idProduct;
-    private long idVariation;
-    private long idSize;
-    private int quantity;
-    private double importPrice;
+    private Double totalPrice;
+    private User importBy;
+    private List<ImportInvoiceDetailRequest> importInvoiceDetails;
 }

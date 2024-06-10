@@ -128,18 +128,17 @@ export interface Blog extends RaRecord {
 export interface ImportInvoice extends RaRecord {
     id: number,
     importDate: string,
+    totalPrice: number,
+    importBy: Customer,
+    importInvoiceDetails: ImportInvoiceDetail[],
+
+}
+
+export interface ImportInvoiceDetail extends RaRecord{
+    id: number,
     product: Product,
     variation: Variation,
     size: Size,
-    quantity: number,
-    importPrice: number,
-}
-
-export interface ImportInvoiceRequest {
-    importDate: string,
-    idProduct: number,
-    idVariation: number,
-    idSize: number,
     quantity: number,
     importPrice: number,
 }

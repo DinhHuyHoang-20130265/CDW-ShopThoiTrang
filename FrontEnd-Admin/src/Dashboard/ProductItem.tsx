@@ -8,37 +8,34 @@ import {
     Box,
 } from '@mui/material';
 import { Link } from 'react-router-dom';
-import { useTranslate, useReference } from 'react-admin';
+import { useReference } from 'react-admin';
 
-import { Customer, Order } from '../types';
+import {Customer, Product} from '../types';
 
 interface Props {
-    order: Order;
+    product: Product;
+    quantity: number;
 }
 
-export const PendingOrder = (props: Props) => {
-    const { order } = props;
-    const { referenceRecord: customer, isLoading } = useReference<Customer>({
-        reference: 'customers',
-        id: order.customer_id,
-    });
+export const ProductItem = (props: Props) => {
+    const { product, quantity } = props;
 
     return (
-        <ListItem button component={Link} to={`/order/${order.id}`}>
+        <ListItem button component={Link} to={`/product/${product.id}`}>
             <ListItemAvatar>
-                {isLoading ? (
+                {!product.imageUrl ? (
                     <Avatar />
                 ) : (
                     <Avatar
-                        src={`${order?.user?.userInfo?.avtUrl}?size=32x32`}
+                        src={`${product?.imageUrl}?size=32x32`}
                         sx={{ bgcolor: 'background.secondary' }}
-                        alt={`${order?.user?.userInfo?.fullName}`}
+                        alt={`${product?.name}`}
                     />
                 )}
             </ListItemAvatar>
             <ListItemText
-                secondary={new Date(order.orderDate).toLocaleString('vi-VN')}
-                primary= {'Đơn hàng #' + order.id +' của ' + (order?.user?.userInfo?.fullName)+ ', ' + (order?.orderDetails?.length) + ' sản phẩm'}
+                primary= {product.name}
+                secondary={quantity !== -1 ? (quantity + 'sản phẩm đã bán') : 'Sản phẩm hết hàng cho 1 hoặc nhiều biến thể'}
             />
             <ListItemSecondaryAction>
                 <Box
@@ -48,7 +45,7 @@ export const PendingOrder = (props: Props) => {
                         color: 'text.primary',
                     }}
                 >
-                    {order.totalAmount.toLocaleString('vi-VN', {
+                    {product?.price?.price.toLocaleString('vi-VN', {
                         style: 'currency',
                         currency: 'VND',
                     })}

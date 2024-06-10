@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import lombok.*;
 
 import java.sql.Date;
+import java.util.List;
 
 @Entity
 @Table(name = "import_invoices")
@@ -21,24 +22,13 @@ public class ImportInvoice {
     @Column(name = "import_date")
     private Date importDate;
 
-    @ManyToOne(fetch = FetchType.EAGER )
-    @JoinColumn(name = "product_id")
-    private Product product;
+    @Column(name = "total_price")
+    private Double totalPrice;
 
     @ManyToOne(fetch = FetchType.EAGER )
-    @JoinColumn(name = "variation_id")
-    private Variation variation;
+    @JoinColumn(name = "import_by")
+    private User importBy;
 
-    @ManyToOne(fetch = FetchType.EAGER )
-    @JoinColumn(name = "size_id")
-    private Size size;
-
-    private int quantity;
-
-    @Column(name = "import_price")
-    private Double importPrice;
-
-
-
-
+    @OneToMany(mappedBy = "importInvoice", fetch = FetchType.LAZY)
+    private List<ImportInvoiceDetail> importInvoiceDetails;
 }

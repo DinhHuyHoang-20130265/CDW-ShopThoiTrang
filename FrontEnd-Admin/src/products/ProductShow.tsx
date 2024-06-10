@@ -18,8 +18,6 @@ const ProductShow = () => {
             return (currentDate >= startDate && currentDate <= endDate && promotion.status) ? promotion : null;
         });
 
-        console.log(activePromotion)
-
         if (activePromotion !== null && activePromotion !== undefined) {
             const discountedPrice = product.price.price - (product.price.price * activePromotion.discount) / 100;
             return (<div>
@@ -50,7 +48,12 @@ const ProductShow = () => {
             <Show>
                 <Grid container spacing={2} sx={{margin: 2}}>
                     <Grid item xs={12} sm={4} alignContent={"center"} justifyContent={"center"}>
-                        <ImageField source="imageUrl" textAlign={"center"} label={"Thumbnail"}/>
+                        <ImageField
+                            source="imageUrl"
+                            textAlign={"center"}
+                            label={"Thumbnail"}
+                            sx={{ '& img': { width: "100% !important", height: "100% !important" } }}
+                        />
                     </Grid>
                     <Grid item xs={12} sm={8} sx={{marginBottom: 4}}>
                         <Stack spacing={2}>
@@ -70,7 +73,7 @@ const ProductShow = () => {
                                 label="Danh mục"
                                 render={(record: any) => (
                                     record.categories.map((category: any) => (
-                                        <ChipField record={category} source="name" key={category.id}/>
+                                        <ChipField sx={{margin: "2px"}} record={category} source="name" key={category.id}/>
                                     ))
                                 )}
                             />
@@ -90,7 +93,7 @@ const ProductShow = () => {
                                     <Datagrid bulkActionButtons={false}>
                                         <NumberField source="id" label={'Mã size'} textAlign={"center"}/>
                                         <TextField source="size" label='Size' textAlign={"center"}/>
-                                        <NumberField source="stock" label='Số lượng còn lại' textAlign={"center"}/>
+                                        <NumberField source="stock" label='Tồn kho' textAlign={"center"}/>
                                         <BooleanField source="status" label={'Trạng thái'} textAlign={"center"}/>
                                     </Datagrid>
                                 </ArrayField>
@@ -108,4 +111,7 @@ const ProductShow = () => {
         </>
     );
 };
+
+
+
 export default ProductShow;
