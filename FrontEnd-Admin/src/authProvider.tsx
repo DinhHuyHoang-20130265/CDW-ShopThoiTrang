@@ -95,7 +95,6 @@ export const authProvider: AuthProvider = {
             },
             withCredentials: true
         }).then((response: any) => {
-            console.log(response)
             if (response.status === 200) {
                 return Promise.resolve({
                     id: "admin",

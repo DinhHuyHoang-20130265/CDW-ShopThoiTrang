@@ -21,7 +21,6 @@ interface LoyalCustomersProps {
 }
 
 const NewCustomers = (loyalCustomers: any) => {
-    console.log(Array.isArray(loyalCustomers.loyalCustomers))
     return (
         <Card sx={{flex: 1}}>
             <CardHeader
@@ -47,7 +46,6 @@ const NewCustomers = (loyalCustomers: any) => {
             >
                 {({index, style}) => {
                     const loyalCustomer = loyalCustomers.loyalCustomers[index];
-                    console.log(loyalCustomer)
                     return (
                         <div style={style}>
                             <ListItem
