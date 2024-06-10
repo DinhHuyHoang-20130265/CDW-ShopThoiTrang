@@ -5,19 +5,20 @@ import {FixedSizeList} from "react-window";
 import {ProductItem} from "./ProductItem";
 
 
-const BestSeller = (products: any) => {
+const OutOfStock = (products: any) => {
     const Row = ({ index, style } : any) => {
-        const record = products.products[index].product;
+        const record = products.products[index];
+        console.log(record)
         return (
             <div style={style}>
-                <ProductItem key={record.id} product={record} quantity={products.products[index].quantity} />
+                <ProductItem key={record.id} product={record} quantity={-1} />
             </div>
         );
     };
 
     return (
         <Card sx={{ flex: 1 }}>
-            <CardHeader title={"Sản phẩm bán chạy"} />
+            <CardHeader title={"Sản phẩm hết hàng"} />
             <FixedSizeList
                 height={400}
                 itemCount={products.products.length}
@@ -31,4 +32,4 @@ const BestSeller = (products: any) => {
     );
 };
 
-export default BestSeller;
+export default OutOfStock;

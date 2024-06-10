@@ -19,10 +19,6 @@ interface Props {
 
 export const ProductItem = (props: Props) => {
     const { product, quantity } = props;
-    const { referenceRecord: customer, isLoading } = useReference<Customer>({
-        reference: 'customers',
-        id: product.customer_id,
-    });
 
     return (
         <ListItem button component={Link} to={`/product/${product.id}`}>
@@ -39,7 +35,7 @@ export const ProductItem = (props: Props) => {
             </ListItemAvatar>
             <ListItemText
                 primary= {product.name}
-                secondary={(quantity) + ' sản phẩm đã bán'}
+                secondary={quantity !== -1 ? (quantity + 'sản phẩm đã bán') : 'Sản phẩm hết hàng cho 1 hoặc nhiều biến thể'}
             />
             <ListItemSecondaryAction>
                 <Box

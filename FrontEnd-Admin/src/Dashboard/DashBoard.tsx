@@ -12,6 +12,7 @@ import OrderPieChart from "./OrderPieChart";
 import NbNewUsers from "./NbNewUsers";
 import NbNewReviews from "./NbNewReviews";
 import BestSeller from "./BestSeller";
+import OutOfStock from "./OutOfStock";
 
 const Spacer = () => <span style={{width: '1em'}}/>;
 const VerticalSpacer = () => <span style={{height: '1em'}}/>;
@@ -57,6 +58,13 @@ const DashBoard = () => {
         sort: { field: 'reviewedDate', order: 'DESC' },
         pagination: { page: 1, perPage: 100 },
     });
+
+    // get prducts
+    const {data: products} = useGetList<Product>('product', {
+        sort: { field: 'name', order: 'DESC' },
+        pagination: { page: 1, perPage: 100 },
+    });
+
 
     // get orders by month
     const useOrdersByMonth = (month: number) => {
@@ -192,6 +200,22 @@ const DashBoard = () => {
 
     const bestSeller = useMemo(() => getBestSeller(orders), [orders]);
 
+    // get product out of stock
+    const getOutOfStock = (products: any): Product[] => {
+        if (!products) {
+            return [];
+        }
+
+        return products.filter((product:any) =>
+            product.variations.some((variation : any) =>
+                variation.sizes.some((size : any) => size.stock === 0)
+            )
+        );
+    };
+
+    const outOfStock = useMemo(() => getOutOfStock(products), [products]);
+
+    console.log(outOfStock);
 
     return isXSmall ? (
         <div>
@@ -264,7 +288,7 @@ const DashBoard = () => {
                             <PendingOrders orders={pendingOrders}/>
                         </div>
                         <div style={styles.singleCol}>
-                            <PendingOrders orders={pendingOrders}/>
+                            <OutOfStock products={outOfStock}/>
                         </div>
 
 

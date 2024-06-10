@@ -93,7 +93,7 @@ const ProductShow = () => {
                                     <Datagrid bulkActionButtons={false}>
                                         <NumberField source="id" label={'Mã size'} textAlign={"center"}/>
                                         <TextField source="size" label='Size' textAlign={"center"}/>
-                                        <NumberField source="stock" label='Số lượng còn lại' textAlign={"center"}/>
+                                        <NumberField source="stock" label='Tồn kho' textAlign={"center"}/>
                                         <BooleanField source="status" label={'Trạng thái'} textAlign={"center"}/>
                                     </Datagrid>
                                 </ArrayField>
