@@ -8,7 +8,6 @@ import {ProductItem} from "./ProductItem";
 const OutOfStock = (products: any) => {
     const Row = ({ index, style } : any) => {
         const record = products.products[index];
-        console.log(record)
         return (
             <div style={style}>
                 <ProductItem key={record.id} product={record} quantity={-1} />

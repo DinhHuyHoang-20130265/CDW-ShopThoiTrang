@@ -2,11 +2,10 @@ import * as React from 'react';
 import {
     Avatar,
     Box,
-    Button,
-    List,
+    Button, Card, CardHeader,
     ListItem,
     ListItemAvatar,
-    ListItemText,
+    ListItemText, Rating,
 } from '@mui/material';
 import ReviewsRoundedIcon from '@mui/icons-material/ReviewsRounded';
 import {Link} from 'react-router-dom';
@@ -14,18 +13,12 @@ import {Link} from 'react-router-dom';
 import {
     ReferenceField,
     FunctionField,
-    useGetList,
-    useTranslate,
-    useIsDataLoaded,
 } from 'react-admin';
 
-import {stringify} from 'query-string';
 
-import CardWithIcon from './CardWithIcon';
 import StarRatingField from '../reviews/StarRatingField';
 import {Customer, Review} from '../types';
 import {useMemo} from "react";
-import CardList from "./CardList";
 import {FixedSizeList} from "react-window";
 
 const PendingReviews = (reviews: any) => {
@@ -36,87 +29,43 @@ const PendingReviews = (reviews: any) => {
     }, [reviews]);
 
     return (
-        <CardList
-            to={{
-                pathname: '/review',
-                search: stringify({
-                    filter: JSON.stringify({status: 'pending'}),
-                }),
-            }}
-            icon={ReviewsRoundedIcon}
-            title={"Đánh giá chờ xử lý"}
-            subtitle={pendingReviews.length}
-        >
+        <Card sx={{flex: 1}}>
+            <CardHeader title={"Đánh giá chờ duyệt"}/>
             <FixedSizeList
-                height={300}
-                width="100%"
+                height={400}
                 itemCount={pendingReviews.length}
-                itemSize={60} // Adjust this according to your item size
-                layout="vertical"
+                itemSize={80}
+                width="100%"
+                style={{listStyle: 'none', padding: 0}}
             >
-                {({ index, style }) => {
-                    const record = pendingReviews[index];
+                {({index, style}) => {
+                    const review = pendingReviews[index];
                     return (
                         <div style={style}>
-                            <ListItem
-                                key={record.id}
-                                button
-                                component={Link}
-                                to={`/review/${record.id}`}
-                                alignItems="flex-start"
-                                onScroll={(e) => e.stopPropagation()}
-                            >
+                            <ListItem key={review.id} button  component={Link} to={`/review/${review.id}`}>
                                 <ListItemAvatar>
-                                    <ReferenceField
-                                        record={record}
-                                        source="reviewer"
-                                        reference="user"
-                                        link={false}
-                                    >
-                                        <FunctionField<Customer>
-                                            render={customer => (
-                                                <Avatar
-                                                    src={`${customer?.userInfo?.avtUrl}?size=32x32`}
-                                                    sx={{
-                                                        bgcolor: 'background.paper',
-                                                    }}
-                                                    alt={`${customer.userInfo.fullName}`}
-                                                />
-                                            )}
-                                        />
-                                    </ReferenceField>
+                                    <Avatar>
+                                        <ReviewsRoundedIcon/>
+                                    </Avatar>
                                 </ListItemAvatar>
-
                                 <ListItemText
-                                    primary={<StarRatingField record={record}/>}
-                                    secondary={record.content}
-                                    sx={{
-                                        overflowY: 'hidden',
-                                        height: '4em',
-                                        display: '-webkit-box',
-                                        WebkitLineClamp: 2,
-                                        WebkitBoxOrient: 'vertical',
-                                        paddingRight: 0,
-                                    }}
+                                    primary={review.content.length > 70 ? `${review.content.substr(0, 70)}...` : review.content}
+                                    secondary={
+                                        <Box display="flex">
+                                            <Rating
+                                                value={review.rating}
+                                                readOnly
+                                                sx={{mr: 1}}
+                                            />
+                                        </Box>
+                                    }
                                 />
                             </ListItem>
                         </div>
                     );
                 }}
             </FixedSizeList>
-            <Box flexGrow={1}>&nbsp;</Box>
-            <Button
-                sx={{borderRadius: 0}}
-                component={Link}
-                to="/review"
-                size="small"
-                color="primary"
-            >
-                <Box p={1} sx={{color: 'primary.main'}}>
-                    Xem tất cả
-                </Box>
-            </Button>
-        </CardList>
+        </Card>
     );
 };
 

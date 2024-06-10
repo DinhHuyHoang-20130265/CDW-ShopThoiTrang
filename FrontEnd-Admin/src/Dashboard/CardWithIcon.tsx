@@ -72,12 +72,11 @@ const CardWithIcon = ({ icon, title, subtitle, to, children, percent }: Props) =
                         {percent ? (
                             <span
                                 style={{
-                                    color: percent.isIncrease ? 'green' : 'red',
+                                    color: percent.isIncrease ? '#00FF00' : '#FF0000',
                                 }}
                             >
+                                {percent.percentageChange.toFixed(2)}%
                                 {percent.isIncrease ? createElement(TrendingUpRoundedIcon) : createElement(TrendingDownRoundedIcon)}
-                                {percent.percentageChange.toFixed(0)}%
-                                so với tháng trước
                             </span>
 
                         ) : (
