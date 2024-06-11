@@ -5,6 +5,7 @@ import com.google.api.client.googleapis.auth.oauth2.GoogleIdTokenVerifier;
 import com.google.auth.oauth2.GoogleAuthUtils;
 import com.google.api.client.http.javanet.NetHttpTransport;
 import com.google.api.client.json.jackson2.JacksonFactory;
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpHeaders;
@@ -36,6 +37,7 @@ import java.util.stream.Collectors;
 
 @Service
 public class GoogleServiceImpl implements GoogleService {
+    private static final Logger Log = Logger.getLogger(GoogleServiceImpl.class.getName());
     @Autowired
     private JwtUtils jwtUtils;
     private final GoogleIdTokenVerifier verifier;
@@ -56,47 +58,58 @@ public class GoogleServiceImpl implements GoogleService {
 
     @Override
     public ResponseEntity<?> login_google(String token) {
-        GoogleAccountDto user = verifyIDToken(token);
-        if (user == null) {
-            throw new IllegalArgumentException();
-        }
-        createOrUpdateUser(user);
-        User userDetails = userRepository.findByUsername(user.getEmail()).get();
-        if (!userDetails.getRole().getName().equals("USER")) {
-            return new ResponseEntity<>("unauthorized ", HttpStatus.NOT_ACCEPTABLE);
-        }
-        List<String> permissions = userDetails.getAuthorities().stream()
-                .map(GrantedAuthority::getAuthority)
-                .collect(Collectors.toList());
-        RefreshToken refreshToken = refreshTokenService.createRefreshToken(userDetails.getId());
+        try {
+            GoogleAccountDto user = verifyIDToken(token);
+            if (user == null) {
+                throw new IllegalArgumentException();
+            }
+            createOrUpdateUser(user);
+            User userDetails = userRepository.findByUsername(user.getEmail()).get();
+            if (!userDetails.getRole().getName().equals("USER")) {
+                Log.warn(user.getEmail() + "unauthorized to login with google account");
+                return new ResponseEntity<>("unauthorized ", HttpStatus.NOT_ACCEPTABLE);
+            }
+            List<String> permissions = userDetails.getAuthorities().stream()
+                    .map(GrantedAuthority::getAuthority)
+                    .collect(Collectors.toList());
+            RefreshToken refreshToken = refreshTokenService.createRefreshToken(userDetails.getId());
 
-        ResponseCookie jwtRefreshCookie = jwtUtils.generateRefreshJwtCookie(refreshToken.getToken());
+            ResponseCookie jwtRefreshCookie = jwtUtils.generateRefreshJwtCookie(refreshToken.getToken());
 
-        ResponseCookie jwtCookie = jwtUtils.generateJwtCookie(userDetails);
-        return ResponseEntity.ok().header(HttpHeaders.SET_COOKIE, jwtCookie.toString())
-                .header(HttpHeaders.SET_COOKIE, jwtRefreshCookie.toString()).body(new JwtResponse(
-                        userDetails.getId(),
-                        userDetails.getUsername(),
-                        permissions));
+            ResponseCookie jwtCookie = jwtUtils.generateJwtCookie(userDetails);
+            return ResponseEntity.ok().header(HttpHeaders.SET_COOKIE, jwtCookie.toString())
+                    .header(HttpHeaders.SET_COOKIE, jwtRefreshCookie.toString()).body(new JwtResponse(
+                            userDetails.getId(),
+                            userDetails.getUsername(),
+                            permissions));
+        } catch (IllegalArgumentException e) {
+            Log.error("Error in login_google: " + e.getMessage());
+            throw new RuntimeException(e);
+        }
     }
 
     @Transactional
     public void createOrUpdateUser(GoogleAccountDto user) {
-        User existingUser = userRepository.findById(userInfoRepository.findByEmail(user.getEmail()).getId()).orElse(null);
-        if (existingUser == null) {
-            existingUser = new User();
-            existingUser.setUserInfo(new UserInfo());
-            existingUser.getUserInfo().setEmail(user.getEmail());
-            existingUser.getUserInfo().setFullName(user.getLastName() + " " + user.getFirstName());
-            existingUser.getUserInfo().setAvtUrl(user.getPictureUrl());
-            existingUser.setRole(new Role(2L, "USER"));
-            existingUser.setEnabled(true);
-            existingUser.setUsername(user.getEmail());
-            existingUser.getUserInfo().setUser(existingUser);
-            java.sql.Date date = new Date(System.currentTimeMillis());
-            existingUser.setCreatedDate(date);
-            existingUser.setUpdateDate(date);
-            userRepository.save(existingUser);
+        try {
+            User existingUser = userRepository.findById(userInfoRepository.findByEmail(user.getEmail()).getId()).orElse(null);
+            if (existingUser == null) {
+                existingUser = new User();
+                existingUser.setUserInfo(new UserInfo());
+                existingUser.getUserInfo().setEmail(user.getEmail());
+                existingUser.getUserInfo().setFullName(user.getLastName() + " " + user.getFirstName());
+                existingUser.getUserInfo().setAvtUrl(user.getPictureUrl());
+                existingUser.setRole(new Role(2L, "USER"));
+                existingUser.setEnabled(true);
+                existingUser.setUsername(user.getEmail());
+                existingUser.getUserInfo().setUser(existingUser);
+                Date date = new Date(System.currentTimeMillis());
+                existingUser.setCreatedDate(date);
+                existingUser.setUpdateDate(date);
+                userRepository.save(existingUser);
+            }
+        } catch (Exception e) {
+            Log.error("Error in createOrUpdateUser: " + e.getMessage());
+            throw new RuntimeException(e);
         }
     }
 
@@ -114,6 +127,7 @@ public class GoogleServiceImpl implements GoogleService {
 
             return new GoogleAccountDto(firstName, lastName, email, pictureUrl);
         } catch (GeneralSecurityException | IOException e) {
+            Log.error("Error in verifyIDToken at GoogleServiceImpl: " + e.getMessage());
             e.printStackTrace();
             return null;
         }
