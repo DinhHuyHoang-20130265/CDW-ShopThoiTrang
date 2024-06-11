@@ -13,7 +13,7 @@ import {
     useGetList,
     DeleteButton,
     useResourceContext,
-    useRecordContext, Labeled,
+    useRecordContext, Labeled, WrapperField, ArrayField
 } from 'react-admin';
 
 import {
@@ -66,19 +66,18 @@ export const OrderList = () => {
             ) : (
                 <DatagridConfigurable
                     rowClick={false}
-                    // bulkActionButtons={
-                    //     <>
-                    //         <BulkUpdateButton data={{stock: 100}} label="Refill stock"/>
-                    //         <BulkDeleteButton/>
-                    //     </>
-                    // }
+                    bulkActionButtons={false}
                 >
                     <NumberField source="id" label="ID"/>
                     <TextField source="name" label="Tên"/>
                     <FunctionField render={(record: any) => record?.orderDetails?.length} label="SL Sản Phẩm"/>
                     <NumberField source="totalAmount" label="Tổng tiền"/>
-                    <LinkToUser/>
-                    <EditButton/>
+                    <ArrayField label="Người mua">
+                        <LinkToUser/>
+                    </ArrayField>
+                    <ArrayField label="Tuỳ chọn">
+                        <EditButton/>
+                    </ArrayField>
                 </DatagridConfigurable>
             )}
         </List>

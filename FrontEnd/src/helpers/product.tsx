@@ -2,9 +2,8 @@
 export const getProducts = (products: any[], category: any, type: string, limit: any) => {
     const finalProducts = category
         ? products.filter(
-            product => product.categories.filter((single: any) => single === category)[0]
-        )
-        : products;
+            product => product.categories.find((single: any) => single.name === category) !== undefined
+        ) : products;
     if (type && type === "new") {
         const newProducts = finalProducts.sort((a, b) => {
             return new Date(a.releaseDate).getTime() - new Date(b.releaseDate).getTime();

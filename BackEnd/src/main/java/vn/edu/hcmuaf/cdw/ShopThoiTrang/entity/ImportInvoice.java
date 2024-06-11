@@ -1,6 +1,7 @@
 package vn.edu.hcmuaf.cdw.ShopThoiTrang.entity;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotNull;
 import lombok.*;
 
 import java.sql.Date;
@@ -22,6 +23,7 @@ public class ImportInvoice {
     @Column(name = "import_date")
     private Date importDate;
 
+    @NotNull(message = "Nhập giá")
     @Column(name = "total_price")
     private Double totalPrice;
 

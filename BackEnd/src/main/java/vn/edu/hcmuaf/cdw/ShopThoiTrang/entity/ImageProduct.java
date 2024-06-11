@@ -2,6 +2,7 @@ package vn.edu.hcmuaf.cdw.ShopThoiTrang.entity;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotNull;
 import lombok.*;
 
 import java.sql.Date;
@@ -21,11 +22,13 @@ public class ImageProduct {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
+    @NotNull(message = "Product is required")
     @ManyToOne
     @JoinColumn(name = "product_id")
     @JsonBackReference
     private Product product;
 
+    @NotNull(message = "Image url is required")
     @Column(name = "img_url")
     private String url;
 

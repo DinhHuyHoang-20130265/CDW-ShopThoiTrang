@@ -12,13 +12,12 @@ import {Category, Product} from "../types";
 const PromotionCreate = () => {
 
     const {record, isLoading}: any = useEditContext();
-    console.log(record);
 
     const {data} = useGetList<Product>('product', {
         pagination: {page: 1, perPage: 100},
         sort: {field: 'name', order: 'ASC'},
     });
-    console.log(data);
+
     if (isLoading) return null;
     return (
         <Create>
@@ -29,6 +28,12 @@ const PromotionCreate = () => {
                 >
                     <Grid container columnSpacing={2}>
                         <Grid item xs={12} sm={12}>
+                            <Typography variant="h6" gutterBottom>
+                                Ảnh minh hoạ
+                            </Typography>
+                            <ImageInput name={"thumbnail"} source={"thumbnail"}>
+                                <ImageField source="src" label="Ảnh chính"/>
+                            </ImageInput>
                         </Grid>
                         <Grid item xs={12} sm={12}>
                             <TextInput source="name" label="Tên khuyến mãi" validate={required()} fullWidth/>

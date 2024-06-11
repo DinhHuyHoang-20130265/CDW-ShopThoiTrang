@@ -9,10 +9,26 @@ const FooterNewsletter = ({spaceBottomClass, spaceLeftClass, sideMenu, colorClas
             } ${widgetColorClass ? widgetColorClass : ""}`}
         >
             <div className="footer-title">
-                <h3>NULL</h3>
+                <h3>ĐỒNG HÀNH VỚI</h3>
             </div>
             <div className={`subscribe-style ${colorClass ? colorClass : ""}`}>
-
+                <ul>
+                    <li style={{height: "50px", display: "flex", alignItems: "center"}}>
+                        <img
+                            src="https://idoo.com.vn/image/cache/catalog/lp-home/khach-hang-doi-tac/khach-hang-ghn-logo-500x300.png"
+                            alt="logo" style={{maxWidth: "100px"}}/>
+                    </li>
+                    <li style={{height: "50px", display: "flex", alignItems: "center"}}>
+                        <img
+                            src="/assets/vnpay.png"
+                            alt="logo" style={{maxWidth: "100px"}}/>
+                    </li>
+                    <li style={{height: "50px", display: "flex", alignItems: "center"}}>
+                        <img
+                            src="/assets/payos-logo.png"
+                            alt="logo" style={{maxWidth: "100px"}}/>
+                    </li>
+                </ul>
             </div>
         </div>
     );

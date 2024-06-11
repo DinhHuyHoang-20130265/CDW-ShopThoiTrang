@@ -1,5 +1,5 @@
 import * as React from 'react';
-import {Admin, houseLightTheme, Login, radiantLightTheme, Resource} from 'react-admin';
+import {Admin, AppBar, CustomRoutes, Layout, Login, Resource, houseLightTheme, radiantLightTheme} from 'react-admin';
 import {dataProvider} from "./dataProvider/dataProvider";
 import UserList from "./users/UserList";
 import {authProvider} from "./authProvider";
@@ -34,6 +34,9 @@ import PromotionCreate from "./promotion/PromotionCreate";
 import ReviewList from "./reviews/ReviewList";
 import ReviewEdit from "./reviews/ReviewEdit";
 import DashBoard from "./Dashboard/DashBoard";
+import {LayoutCustom} from "./Layout/LayoutCustom";
+import {Route} from 'react-router-dom';
+import {ProfileEdit, ProfileProvider} from "./Profile/profile";
 
 const App = () => {
     return (
@@ -41,11 +44,16 @@ const App = () => {
             authProvider={authProvider}
             loginPage={Login}
             title="Admin"
+            layout={LayoutCustom}
             dataProvider={dataProvider}
             theme={radiantLightTheme}
             disableTelemetry
             dashboard={DashBoard}
         >
+            <CustomRoutes>
+                <Route path="/profile/*" element={<ProfileProvider>
+                    <ProfileEdit/></ProfileProvider>}/>
+            </CustomRoutes>
             <Resource name="user"
                       list={UserList}
                       edit={UserEdit}

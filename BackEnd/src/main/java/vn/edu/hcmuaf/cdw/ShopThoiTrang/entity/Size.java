@@ -3,7 +3,9 @@ package vn.edu.hcmuaf.cdw.ShopThoiTrang.entity;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotNull;
 import lombok.*;
+
 import java.sql.Date;
 import java.util.List;
 
@@ -20,8 +22,14 @@ public class Size {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
+
+    @NotNull(message = "Size is required")
     private String size;
+
+    @NotNull(message = "Stock is required")
     private int stock;
+
+    @NotNull(message = "Status is required")
     private boolean status;
 
     @Column(name = "released_date")
@@ -48,6 +56,6 @@ public class Size {
     private List<ImportInvoiceDetail> importInvoiceDetails;
 
     @JsonIgnore
-    @OneToMany(mappedBy = "size", fetch = FetchType.LAZY , cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "size", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private List<OrderDetail> orderDetails;
 }

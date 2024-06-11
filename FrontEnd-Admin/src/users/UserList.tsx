@@ -9,12 +9,13 @@ import {
     List,
     SearchInput,
     SelectColumnsButton, TextField,
-    TopToolbar,
+    TopToolbar, usePermissions,
 } from 'react-admin';
 import {useMediaQuery, Theme} from '@mui/material';
 import UserListAside from "./UserListAside";
 import UserLinkField from "./UserLinkField";
 import MobileGrid from "./MobileGrid";
+import {useEffect} from "react";
 
 const visitorFilters = [
     <SearchInput alwaysOn name={"q"} source={"filter"}/>,
@@ -30,6 +31,11 @@ const UserListActions = () => (
 );
 
 const UserList = () => {
+    const {permissions, isLoading, error} = usePermissions();
+    //
+    // useEffect(() => {
+    //     console.log(permissions, isLoading, error)
+    // }, [permissions, isLoading, error]);
     const isXsmall = useMediaQuery<Theme>(theme =>
         theme.breakpoints.down('sm')
     );

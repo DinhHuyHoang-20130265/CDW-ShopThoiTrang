@@ -11,7 +11,7 @@ import lombok.*;
 @AllArgsConstructor
 @ToString
 @EqualsAndHashCode
-public class Permission{
+public class Permission {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @EqualsAndHashCode.Include
@@ -19,6 +19,4 @@ public class Permission{
     @Column(name = "name")
     @EqualsAndHashCode.Include
     private String name;
-
-
 }

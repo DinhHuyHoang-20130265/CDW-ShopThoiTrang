@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotNull;
 import lombok.*;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -31,13 +32,16 @@ public class User implements UserDetails {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
+    @NotNull(message = "Username is required")
     @Column(name = "username")
     private String username;
 
     @JsonIgnore
+    @NotNull(message = "Password is required")
     @Column(name = "password_encrypted")
     private String passwordEncrypted;
 
+    @NotNull(message = "Enabled is required")
     @Column(name = "enabled")
     private boolean enabled;
 
@@ -54,6 +58,7 @@ public class User implements UserDetails {
 
 
     @ManyToOne
+    @NotNull(message = "Role is required")
     @JoinTable(
             name = "roles_users",
             joinColumns = @JoinColumn(

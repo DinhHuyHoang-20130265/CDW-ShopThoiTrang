@@ -3,6 +3,7 @@ package vn.edu.hcmuaf.cdw.ShopThoiTrang.entity;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotNull;
 import lombok.*;
 
 import java.sql.Date;
@@ -20,10 +21,15 @@ public class Variation {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
+
+    @NotNull(message = "Please provide a color")
     private String color;
 
+    @NotNull(message = "Please provide a color code")
     @Column(name = "color_code")
     private String colorCode;
+
+    @NotNull(message = "Please provide a status")
     private boolean status;
 
     @Column(name = "released_date")
@@ -44,6 +50,7 @@ public class Variation {
     @JsonIgnore
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "product_id")
+    @NotNull(message = "Please provide a product")
     private Product product;
 
     @OneToMany(mappedBy = "variation", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
@@ -54,7 +61,7 @@ public class Variation {
     private List<ImportInvoiceDetail> importInvoiceDetails;
 
     @JsonIgnore
-    @OneToMany(mappedBy = "variation", fetch = FetchType.LAZY , cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "variation", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private List<OrderDetail> orderDetails;
 
 }
