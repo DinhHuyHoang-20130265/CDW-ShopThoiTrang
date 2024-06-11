@@ -15,16 +15,24 @@ const RichTextInput = React.lazy(() =>
 export const BlogCreate = () => {
     return (
         <Create>
-            <Box sx={{ bgcolor: '#f8f9fa', p: 2, borderRadius: 1 }}>
-                <SimpleForm >
-                    <ImageInput name="thumbnail" source="thumbnail" label="Thumbnail">
-                        <ImageField source="thumbnail"/>
+            <Box sx={{bgcolor: '#f8f9fa', p: 2, borderRadius: 1}}>
+                <SimpleForm>
+                    <ImageInput name="thumbnail" source="thumbnail" label="Ảnh mô tả" accept="image/*"
+                                placeholder={"Tải ảnh hoặc kéo thả vào đây"}>
+                        <ImageField source="src" sx={{
+                            display: "flex",
+                            justifyContent: "center",
+                            marginTop: "5px",
+                            marginBottom: "5px",
+                            maxHeight: "100px"
+                        }}/>
                     </ImageInput>
-                    <TextInput source="title" label="Tên bài viết" validate={required()} sx={{ mb: 1 }} fullWidth/>
-                    <TextInput source="description" label="Mô tả ngắn" multiline validate={required()} sx={{ mb: 1 }} fullWidth/>
-                    <BooleanInput source="status" label="Trạng thái" defaultValue={false} sx={{ mb: 1 }}/>
-                    <RichTextInput source="content" label="Nội dung" validate={required()} sx={{ mb: 1 }} fullWidth/>
-                    <DateField source="releaseDate" label="Ngày tạo" sx={{ mb: 1 }}/>
+                    <TextInput source="title" label="Tên bài viết" validate={required()} sx={{mb: 1}} fullWidth/>
+                    <TextInput source="description" label="Mô tả ngắn" multiline validate={required()} sx={{mb: 1}}
+                               fullWidth/>
+                    <BooleanInput source="status" label="Trạng thái" defaultValue={false} sx={{mb: 1}}/>
+                    <RichTextInput source="content" label="Nội dung" validate={required()} sx={{mb: 1}} fullWidth/>
+                    <DateField source="releaseDate" label="Ngày tạo" sx={{mb: 1}}/>
                 </SimpleForm>
             </Box>
         </Create>

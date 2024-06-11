@@ -254,7 +254,7 @@ export const dataProvider: DataProvider = {
                 break;
             case 'promotion':
                 if (params.data.thumbnail === undefined || params.data.thumbnail === null)
-                    return Promise.reject({message: "Ảnh thumnail không được để trống"});
+                    return Promise.reject({message: "Ảnh thumbnail không được để trống"});
                 if (params.data.thumbnail !== undefined && params.data.thumbnail !== null) {
                     let selectedImg = null;
                     await getBase64(params.data.thumbnail.rawFile)
@@ -267,6 +267,21 @@ export const dataProvider: DataProvider = {
                 payload = {...params.data, thumbnail: imageUrl};
                 break;
             case 'blog':
+                if (params.data.thumbnail === undefined || params.data.thumbnail === null)
+                    return Promise.reject({message: "Ảnh thumbnail không được để trống"});
+                if (params.data.thumbnail !== undefined && params.data.thumbnail !== null) {
+                    let selectedImg = null;
+                    await getBase64(params.data.thumbnail.rawFile)
+                        .then(res => {
+                            selectedImg = res;
+                        })
+                        .catch(err => console.log(err))
+                    imageUrl = await imgProvider(selectedImg);
+                }
+                payload = {...params.data, thumbnail: imageUrl};
+                break;
+            default:
+                payload = params.data;
                 break;
         }
         return await httpClient.post(`${process.env.REACT_APP_API_URL}/${resource}`,
@@ -428,7 +443,21 @@ export const dataProvider: DataProvider = {
                 }
                 payload = {...params.data, thumbnail: imageUrl !== null ? imageUrl : params.data.thumbnail};
                 break;
-
+            case 'blog':
+                if (params.data.newthumbnail !== undefined && params.data.newthumbnail !== null) {
+                    let selectedImg = null;
+                    await getBase64(params.data.newthumbnail.rawFile)
+                        .then(res => {
+                            selectedImg = res;
+                        })
+                        .catch(err => console.log(err))
+                    imageUrl = await imgProvider(selectedImg);
+                }
+                payload = {...params.data, thumbnail: imageUrl};
+                break;
+            default:
+                payload = params.data;
+                break;
         }
         let result: any;
         await httpClient.put(`${process.env.REACT_APP_API_URL}/${resource}/${params.id}`,

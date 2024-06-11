@@ -4,15 +4,18 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import jakarta.persistence.criteria.Predicate;
+import jakarta.servlet.http.HttpServletRequest;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
+import vn.edu.hcmuaf.cdw.ShopThoiTrang.JWT.JwtUtils;
 import vn.edu.hcmuaf.cdw.ShopThoiTrang.entity.Blog;
 import vn.edu.hcmuaf.cdw.ShopThoiTrang.model.dto.BlogDto;
 import vn.edu.hcmuaf.cdw.ShopThoiTrang.reponsitory.BlogRepository;
+import vn.edu.hcmuaf.cdw.ShopThoiTrang.reponsitory.UserRepository;
 import vn.edu.hcmuaf.cdw.ShopThoiTrang.service.BlogService;
 
 import java.nio.charset.StandardCharsets;
@@ -32,6 +35,11 @@ public class BlogServiceImpl implements BlogService {
     @Autowired
     private BlogRepository blogRepository;
 
+    @Autowired
+    private JwtUtils jwtUtils;
+
+    @Autowired
+    private UserRepository userRepository;
 
     @Override
     public Page<Blog> getAllBlogs(String filter, int page, int perPage, String sortBy, String order) {
@@ -40,7 +48,7 @@ public class BlogServiceImpl implements BlogService {
             if (order.equals("DESC")) {
                 direction = Sort.Direction.DESC;
             }
-            JsonNode filterJson ;
+            JsonNode filterJson;
             try {
                 filterJson = new ObjectMapper().readTree(java.net.URLDecoder.decode(filter, StandardCharsets.UTF_8));
             } catch (JsonProcessingException e) {
@@ -92,12 +100,15 @@ public class BlogServiceImpl implements BlogService {
     }
 
     @Override
-    public Blog saveBlog(Blog blog) {
+    public Blog saveBlog(Blog blog, HttpServletRequest request) {
         try {
+            String jwt = jwtUtils.getJwtFromCookies(request);
+            String username = jwtUtils.getUserNameFromJwtToken(jwt);
+            blog.setCreateBy(userRepository.findByUsername(username).orElse(null));
             Date date = new Date(System.currentTimeMillis());
             blog.setCreateDate(date);
             blog.setUpdateDate(date);
-            Log.info(blog.getCreateBy().getUsername() +" add new blog: " + blog.getTitle());
+            Log.info(blog.getCreateBy().getUsername() + " add new blog: " + blog.getTitle());
             return blogRepository.save(blog);
         } catch (Exception e) {
             Log.error("Error in saveBlog: " + e.getMessage());
@@ -106,17 +117,21 @@ public class BlogServiceImpl implements BlogService {
     }
 
     @Override
-    public Blog updateBlog(Long id, Blog blog) {
+    public Blog updateBlog(Long id, Blog blog, HttpServletRequest request) {
         try {
+            String jwt = jwtUtils.getJwtFromCookies(request);
+            String username = jwtUtils.getUserNameFromJwtToken(jwt);
+            blog.setUpdateBy(userRepository.findByUsername(username).orElse(null));
             Blog existingBlog = blogRepository.findById(id).orElse(null);
             if (existingBlog != null) {
+                existingBlog.setThumbnail(blog.getThumbnail());
                 existingBlog.setTitle(blog.getTitle());
                 existingBlog.setContent(blog.getContent());
                 existingBlog.setStatus(blog.isStatus());
                 existingBlog.setUpdateDate(new Date(System.currentTimeMillis()));
                 existingBlog.setUpdateBy(blog.getUpdateBy());
             }
-            Log.info(blog.getUpdateBy().getUsername() +" update blog: " + blog.getTitle());
+            Log.info(blog.getUpdateBy().getUsername() + " update blog: " + blog.getTitle());
             return blogRepository.save(existingBlog);
         } catch (Exception e) {
             Log.error("Error in updateBlog: " + e.getMessage());
