@@ -1,13 +1,13 @@
 package vn.edu.hcmuaf.cdw.ShopThoiTrang.service.impl;
 
 import jakarta.servlet.http.HttpServletRequest;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.*;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -32,8 +32,8 @@ import java.util.stream.Collectors;
 
 @Service
 public class AuthServiceImpl implements AuthService {
+    private static final Logger Log = Logger.getLogger(AuthServiceImpl.class.getName());
 
-    private static final Logger log = LoggerFactory.getLogger(AuthServiceImpl.class);
     @Autowired
     private UserRepository userRepository;
 
@@ -51,6 +51,7 @@ public class AuthServiceImpl implements AuthService {
     AuthenticationManager authenticationManager;
     @Autowired
     RefreshTokenService refreshTokenService;
+
     private final Map<String, String> otpMap = new HashMap<>();
 
     private final Map<String, String> otpMapForgot = new HashMap<>();
@@ -59,157 +60,200 @@ public class AuthServiceImpl implements AuthService {
     public ResponseEntity<?> login(LoginDto loginDto) {
         User user = userRepository.findByUsername(loginDto.getUsername()).orElse(null);
         if (user == null || !user.isEnabled()) {
+            Log.warn("username: " + loginDto.getUsername() + " not found");
             return new ResponseEntity<>("username not found", HttpStatus.NOT_FOUND);
         }
         if (!passwordEncoder.matches(loginDto.getPassword(), user.getPassword())) {
+            Log.warn("username: " + loginDto.getUsername() + " wrong password");
             return new ResponseEntity<>("wrong password", HttpStatus.EXPECTATION_FAILED);
         }
         if (!user.getRole().getName().equals("USER")) {
+            Log.warn("username: " + loginDto.getUsername() + " unauthorized");
             return new ResponseEntity<>("unauthorized ", HttpStatus.NOT_ACCEPTABLE);
         }
-        Authentication authentication = authenticationManager.authenticate(
-                new UsernamePasswordAuthenticationToken(loginDto.getUsername(), loginDto.getPassword()));
+        try {
+            Authentication authentication = authenticationManager.authenticate(
+                    new UsernamePasswordAuthenticationToken(loginDto.getUsername(), loginDto.getPassword()));
 
-        SecurityContextHolder.getContext().setAuthentication(authentication);
+            SecurityContextHolder.getContext().setAuthentication(authentication);
 
-        UserDetailsImpl userDetails = (UserDetailsImpl) authentication.getPrincipal();
-        List<String> permissions = userDetails.getAuthorities().stream()
-                .map(GrantedAuthority::getAuthority)
-                .collect(Collectors.toList());
-        RefreshToken refreshToken = refreshTokenService.createRefreshToken(userDetails.getId());
+            UserDetailsImpl userDetails = (UserDetailsImpl) authentication.getPrincipal();
+            List<String> permissions = userDetails.getAuthorities().stream()
+                    .map(GrantedAuthority::getAuthority)
+                    .collect(Collectors.toList());
+            RefreshToken refreshToken = refreshTokenService.createRefreshToken(userDetails.getId());
 
-        ResponseCookie jwtRefreshCookie = jwtUtils.generateRefreshJwtCookie(refreshToken.getToken());
+            ResponseCookie jwtRefreshCookie = jwtUtils.generateRefreshJwtCookie(refreshToken.getToken());
 
-        ResponseCookie jwtCookie = jwtUtils.generateJwtCookie(userDetails);
+            ResponseCookie jwtCookie = jwtUtils.generateJwtCookie(userDetails);
 
-        return ResponseEntity.ok().header(HttpHeaders.SET_COOKIE, jwtCookie.toString())
-                .header(HttpHeaders.SET_COOKIE, jwtRefreshCookie.toString()).body(new JwtResponse(
-                        userDetails.getId(),
-                        userDetails.getUsername(),
-                        permissions));
+            Log.info(loginDto.getUsername() + " logged in");
+            return ResponseEntity.ok().header(HttpHeaders.SET_COOKIE, jwtCookie.toString())
+                    .header(HttpHeaders.SET_COOKIE, jwtRefreshCookie.toString()).body(new JwtResponse(
+                            userDetails.getId(),
+                            userDetails.getUsername(),
+                            permissions));
+        } catch (AuthenticationException e) {
+            Log.error("error while login", e);
+            throw new RuntimeException(e);
+        }
     }
 
     @Override
     public ResponseEntity<?> login_admin(LoginDto loginDto) {
         User user = userRepository.findByUsername(loginDto.getUsername()).orElse(null);
         if (user == null || !user.isEnabled()) {
+            Log.warn("username not found");
             return new ResponseEntity<>("username not found", HttpStatus.NOT_FOUND);
         }
         if (!passwordEncoder.matches(loginDto.getPassword(), user.getPassword())) {
+            Log.warn("wrong password");
             return new ResponseEntity<>("wrong password", HttpStatus.EXPECTATION_FAILED);
         }
         if (!user.getRole().getName().equals("ADMIN")) {
+            Log.warn("unauthorized");
             return new ResponseEntity<>("unauthorized ", HttpStatus.NOT_ACCEPTABLE);
         }
-        Authentication authentication = authenticationManager.authenticate(
-                new UsernamePasswordAuthenticationToken(loginDto.getUsername(), loginDto.getPassword()));
+        try {
+            Authentication authentication = authenticationManager.authenticate(
+                    new UsernamePasswordAuthenticationToken(loginDto.getUsername(), loginDto.getPassword()));
 
-        SecurityContextHolder.getContext().setAuthentication(authentication);
+            SecurityContextHolder.getContext().setAuthentication(authentication);
 
-        UserDetailsImpl userDetails = (UserDetailsImpl) authentication.getPrincipal();
-        List<String> permissions = userDetails.getAuthorities().stream()
-                .map(GrantedAuthority::getAuthority)
-                .collect(Collectors.toList());
-        RefreshToken refreshToken = refreshTokenService.createRefreshToken(userDetails.getId());
+            UserDetailsImpl userDetails = (UserDetailsImpl) authentication.getPrincipal();
+            List<String> permissions = userDetails.getAuthorities().stream()
+                    .map(GrantedAuthority::getAuthority)
+                    .collect(Collectors.toList());
+            RefreshToken refreshToken = refreshTokenService.createRefreshToken(userDetails.getId());
 
-        ResponseCookie jwtRefreshCookie = jwtUtils.generateRefreshJwtCookie(refreshToken.getToken());
+            ResponseCookie jwtRefreshCookie = jwtUtils.generateRefreshJwtCookie(refreshToken.getToken());
 
-        ResponseCookie jwtCookie = jwtUtils.generateJwtCookie(userDetails);
+            ResponseCookie jwtCookie = jwtUtils.generateJwtCookie(userDetails);
 
-        return ResponseEntity.ok().header(HttpHeaders.SET_COOKIE, jwtCookie.toString())
-                .header(HttpHeaders.SET_COOKIE, jwtRefreshCookie.toString()).body(new JwtResponse(
-                        userDetails.getId(),
-                        userDetails.getUsername(),
-                        permissions));
+            return ResponseEntity.ok().header(HttpHeaders.SET_COOKIE, jwtCookie.toString())
+                    .header(HttpHeaders.SET_COOKIE, jwtRefreshCookie.toString()).body(new JwtResponse(
+                            userDetails.getId(),
+                            userDetails.getUsername(),
+                            permissions));
+        } catch (AuthenticationException e) {
+            Log.error("error while login", e);
+            throw new RuntimeException(e);
+        }
     }
 
     @Override
     public ResponseEntity<?> refreshToken(HttpServletRequest request) {
-
-        String refreshToken = jwtUtils.getJwtRefreshFromCookies(request);
-        if ((refreshToken != null) && (!refreshToken.isEmpty())) {
-            return refreshTokenService.findByToken(refreshToken)
-                    .map(refreshTokenService::verifyExpiration)
-                    .map(RefreshToken::getUser)
-                    .map(user -> {
-                        ResponseCookie jwtCookie = jwtUtils.generateJwtCookie(user);
-
-                        return ResponseEntity.ok()
-                                .header(HttpHeaders.SET_COOKIE, jwtCookie.toString())
-                                .body("Token is refreshed successfully!");
-                    })
-                    .orElseThrow(() -> new TokenRefreshException(refreshToken, "Refresh token is not in database!"));
+        try {
+            String refreshToken = jwtUtils.getJwtRefreshFromCookies(request);
+            if ((refreshToken != null) && (!refreshToken.isEmpty())) {
+                return refreshTokenService.findByToken(refreshToken)
+                        .map(refreshTokenService::verifyExpiration)
+                        .map(RefreshToken::getUser)
+                        .map(user -> {
+                            ResponseCookie jwtCookie = jwtUtils.generateJwtCookie(user);
+                            return ResponseEntity.ok()
+                                    .header(HttpHeaders.SET_COOKIE, jwtCookie.toString())
+                                    .body("Token is refreshed successfully!");
+                        })
+                        .orElseThrow(() -> new TokenRefreshException(refreshToken, "Refresh token is not in database!"));
+            }
+            Log.debug("Refresh Token is empty!");
+            return ResponseEntity.badRequest().body("Refresh Token is empty!");
+        } catch (TokenRefreshException e) {
+            Log.error("error while refresh token", e);
+            throw new RuntimeException(e);
         }
-
-        return ResponseEntity.badRequest().body("Refresh Token is empty!");
     }
 
     @Override
     public ResponseEntity<?> forgotPassword(ForgotPasswordRequest forgotPasswordRequest) {
-        if (userInfoRepository.existsByEmail(forgotPasswordRequest.getEmail())) {
-            String otp = generateOTP();
-            otpMapForgot.put(forgotPasswordRequest.getEmail(), otp);
+        try {
+            if (userInfoRepository.existsByEmail(forgotPasswordRequest.getEmail())) {
+                String otp = generateOTP();
+                otpMapForgot.put(forgotPasswordRequest.getEmail(), otp);
 
-            scheduleOTPCleanup(forgotPasswordRequest.getEmail(), otpMapForgot);
-            System.out.println(otpMapForgot);
+                scheduleOTPCleanup(forgotPasswordRequest.getEmail(), otpMapForgot);
+                System.out.println(otpMapForgot);
 
-            emailService.sendResetPasswordEmail(forgotPasswordRequest.getEmail(), otp, "Reset password");
-            return new ResponseEntity<>("OTP for forgot password has sent to your email", HttpStatus.OK);
+                emailService.sendResetPasswordEmail(forgotPasswordRequest.getEmail(), otp, "Reset password");
+                Log.info("OTP for forgot password has sent to your email");
+                return new ResponseEntity<>("OTP for forgot password has sent to your email", HttpStatus.OK);
+            }
+            return new ResponseEntity<>("Email doesn't Exits", HttpStatus.NOT_FOUND);
+        } catch (Exception e) {
+            Log.error("error while forgot password", e);
+            throw new RuntimeException(e);
         }
-        return new ResponseEntity<>("Email doesn't Exits", HttpStatus.NOT_FOUND);
     }
 
     @Override
     public ResponseEntity<?> forgotPasswordConfirmation(ForgotPasswordRequest forgotPasswordRequest) {
-        if (otpMapForgot.isEmpty() || !isOTPValid(forgotPasswordRequest.getEmail(), otpMapForgot)) {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("OTP has expired.");
-        }
+        try {
+            if (otpMapForgot.isEmpty() || !isOTPValid(forgotPasswordRequest.getEmail(), otpMapForgot)) {
+                Log.warn("OTP has expired");
+                return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("OTP has expired.");
+            }
 
-        if (!otpMapForgot.get(forgotPasswordRequest.getEmail()).equals(forgotPasswordRequest.getOtp())) {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Invalid OTP.");
+            if (!otpMapForgot.get(forgotPasswordRequest.getEmail()).equals(forgotPasswordRequest.getOtp())) {
+                Log.warn("Invalid OTP");
+                return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Invalid OTP.");
+            }
+            User user = userInfoRepository.findByEmail(forgotPasswordRequest.getEmail()).getUser();
+            user.setPasswordEncrypted(passwordEncoder.encode(forgotPasswordRequest.getNewPassword()));
+            userRepository.save(user);
+            Log.info(user.getUsername() + " changed password successful");
+            otpMapForgot.remove(forgotPasswordRequest.getEmail());
+            return ResponseEntity.ok("Password changed successful.");
+        } catch (Exception e) {
+            Log.error("error while forgot password confirmation", e);
+            throw new RuntimeException(e);
         }
-        User user = userInfoRepository.findByEmail(forgotPasswordRequest.getEmail()).getUser();
-        user.setPasswordEncrypted(passwordEncoder.encode(forgotPasswordRequest.getNewPassword()));
-        userRepository.save(user);
-
-        otpMapForgot.remove(forgotPasswordRequest.getEmail());
-        return ResponseEntity.ok("Password changed successful.");
     }
 
     @Override
     public ResponseEntity<?> logout() {
-        Object principle = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        if (!Objects.equals(principle.toString(), "anonymousUser")) {
-            Long userId = ((UserDetailsImpl) principle).getId();
-            refreshTokenService.deleteByUserId(userId);
+        Log.info("logout");
+        try {
+            Object principle = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+            if (!Objects.equals(principle.toString(), "anonymousUser")) {
+                Long userId = ((UserDetailsImpl) principle).getId();
+                refreshTokenService.deleteByUserId(userId);
+            }
+
+            ResponseCookie jwtCookie = jwtUtils.getCleanJwtCookie();
+            ResponseCookie jwtRefreshCookie = jwtUtils.getCleanJwtRefreshCookie();
+            return ResponseEntity.ok()
+                    .header(HttpHeaders.SET_COOKIE, jwtCookie.toString())
+                    .header(HttpHeaders.SET_COOKIE, jwtRefreshCookie.toString())
+                    .body("You've been signed out!");
+        } catch (Exception e) {
+            Log.error("error while logout", e);
+            throw new RuntimeException(e);
         }
-
-        ResponseCookie jwtCookie = jwtUtils.getCleanJwtCookie();
-        ResponseCookie jwtRefreshCookie = jwtUtils.getCleanJwtRefreshCookie();
-
-        return ResponseEntity.ok()
-                .header(HttpHeaders.SET_COOKIE, jwtCookie.toString())
-                .header(HttpHeaders.SET_COOKIE, jwtRefreshCookie.toString())
-                .body("You've been signed out!");
     }
 
     @Override
     public ResponseEntity<?> signup(SignupDto signupDto) {
-        if (userInfoRepository.existsByEmail(signupDto.getEmail())) {
-            return new ResponseEntity<>("Email already exists", HttpStatus.BAD_REQUEST);
+        try {
+            if (userInfoRepository.existsByEmail(signupDto.getEmail())) {
+                return new ResponseEntity<>("Email already exists", HttpStatus.BAD_REQUEST);
+            }
+            if (userRepository.existsByUsername(signupDto.getUsername())) {
+                return new ResponseEntity<>("Username already exists", HttpStatus.BAD_REQUEST);
+            }
+            String otp = generateOTP();
+            otpMap.put(signupDto.getEmail(), otp);
+
+            scheduleOTPCleanup(signupDto.getEmail(), otpMap);
+            System.out.println(otpMap);
+
+            emailService.sendEmail(signupDto.getEmail(), otp, "OTP for registration");
+            Log.info("OTP for sign up new Account has sent to email: " + signupDto.getEmail());
+            return new ResponseEntity<>("OTP for sign up new Account has sent to your email", HttpStatus.OK);
+        } catch (Exception e) {
+            Log.error("error while signup", e);
+            throw new RuntimeException(e);
         }
-        if (userRepository.existsByUsername(signupDto.getUsername())) {
-            return new ResponseEntity<>("Username already exists", HttpStatus.BAD_REQUEST);
-        }
-        String otp = generateOTP();
-        otpMap.put(signupDto.getEmail(), otp);
-
-        scheduleOTPCleanup(signupDto.getEmail(), otpMap);
-        System.out.println(otpMap);
-
-        emailService.sendEmail(signupDto.getEmail(), otp, "OTP for registration");
-
-        return new ResponseEntity<>("OTP for sign up new Account has sent to your email", HttpStatus.OK);
     }
 
     private String generateOTP() {
@@ -233,31 +277,37 @@ public class AuthServiceImpl implements AuthService {
 
     @Override
     public ResponseEntity<?> isValidEmail(SignupDto signupDto) {
-        System.out.println(signupDto);
-        System.out.println(otpMap);
-        if (otpMap.isEmpty() || !isOTPValid(signupDto.getEmail(), otpMap)) {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("OTP has expired.");
-        }
+        try {
+            System.out.println(signupDto);
+            System.out.println(otpMap);
+            if (otpMap.isEmpty() || !isOTPValid(signupDto.getEmail(), otpMap)) {
+                return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("OTP has expired.");
+            }
 
-        if (!otpMap.get(signupDto.getEmail()).equals(signupDto.getOtp())) {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Invalid OTP.");
-        }
-        User user = new User();
-        user.setUserInfo(new UserInfo());
-        user.getUserInfo().setEmail(signupDto.getEmail());
-        user.getUserInfo().setFullName(signupDto.getFullName());
-        user.setPasswordEncrypted(passwordEncoder.encode(signupDto.getPassword()));
-        user.setRole(new Role(2L, "USER"));
-        user.setEnabled(true);
-        user.setUsername(signupDto.getUsername());
-        user.getUserInfo().setUser(user);
-        java.sql.Date date = new Date(System.currentTimeMillis());
-        user.setCreatedDate(date);
-        user.setUpdateDate(date);
-        userRepository.save(user);
+            if (!otpMap.get(signupDto.getEmail()).equals(signupDto.getOtp())) {
+                return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Invalid OTP.");
+            }
+            User user = new User();
+            user.setUserInfo(new UserInfo());
+            user.getUserInfo().setEmail(signupDto.getEmail());
+            user.getUserInfo().setFullName(signupDto.getFullName());
+            user.setPasswordEncrypted(passwordEncoder.encode(signupDto.getPassword()));
+            user.setRole(new Role(2L, "USER"));
+            user.setEnabled(true);
+            user.setUsername(signupDto.getUsername());
+            user.getUserInfo().setUser(user);
+            Date date = new Date(System.currentTimeMillis());
+            user.setCreatedDate(date);
+            user.setUpdateDate(date);
+            userRepository.save(user);
 
-        otpMap.remove(signupDto.getEmail());
-        return ResponseEntity.ok("Signup successful.");
+            otpMap.remove(signupDto.getEmail());
+            Log.info("Signup successful with email: " + signupDto.getEmail() + " and username: " + signupDto.getUsername());
+            return ResponseEntity.ok("Signup successful.");
+        } catch (Exception e) {
+            Log.error("error while validate email", e);
+            throw new RuntimeException(e);
+        }
     }
 
 

@@ -4,14 +4,29 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="89893dc3-088e-47ef-a82c-f709754202c6" name="Changes" comment="update dashboard (add pending review)">
+    <list default="true" id="89893dc3-088e-47ef-a82c-f709754202c6" name="Changes" comment="fix update product">
+      <change afterPath="$PROJECT_DIR$/../BackEnd/src/main/resources/log4j.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../BackEnd/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../BackEnd/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../BackEnd/src/main/java/vn/edu/hcmuaf/cdw/ShopThoiTrang/service/EmailService.java" beforeDir="false" afterPath="$PROJECT_DIR$/../BackEnd/src/main/java/vn/edu/hcmuaf/cdw/ShopThoiTrang/service/EmailService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../BackEnd/src/main/java/vn/edu/hcmuaf/cdw/ShopThoiTrang/service/RefreshTokenService.java" beforeDir="false" afterPath="$PROJECT_DIR$/../BackEnd/src/main/java/vn/edu/hcmuaf/cdw/ShopThoiTrang/service/RefreshTokenService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../BackEnd/src/main/java/vn/edu/hcmuaf/cdw/ShopThoiTrang/service/impl/AuthServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/../BackEnd/src/main/java/vn/edu/hcmuaf/cdw/ShopThoiTrang/service/impl/AuthServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../BackEnd/src/main/java/vn/edu/hcmuaf/cdw/ShopThoiTrang/service/impl/BlogServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/../BackEnd/src/main/java/vn/edu/hcmuaf/cdw/ShopThoiTrang/service/impl/BlogServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../BackEnd/src/main/java/vn/edu/hcmuaf/cdw/ShopThoiTrang/service/impl/CategoryServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/../BackEnd/src/main/java/vn/edu/hcmuaf/cdw/ShopThoiTrang/service/impl/CategoryServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../BackEnd/src/main/java/vn/edu/hcmuaf/cdw/ShopThoiTrang/service/impl/ContactServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/../BackEnd/src/main/java/vn/edu/hcmuaf/cdw/ShopThoiTrang/service/impl/ContactServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../BackEnd/src/main/java/vn/edu/hcmuaf/cdw/ShopThoiTrang/service/impl/GoogleServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/../BackEnd/src/main/java/vn/edu/hcmuaf/cdw/ShopThoiTrang/service/impl/GoogleServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../BackEnd/src/main/java/vn/edu/hcmuaf/cdw/ShopThoiTrang/service/impl/ImportInvoiceServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/../BackEnd/src/main/java/vn/edu/hcmuaf/cdw/ShopThoiTrang/service/impl/ImportInvoiceServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../BackEnd/src/main/java/vn/edu/hcmuaf/cdw/ShopThoiTrang/service/impl/OrderServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/../BackEnd/src/main/java/vn/edu/hcmuaf/cdw/ShopThoiTrang/service/impl/OrderServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../BackEnd/src/main/java/vn/edu/hcmuaf/cdw/ShopThoiTrang/service/impl/OrderStatusHistoryServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/../BackEnd/src/main/java/vn/edu/hcmuaf/cdw/ShopThoiTrang/service/impl/OrderStatusHistoryServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../BackEnd/src/main/java/vn/edu/hcmuaf/cdw/ShopThoiTrang/service/impl/OrderStatusServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/../BackEnd/src/main/java/vn/edu/hcmuaf/cdw/ShopThoiTrang/service/impl/OrderStatusServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../BackEnd/src/main/java/vn/edu/hcmuaf/cdw/ShopThoiTrang/service/impl/PermissionServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/../BackEnd/src/main/java/vn/edu/hcmuaf/cdw/ShopThoiTrang/service/impl/PermissionServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../BackEnd/src/main/java/vn/edu/hcmuaf/cdw/ShopThoiTrang/service/impl/ProductServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/../BackEnd/src/main/java/vn/edu/hcmuaf/cdw/ShopThoiTrang/service/impl/ProductServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../BackEnd/src/main/java/vn/edu/hcmuaf/cdw/ShopThoiTrang/service/impl/PromotionServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/../BackEnd/src/main/java/vn/edu/hcmuaf/cdw/ShopThoiTrang/service/impl/PromotionServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../BackEnd/src/main/java/vn/edu/hcmuaf/cdw/ShopThoiTrang/service/impl/ResourceServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/../BackEnd/src/main/java/vn/edu/hcmuaf/cdw/ShopThoiTrang/service/impl/ResourceServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../BackEnd/src/main/java/vn/edu/hcmuaf/cdw/ShopThoiTrang/service/impl/ReviewServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/../BackEnd/src/main/java/vn/edu/hcmuaf/cdw/ShopThoiTrang/service/impl/ReviewServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../BackEnd/src/main/java/vn/edu/hcmuaf/cdw/ShopThoiTrang/service/impl/RoleServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/../BackEnd/src/main/java/vn/edu/hcmuaf/cdw/ShopThoiTrang/service/impl/RoleServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../BackEnd/src/main/java/vn/edu/hcmuaf/cdw/ShopThoiTrang/service/impl/UserServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/../BackEnd/src/main/java/vn/edu/hcmuaf/cdw/ShopThoiTrang/service/impl/UserServiceImpl.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Dashboard/CardList.tsx" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Dashboard/DashBoard.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/Dashboard/DashBoard.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Dashboard/NewCustomers.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/Dashboard/NewCustomers.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Dashboard/OutOfStock.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/Dashboard/OutOfStock.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Dashboard/PendingReviews.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/Dashboard/PendingReviews.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Dashboard/ProductItem.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/Dashboard/ProductItem.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../FrontEnd/src/pages/user/MyAccount.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/../FrontEnd/src/pages/user/MyAccount.tsx" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -164,7 +179,8 @@
       <workItem from="1717916020428" duration="16141000" />
       <workItem from="1717950798128" duration="5598000" />
       <workItem from="1717990270026" duration="7668000" />
-      <workItem from="1717998048485" duration="7917000" />
+      <workItem from="1717998048485" duration="16171000" />
+      <workItem from="1718076303051" duration="1908000" />
     </task>
     <task id="LOCAL-00001" summary="update product for admin (50%&#10;)">
       <option name="closed" value="true" />
@@ -430,7 +446,23 @@
       <option name="project" value="LOCAL" />
       <updated>1718011181183</updated>
     </task>
-    <option name="localTasksCounter" value="34" />
+    <task id="LOCAL-00034" summary="update dashboard (add loyalCustomer)">
+      <option name="closed" value="true" />
+      <created>1718014719437</created>
+      <option name="number" value="00034" />
+      <option name="presentableId" value="LOCAL-00034" />
+      <option name="project" value="LOCAL" />
+      <updated>1718014719437</updated>
+    </task>
+    <task id="LOCAL-00035" summary="fix update product">
+      <option name="closed" value="true" />
+      <created>1718034572442</created>
+      <option name="number" value="00035" />
+      <option name="presentableId" value="LOCAL-00035" />
+      <option name="project" value="LOCAL" />
+      <updated>1718034572442</updated>
+    </task>
+    <option name="localTasksCounter" value="36" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -451,8 +483,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="updated: fix conflict" />
-    <MESSAGE value="updated: finished user edit (show only)" />
     <MESSAGE value="updated: added user create" />
     <MESSAGE value="update productList: done filter by category" />
     <MESSAGE value="add list order" />
@@ -476,6 +506,8 @@
     <MESSAGE value="update dashboard (add bestSeller)" />
     <MESSAGE value="update dashboard (add outOfStock)" />
     <MESSAGE value="update dashboard (add pending review)" />
-    <option name="LAST_COMMIT_MESSAGE" value="update dashboard (add pending review)" />
+    <MESSAGE value="update dashboard (add loyalCustomer)" />
+    <MESSAGE value="fix update product" />
+    <option name="LAST_COMMIT_MESSAGE" value="fix update product" />
   </component>
 </project>

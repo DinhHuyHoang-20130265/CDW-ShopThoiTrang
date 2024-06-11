@@ -4,6 +4,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import jakarta.persistence.criteria.Predicate;
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -22,6 +23,7 @@ import java.util.stream.Stream;
 
 @Service
 public class CategoryServiceImpl implements CategoryService {
+    private static final Logger Log = Logger.getLogger(CategoryServiceImpl.class);
 
     @Autowired
     private CategoryRepository categoryRepository;
@@ -29,81 +31,113 @@ public class CategoryServiceImpl implements CategoryService {
 
     @Override
     public Page<Category> getAllCategories(String filter, int start, int end, String sortBy, String order) {
-        Sort.Direction direction = Sort.Direction.ASC;
-        if (order.equalsIgnoreCase("DESC"))
-            direction = Sort.Direction.DESC;
-
-        JsonNode filterJson;
         try {
-            filterJson = new ObjectMapper().readTree(java.net.URLDecoder.decode(filter, StandardCharsets.UTF_8));
-        } catch (JsonProcessingException e) {
+            Sort.Direction direction = Sort.Direction.ASC;
+            if (order.equalsIgnoreCase("DESC"))
+                direction = Sort.Direction.DESC;
+
+            JsonNode filterJson;
+            try {
+                filterJson = new ObjectMapper().readTree(java.net.URLDecoder.decode(filter, StandardCharsets.UTF_8));
+            } catch (JsonProcessingException e) {
+                throw new RuntimeException(e);
+            }
+            Specification<Category> specification = (root, query, criteriaBuilder) -> {
+                Predicate predicate = criteriaBuilder.conjunction();
+                if (filterJson.has("name")) {
+                    predicate = criteriaBuilder.and(predicate, criteriaBuilder.like(root.get("name"), "%" + filterJson.get("name").asText() + "%"));
+                }
+                if (filterJson.has("status")) {
+                    predicate = criteriaBuilder.and(predicate, criteriaBuilder.equal(root.get("status"), filterJson.get("status").asBoolean()));
+                }
+                return predicate;
+            };
+
+            if (sortBy.equals("name")) {
+                return categoryRepository.findAll(specification, PageRequest.of(start, end, Sort.by(direction, "name")));
+            }
+            if (sortBy.equals("status")) {
+                return categoryRepository.findAll(specification, PageRequest.of(start, end, Sort.by(direction, "status")));
+            }
+
+            return categoryRepository.findAll(specification, PageRequest.of(start, end, Sort.by(direction, sortBy)));
+        } catch (RuntimeException e) {
+            Log.error("Error in CategoryServiceImpl.getAllCategories: " + e.getMessage());
             throw new RuntimeException(e);
         }
-        Specification<Category> specification = (root, query, criteriaBuilder) -> {
-            Predicate predicate = criteriaBuilder.conjunction();
-            if (filterJson.has("name")) {
-                predicate = criteriaBuilder.and(predicate, criteriaBuilder.like(root.get("name"), "%" + filterJson.get("name").asText() + "%"));
-            }
-            if (filterJson.has("status")) {
-                predicate = criteriaBuilder.and(predicate, criteriaBuilder.equal(root.get("status"), filterJson.get("status").asBoolean()));
-            }
-            return predicate;
-        };
-
-        if (sortBy.equals("name")) {
-            return categoryRepository.findAll(specification, PageRequest.of(start, end, Sort.by(direction, "name")));
-        }
-        if (sortBy.equals("status")) {
-            return categoryRepository.findAll(specification, PageRequest.of(start, end, Sort.by(direction, "status")));
-        }
-
-        return categoryRepository.findAll(specification, PageRequest.of(start, end, Sort.by(direction, sortBy)));
     }
 
     @Override
     public List<Category> getAllCategories(String ids) {
-        JsonNode filterJson;
         try {
-            filterJson = new ObjectMapper().readTree(java.net.URLDecoder.decode(ids, StandardCharsets.UTF_8));
-        } catch (JsonProcessingException e) {
+            JsonNode filterJson;
+            try {
+                filterJson = new ObjectMapper().readTree(java.net.URLDecoder.decode(ids, StandardCharsets.UTF_8));
+            } catch (JsonProcessingException e) {
+                throw new RuntimeException(e);
+            }
+            if (filterJson.has("ids")) {
+                List<Long> idsList = new ArrayList<>();
+                for (JsonNode idNode : filterJson.get("ids")) {
+                    idsList.add(idNode.asLong());
+                }
+                Iterable<Long> itr = List.of(Stream.of(idsList).flatMap(List::stream).toArray(Long[]::new));
+                return categoryRepository.findAllById(itr);
+            }
+
+            return null;
+        } catch (RuntimeException e) {
+            Log.error("Error in CategoryServiceImpl.getAllCategories: " + e.getMessage());
             throw new RuntimeException(e);
         }
-        if (filterJson.has("ids")) {
-            List<Long> idsList = new ArrayList<>();
-            for (JsonNode idNode : filterJson.get("ids")) {
-                idsList.add(idNode.asLong());
-            }
-            Iterable<Long> itr = List.of(Stream.of(idsList).flatMap(List::stream).toArray(Long[]::new));
-            return categoryRepository.findAllById(itr);
-        }
-
-        return null;
     }
 
     @Override
     public List<Category> getCategoriesStatusTrue() {
-        return categoryRepository.getAllByStatusIsTrue();
+        try {
+            return categoryRepository.getAllByStatusIsTrue();
+        } catch (Exception e) {
+            Log.error("Error in CategoryServiceImpl.getCategoriesStatusTrue: " + e.getMessage());
+            throw new RuntimeException(e);
+        }
     }
 
     @Override
     public Category getCategoryById(Long id) {
-        return categoryRepository.findById(id).orElse(null);
+        try {
+            return categoryRepository.findById(id).orElse(null);
+        } catch (Exception e) {
+            Log.error("Error in CategoryServiceImpl.getCategoryById: " + e.getMessage());
+            throw new RuntimeException(e);
+        }
     }
 
     @Override
     public Category saveCategory(Category category) {
-        Date currentDate = new Date(System.currentTimeMillis());
-        category.setReleaseDate(currentDate);
-        category.setUpdateDate(currentDate);
-        return categoryRepository.save(category);
+        try {
+            Date currentDate = new Date(System.currentTimeMillis());
+            category.setReleaseDate(currentDate);
+            category.setUpdateDate(currentDate);
+            Log.info(category.getReleaseBy().getUsername() + " add new category: " + category.getName());
+            return categoryRepository.save(category);
+        } catch (Exception e) {
+            Log.error("Error in CategoryServiceImpl.saveCategory: " + e.getMessage());
+            throw new RuntimeException(e);
+        }
     }
 
     @Override
     public Category updateCategory(Long id, Category category) {
-        Category categoryUpdate = categoryRepository.findById(id).orElse(null);
-        categoryUpdate.setName(category.getName());
-        categoryUpdate.setStatus(category.isStatus());
-        categoryUpdate.setUpdateDate(new Date(System.currentTimeMillis()));
-        return categoryRepository.save(categoryUpdate);
+        try {
+            Category categoryUpdate = categoryRepository.findById(id).orElse(null);
+            categoryUpdate.setName(category.getName());
+            categoryUpdate.setStatus(category.isStatus());
+            categoryUpdate.setUpdateDate(new Date(System.currentTimeMillis()));
+            Log.info(category.getUpdateBy().getUsername() + " update category: " + category.getName());
+            return categoryRepository.save(categoryUpdate);
+        } catch (Exception e) {
+            Log.error("Error in CategoryServiceImpl.updateCategory: " + e.getMessage());
+            throw new RuntimeException(e);
+        }
     }
 }
