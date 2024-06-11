@@ -48,13 +48,13 @@ const OrderPieChart = (props: { orders?: Order[] }) => {
     const aggregate = aggregateOrders(orders || []);
 
     const data: { label: string, value: number, color: string }[] = [
-        {label: 'Chờ xác nhận', value: aggregate.odersPending.length, color: '#0088FE'},
-        {label: 'Đang đóng gói', value: aggregate.ordersPackaging.length, color: 'rgb(243,155,43)'},
-        {label: 'Chờ đơn vị vận chuyển', value: aggregate.ordersWaiting.length, color: '#FFBB28'},
-        {label: 'Đang giao', value: aggregate.ordersDelivering.length, color: '#FF8042'},
-        {label: 'Hoàn thành', value: aggregate.ordersCompleted.length, color: '#00C49F'},
-        {label: 'Đang xử lý', value: aggregate.ordersProcessing.length, color: 'rgb(82,80,80)'},
-        {label: 'Đã Hủy', value: aggregate.ordersCancelled.length, color: '#ff0b0b'},
+        {label: 'Chờ xác nhận', value: aggregate.odersPending.length, color: '#00FFFF'},
+        {label: 'Đang đóng gói', value: aggregate.ordersPackaging.length, color: '#FF99FF'},
+        {label: 'Chờ đơn vị vận chuyển', value: aggregate.ordersWaiting.length, color: '#FFFF00'},
+        {label: 'Đang giao', value: aggregate.ordersDelivering.length, color: '#FF9900'},
+        {label: 'Hoàn thành', value: aggregate.ordersCompleted.length, color: '#00FF00'},
+        {label: 'Đang xử lý', value: aggregate.ordersProcessing.length, color: '#999999'},
+        {label: 'Đã Hủy', value: aggregate.ordersCancelled.length, color: '#FF0000'},
     ];
 
     const TOTAL = data.map((item) => item.value).reduce((a, b) => a + b, 0);

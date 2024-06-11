@@ -4,6 +4,7 @@ import java.time.Instant;
 import java.util.Optional;
 import java.util.UUID;
 
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
@@ -15,6 +16,8 @@ import vn.edu.hcmuaf.cdw.ShopThoiTrang.reponsitory.UserRepository;
 
 @Service
 public class RefreshTokenService {
+    private static final Logger Log = Logger.getLogger(RefreshTokenService.class.getName());
+
     @Value("1200000")
     private Long refreshTokenDurationMs;
 
@@ -25,42 +28,66 @@ public class RefreshTokenService {
     private UserRepository userRepository;
 
     public Optional<RefreshToken> findByToken(String token) {
-        return refreshTokenRepository.findByToken(token);
+        try {
+            return refreshTokenRepository.findByToken(token);
+        } catch (Exception e) {
+            Log.error("Error in findByToken: ", e);
+            throw new RuntimeException(e);
+        }
     }
 
     public Optional<RefreshToken> findByUser(Long id) {
-        return refreshTokenRepository.findByUser(userRepository.findById(id).orElse(null));
+        try {
+            return refreshTokenRepository.findByUser(userRepository.findById(id).orElse(null));
+        } catch (Exception e) {
+            Log.error("Error in findByUser: ", e);
+            throw new RuntimeException(e);
+        }
     }
 
 
     public RefreshToken createRefreshToken(Long userId) {
 
-        RefreshToken refreshToken = findByUser(userId).orElse(null);
+        try {
+            RefreshToken refreshToken = findByUser(userId).orElse(null);
 
-        if (refreshToken != null) {
-            refreshToken.setToken(UUID.randomUUID().toString());
-        } else {
-            refreshToken = new RefreshToken();
-            refreshToken.setUser(userRepository.findById(userId).orElse(null));
-            refreshToken.setExpiryDate(Instant.now().plusMillis(refreshTokenDurationMs));
-            refreshToken.setToken(UUID.randomUUID().toString());
+            if (refreshToken != null) {
+                refreshToken.setToken(UUID.randomUUID().toString());
+            } else {
+                refreshToken = new RefreshToken();
+                refreshToken.setUser(userRepository.findById(userId).orElse(null));
+                refreshToken.setExpiryDate(Instant.now().plusMillis(refreshTokenDurationMs));
+                refreshToken.setToken(UUID.randomUUID().toString());
+            }
+            refreshToken = refreshTokenRepository.save(refreshToken);
+            return refreshToken;
+        } catch (Exception e) {
+            Log.error("Error in createRefreshToken: ", e);
+            throw new RuntimeException(e);
         }
-        refreshToken = refreshTokenRepository.save(refreshToken);
-        return refreshToken;
     }
 
     public RefreshToken verifyExpiration(RefreshToken token) {
-        System.out.println(token.getExpiryDate() + " " + Instant.now());
-        if (token.getExpiryDate().compareTo(Instant.now()) < 0) {
-            refreshTokenRepository.delete(token);
-            throw new TokenRefreshException(token.getToken(), "Refresh token was expired. Please make a new signing request");
+        try {
+            System.out.println(token.getExpiryDate() + " " + Instant.now());
+            if (token.getExpiryDate().compareTo(Instant.now()) < 0) {
+                refreshTokenRepository.delete(token);
+                throw new TokenRefreshException(token.getToken(), "Refresh token was expired. Please make a new signing request");
+            }
+            return token;
+        } catch (TokenRefreshException e) {
+            Log.error("Error in verifyExpiration: ", e);
+            throw new RuntimeException(e);
         }
-
-        return token;
     }
 
     @Transactional
     public int deleteByUserId(Long userId) {
-        return refreshTokenRepository.deleteByUserId(userId);
+        try {
+            return refreshTokenRepository.deleteByUserId(userId);
+        } catch (Exception e) {
+            Log.error("Error in deleteByUserId: ", e);
+            throw new RuntimeException(e);
+        }
     }
 }

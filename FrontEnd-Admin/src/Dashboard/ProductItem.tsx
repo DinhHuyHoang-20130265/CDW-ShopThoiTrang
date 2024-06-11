@@ -35,7 +35,7 @@ export const ProductItem = (props: Props) => {
             </ListItemAvatar>
             <ListItemText
                 primary= {product.name}
-                secondary={quantity !== -1 ? (quantity + 'sản phẩm đã bán') : 'Sản phẩm hết hàng cho 1 hoặc nhiều biến thể'}
+                secondary={quantity !== -1 ? (quantity + ' sản phẩm đã bán') : 'Sản phẩm hết hàng cho 1 hoặc nhiều biến thể'}
             />
             <ListItemSecondaryAction>
                 <Box

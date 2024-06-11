@@ -4,6 +4,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import jakarta.persistence.criteria.Predicate;
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -22,53 +23,64 @@ import java.util.stream.Stream;
 @Service
 public class RoleServiceImpl implements RoleService {
 
+    private static final Logger Log = Logger.getLogger(RoleServiceImpl.class.getName());
+
     @Autowired
     private RoleRepository roleRepository;
 
 
     @Override
     public Page<Role> getAllRole(String filter, int page, int perPage, String sortBy, String order) {
-        Sort.Direction direction = Sort.Direction.ASC;
-        if (order.equalsIgnoreCase("DESC")) direction = Sort.Direction.DESC;
-
-        JsonNode filterJson;
         try {
-            filterJson = new ObjectMapper().readTree(java.net.URLDecoder.decode(filter, StandardCharsets.UTF_8));
-        } catch (JsonProcessingException e) {
+            Sort.Direction direction = Sort.Direction.ASC;
+            if (order.equalsIgnoreCase("DESC")) direction = Sort.Direction.DESC;
+
+            JsonNode filterJson;
+            try {
+                filterJson = new ObjectMapper().readTree(java.net.URLDecoder.decode(filter, StandardCharsets.UTF_8));
+            } catch (JsonProcessingException e) {
+                throw new RuntimeException(e);
+            }
+            Specification<Role> specification = (root, query, criteriaBuilder) -> {
+                Predicate predicate = criteriaBuilder.conjunction();
+                if (filterJson.has("name")) {
+                    predicate = criteriaBuilder.and(predicate, criteriaBuilder.like(root.get("name"), "%" + filterJson.get("name").asText() + "%"));
+                }
+                return predicate;
+            };
+
+            if (sortBy.equals("name")) {
+                return roleRepository.findAll(specification, PageRequest.of(page, perPage, Sort.by(direction, "name")));
+            }
+
+            return roleRepository.findAll(specification, PageRequest.of(page, perPage, Sort.by(direction, sortBy)));
+        } catch (RuntimeException e) {
+            Log.error("Error in getAllPromotion: ", e);
             throw new RuntimeException(e);
         }
-        Specification<Role> specification = (root, query, criteriaBuilder) -> {
-            Predicate predicate = criteriaBuilder.conjunction();
-            if (filterJson.has("name")) {
-                predicate = criteriaBuilder.and(predicate, criteriaBuilder.like(root.get("name"), "%" + filterJson.get("name").asText() + "%"));
-            }
-            return predicate;
-        };
-
-        if (sortBy.equals("name")) {
-            return roleRepository.findAll(specification, PageRequest.of(page, perPage, Sort.by(direction, "name")));
-        }
-
-        return roleRepository.findAll(specification, PageRequest.of(page, perPage, Sort.by(direction, sortBy)));
     }
 
     @Override
     public List<Role> getAllRole(String ids) {
-        JsonNode filterJson;
         try {
-            filterJson = new ObjectMapper().readTree(java.net.URLDecoder.decode(ids, StandardCharsets.UTF_8));
-        } catch (JsonProcessingException e) {
+            JsonNode filterJson;
+            try {
+                filterJson = new ObjectMapper().readTree(java.net.URLDecoder.decode(ids, StandardCharsets.UTF_8));
+            } catch (JsonProcessingException e) {
+                throw new RuntimeException(e);
+            }
+            if (filterJson.has("ids")) {
+                List<Long> idsList = new ArrayList<>();
+                for (JsonNode idNode : filterJson.get("ids")) {
+                    idsList.add(idNode.asLong());
+                }
+                Iterable<Long> itr = List.of(Stream.of(idsList).flatMap(List::stream).toArray(Long[]::new));
+                return roleRepository.findAllById(itr);
+            }
+            return null;
+        } catch (RuntimeException e) {
+            Log.error("Error in getAllRole: ", e);
             throw new RuntimeException(e);
         }
-        if (filterJson.has("ids")) {
-            List<Long> idsList = new ArrayList<>();
-            for (JsonNode idNode : filterJson.get("ids")) {
-                idsList.add(idNode.asLong());
-            }
-            Iterable<Long> itr = List.of(Stream.of(idsList).flatMap(List::stream).toArray(Long[]::new));
-            return roleRepository.findAllById(itr);
-        }
-
-        return null;
     }
 }

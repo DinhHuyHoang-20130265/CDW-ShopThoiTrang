@@ -13,6 +13,7 @@ import NbNewUsers from "./NbNewUsers";
 import NbNewReviews from "./NbNewReviews";
 import BestSeller from "./BestSeller";
 import OutOfStock from "./OutOfStock";
+import NewCustomers from "./NewCustomers";
 
 const Spacer = () => <span style={{width: '1em'}}/>;
 const VerticalSpacer = () => <span style={{height: '1em'}}/>;
@@ -215,7 +216,21 @@ const DashBoard = () => {
 
     const outOfStock = useMemo(() => getOutOfStock(products), [products]);
 
-    console.log(outOfStock);
+    // get loyal customers
+    const getLoyalCustomers = (users: any, orders: any) => {
+        if (!users || !orders) return [];
+        const loyalCustomers = users.map((user: any) => {
+            const userOrders = orders.filter((order: any) => order.user.id === user.id);
+            return {
+                user,
+                totalOrders: userOrders.length,
+                totalAmount: userOrders.reduce((acc: number, order: any) => acc + order.totalAmount, 0),
+            };
+        });
+        return loyalCustomers.sort((a: any, b: any) => b.totalAmount - a.totalAmount).slice(0, 10);
+    };
+
+    const loyalCustomers = useMemo(() => getLoyalCustomers(users, orders), [users, orders]);
 
     return isXSmall ? (
         <div>
@@ -281,7 +296,9 @@ const DashBoard = () => {
                         <div style={styles.singleCol}>
                             <BestSeller products={bestSeller}/>
                         </div>
-
+                        <div style={styles.singleCol}>
+                            <PendingReviews reviews={reviews}/>
+                        </div>
                     </div>
                     <div style={styles.rightCol}>
                         <div style={styles.singleCol}>
@@ -290,13 +307,9 @@ const DashBoard = () => {
                         <div style={styles.singleCol}>
                             <OutOfStock products={outOfStock}/>
                         </div>
-
-
-                        {/*<div style={styles.flex}>*/}
-                        {/*    <PendingReviews reviews={reviews}/>*/}
-                        {/*    <Spacer/>*/}
-                        {/*    <NewCustomers/>*/}
-                        {/*</div>*/}
+                        <div style={styles.singleCol}>
+                            <NewCustomers loyalCustomers={loyalCustomers}/>
+                        </div>
                     </div>
                 </div>
             </div>
