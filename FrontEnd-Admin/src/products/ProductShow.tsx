@@ -5,8 +5,9 @@ import {
     DateField, FunctionField, ImageField, Labeled, NumberField, RichTextField,
     Show, SimpleShowLayout, TextField, useRecordContext, useShowContext, useShowController,
 } from 'react-admin';
-import {Grid, Stack, Table, Typography} from "@mui/material";
+import {Grid, ImageList, Stack, Table, Typography} from "@mui/material";
 import {ColorField} from "react-admin-color-picker";
+import Grid2 from "@mui/material/Unstable_Grid2";
 
 
 const ProductShow = () => {
@@ -48,12 +49,24 @@ const ProductShow = () => {
             <Show>
                 <Grid container spacing={2} sx={{margin: 2}}>
                     <Grid item xs={12} sm={4} alignContent={"center"} justifyContent={"center"}>
-                        <ImageField
-                            source="imageUrl"
-                            textAlign={"center"}
-                            label={"Thumbnail"}
-                            sx={{ '& img': { width: "100% !important", height: "100% !important" } }}
-                        />
+                        <Grid container spacing={2} sx={{margin: 2}}>
+                            <Grid item xs={12} sm={12}>
+                                <ImageField
+                                    source="imageUrl"
+                                    textAlign={"center"}
+                                    label={"Thumbnail"}
+                                    sx={{
+                                        '& img': {width: "60% !important", height: "60% !important"},
+                                        display: 'flex',
+                                        justifyContent: 'center'
+                                    }}
+                                />
+                            </Grid>
+                            <Grid item xs={12} sm={12}>
+                                <ImageField source="imgProducts"
+                                            sx={{display: 'flex', justifyContent: 'center'}}/>
+                            </Grid>
+                        </Grid>
                     </Grid>
                     <Grid item xs={12} sm={8} sx={{marginBottom: 4}}>
                         <Stack spacing={2}>
@@ -73,13 +86,14 @@ const ProductShow = () => {
                                 label="Danh mục"
                                 render={(record: any) => (
                                     record.categories.map((category: any) => (
-                                        <ChipField sx={{margin: "2px"}} record={category} source="name" key={category.id}/>
+                                        <ChipField sx={{margin: "2px"}} record={category} source="name"
+                                                   key={category.id}/>
                                     ))
                                 )}
                             />
                         </Stack>
                     </Grid>
-                    <Grid item xs={10} sm={10} sx={{backgroundColor: "lightgrey", borderRadius: 4, margin: "auto"}}>
+                    <Grid item xs={10} sm={10} sx={{backgroundColor: "lightgrey", borderRadius: 1, margin: "auto"}}>
                         <RichTextField source="content" sx={{margin: 'auto'}}/>
                     </Grid>
 
@@ -111,7 +125,6 @@ const ProductShow = () => {
         </>
     );
 };
-
 
 
 export default ProductShow;

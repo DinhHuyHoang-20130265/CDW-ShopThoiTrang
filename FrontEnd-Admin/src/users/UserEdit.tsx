@@ -142,7 +142,7 @@ const UserEdit = () => {
         <Edit title={<UserTitle/>} hasShow={false}>
             <TabbedForm validate={validateForm} toolbar={<Toolbar>
                 <SaveButton
-                    label="Save"
+                    label="Lưu"
                     alwaysEnable
                 />
             </Toolbar>}>
