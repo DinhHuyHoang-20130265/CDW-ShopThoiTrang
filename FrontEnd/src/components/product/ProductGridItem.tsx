@@ -1,9 +1,10 @@
-import React, {Fragment, useState} from "react";
+import React, {Fragment, useEffect, useState} from "react";
 import {Link} from "react-router-dom";
 import {useToasts} from "react-toast-notifications";
 import {formatCurrency, getDiscountPrice} from "../../helpers/product";
 import ProductRating from "../../wrappers/product/sub-components/ProductRating";
 import ProductModal from "../../wrappers/product/ProductModal";
+import axios from "axios";
 
 const ProductGridItem = ({
                              product,
@@ -20,6 +21,20 @@ const ProductGridItem = ({
     const discountedPrice = getDiscountPrice(product.price.price, product.promotions[0])
     const finalProductPrice = (product.price.price).toFixed(2);
     const finalDiscountedPrice = discountedPrice !== null ? (discountedPrice).toFixed(2) : 0;
+    const [reviews, setReviews] = useState([]);
+    useEffect(() => {
+        const fectch = async () => {
+            await axios.get(`${process.env.REACT_APP_API_ENDPOINT}review/product/${product.id}`, {
+                headers: {
+                    Accept: 'application/json',
+                    "Content-Type": "application/json"
+                }
+            }).then((response: any) => {
+                setReviews(response.data);
+            })
+        }
+        fectch();
+    }, []);
 
     return (
         <Fragment>
@@ -139,6 +154,7 @@ const ProductGridItem = ({
                 show={modalShow}
                 onHide={() => setModalShow(false)}
                 product={product}
+                reviews={reviews}
                 discountedprice={discountedPrice}
                 finalproductprice={finalProductPrice}
                 finaldiscountedprice={finalDiscountedPrice}

@@ -13,6 +13,7 @@ const ProductGrid = ({
                          wishlistItems,
                          sliderClassName,
                          spaceBottomClass,
+                         category,
                          type,
                          limit
                      }: any) => {
