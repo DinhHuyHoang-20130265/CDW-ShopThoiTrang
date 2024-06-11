@@ -32,7 +32,7 @@ const PromotionCreate = () => {
                                 Ảnh minh hoạ
                             </Typography>
                             <ImageInput name={"thumbnail"} source={"thumbnail"}>
-                                <ImageField source="src" label="Ảnh chính"/>
+                                <ImageField source="src" label="Thumbnail"/>
                             </ImageInput>
                         </Grid>
                         <Grid item xs={12} sm={12}>

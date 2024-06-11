@@ -1,5 +1,6 @@
 package vn.edu.hcmuaf.cdw.ShopThoiTrang.controller;
 
+import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -9,6 +10,9 @@ import vn.edu.hcmuaf.cdw.ShopThoiTrang.service.PromotionService;
 @RestController
 @RequestMapping("/api/promotion")
 public class PromotionController {
+
+    @Autowired
+    HttpServletRequest request;
 
     @Autowired
     private PromotionService promotionService;
@@ -30,12 +34,12 @@ public class PromotionController {
 
     @PostMapping
     public ResponseEntity<?> savePromotion(@RequestBody Promotion promotion) {
-        return ResponseEntity.ok(promotionService.savePromotion(promotion));
+        return ResponseEntity.ok(promotionService.savePromotion(promotion, request));
     }
 
     @PutMapping("/{id}")
     public ResponseEntity<?> updatePromotion(@PathVariable int id, @RequestBody Promotion promotion) {
-        return ResponseEntity.ok(promotionService.updatePromotion(id, promotion));
+        return ResponseEntity.ok(promotionService.updatePromotion(id, promotion, request));
     }
 
     @GetMapping("/products/{id}")

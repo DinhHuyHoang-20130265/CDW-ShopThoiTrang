@@ -12,18 +12,18 @@ import {useWatch} from "react-hook-form";
 
 
 export const ReturnedImg = () => {
-    const isReturned = useWatch({name: 'thumnail'});
+    const isReturned = useWatch({name: 'thumbnail'});
     return isReturned ?
         <>
-            <ImageField source="userInfo.avtUrl" title="title" sx={{
+            <ImageField source="thumbnail" title="thumbnail" sx={{
                 display: "flex",
                 justifyContent: "center",
                 marginTop: "5px",
                 marginBottom: "5px",
                 maxHeight: "100px"
             }}/>
-            <ImageInput source="userInfo.avt" accept="image/*"
-                        placeholder={<p>Add new Avt Img</p>} label={"Thêm ảnh đại diện mới"}>
+            <ImageInput source="newthumbnail" accept="image/*"
+                        placeholder={<p>Thay đổi thumbnail</p>} label={"Thay đổi thumbnail"}>
                 <ImageField source="src" title="title" sx={{
                     display: "flex",
                     justifyContent: "center",
@@ -32,8 +32,8 @@ export const ReturnedImg = () => {
                     maxHeight: "100px"
                 }}/>
             </ImageInput>
-        </> : <ImageInput source="userInfo.avt" accept="image/*"
-                          placeholder={<p>Drop your img file here</p>}>
+        </> : <ImageInput source="thumbnail" accept="image/*"
+                          placeholder={<p>Thêm thumbnail</p>}>
             <ImageField source="src" title="title" sx={{
                 display: "flex",
                 justifyContent: "center",
@@ -64,7 +64,7 @@ const PromotionEdit = () => {
                 >
                     <Grid container columnSpacing={2}>
                         <Grid item xs={12} sm={12}>
-                            <ImageField source={"thumbnail"} label="Ảnh" sx={{margin: 'auto'}}/>
+                            <ReturnedImg/>
                         </Grid>
                         <Grid item xs={12} sm={12}>
                             <TextInput source="name" label="Tên khuyến mãi" validate={required()} fullWidth/>
