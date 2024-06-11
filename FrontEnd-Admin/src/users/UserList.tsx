@@ -32,10 +32,10 @@ const UserListActions = () => (
 
 const UserList = () => {
     const {permissions, isLoading, error} = usePermissions();
-
-    useEffect(() => {
-        console.log(permissions, isLoading, error)
-    }, [permissions, isLoading, error]);
+    //
+    // useEffect(() => {
+    //     console.log(permissions, isLoading, error)
+    // }, [permissions, isLoading, error]);
     const isXsmall = useMediaQuery<Theme>(theme =>
         theme.breakpoints.down('sm')
     );

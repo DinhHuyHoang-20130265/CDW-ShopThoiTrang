@@ -30,7 +30,7 @@ const Blog = ({spaceTopClass, spaceBottomClass}: any) => {
                     positionClass="text-center"
                     spaceClass="mb-55"
                 />
-                <div className="row">
+                <div className="row" style={{justifyContent: "center"}}>
                     {blogData.map((singlePost: any) => {
                         return (
                             <BlogItem singlePost={singlePost} key={singlePost.id}/>

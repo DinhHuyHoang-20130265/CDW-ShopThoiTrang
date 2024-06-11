@@ -18,10 +18,13 @@ import {vi} from "date-fns/locale/vi";
 const dateFormatter = (date: number): string => new Date(date).toLocaleDateString();
 const monthFormatter = (month: string): string => {
     const date = new Date(month);
-    return format(date, "'Tháng' M 'năm' yyyy", { locale: vi });
+    return format(date, "'Tháng' M 'năm' yyyy", {locale: vi});
 };
 
-const priceFormatter = (price: number): string => new Intl.NumberFormat('vi-VN', {style: 'currency', currency: 'VND'}).format(price);
+const priceFormatter = (price: number): string => new Intl.NumberFormat('vi-VN', {
+    style: 'currency',
+    currency: 'VND'
+}).format(price);
 
 const aggregateOrdersByDay = (orders: Order[], startDate: Date, endDate: Date): { [key: string]: number } =>
     orders
@@ -55,8 +58,8 @@ const getRevenuePerDay = (orders: Order[], startDate: Date, endDate: Date): Tota
 const OrderChart = (props: { orders?: Order[] }) => {
     const {orders} = props;
     const [timeFrame, setTimeFrame] = useState<string>('last30days');
-    const [customStartDate, setCustomStartDate] = useState<any>(subDays(new Date(), 30));
-    const [customEndDate, setCustomEndDate] = useState<any>(new Date());
+    const [customStartDate, setCustomStartDate] = useState<any>(format(subDays(new Date(), 30), 'yyyy-MM-dd'));
+    const [customEndDate, setCustomEndDate] = useState<any>(format(new Date(), 'yyyy-MM-dd'));
 
     const uniqueMonths = useMemo(() => {
         const months = orders ? orders.map(order => format(startOfMonth(new Date(order.orderDate)), 'yyyy-MM')) : [];
@@ -65,8 +68,6 @@ const OrderChart = (props: { orders?: Order[] }) => {
 
     const handleChange = (event: React.ChangeEvent<{ value: unknown }>) => {
         setTimeFrame(event.target.value as string);
-        setCustomStartDate('');
-        setCustomEndDate('');
     };
 
     const handleStartDateChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -117,7 +118,7 @@ const OrderChart = (props: { orders?: Order[] }) => {
         <Card>
             <CardHeader title={"Doanh thu"}/>
             <CardContent>
-                <FormControl variant="outlined" fullWidth margin="normal" sx={{display:"flex", flex:1}}>
+                <FormControl variant="outlined" fullWidth margin="normal" sx={{display: "flex", flex: 1}}>
                     <InputLabel id="timeframe-select-label">Chọn thời gian</InputLabel>
                     <Select
                         labelId="timeframe-select-label"
@@ -138,7 +139,7 @@ const OrderChart = (props: { orders?: Order[] }) => {
                             <TextField
                                 label="Ngày bắt đầu"
                                 type="date"
-                                value={customStartDate}
+                                defaultValue={customStartDate}
                                 onChange={handleStartDateChange}
                                 InputLabelProps={{
                                     shrink: true,
@@ -148,7 +149,7 @@ const OrderChart = (props: { orders?: Order[] }) => {
                             <TextField
                                 label="Ngày kết thúc"
                                 type="date"
-                                value={customEndDate}
+                                defaultValue={customEndDate}
                                 onChange={handleEndDateChange}
                                 InputLabelProps={{
                                     shrink: true,

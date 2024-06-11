@@ -106,7 +106,7 @@ const UserCreate = () => {
             ward: undefined
         }} toolbar={<Toolbar>
             <SaveButton
-                label="Create"
+                label="Tạo"
                 alwaysEnable
             />
         </Toolbar>}>

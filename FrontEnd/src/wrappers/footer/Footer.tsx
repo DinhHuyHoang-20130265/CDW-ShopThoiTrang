@@ -67,26 +67,21 @@ const Footer = ({
                     >
                         <div className="footer-widget mb-30 ml-30">
                             <div className="footer-title">
-                                <h3>ABOUT US</h3>
+                                <h3>VỀ CHÚNG TÔI</h3>
                             </div>
                             <div className="footer-list">
                                 <ul>
                                     <li>
-                                        <Link to={ "/about"}>About us</Link>
+                                        <Link to={"/about"}>Giới thiệu</Link>
                                     </li>
                                     <li>
-                                        <Link to={ "#/"}>
-                                            Store location
+                                        <Link to={"/contact"}>
+                                            Liên hệ
                                         </Link>
                                     </li>
                                     <li>
-                                        <Link to={ "/contact"}>
-                                            Contact
-                                        </Link>
-                                    </li>
-                                    <li>
-                                        <Link to={ "#/"}>
-                                            Orders tracking
+                                        <Link to={"https://tracking.ghn.dev/"}>
+                                            Tra cứu vận chuyển đơn hàng
                                         </Link>
                                     </li>
                                 </ul>
@@ -106,23 +101,23 @@ const Footer = ({
                             }`}
                         >
                             <div className="footer-title">
-                                <h3>USEFUL LINKS</h3>
+                                <h3>CÁC TRANG</h3>
                             </div>
                             <div className="footer-list">
                                 <ul>
                                     <li>
-                                        <Link to={ "#/"}>Returns</Link>
+                                        <Link to={"/"}>Trang chủ</Link>
                                     </li>
                                     <li>
-                                        <Link to={ "#/"}>
-                                            Support Policy
+                                        <Link to={"/shop"}>
+                                            Sản phẩm
                                         </Link>
                                     </li>
                                     <li>
-                                        <Link to={ "#/"}>Size guide</Link>
+                                        <Link to={"/post"}>Blog</Link>
                                     </li>
                                     <li>
-                                        <Link to={ "#/"}>FAQs</Link>
+                                        <Link to={"/contact"}>Liên hệ</Link>
                                     </li>
                                 </ul>
                             </div>
@@ -141,7 +136,7 @@ const Footer = ({
                             }`}
                         >
                             <div className="footer-title">
-                                <h3>FOLLOW US</h3>
+                                <h3>THEO DÕI</h3>
                             </div>
                             <div className="footer-list">
                                 <ul>

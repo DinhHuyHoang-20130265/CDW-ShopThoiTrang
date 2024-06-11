@@ -1,13 +1,48 @@
 import {
     ArrayInput, AutocompleteInput,
     BooleanInput, DateInput,
-    Edit, ImageField, NullableBooleanInput, NumberInput, ReferenceInput,
+    Edit, ImageField, ImageInput, NullableBooleanInput, NumberInput, ReferenceInput,
     required, SimpleFormIterator, TabbedForm,
     TextInput, useEditContext, useGetList,
 } from "react-admin";
 import {Grid, InputAdornment, Typography} from "@mui/material";
 import React from "react";
 import {Category, Product} from "../types";
+import {useWatch} from "react-hook-form";
+
+
+export const ReturnedImg = () => {
+    const isReturned = useWatch({name: 'thumnail'});
+    return isReturned ?
+        <>
+            <ImageField source="userInfo.avtUrl" title="title" sx={{
+                display: "flex",
+                justifyContent: "center",
+                marginTop: "5px",
+                marginBottom: "5px",
+                maxHeight: "100px"
+            }}/>
+            <ImageInput source="userInfo.avt" accept="image/*"
+                        placeholder={<p>Add new Avt Img</p>} label={"Thêm ảnh đại diện mới"}>
+                <ImageField source="src" title="title" sx={{
+                    display: "flex",
+                    justifyContent: "center",
+                    marginTop: "5px",
+                    marginBottom: "5px",
+                    maxHeight: "100px"
+                }}/>
+            </ImageInput>
+        </> : <ImageInput source="userInfo.avt" accept="image/*"
+                          placeholder={<p>Drop your img file here</p>}>
+            <ImageField source="src" title="title" sx={{
+                display: "flex",
+                justifyContent: "center",
+                marginTop: "5px",
+                marginBottom: "5px",
+                maxHeight: "100px"
+            }}/>
+        </ImageInput>;
+};
 
 const PromotionEdit = () => {
 
