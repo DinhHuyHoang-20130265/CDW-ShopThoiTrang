@@ -7,7 +7,8 @@ import axios from "axios";
 import {useToasts} from "react-toast-notifications";
 import {Navigate} from "react-router-dom";
 import {Rating, TextField} from "@mui/material";
-import {forEach} from "react-bootstrap/ElementChildren";
+import "../../assets/css/review.css";
+
 
 const MyAccount = () => {
     const {addToast} = useToasts();
@@ -643,11 +644,11 @@ const OrderReviewModal = ({order, addToast}: any) => {
                             <tbody className={"mb-20"}>
                             {order.orderDetails.map((orderDetail: any, index: number) => (
                                 <tr key={index}>
-                                    <td>{index + 1}</td>
-                                    <td>{orderDetail.productId.name} /
+                                    <td >{index + 1}</td>
+                                    <td >{orderDetail.productId.name} /
                                         ({orderDetail.variation.color} / {orderDetail.size.size})
                                     </td>
-                                    <td>
+                                    <td className={"review-center"}>
                                         {orderDetail.review == null && (
                                             <Button variant="outline-warning" onClick={() => {
                                                 setshowReviewModal(true);
@@ -665,6 +666,7 @@ const OrderReviewModal = ({order, addToast}: any) => {
                                                     defaultValue={orderDetail.review.content}
                                                     variant="outlined"
                                                     disabled
+                                                    fullWidth
                                                 />
                                             </>
                                         )}

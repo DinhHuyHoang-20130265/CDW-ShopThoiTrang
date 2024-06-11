@@ -6,7 +6,7 @@ import {
     useRecordContext,
     required,
     ImageInput,
-    SimpleFormIterator, ArrayInput, NumberInput, BooleanInput, NumberField, Labeled, NullableBooleanInput,
+    SimpleFormIterator, ArrayInput, NumberField, NullableBooleanInput,
 } from "react-admin";
 import React from "react";
 import {Product} from "../types";
