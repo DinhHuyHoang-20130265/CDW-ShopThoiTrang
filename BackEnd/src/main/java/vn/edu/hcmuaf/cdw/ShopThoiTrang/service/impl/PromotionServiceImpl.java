@@ -106,7 +106,7 @@ public class PromotionServiceImpl implements PromotionService {
     @Override
     @Transactional
     public Promotion savePromotion(Promotion promotion, HttpServletRequest request) {
-        String jwt = jwtUtils.getJwtFromCookies(request);
+        String jwt = jwtUtils.getJwtFromCookies(request, "shop2h_admin");
         promotion.setCreatedBy(userRepository.findByUsername(jwtUtils.getUserNameFromJwtToken(jwt)).orElse(null));
         promotion.setUpdatedBy(userRepository.findByUsername(jwtUtils.getUserNameFromJwtToken(jwt)).orElse(null));
         try {
@@ -134,7 +134,7 @@ public class PromotionServiceImpl implements PromotionService {
     @Override
     @Transactional
     public Promotion updatePromotion(long id, Promotion promotion, HttpServletRequest request) {
-        String jwt = jwtUtils.getJwtFromCookies(request);
+        String jwt = jwtUtils.getJwtFromCookies(request, "shop2h_admin");
         promotion.setUpdatedBy(userRepository.findByUsername(jwtUtils.getUserNameFromJwtToken(jwt)).orElse(null));
         try {
             Promotion existingPromotion = promotionRepository.findById(id).orElse(null);

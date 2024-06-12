@@ -73,9 +73,9 @@ public class GoogleServiceImpl implements GoogleService {
                     .collect(Collectors.toList());
             RefreshToken refreshToken = refreshTokenService.createRefreshToken(userDetails.getId());
 
-            ResponseCookie jwtRefreshCookie = jwtUtils.generateRefreshJwtCookie(refreshToken.getToken());
+            ResponseCookie jwtRefreshCookie = jwtUtils.generateRefreshJwtCookie(refreshToken.getToken(), "shop2h_refresh");
 
-            ResponseCookie jwtCookie = jwtUtils.generateJwtCookie(userDetails);
+            ResponseCookie jwtCookie = jwtUtils.generateJwtCookie(userDetails, "shop2h");
             return ResponseEntity.ok().header(HttpHeaders.SET_COOKIE, jwtCookie.toString())
                     .header(HttpHeaders.SET_COOKIE, jwtRefreshCookie.toString()).body(new JwtResponse(
                             userDetails.getId(),

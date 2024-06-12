@@ -46,7 +46,7 @@ public class AuthController {
     }
 
     @PostMapping("/refresh-token")
-    public ResponseEntity<?> refreshToken(HttpServletRequest request) {
+    public ResponseEntity<?> refreshToken() {
         return authService.refreshToken(request);
     }
 
@@ -74,6 +74,6 @@ public class AuthController {
 
     @PostMapping("/sign-out")
     public ResponseEntity<?> logoutUser() {
-        return authService.logout();
+        return authService.logout(request);
     }
 }
