@@ -127,3 +127,6 @@ vn.edu.hcmuaf.cdw.ShopThoiTrang.exception.TokenRefreshException: Failed for []: 
 	at org.apache.tomcat.util.threads.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:659)
 	at org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:63)
 	at java.base/java.lang.Thread.run(Thread.java:842)
+2024-06-13 00:24:06 INFO  AuthServiceImpl:91 - hine2 logged in
+2024-06-13 00:53:53 INFO  AuthServiceImpl:221 - logout
+2024-06-13 00:54:03 INFO  AuthServiceImpl:91 - hine2 logged in
