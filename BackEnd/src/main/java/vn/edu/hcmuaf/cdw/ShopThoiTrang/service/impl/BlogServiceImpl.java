@@ -102,7 +102,7 @@ public class BlogServiceImpl implements BlogService {
     @Override
     public Blog saveBlog(Blog blog, HttpServletRequest request) {
         try {
-            String jwt = jwtUtils.getJwtFromCookies(request);
+            String jwt = jwtUtils.getJwtFromCookies(request, "shop2h_admin");
             String username = jwtUtils.getUserNameFromJwtToken(jwt);
             blog.setCreateBy(userRepository.findByUsername(username).orElse(null));
             Date date = new Date(System.currentTimeMillis());
@@ -119,7 +119,7 @@ public class BlogServiceImpl implements BlogService {
     @Override
     public Blog updateBlog(Long id, Blog blog, HttpServletRequest request) {
         try {
-            String jwt = jwtUtils.getJwtFromCookies(request);
+            String jwt = jwtUtils.getJwtFromCookies(request, "shop2h_admin");
             String username = jwtUtils.getUserNameFromJwtToken(jwt);
             blog.setUpdateBy(userRepository.findByUsername(username).orElse(null));
             Blog existingBlog = blogRepository.findById(id).orElse(null);

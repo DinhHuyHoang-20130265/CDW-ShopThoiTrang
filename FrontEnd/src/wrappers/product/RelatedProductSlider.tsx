@@ -1,5 +1,5 @@
 import PropTypes from "prop-types";
-import React, {useEffect} from "react";
+import React from "react";
 import Swiper from "react-id-swiper";
 import SectionTitle from "../../components/section-title/SectionTitle";
 import ProductGrid from "./ProductGrid";
@@ -39,10 +39,10 @@ const RelatedProductSlider = ({spaceBottomClass, category}: any) => {
                     spaceClass="mb-50"
                 />
                 <div className="row">
-                    <Swiper {...settings}>
+                    <Swiper {...settings} >
                         <ProductGrid
                             category={category}
-                            limit={6}
+                            limit={4}
                             type={""}
                             sliderClassName="swiper-slide"
                         />

@@ -56,14 +56,14 @@ const DashBoard = () => {
 
     // get reviews
     const {data: reviews} = useGetList<Review>('review', {
-        sort: { field: 'reviewedDate', order: 'DESC' },
-        pagination: { page: 1, perPage: 100 },
+        sort: {field: 'reviewedDate', order: 'DESC'},
+        pagination: {page: 1, perPage: 100},
     });
 
     // get prducts
     const {data: products} = useGetList<Product>('product', {
-        sort: { field: 'name', order: 'DESC' },
-        pagination: { page: 1, perPage: 100 },
+        sort: {field: 'name', order: 'DESC'},
+        pagination: {page: 1, perPage: 100},
     });
 
 
@@ -207,9 +207,9 @@ const DashBoard = () => {
             return [];
         }
 
-        return products.filter((product:any) =>
-            product.variations.some((variation : any) =>
-                variation.sizes.some((size : any) => size.stock === 0)
+        return products.filter((product: any) =>
+            product.variations.some((variation: any) =>
+                variation.sizes.some((size: any) => size.stock === 0)
             )
         );
     };
@@ -269,19 +269,19 @@ const DashBoard = () => {
                             minimumFractionDigits: 0,
                             maximumFractionDigits: 0,
                         })}
-                        percent={compareGetPercent(getRevenue(ordersCurrentMonth),getRevenue(ordersLastMonth))}
+                                        percent={compareGetPercent(getRevenue(ordersCurrentMonth), getRevenue(ordersLastMonth))}
                         />
                         <Spacer/>
                         <NbNewOrders value={ordersCurrentMonth.length}
-                                     percent={compareGetPercent(ordersCurrentMonth.length,ordersLastMonth.length)}
+                                     percent={compareGetPercent(ordersCurrentMonth.length, ordersLastMonth.length)}
                         />
                         <Spacer/>
                         <NbNewUsers value={usersCurrentMonth.length}
-                                    percent={compareGetPercent(usersCurrentMonth.length,usersLastMonth.length)}
+                                    percent={compareGetPercent(usersCurrentMonth.length, usersLastMonth.length)}
                         />
                         <Spacer/>
                         <NbNewReviews value={reviewsCurrentMonth.length}
-                                      percent={compareGetPercent(reviewsCurrentMonth.length,reviewsLastMonth.length)}
+                                      percent={compareGetPercent(reviewsCurrentMonth.length, reviewsLastMonth.length)}
                         />
                     </div>
                     <div style={styles.singleCol}>

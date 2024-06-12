@@ -1,1 +1,132 @@
 2024-06-12 02:54:51 INFO  BlogServiceImpl:134 - super-admin update blog: 123123
+2024-06-12 20:31:24 INFO  UserServiceImpl:98 - UserId 4 updated info successfully
+2024-06-12 21:11:44 INFO  AuthServiceImpl:215 - logout
+2024-06-12 21:11:44 INFO  AuthServiceImpl:215 - logout
+2024-06-12 21:11:44 INFO  AuthServiceImpl:215 - logout
+2024-06-12 21:11:44 INFO  AuthServiceImpl:215 - logout
+2024-06-12 21:14:00 WARN  AuthServiceImpl:71 - username: super-admin unauthorized
+2024-06-12 21:14:03 INFO  AuthServiceImpl:90 - hine2 logged in
+2024-06-12 21:14:11 INFO  AuthServiceImpl:215 - logout
+2024-06-12 21:14:21 INFO  AuthServiceImpl:90 - hine2 logged in
+2024-06-12 21:15:42 INFO  AuthServiceImpl:215 - logout
+2024-06-12 21:16:00 INFO  AuthServiceImpl:90 - hine2 logged in
+2024-06-12 21:16:39 INFO  PromotionServiceImpl:181 - hine2 updated promotion Dinh Hoang huy12
+2024-06-12 21:16:55 INFO  AuthServiceImpl:215 - logout
+2024-06-12 21:17:23 INFO  PromotionServiceImpl:181 - super-admin updated promotion Dinh Hoang huy1
+2024-06-12 21:51:58 INFO  AuthServiceImpl:90 - hine2 logged in
+2024-06-12 22:10:16 INFO  AuthServiceImpl:215 - logout
+2024-06-12 22:10:42 INFO  AuthServiceImpl:215 - logout
+2024-06-12 22:10:59 INFO  AuthServiceImpl:90 - hine2 logged in
+2024-06-12 22:11:40 INFO  AuthServiceImpl:215 - logout
+2024-06-12 22:15:35 INFO  AuthServiceImpl:215 - logout
+2024-06-12 22:15:47 INFO  AuthServiceImpl:90 - hine2 logged in
+2024-06-12 22:16:23 INFO  AuthServiceImpl:215 - logout
+2024-06-12 22:16:23 INFO  AuthServiceImpl:215 - logout
+2024-06-12 22:18:28 INFO  AuthServiceImpl:90 - hine2 logged in
+2024-06-12 22:18:57 INFO  AuthServiceImpl:215 - logout
+2024-06-12 22:19:12 INFO  AuthServiceImpl:215 - logout
+2024-06-12 22:19:12 INFO  AuthServiceImpl:215 - logout
+2024-06-12 22:19:12 INFO  AuthServiceImpl:215 - logout
+2024-06-12 22:19:12 INFO  AuthServiceImpl:215 - logout
+2024-06-12 22:19:12 INFO  AuthServiceImpl:215 - logout
+2024-06-12 22:19:12 INFO  AuthServiceImpl:215 - logout
+2024-06-12 22:19:12 INFO  AuthServiceImpl:215 - logout
+2024-06-12 22:19:12 INFO  AuthServiceImpl:215 - logout
+2024-06-12 22:19:12 INFO  AuthServiceImpl:215 - logout
+2024-06-12 22:19:12 INFO  AuthServiceImpl:215 - logout
+2024-06-12 22:19:12 INFO  AuthServiceImpl:215 - logout
+2024-06-12 22:19:12 INFO  AuthServiceImpl:215 - logout
+2024-06-12 22:19:12 INFO  AuthServiceImpl:215 - logout
+2024-06-12 22:19:12 INFO  AuthServiceImpl:215 - logout
+2024-06-12 22:19:12 INFO  AuthServiceImpl:215 - logout
+2024-06-12 22:19:12 INFO  AuthServiceImpl:215 - logout
+2024-06-12 22:19:12 INFO  AuthServiceImpl:215 - logout
+2024-06-12 22:19:12 INFO  AuthServiceImpl:215 - logout
+2024-06-12 22:19:12 INFO  AuthServiceImpl:215 - logout
+2024-06-12 22:19:12 INFO  AuthServiceImpl:215 - logout
+2024-06-12 22:19:13 INFO  AuthServiceImpl:215 - logout
+2024-06-12 22:19:13 INFO  AuthServiceImpl:215 - logout
+2024-06-12 22:19:13 INFO  AuthServiceImpl:215 - logout
+2024-06-12 22:19:13 INFO  AuthServiceImpl:215 - logout
+2024-06-12 22:19:13 INFO  AuthServiceImpl:215 - logout
+2024-06-12 22:19:13 INFO  AuthServiceImpl:215 - logout
+2024-06-12 22:19:13 INFO  AuthServiceImpl:215 - logout
+2024-06-12 22:19:13 INFO  AuthServiceImpl:215 - logout
+2024-06-12 22:20:56 INFO  AuthServiceImpl:90 - hine2 logged in
+2024-06-12 22:21:35 INFO  AuthServiceImpl:215 - logout
+2024-06-12 22:21:45 INFO  AuthServiceImpl:215 - logout
+2024-06-12 22:21:45 INFO  AuthServiceImpl:215 - logout
+2024-06-13 00:07:53 INFO  AuthServiceImpl:221 - logout
+2024-06-13 00:07:53 INFO  AuthServiceImpl:221 - logout
+2024-06-13 00:07:53 INFO  AuthServiceImpl:221 - logout
+2024-06-13 00:08:22 INFO  AuthServiceImpl:91 - hine2 logged in
+2024-06-13 00:09:23 INFO  AuthServiceImpl:221 - logout
+2024-06-13 00:09:31 INFO  AuthServiceImpl:221 - logout
+2024-06-13 00:22:32 ERROR AuthTokenFilter:71 - Cannot set user authentication: {}
+vn.edu.hcmuaf.cdw.ShopThoiTrang.exception.TokenRefreshException: Failed for []: Refresh token is not valid or expired!
+	at vn.edu.hcmuaf.cdw.ShopThoiTrang.filters.AuthTokenFilter.lambda$doFilterInternal$0(AuthTokenFilter.java:59)
+	at java.base/java.util.Optional.orElseThrow(Optional.java:403)
+	at vn.edu.hcmuaf.cdw.ShopThoiTrang.filters.AuthTokenFilter.doFilterInternal(AuthTokenFilter.java:59)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374)
+	at org.springframework.security.web.authentication.logout.LogoutFilter.doFilter(LogoutFilter.java:107)
+	at org.springframework.security.web.authentication.logout.LogoutFilter.doFilter(LogoutFilter.java:93)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374)
+	at org.springframework.web.filter.CorsFilter.doFilterInternal(CorsFilter.java:91)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374)
+	at org.springframework.security.web.header.HeaderWriterFilter.doHeadersAfter(HeaderWriterFilter.java:90)
+	at org.springframework.security.web.header.HeaderWriterFilter.doFilterInternal(HeaderWriterFilter.java:75)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374)
+	at org.springframework.security.web.context.SecurityContextHolderFilter.doFilter(SecurityContextHolderFilter.java:82)
+	at org.springframework.security.web.context.SecurityContextHolderFilter.doFilter(SecurityContextHolderFilter.java:69)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374)
+	at org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter.doFilterInternal(WebAsyncManagerIntegrationFilter.java:62)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374)
+	at org.springframework.security.web.session.DisableEncodeUrlFilter.doFilterInternal(DisableEncodeUrlFilter.java:42)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374)
+	at org.springframework.security.web.FilterChainProxy.doFilterInternal(FilterChainProxy.java:233)
+	at org.springframework.security.web.FilterChainProxy.doFilter(FilterChainProxy.java:191)
+	at org.springframework.web.filter.CompositeFilter$VirtualFilterChain.doFilter(CompositeFilter.java:113)
+	at org.springframework.web.servlet.handler.HandlerMappingIntrospector.lambda$createCacheFilter$3(HandlerMappingIntrospector.java:195)
+	at org.springframework.web.filter.CompositeFilter$VirtualFilterChain.doFilter(CompositeFilter.java:113)
+	at org.springframework.web.filter.CompositeFilter.doFilter(CompositeFilter.java:74)
+	at org.springframework.security.config.annotation.web.configuration.WebMvcSecurityConfiguration$CompositeFilterChainProxy.doFilter(WebMvcSecurityConfiguration.java:230)
+	at org.springframework.web.filter.DelegatingFilterProxy.invokeDelegate(DelegatingFilterProxy.java:352)
+	at org.springframework.web.filter.DelegatingFilterProxy.doFilter(DelegatingFilterProxy.java:268)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:174)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:149)
+	at org.springframework.web.filter.RequestContextFilter.doFilterInternal(RequestContextFilter.java:100)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:174)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:149)
+	at org.springframework.web.filter.FormContentFilter.doFilterInternal(FormContentFilter.java:93)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:174)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:149)
+	at org.springframework.web.filter.CharacterEncodingFilter.doFilterInternal(CharacterEncodingFilter.java:201)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:174)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:149)
+	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:167)
+	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:90)
+	at org.apache.catalina.authenticator.AuthenticatorBase.invoke(AuthenticatorBase.java:482)
+	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:115)
+	at org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:93)
+	at org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:74)
+	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:344)
+	at org.apache.coyote.http11.Http11Processor.service(Http11Processor.java:391)
+	at org.apache.coyote.AbstractProcessorLight.process(AbstractProcessorLight.java:63)
+	at org.apache.coyote.AbstractProtocol$ConnectionHandler.process(AbstractProtocol.java:896)
+	at org.apache.tomcat.util.net.NioEndpoint$SocketProcessor.doRun(NioEndpoint.java:1744)
+	at org.apache.tomcat.util.net.SocketProcessorBase.run(SocketProcessorBase.java:52)
+	at org.apache.tomcat.util.threads.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1191)
+	at org.apache.tomcat.util.threads.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:659)
+	at org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:63)
+	at java.base/java.lang.Thread.run(Thread.java:842)
+2024-06-13 00:24:06 INFO  AuthServiceImpl:91 - hine2 logged in
+2024-06-13 00:53:53 INFO  AuthServiceImpl:221 - logout
+2024-06-13 00:54:03 INFO  AuthServiceImpl:91 - hine2 logged in

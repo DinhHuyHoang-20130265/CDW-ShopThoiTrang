@@ -26,40 +26,34 @@ public class JwtUtils {
     @Value("12000000")
     private int jwtExpirationMs;
 
-    @Value("shop2h")
-    private String jwtCookie;
-
-    @Value("shop2h_refresh")
-    private String jwtRefreshCookie;
-
-    public String getJwtFromCookies(HttpServletRequest request) {
-        return getCookieValueByName(request, jwtCookie);
+    public String getJwtFromCookies(HttpServletRequest request, String jwtCookie_name) {
+        return getCookieValueByName(request, jwtCookie_name);
     }
 
-    public String getJwtRefreshFromCookies(HttpServletRequest request) {
-        return getCookieValueByName(request, jwtRefreshCookie);
+    public String getJwtRefreshFromCookies(HttpServletRequest request, String jwtRefreshCookie_name) {
+        return getCookieValueByName(request, jwtRefreshCookie_name);
     }
 
-    public ResponseCookie generateJwtCookie(UserDetailsImpl userPrincipal) {
+    public ResponseCookie generateJwtCookie(UserDetailsImpl userPrincipal, String jwtCookie_name) {
         String jwt = generateTokenFromUsername(userPrincipal.getUsername());
-        return ResponseCookie.from(jwtCookie, jwt).path("/api").maxAge(24 * 60 * 60).httpOnly(true).build();
+        return ResponseCookie.from(jwtCookie_name, jwt).path("/api").maxAge(24 * 60 * 60).httpOnly(true).build();
     }
 
-    public ResponseCookie generateJwtCookie(User user) {
+    public ResponseCookie generateJwtCookie(User user, String jwtCookie_name) {
         String jwt = generateTokenFromUsername(user.getUsername());
-        return generateCookie(jwtCookie, jwt, "/api");
+        return generateCookie(jwtCookie_name, jwt, "/api");
     }
 
-    public ResponseCookie generateRefreshJwtCookie(String refreshToken) {
-        return generateCookie(jwtRefreshCookie, refreshToken, "/api");
+    public ResponseCookie generateRefreshJwtCookie(String refreshToken, String jwtRefreshCookie_name) {
+        return generateCookie(jwtRefreshCookie_name, refreshToken, "/api");
     }
 
     private ResponseCookie generateCookie(String name, String value, String path) {
         return ResponseCookie.from(name, value).path(path).maxAge(24 * 60 * 60).httpOnly(true).build();
     }
 
-    public ResponseCookie getCleanJwtCookie() {
-        return ResponseCookie.from(jwtCookie, null).path("/api").build();
+    public ResponseCookie getCleanJwtCookie(String jwtCookie_name) {
+        return ResponseCookie.from(jwtCookie_name, null).path("/api").build();
     }
 
     public String generateTokenFromUsername(String username) {
@@ -96,8 +90,8 @@ public class JwtUtils {
         return false;
     }
 
-    public ResponseCookie getCleanJwtRefreshCookie() {
-        return ResponseCookie.from(jwtRefreshCookie, null).path("/api").build();
+    public ResponseCookie getCleanJwtRefreshCookie(String jwtRefreshCookie_name) {
+        return ResponseCookie.from(jwtRefreshCookie_name, null).path("/api").build();
     }
 
     private String getCookieValueByName(HttpServletRequest request, String name) {

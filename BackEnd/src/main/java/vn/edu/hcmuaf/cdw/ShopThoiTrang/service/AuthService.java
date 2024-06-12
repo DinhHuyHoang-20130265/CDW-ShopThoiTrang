@@ -21,5 +21,5 @@ public interface AuthService {
 
     ResponseEntity<?> forgotPasswordConfirmation(ForgotPasswordRequest forgotPasswordRequest);
 
-    ResponseEntity<?> logout();
+    ResponseEntity<?> logout(HttpServletRequest request);
 }

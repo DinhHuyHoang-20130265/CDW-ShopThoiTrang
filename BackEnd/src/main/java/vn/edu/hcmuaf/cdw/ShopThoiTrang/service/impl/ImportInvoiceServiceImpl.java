@@ -111,7 +111,7 @@ public class ImportInvoiceServiceImpl implements ImportInvoiceService {
     @Transactional
     public ImportInvoice saveImportInvoice(List<ImportInvoiceDetailRequest> importInvoice) {
         try {
-            User importBy = userRepository.findByUsername(jwtUtils.getUserNameFromJwtToken(jwtUtils.getJwtFromCookies(HttpRequest))).get();
+            User importBy = userRepository.findByUsername(jwtUtils.getUserNameFromJwtToken(jwtUtils.getJwtFromCookies(HttpRequest, "shop2h_admin"))).get();
             ImportInvoice newImportInvoice = new ImportInvoice();
             newImportInvoice.setImportInvoiceDetails(new ArrayList<>());
             newImportInvoice.setImportDate(new Date(System.currentTimeMillis()));

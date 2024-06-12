@@ -52,6 +52,7 @@ public class AuthServiceImpl implements AuthService {
     @Autowired
     RefreshTokenService refreshTokenService;
 
+
     private final Map<String, String> otpMap = new HashMap<>();
 
     private final Map<String, String> otpMapForgot = new HashMap<>();
@@ -83,9 +84,9 @@ public class AuthServiceImpl implements AuthService {
                     .collect(Collectors.toList());
             RefreshToken refreshToken = refreshTokenService.createRefreshToken(userDetails.getId());
 
-            ResponseCookie jwtRefreshCookie = jwtUtils.generateRefreshJwtCookie(refreshToken.getToken());
+            ResponseCookie jwtRefreshCookie = jwtUtils.generateRefreshJwtCookie(refreshToken.getToken(), "shop2h_refresh");
 
-            ResponseCookie jwtCookie = jwtUtils.generateJwtCookie(userDetails);
+            ResponseCookie jwtCookie = jwtUtils.generateJwtCookie(userDetails, "shop2h");
 
             Log.info(loginDto.getUsername() + " logged in");
             return ResponseEntity.ok().header(HttpHeaders.SET_COOKIE, jwtCookie.toString())
@@ -126,9 +127,9 @@ public class AuthServiceImpl implements AuthService {
                     .collect(Collectors.toList());
             RefreshToken refreshToken = refreshTokenService.createRefreshToken(userDetails.getId());
 
-            ResponseCookie jwtRefreshCookie = jwtUtils.generateRefreshJwtCookie(refreshToken.getToken());
+            ResponseCookie jwtRefreshCookie = jwtUtils.generateRefreshJwtCookie(refreshToken.getToken(), "shop2h_admin_refresh");
 
-            ResponseCookie jwtCookie = jwtUtils.generateJwtCookie(userDetails);
+            ResponseCookie jwtCookie = jwtUtils.generateJwtCookie(userDetails, "shop2h_admin");
 
             return ResponseEntity.ok().header(HttpHeaders.SET_COOKIE, jwtCookie.toString())
                     .header(HttpHeaders.SET_COOKIE, jwtRefreshCookie.toString()).body(new JwtResponse(
@@ -143,14 +144,19 @@ public class AuthServiceImpl implements AuthService {
 
     @Override
     public ResponseEntity<?> refreshToken(HttpServletRequest request) {
+
         try {
-            String refreshToken = jwtUtils.getJwtRefreshFromCookies(request);
+            String requestOrigin = request.getHeader("origin");
+            String jwtName = requestOrigin.equals("http://localhost:3000") ? "shop2h" : requestOrigin.equals("http://localhost:3001") ? "shop2h_admin" : null;
+            if (jwtName == null)
+                throw new RuntimeException("Unknown site");
+            String refreshToken = jwtUtils.getJwtRefreshFromCookies(request, jwtName + "_refresh");
             if ((refreshToken != null) && (!refreshToken.isEmpty())) {
                 return refreshTokenService.findByToken(refreshToken)
                         .map(refreshTokenService::verifyExpiration)
                         .map(RefreshToken::getUser)
                         .map(user -> {
-                            ResponseCookie jwtCookie = jwtUtils.generateJwtCookie(user);
+                            ResponseCookie jwtCookie = jwtUtils.generateJwtCookie(user, jwtName);
                             return ResponseEntity.ok()
                                     .header(HttpHeaders.SET_COOKIE, jwtCookie.toString())
                                     .body("Token is refreshed successfully!");
@@ -211,17 +217,19 @@ public class AuthServiceImpl implements AuthService {
     }
 
     @Override
-    public ResponseEntity<?> logout() {
+    public ResponseEntity<?> logout(HttpServletRequest request) {
         Log.info("logout");
         try {
+            String requestOrigin = request.getHeader("origin");
+            String jwtName = requestOrigin.equals("http://localhost:3000") ? "shop2h" : requestOrigin.equals("http://localhost:3001") ? "shop2h_admin" : null;
             Object principle = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
             if (!Objects.equals(principle.toString(), "anonymousUser")) {
                 Long userId = ((UserDetailsImpl) principle).getId();
                 refreshTokenService.deleteByUserId(userId);
             }
 
-            ResponseCookie jwtCookie = jwtUtils.getCleanJwtCookie();
-            ResponseCookie jwtRefreshCookie = jwtUtils.getCleanJwtRefreshCookie();
+            ResponseCookie jwtCookie = jwtUtils.getCleanJwtCookie(jwtName);
+            ResponseCookie jwtRefreshCookie = jwtUtils.getCleanJwtRefreshCookie(jwtName + "_refresh");
             return ResponseEntity.ok()
                     .header(HttpHeaders.SET_COOKIE, jwtCookie.toString())
                     .header(HttpHeaders.SET_COOKIE, jwtRefreshCookie.toString())

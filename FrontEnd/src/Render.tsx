@@ -11,6 +11,7 @@ import {thunk} from "redux-thunk";
 import {fetchProducts} from "./store/actions/productActions";
 import axios from "axios";
 import toast from "react-hot-toast";
+import {logout} from "./components/auth/Logout";
 
 
 const Render = () => {
@@ -20,10 +21,12 @@ const Render = () => {
             return response
         },
         async function (error) {
+            console.log(error)
             let originalRequest = error.config
             if (error.response.status === 400 && originalRequest._retry) {
                 retryCount = 0;
                 googleLogout();
+                logout();
                 toast.error("Hết phiên đăng nhập, vui lòng đăng nhập lại!")
                 localStorage.removeItem('user');
                 window.location.href = "/login-register"
@@ -35,6 +38,7 @@ const Render = () => {
 
                 if (retryCount >= 1) {
                     googleLogout();
+                    logout();
                     toast.error("Hết phiên đăng nhập, vui lòng đăng nhập lại!")
                     localStorage.removeItem('user');
                     window.location.href = "/login-register"
@@ -56,6 +60,7 @@ const Render = () => {
                         } else {
                             googleLogout();
                             retryCount = 0;
+                            logout();
                             toast.error("Hết phiên đăng nhập, vui lòng đăng nhập lại!")
                             localStorage.removeItem('user');
                             window.location.href = "/login-register"
@@ -64,6 +69,7 @@ const Render = () => {
                     }).catch((error) => {
                         retryCount = 0;
                         googleLogout();
+                        logout();
                         toast.error("Hết phiên đăng nhập, vui lòng đăng nhập lại!")
                         localStorage.removeItem('user');
                         window.location.href = "/login-register"

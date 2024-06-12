@@ -6,12 +6,14 @@ import ProductDescriptionTab from "../../wrappers/product/ProductDescriptionTab"
 import ProductImageDescription from "../../wrappers/product/ProductImageDescription";
 import {useLoaderData} from "react-router";
 import axios from "axios";
+import {animateScroll} from "react-scroll";
 
 export function loadId({params}: any) {
     return {id: parseInt(params.id)};
 }
 
 const ProductDetail = () => {
+    animateScroll.scrollToTop();
     const received: any = useLoaderData()
     const product = useSelector((state: any) =>
         state.productData.products.filter(
@@ -33,7 +35,7 @@ const ProductDetail = () => {
             })
         }
         fectch();
-    }, []);
+    }, [product.id]);
 
     return (
         <Fragment>

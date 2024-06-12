@@ -47,29 +47,32 @@ const ProductShow = () => {
     return (
         <>
             <Show>
-                <Grid container spacing={2} sx={{margin: 2}}>
-                    <Grid item xs={12} sm={4} alignContent={"center"} justifyContent={"center"}>
-                        <Grid container spacing={2} sx={{margin: 2}}>
-                            <Grid item xs={12} sm={12}>
-                                <ImageField
-                                    source="imageUrl"
-                                    textAlign={"center"}
-                                    label={"Thumbnail"}
-                                    sx={{
-                                        '& img': {width: "60% !important", height: "60% !important"},
-                                        display: 'flex',
-                                        justifyContent: 'center'
-                                    }}
-                                />
-                            </Grid>
-                            <Grid item xs={12} sm={12}>
-                                <ImageField source="imgProducts"
-                                            sx={{display: 'flex', justifyContent: 'center'}}/>
-                            </Grid>
+                <Grid container margin={0} spacing={2} padding={4} sx={{width: "100%"}}>
+                    <Grid item xs={4} sm={"auto"} alignContent={"center"} justifyContent={"center"}>
+                        <Grid item xs={12} sm={12}>
+                            <ImageField
+                                source="imageUrl"
+                                textAlign={"center"}
+                                label={"Thumbnail"}
+                                sx={{
+                                    '& img': {width: "60% !important", height: "60% !important"},
+                                    display: 'flex',
+                                    justifyContent: 'center'
+                                }}
+                            />
+                        </Grid>
+                        <Grid item xs={12} sm={12} sx={{overflowX: "scroll"}}>
+                            <ImageField source="imgProducts" src="url"
+                                        sx={{
+                                            display: 'flex', justifyContent: 'center',
+                                            '& .RaImageField-list': {
+                                                padding: "30px"
+                                            }
+                                        }}/>
                         </Grid>
                     </Grid>
-                    <Grid item xs={12} sm={8} sx={{marginBottom: 4}}>
-                        <Stack spacing={2}>
+                    <Grid item xs={8} sm={"auto"}>
+                        <Stack spacing={2} sx={{height: "100%"}} justifyContent={"center"}>
                             <Labeled label="Mã sản phẩm">
                                 <TextField source="id" sx={{fontSize: 'larger'}}/>
                             </Labeled>
@@ -93,11 +96,11 @@ const ProductShow = () => {
                             />
                         </Stack>
                     </Grid>
-                    <Grid item xs={10} sm={10} sx={{backgroundColor: "lightgrey", borderRadius: 1, margin: "auto"}}>
+                    <Grid item xs={12} sm={12} sx={{backgroundColor: "lightgrey", borderRadius: 1, margin: "auto"}}>
                         <RichTextField source="content" sx={{margin: 'auto'}}/>
                     </Grid>
 
-                    <Grid item xs={12} sm={10}>
+                    <Grid item xs={12}>
                         <ArrayField source="variations">
                             <Datagrid bulkActionButtons={false}>
                                 <NumberField source="id" label={'Mã sản phẩm'} textAlign={"center"}/>
@@ -117,7 +120,7 @@ const ProductShow = () => {
 
                     <Grid item xs={12} sm={6}>
                         <Labeled label="Ngày tạo">
-                            <DateField source="createdDate"/>
+                            <DateField source="createDate"/>
                         </Labeled>
                     </Grid>
                 </Grid>

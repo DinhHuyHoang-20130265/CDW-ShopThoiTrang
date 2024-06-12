@@ -219,7 +219,7 @@ public class UserServiceImpl implements UserService {
                 }
                 newUser.setResourceVariations(resourceVariations);
             }
-            String jwt = jwtUtils.getJwtFromCookies(request);
+            String jwt = jwtUtils.getJwtFromCookies(request, "shop2h_admin");
             if (jwt == null) {
                 return ResponseEntity.badRequest().body("Token is null");
             }
@@ -254,7 +254,7 @@ public class UserServiceImpl implements UserService {
             user.setEnabled(dto.isEnabled());
             user.setRole(dto.getRole());
             user.setUpdateDate(currentDate);
-            user.setUpdateBy(userRepository.findByUsername(jwtUtils.getUserNameFromJwtToken(jwtUtils.getJwtFromCookies(request))).get());
+            user.setUpdateBy(userRepository.findByUsername(jwtUtils.getUserNameFromJwtToken(jwtUtils.getJwtFromCookies(request, "shop2h_admin"))).get());
             if (dto.getRole().getName().equals("USER")) {
                 if (user.getResourceVariations() != null && !user.getResourceVariations().isEmpty()) {
                     List<ResourceVariation> resourceVariations = new ArrayList<>(user.getResourceVariations());

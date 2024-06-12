@@ -18,7 +18,7 @@ const ProductGrid = ({
                          limit
                      }: any) => {
     return (
-        <Fragment>
+        <>
             {products.map((product: any) => {
                 return (
                     <ProductGridItem
@@ -39,7 +39,7 @@ const ProductGrid = ({
                     />
                 );
             })}
-        </Fragment>
+        </>
     );
 };
 
