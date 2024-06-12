@@ -1,1 +1,91 @@
 2024-06-12 02:54:51 INFO  BlogServiceImpl:134 - super-admin update blog: 123123
+2024-06-12 13:03:52 ERROR RefreshTokenService:79 - Error in verifyExpiration: 
+vn.edu.hcmuaf.cdw.ShopThoiTrang.exception.TokenRefreshException: Failed for [70031dcc-e843-4fbe-9869-46040f63000b]: Refresh token was expired. Please make a new signing request
+	at vn.edu.hcmuaf.cdw.ShopThoiTrang.service.RefreshTokenService.verifyExpiration(RefreshTokenService.java:75)
+	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:103)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:580)
+	at org.springframework.aop.support.AopUtils.invokeJoinpointUsingReflection(AopUtils.java:351)
+	at org.springframework.aop.framework.CglibAopProxy$DynamicAdvisedInterceptor.intercept(CglibAopProxy.java:713)
+	at vn.edu.hcmuaf.cdw.ShopThoiTrang.service.RefreshTokenService$$SpringCGLIB$$0.verifyExpiration(<generated>)
+	at java.base/java.util.Optional.map(Optional.java:260)
+	at vn.edu.hcmuaf.cdw.ShopThoiTrang.filters.AuthTokenFilter.doFilterInternal(AuthTokenFilter.java:57)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374)
+	at org.springframework.security.web.authentication.logout.LogoutFilter.doFilter(LogoutFilter.java:107)
+	at org.springframework.security.web.authentication.logout.LogoutFilter.doFilter(LogoutFilter.java:93)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374)
+	at org.springframework.web.filter.CorsFilter.doFilterInternal(CorsFilter.java:91)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374)
+	at org.springframework.security.web.header.HeaderWriterFilter.doHeadersAfter(HeaderWriterFilter.java:90)
+	at org.springframework.security.web.header.HeaderWriterFilter.doFilterInternal(HeaderWriterFilter.java:75)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374)
+	at org.springframework.security.web.context.SecurityContextHolderFilter.doFilter(SecurityContextHolderFilter.java:82)
+	at org.springframework.security.web.context.SecurityContextHolderFilter.doFilter(SecurityContextHolderFilter.java:69)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374)
+	at org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter.doFilterInternal(WebAsyncManagerIntegrationFilter.java:62)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374)
+	at org.springframework.security.web.session.DisableEncodeUrlFilter.doFilterInternal(DisableEncodeUrlFilter.java:42)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374)
+	at org.springframework.security.web.FilterChainProxy.doFilterInternal(FilterChainProxy.java:233)
+	at org.springframework.security.web.FilterChainProxy.doFilter(FilterChainProxy.java:191)
+	at org.springframework.web.filter.CompositeFilter$VirtualFilterChain.doFilter(CompositeFilter.java:113)
+	at org.springframework.web.servlet.handler.HandlerMappingIntrospector.lambda$createCacheFilter$3(HandlerMappingIntrospector.java:195)
+	at org.springframework.web.filter.CompositeFilter$VirtualFilterChain.doFilter(CompositeFilter.java:113)
+	at org.springframework.web.filter.CompositeFilter.doFilter(CompositeFilter.java:74)
+	at org.springframework.security.config.annotation.web.configuration.WebMvcSecurityConfiguration$CompositeFilterChainProxy.doFilter(WebMvcSecurityConfiguration.java:230)
+	at org.springframework.web.filter.DelegatingFilterProxy.invokeDelegate(DelegatingFilterProxy.java:352)
+	at org.springframework.web.filter.DelegatingFilterProxy.doFilter(DelegatingFilterProxy.java:268)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:174)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:149)
+	at org.springframework.web.filter.RequestContextFilter.doFilterInternal(RequestContextFilter.java:100)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:174)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:149)
+	at org.springframework.web.filter.FormContentFilter.doFilterInternal(FormContentFilter.java:93)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:174)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:149)
+	at org.springframework.web.filter.CharacterEncodingFilter.doFilterInternal(CharacterEncodingFilter.java:201)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:174)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:149)
+	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:167)
+	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:90)
+	at org.apache.catalina.authenticator.AuthenticatorBase.invoke(AuthenticatorBase.java:482)
+	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:115)
+	at org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:93)
+	at org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:74)
+	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:344)
+	at org.apache.coyote.http11.Http11Processor.service(Http11Processor.java:391)
+	at org.apache.coyote.AbstractProcessorLight.process(AbstractProcessorLight.java:63)
+	at org.apache.coyote.AbstractProtocol$ConnectionHandler.process(AbstractProtocol.java:896)
+	at org.apache.tomcat.util.net.NioEndpoint$SocketProcessor.doRun(NioEndpoint.java:1744)
+	at org.apache.tomcat.util.net.SocketProcessorBase.run(SocketProcessorBase.java:52)
+	at org.apache.tomcat.util.threads.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1191)
+	at org.apache.tomcat.util.threads.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:659)
+	at org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:63)
+	at java.base/java.lang.Thread.run(Thread.java:1583)
+2024-06-12 13:03:52 DEBUG AuthServiceImpl:160 - Refresh Token is empty!
+2024-06-12 13:03:52 INFO  AuthServiceImpl:215 - logout
+2024-06-12 13:06:28 WARN  AuthServiceImpl:114 - unauthorized
+2024-06-12 13:06:31 WARN  AuthServiceImpl:114 - unauthorized
+2024-06-12 13:06:32 WARN  AuthServiceImpl:114 - unauthorized
+2024-06-12 13:06:32 WARN  AuthServiceImpl:114 - unauthorized
+2024-06-12 13:06:34 WARN  AuthServiceImpl:114 - unauthorized
+2024-06-12 13:18:43 INFO  UserServiceImpl:334 - ResourceVariation updated: ResourceVariation(id=1, resource=Resource(id=1, name=USER), permissions=[Permission(id=2, name=DELETE)])by user super-admin
+2024-06-12 13:18:43 INFO  UserServiceImpl:334 - ResourceVariation updated: ResourceVariation(id=3, resource=Resource(id=2, name=PRODUCT), permissions=[Permission(id=4, name=READ), Permission(id=1, name=UPDATE)])by user super-admin
+2024-06-12 13:18:43 INFO  UserServiceImpl:334 - ResourceVariation updated: ResourceVariation(id=4, resource=Resource(id=3, name=POST), permissions=[Permission(id=4, name=READ)])by user super-admin
+2024-06-12 13:18:43 INFO  UserServiceImpl:309 - User super-admin updated user super-admin
+2024-06-12 15:21:17 WARN  AuthServiceImpl:71 - username: super-admin unauthorized
+2024-06-12 15:21:20 INFO  AuthServiceImpl:90 - hine4 logged in
+2024-06-12 15:22:29 INFO  AuthServiceImpl:90 - hine4 logged in
+2024-06-12 15:23:30 INFO  AuthServiceImpl:90 - hine4 logged in
+2024-06-12 15:29:39 INFO  AuthServiceImpl:215 - logout
+2024-06-12 15:38:07 INFO  AuthServiceImpl:90 - hine4 logged in
+2024-06-12 15:38:18 INFO  OrderServiceImpl:228 - Order status updated successfully for order id: 50 to status: ĐÃ HỦY
+2024-06-12 15:40:55 INFO  AuthServiceImpl:90 - hine2 logged in
+2024-06-12 15:41:58 INFO  AuthServiceImpl:90 - hine4 logged in

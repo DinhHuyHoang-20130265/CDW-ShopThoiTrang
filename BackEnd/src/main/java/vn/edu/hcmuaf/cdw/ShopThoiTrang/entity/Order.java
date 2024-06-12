@@ -45,7 +45,6 @@ public class Order {
     private String address;
 
 
-    @NotNull(message = "Order date is required")
     @Column(name = "order_date")
     private Timestamp orderDate;
     private String note;
@@ -77,7 +76,6 @@ public class Order {
     @Column(name = "payment_status")
     private String paymentStatus;
 
-    @NotNull(message = "Payment date is required")
     @Column(name = "payment_date")
     private Timestamp paymentDate;
 

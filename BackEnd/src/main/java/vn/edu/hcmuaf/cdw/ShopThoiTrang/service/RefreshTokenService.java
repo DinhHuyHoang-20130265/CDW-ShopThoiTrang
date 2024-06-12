@@ -76,7 +76,6 @@ public class RefreshTokenService {
             }
             return token;
         } catch (TokenRefreshException e) {
-            Log.error("Error in verifyExpiration: ", e);
             throw new RuntimeException(e);
         }
     }

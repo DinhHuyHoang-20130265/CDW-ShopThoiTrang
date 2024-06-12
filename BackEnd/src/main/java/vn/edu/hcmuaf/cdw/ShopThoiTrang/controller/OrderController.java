@@ -41,4 +41,10 @@ public class OrderController {
     public ResponseEntity<?> exportOrder(@PathVariable Long id) {
         return orderService.exportOrder(id);
     }
+
+    @PutMapping("/{id}/cancel")
+    public ResponseEntity<?> cancelOrder(@PathVariable Long id) {
+        System.out.println("Cancel order");
+        return orderService.updateOrderStatus(id, 7L);
+    }
 }
