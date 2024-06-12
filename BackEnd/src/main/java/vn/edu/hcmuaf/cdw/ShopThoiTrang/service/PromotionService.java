@@ -1,5 +1,6 @@
 package vn.edu.hcmuaf.cdw.ShopThoiTrang.service;
 
+import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.data.domain.Page;
 import vn.edu.hcmuaf.cdw.ShopThoiTrang.entity.Product;
 import vn.edu.hcmuaf.cdw.ShopThoiTrang.entity.Promotion;
@@ -15,7 +16,7 @@ public interface PromotionService {
 
     List<Product> getProductsByPromotionId(long id);
 
-    Promotion savePromotion(Promotion promotion);
+    Promotion savePromotion(Promotion promotion, HttpServletRequest request);
 
-    Promotion updatePromotion(long id, Promotion promotion);
+    Promotion updatePromotion(long id, Promotion promotion, HttpServletRequest request);
 }

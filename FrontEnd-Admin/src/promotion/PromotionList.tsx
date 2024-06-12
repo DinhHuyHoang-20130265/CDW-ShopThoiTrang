@@ -1,6 +1,6 @@
 import * as React from 'react';
 import {
-    BooleanField, BooleanInput, Count,
+    BooleanField,
     CreateButton,
     DatagridConfigurable,
     DateField,
@@ -8,13 +8,11 @@ import {
     ExportButton,
     FilterButton, FunctionField,
     List, NullableBooleanInput, NumberField,
-    Pagination,
-    SelectColumnsButton, SelectField, SelectInput,
+    SelectColumnsButton,
     TextField,
     TextInput,
-    TopToolbar, useGetList, useListContext, useListController,
+    TopToolbar, useListController,
 } from 'react-admin';
-import {useEffect, useState} from "react";
 
 const ListActions = () => (
     <TopToolbar>
@@ -35,7 +33,7 @@ const PromotionList = () => {
 
     if (isLoading) return null;
 
-    const checkPromotionStatus = (promotion:any) => {
+    const checkPromotionStatus = (promotion: any) => {
         const currentDate = new Date();
         const startDate = new Date(promotion.startDate);
         const endDate = new Date(promotion.endDate);
@@ -75,6 +73,7 @@ const PromotionList = () => {
                     <FunctionField
                         label="SL sản phẩm"
                         render={(record: any) => (
+                            record.products &&
                             <span>{record.products.length}</span>
                         )}
                     />

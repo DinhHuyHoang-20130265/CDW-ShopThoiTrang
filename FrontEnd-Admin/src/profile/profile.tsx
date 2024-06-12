@@ -170,7 +170,7 @@ export const ProfileEdit = ({staticContext, ...props}: any) => {
                         onSubmit={handleSave}
                         toolbar={<Toolbar>
                             <SaveButton
-                                label="Save"
+                                label="Lưu"
                                 alwaysEnable
                             />
                         </Toolbar>}>

@@ -3,8 +3,8 @@ package vn.edu.hcmuaf.cdw.ShopThoiTrang.service.impl;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import jakarta.persistence.criteria.Join;
 import jakarta.persistence.criteria.Predicate;
+import jakarta.servlet.http.HttpServletRequest;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -12,13 +12,14 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
-import vn.edu.hcmuaf.cdw.ShopThoiTrang.entity.Category;
-import vn.edu.hcmuaf.cdw.ShopThoiTrang.entity.Price;
+import org.springframework.transaction.annotation.Transactional;
+import vn.edu.hcmuaf.cdw.ShopThoiTrang.JWT.JwtUtils;
 import vn.edu.hcmuaf.cdw.ShopThoiTrang.entity.Product;
 import vn.edu.hcmuaf.cdw.ShopThoiTrang.entity.Promotion;
 import vn.edu.hcmuaf.cdw.ShopThoiTrang.model.dto.PromotionDto;
 import vn.edu.hcmuaf.cdw.ShopThoiTrang.reponsitory.ProductRepository;
 import vn.edu.hcmuaf.cdw.ShopThoiTrang.reponsitory.PromotionRepository;
+import vn.edu.hcmuaf.cdw.ShopThoiTrang.reponsitory.UserRepository;
 import vn.edu.hcmuaf.cdw.ShopThoiTrang.service.PromotionService;
 
 import java.nio.charset.StandardCharsets;
@@ -34,6 +35,12 @@ public class PromotionServiceImpl implements PromotionService {
 
     @Autowired
     private ProductRepository productRepository;
+
+    @Autowired
+    private JwtUtils jwtUtils;
+
+    @Autowired
+    private UserRepository userRepository;
 
     @Override
     public Page<PromotionDto> getAllPromotion(String filter, int page, int perPage, String sortBy, String order) {
@@ -97,7 +104,11 @@ public class PromotionServiceImpl implements PromotionService {
     }
 
     @Override
-    public Promotion savePromotion(Promotion promotion) {
+    @Transactional
+    public Promotion savePromotion(Promotion promotion, HttpServletRequest request) {
+        String jwt = jwtUtils.getJwtFromCookies(request);
+        promotion.setCreatedBy(userRepository.findByUsername(jwtUtils.getUserNameFromJwtToken(jwt)).orElse(null));
+        promotion.setUpdatedBy(userRepository.findByUsername(jwtUtils.getUserNameFromJwtToken(jwt)).orElse(null));
         try {
             Date date = new Date(System.currentTimeMillis());
             promotion.setCreatedDate(date);
@@ -121,7 +132,10 @@ public class PromotionServiceImpl implements PromotionService {
     }
 
     @Override
-    public Promotion updatePromotion(long id, Promotion promotion) {
+    @Transactional
+    public Promotion updatePromotion(long id, Promotion promotion, HttpServletRequest request) {
+        String jwt = jwtUtils.getJwtFromCookies(request);
+        promotion.setUpdatedBy(userRepository.findByUsername(jwtUtils.getUserNameFromJwtToken(jwt)).orElse(null));
         try {
             Promotion existingPromotion = promotionRepository.findById(id).orElse(null);
             if (existingPromotion == null) {
@@ -138,23 +152,24 @@ public class PromotionServiceImpl implements PromotionService {
             existingPromotion.setUpdatedBy(promotion.getUpdatedBy());
 
             List<Product> products = new ArrayList<>();
-            for (Product product : promotion.getProducts()) {
-                Product existingProduct = productRepository.findById(product.getId()).orElse(null);
-                if (!existingPromotion.getProducts().contains(existingProduct)) {
-                    existingPromotion.getProducts().add(existingProduct);
-                    existingProduct.getPromotions().add(existingPromotion);
+            if (promotion.getProducts() != null) {
+                for (Product product : promotion.getProducts()) {
+                    Product existingProduct = productRepository.findById(product.getId()).orElse(null);
+                    if (!existingPromotion.getProducts().contains(existingProduct)) {
+                        existingPromotion.getProducts().add(existingProduct);
+                        existingProduct.getPromotions().add(existingPromotion);
+                    }
+                    products.add(existingProduct);
                 }
-                products.add(existingProduct);
             }
-            List<Product> productsToRemove = new ArrayList<>();
 
+            List<Product> productsToRemove = new ArrayList<>();
             for (Product existingProduct : existingPromotion.getProducts()) {
                 if (!products.contains(existingProduct)) {
                     productsToRemove.add(existingProduct);
                     existingProduct.getPromotions().remove(existingPromotion);
                 }
             }
-
 
             existingPromotion.getProducts().removeAll(productsToRemove);
 

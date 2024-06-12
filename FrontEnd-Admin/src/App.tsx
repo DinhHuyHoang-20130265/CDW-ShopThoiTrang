@@ -36,7 +36,7 @@ import ReviewEdit from "./reviews/ReviewEdit";
 import DashBoard from "./Dashboard/DashBoard";
 import {LayoutCustom} from "./Layout/LayoutCustom";
 import {Route} from 'react-router-dom';
-import {ProfileEdit, ProfileProvider} from "./Profile/profile";
+import {ProfileEdit, ProfileProvider} from "./profile/profile";
 
 const App = () => {
     return (

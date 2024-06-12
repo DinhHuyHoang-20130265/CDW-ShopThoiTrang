@@ -1,5 +1,6 @@
 package vn.edu.hcmuaf.cdw.ShopThoiTrang.controller;
 
+import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
@@ -13,6 +14,9 @@ public class BlogController {
 
     @Autowired
     private BlogService blogService;
+
+    @Autowired
+    private HttpServletRequest request;
 
     @GetMapping
     public ResponseEntity<?> getAllBlogs(@RequestParam(defaultValue = "0") int page,
@@ -36,12 +40,12 @@ public class BlogController {
 
     @PostMapping
     public ResponseEntity<?> saveBlog(@RequestBody Blog blog) {
-        return ResponseEntity.ok(blogService.saveBlog(blog));
+        return ResponseEntity.ok(blogService.saveBlog(blog, request));
     }
 
     @PutMapping("/{id}")
     public ResponseEntity<?> updateBlog(@PathVariable Long id, @RequestBody Blog blog) {
-        return ResponseEntity.ok(blogService.updateBlog(id, blog));
+        return ResponseEntity.ok(blogService.updateBlog(id, blog, request));
     }
 
 
