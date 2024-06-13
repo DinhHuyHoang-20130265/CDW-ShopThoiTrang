@@ -4,12 +4,12 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="89893dc3-088e-47ef-a82c-f709754202c6" name="Changes" comment="update: fixed css">
+    <list default="true" id="89893dc3-088e-47ef-a82c-f709754202c6" name="Changes" comment="update: fixed css ProductShow.tsx">
       <change beforePath="$PROJECT_DIR$/../BackEnd/logs/mylog.log" beforeDir="false" afterPath="$PROJECT_DIR$/../BackEnd/logs/mylog.log" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Dashboard/DashBoard.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/Dashboard/DashBoard.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Dashboard/OrderPieChart.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/Dashboard/OrderPieChart.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/products/ProductShow.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/products/ProductShow.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/App.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/App.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Layout/MyAppBar.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/Layout/MyAppBar.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/users/UserList.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/users/UserList.tsx" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -175,7 +175,9 @@
       <workItem from="1718132810406" duration="4882000" />
       <workItem from="1718197668968" duration="980000" />
       <workItem from="1718200807585" duration="3878000" />
-      <workItem from="1718214902158" duration="5753000" />
+      <workItem from="1718214902158" duration="5859000" />
+      <workItem from="1718265592653" duration="5460000" />
+      <workItem from="1718287812401" duration="3197000" />
     </task>
     <task id="LOCAL-00001" summary="update product for admin (50%&#10;)">
       <option name="closed" value="true" />
@@ -481,7 +483,15 @@
       <option name="project" value="LOCAL" />
       <updated>1718137877142</updated>
     </task>
-    <option name="localTasksCounter" value="39" />
+    <task id="LOCAL-00039" summary="update: fixed css ProductShow.tsx">
+      <option name="closed" value="true" />
+      <created>1718221029358</created>
+      <option name="number" value="00039" />
+      <option name="presentableId" value="LOCAL-00039" />
+      <option name="project" value="LOCAL" />
+      <updated>1718221029359</updated>
+    </task>
+    <option name="localTasksCounter" value="40" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -502,7 +512,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="resolve conflict" />
     <MESSAGE value="Add Order Detail" />
     <MESSAGE value="update status order" />
     <MESSAGE value="add list promotion" />
@@ -527,6 +536,7 @@
     <MESSAGE value="update: finished edit img promotion" />
     <MESSAGE value="update: finished edit img and create img for blog" />
     <MESSAGE value="update: fixed css" />
-    <option name="LAST_COMMIT_MESSAGE" value="update: fixed css" />
+    <MESSAGE value="update: fixed css ProductShow.tsx" />
+    <option name="LAST_COMMIT_MESSAGE" value="update: fixed css ProductShow.tsx" />
   </component>
 </project>

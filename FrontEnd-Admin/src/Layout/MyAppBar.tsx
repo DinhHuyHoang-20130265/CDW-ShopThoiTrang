@@ -1,5 +1,5 @@
 import * as React from 'react';
-import {AppBar, Logout, TitlePortal, UserMenu, useUserMenu} from 'react-admin';
+import {AppBar, Logout, TitlePortal, UserMenu, useTheme, useUserMenu} from 'react-admin';
 import Box from '@mui/material/Box';
 import {MenuItem, ListItemIcon, ListItemText} from '@mui/material';
 import SettingsIcon from '@mui/icons-material/Settings';
@@ -25,17 +25,25 @@ const SettingsMenuItem = React.forwardRef((props: any, ref: any) => {
     );
 });
 
-export const MyAppBar = () => (
-    <AppBar color="primary"
-            userMenu={
-                <UserMenu>
-                    <SettingsMenuItem/>
-                    <Logout title={"Đăng xuất"}/>
-                </UserMenu>
-            }
-    >
-        <TitlePortal/>
-        <Box flex="1"/>
-        <Box flex="1"/>
-    </AppBar>
-);
+export const MyAppBar = () => {
+    return (
+        <AppBar id={'MyAppBar'} color="primary"
+                userMenu={
+                    <UserMenu>
+                        <SettingsMenuItem/>
+                        <Logout title={"Đăng xuất"}/>
+                    </UserMenu>
+                }
+                sx={theme => ({
+                    '.MuiToolbar-root': {
+                        [theme.breakpoints.down("md")]: {
+                            minHeight: '48px !important',
+                        }
+                    }
+                })}
+        >
+            <TitlePortal/>
+            <Box flex="1"/>
+            <Box flex="1"/>
+        </AppBar>)
+};
