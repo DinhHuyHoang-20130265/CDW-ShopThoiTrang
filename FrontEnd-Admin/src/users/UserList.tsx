@@ -18,6 +18,8 @@ import {styled} from "@mui/material/styles";
 import PersonIcon from "@mui/icons-material/Person";
 import LockIcon from "@mui/icons-material/Lock";
 import FilterListIcon from '@mui/icons-material/FilterList';
+import DoneOutlineIcon from '@mui/icons-material/DoneOutline';
+import CancelIcon from '@mui/icons-material/Cancel';
 
 const BootstrapDialog = styled(Dialog)(({theme}: any) => ({
     '& .MuiDialogContent-root': {
@@ -90,8 +92,12 @@ function CustomDialog() {
                     </FilterList>
                 </DialogContent>
                 <DialogActions>
-                    <Button autoFocus onClick={handleClose} label={'Xác nhận'}/>
-                    <Button onClick={handleClose} autoFocus label={'Huỷ'}/>
+                    <Button autoFocus onClick={handleClose} label={'Xác nhận'}>
+                        <DoneOutlineIcon/>
+                    </Button>
+                    <Button onClick={handleClose} autoFocus label={'Huỷ'}>
+                        <CancelIcon/>
+                    </Button>
                 </DialogActions>
             </BootstrapDialog>
         </React.Fragment>

@@ -6,7 +6,14 @@ import {
     FunctionField,
     EditButton,
     ChipField,
-    SearchInput, DateInput, SelectColumnsButton, DatagridConfigurable, useRecordContext, WrapperField, ArrayField,
+    SearchInput,
+    DateInput,
+    SelectColumnsButton,
+    DatagridConfigurable,
+    useRecordContext,
+    WrapperField,
+    ArrayField,
+    Button, FilterLiveSearch, SavedQueriesList, FilterList, FilterListItem, useGetList,
 } from 'react-admin';
 
 import {
@@ -14,23 +21,142 @@ import {
     NumberField,
     ImageField,
     TextField,
-    BulkDeleteButton,
-    BulkUpdateButton,
 } from "react-admin";
-import {Theme, useMediaQuery} from "@mui/material";
+import {Dialog, DialogActions, DialogContent, DialogTitle, Theme, useMediaQuery} from "@mui/material";
 import Aside from "./Aside";
 import MobileProductGrid from "./MobileProductGrid";
+import {styled} from "@mui/material/styles";
+import FilterListIcon from "@mui/icons-material/FilterList";
+import LockIcon from "@mui/icons-material/Lock";
+import AttachMoneyRoundedIcon from "@mui/icons-material/AttachMoneyRounded";
+import CategoryIcon from "@mui/icons-material/CategoryRounded";
+import {Category} from "../types";
+import DoneOutlineIcon from "@mui/icons-material/DoneOutline";
+import CancelIcon from "@mui/icons-material/Cancel";
 
-const visitorFilters = [
-    <SearchInput alwaysOn name={"search"} source={"filter"}/>,
-    <DateInput source="createdDate" name={"createdDate"}/>,
-];
+const BootstrapDialog = styled(Dialog)(({theme}: any) => ({
+    '& .MuiDialogContent-root': {
+        padding: theme.spacing(2),
+    },
+    '& .MuiDialogActions-root': {
+        padding: theme.spacing(1),
+    },
+}));
 
-const VisitorListActions = () => (
+function CustomDialog() {
+    const [open, setOpen] = React.useState(false);
+
+    const handleClickOpen = () => {
+        setOpen(true);
+    };
+
+    const handleClose = () => {
+        setOpen(false);
+    };
+    const {data} = useGetList<Category>('category', {
+        pagination: {page: 1, perPage: 100},
+        sort: {field: 'name', order: 'ASC'},
+    });
+
+    return (
+        <React.Fragment>
+            <Button variant="outlined" onClick={handleClickOpen} id={'filter'} label={"Filter"}>
+                <FilterListIcon/>
+            </Button>
+
+            <BootstrapDialog
+                onClose={handleClose}
+                aria-labelledby="customized-dialog-title"
+                open={open}
+            >
+                <DialogTitle id="responsive-dialog-title">
+                    {"Filter"}
+                </DialogTitle>
+                <DialogContent sx={{overflowY: "scroll"}}>
+                    <FilterLiveSearch label={"Tìm..."} name={"search"}/>
+
+                    <SavedQueriesList/>
+
+                    <FilterList
+                        label="Trạng thái"
+                        icon={<LockIcon/>}
+                    >
+                        <FilterListItem
+                            label="Đã ẩn"
+                            value={{
+                                status: false,
+                            }}
+                        />
+                        <FilterListItem
+                            label="Hiển thị"
+                            value={{
+                                status: true,
+                            }}
+                        />
+
+                    </FilterList>
+
+                    <FilterList
+                        label="Giá"
+                        icon={<AttachMoneyRoundedIcon/>}
+                    >
+                        <FilterListItem
+                            label="0 - 99.000"
+                            value={{
+                                price_lt: 100000,
+                                price_gt: undefined,
+                            }}
+                        />
+                        <FilterListItem
+                            label="100.000 - 299.000"
+                            value={{
+                                price_lt: 300000,
+                                price_gt: 100000,
+                            }}
+                        />
+                        <FilterListItem
+                            label="300.000 trở lên"
+                            value={{
+                                price_lt: undefined,
+                                price_gt: 300000,
+                            }}
+                        />
+
+                    </FilterList>
+
+                    <FilterList
+                        label="Danh mục"
+                        icon={<CategoryIcon/>}
+                    >
+                        {data &&
+                            data.map((record: any) => (
+                                <FilterListItem
+                                    label={record.name}
+                                    key={record.id}
+                                    value={{categoryId: record.id}} // Truyền record làm giá trị của value
+                                />
+                            ))}
+                    </FilterList>
+                </DialogContent>
+                <DialogActions>
+                    <Button autoFocus onClick={handleClose} label={'Xác nhận'}>
+                        <DoneOutlineIcon/>
+                    </Button>
+                    <Button onClick={handleClose} autoFocus label={'Huỷ'}>
+                        <CancelIcon/>
+                    </Button>
+                </DialogActions>
+            </BootstrapDialog>
+        </React.Fragment>
+    );
+}
+
+const ProductListActions = (props: any) => (
     <TopToolbar>
         <CreateButton label="Tạo sản phẩm"/>
+        {props.isSmall && <CustomDialog/>}
         <SelectColumnsButton/>
-        {/*<ExportButton/>*/}
+        <ExportButton/>
     </TopToolbar>
 );
 
@@ -74,11 +200,10 @@ const ProductList = () => {
     };
     return (
         <List
-            filters={isSmall ? visitorFilters : undefined}
             sort={{field: 'name', order: 'DESC'}}
             perPage={25}
             aside={<Aside/>}
-            actions={<VisitorListActions/>}
+            actions={<ProductListActions isSmall={isSmall}/>}
         >
             {isXsmall ? (
                 <MobileProductGrid/>
@@ -97,7 +222,7 @@ const ProductList = () => {
                         label="Danh mục"
                         render={(record: any) => (
                             record.categories.map((category: any) => (
-                                <ChipField sx={{margin:"2px"}} record={category} source="name" key={category.id}/>
+                                <ChipField sx={{margin: "2px"}} record={category} source="name" key={category.id}/>
                             ))
                         )}
                     />

@@ -3,7 +3,7 @@ import {
     ArrayField,
     BooleanField, ChipField, Datagrid, DatagridHeader,
     DateField, FunctionField, ImageField, Labeled, NumberField, RichTextField,
-    Show, SimpleShowLayout, TextField, useRecordContext, useShowContext, useShowController,
+    Show, SimpleShowLayout, TextField, useRecordContext, useShowContext, useShowController, useTheme,
 } from 'react-admin';
 import {Grid, ImageList, Stack, Table, Typography} from "@mui/material";
 import {ColorField} from "react-admin-color-picker";
@@ -48,8 +48,23 @@ const ProductShow = () => {
         <>
             <Show>
                 <Grid container margin={0} spacing={2} padding={4} sx={{width: "100%"}}>
-                    <Grid item xs={4} sm={"auto"} alignContent={"center"} justifyContent={"center"}>
-                        <Grid item xs={12} sm={12}>
+                    <Grid item xs={4} sm={"auto"} alignContent={"center"} justifyContent={"center"}
+                          sx={theme => ({
+                              [theme.breakpoints.down('sm')]: {
+                                  justifyContent: 'center',
+                                  alignItems: 'center',
+                                  flexDirection: "column"
+                              },
+                              padding: 2
+                          })}>
+                        <Grid item xs={12} sm={12} sx={theme => ({
+                            [theme.breakpoints.down('sm')]: {
+                                'img.RaImageField-image': {
+                                    width: "100% !important"
+                                }
+                            }
+
+                        })}>
                             <ImageField
                                 source="imageUrl"
                                 textAlign={"center"}
@@ -61,12 +76,37 @@ const ProductShow = () => {
                                 }}
                             />
                         </Grid>
-                        <Grid item xs={12} sm={12} sx={{overflowX: "scroll"}}>
+                        <Grid item xs={12} sm={"auto"} sx={theme => ({
+                            [theme.breakpoints.down('sm')]: {
+                                justifyContent: 'center',
+                                alignItems: 'center',
+                                flexDirection: "column",
+                                '.RaImageField-image': {
+                                    width: '50px !important',
+                                    height: "50px !important"
+                                },
+                                '.RaImageField-list': {
+                                    margin: "5px",
+                                    padding: "5px !important",
+                                    'li:not(:last-child)': {
+                                        marginRight: "10px"
+                                    }
+                                }
+                            },
+                            overflowX: "scroll"
+                        })}>
                             <ImageField source="imgProducts" src="url"
                                         sx={{
                                             display: 'flex', justifyContent: 'center',
                                             '& .RaImageField-list': {
-                                                padding: "30px"
+                                                padding: "30px",
+                                                '.RaImageField-image': {
+                                                    width: "100%"
+                                                }
+                                            },
+                                            '& li': {
+                                                display: 'flex', justifyContent: 'center',
+                                                alignItems: "center"
                                             }
                                         }}/>
                         </Grid>
@@ -96,7 +136,14 @@ const ProductShow = () => {
                             />
                         </Stack>
                     </Grid>
-                    <Grid item xs={12} sm={12} sx={{backgroundColor: "lightgrey", borderRadius: 1, margin: "auto"}}>
+                    <Grid item xs={12} sm={12}
+                          sx={{
+                              backgroundColor: "lightgrey",
+                              borderRadius: 1,
+                              margin: "auto",
+                              padding: 2,
+                              marginTop: 1
+                          }}>
                         <RichTextField source="content" sx={{margin: 'auto'}}/>
                     </Grid>
 
@@ -120,7 +167,7 @@ const ProductShow = () => {
 
                     <Grid item xs={12} sm={6}>
                         <Labeled label="Ngày tạo">
-                            <DateField source="createDate"/>
+                            <DateField source="releaseDate"/>
                         </Labeled>
                     </Grid>
                 </Grid>
