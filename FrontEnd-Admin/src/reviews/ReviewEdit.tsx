@@ -40,7 +40,7 @@ const ReviewEdit = ({id, onCancel}: Props) => {
                     <Grid container rowSpacing={1} mb={1}>
                         <Grid item xs={6}>
                             <Labeled>
-                                <UserReferenceField source={'reviewer.id'}/>
+                                <UserReferenceField source={'reviewer.id'} label={"Người đánh giá"}/>
                             </Labeled>
                         </Grid>
                         <Grid item xs={6}>
@@ -54,7 +54,7 @@ const ReviewEdit = ({id, onCancel}: Props) => {
                         </Grid>
                         <Grid item xs={6}>
                             <Labeled>
-                                <DateField source="reviewedDate"/>
+                                <DateField source="reviewedDate" label={"Ngày đánh giá"}/>
                             </Labeled>
                         </Grid>
                         <Grid item xs={6}>

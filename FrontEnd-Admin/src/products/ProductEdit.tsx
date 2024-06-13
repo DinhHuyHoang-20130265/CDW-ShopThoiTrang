@@ -153,5 +153,4 @@ export const ProductEdit = (props: any) => {
 };
 
 
-
 const req = [required()];
