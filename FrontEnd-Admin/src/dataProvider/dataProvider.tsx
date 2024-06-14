@@ -475,16 +475,16 @@ export const dataProvider: DataProvider = {
 
     updateMany: (resource: any, params: any) => Promise.resolve({data: []}),
 
-    delete: (resource: any, params: any) =>
-        httpClient.delete(`${process.env.REACT_APP_API_URL}/${resource}/${params.id}`, {
+    delete: async (resource: any, params: any) =>
+        await httpClient.delete(`${process.env.REACT_APP_API_URL}/${resource}/${params.id}`, {
             headers: {
                 'Content-Type': 'application/json',
                 Accept: 'application/json',
             },
             withCredentials: true
-        }).then((response) => ({
-            data: response.data,
-        })),
+        }).then((response) => {
+            return Promise.resolve({data: response.data})
+        }),
     deleteMany: (resource: any, params: any) => {
         console.log("Delete many")
         console.log(resource, params)

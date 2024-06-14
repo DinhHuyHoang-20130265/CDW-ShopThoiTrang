@@ -17,5 +17,5 @@ public interface BlogService {
     Blog saveBlog(Blog blog, HttpServletRequest request);
     Blog updateBlog(Long id, Blog blog, HttpServletRequest request);
 
-
+    Blog deleteBlog(Long id, HttpServletRequest request);
 }

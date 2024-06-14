@@ -185,4 +185,26 @@ public class PromotionServiceImpl implements PromotionService {
             throw new RuntimeException(e);
         }
     }
+
+    @Override
+    public Promotion deletePromotion(Long id, HttpServletRequest request) {
+        String jwt = jwtUtils.getJwtFromCookies(request, "shop2h_admin");
+        String username = jwtUtils.getUserNameFromJwtToken(jwt);
+        Promotion promotion = promotionRepository.findById(id).orElse(null);
+        if (promotion == null) {
+            return null;
+        }
+        promotion.setUpdatedBy(userRepository.findByUsername(jwtUtils.getUserNameFromJwtToken(jwt)).orElse(null));
+        promotion.setStatus(false);
+        promotion.setUpdatedDate(new Date(System.currentTimeMillis()));
+        promotion.setProducts(new ArrayList<>());
+        try {
+            Log.info(username + " deleted promotion " + promotion.getName());
+            promotionRepository.delete(promotion);
+            return promotion;
+        } catch (Exception e) {
+            Log.error("Error while deleting promotion", e);
+            throw new RuntimeException(e);
+        }
+    }
 }

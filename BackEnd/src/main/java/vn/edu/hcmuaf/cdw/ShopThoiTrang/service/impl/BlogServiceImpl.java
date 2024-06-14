@@ -11,6 +11,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import vn.edu.hcmuaf.cdw.ShopThoiTrang.JWT.JwtUtils;
 import vn.edu.hcmuaf.cdw.ShopThoiTrang.entity.Blog;
 import vn.edu.hcmuaf.cdw.ShopThoiTrang.model.dto.BlogDto;
@@ -135,6 +136,24 @@ public class BlogServiceImpl implements BlogService {
             return blogRepository.save(existingBlog);
         } catch (Exception e) {
             Log.error("Error in updateBlog: " + e.getMessage());
+            throw new RuntimeException(e);
+        }
+    }
+
+    @Override
+    @Transactional
+    public Blog deleteBlog(Long id, HttpServletRequest request) {
+        try {
+            String jwt = jwtUtils.getJwtFromCookies(request, "shop2h_admin");
+            String username = jwtUtils.getUserNameFromJwtToken(jwt);
+            Blog blog = blogRepository.findById(id).orElse(null);
+            if (blog != null) {
+                blogRepository.delete(blog);
+            }
+            Log.info(username + " deleted blog: " + blog.getTitle());
+            return blog;
+        } catch (Exception e) {
+            Log.error("Error in deleteBlog: " + e.getMessage());
             throw new RuntimeException(e);
         }
     }

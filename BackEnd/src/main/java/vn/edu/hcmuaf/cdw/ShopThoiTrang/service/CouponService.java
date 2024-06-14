@@ -21,4 +21,6 @@ public interface CouponService {
     List<Order> getOrdersByCouponId(Long id);
 
     Coupon getCouponByCode(String code);
+
+    Coupon deleteCoupon(Long id, HttpServletRequest request);
 }

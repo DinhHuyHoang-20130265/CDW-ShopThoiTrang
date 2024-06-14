@@ -1,8 +1,8 @@
 import {
-    DateInput,
+    DateInput, DeleteButton,
     Edit, NullableBooleanInput, NumberInput,
-    required, TabbedForm,
-    TextInput
+    required, SaveButton, TabbedForm,
+    TextInput, Toolbar
 } from "react-admin";
 import {Grid, InputAdornment} from "@mui/material";
 import React from "react";
@@ -12,7 +12,13 @@ const CouponEdit = () => {
 
     return (
         <Edit>
-            <TabbedForm warnWhenUnsavedChanges>
+            <TabbedForm warnWhenUnsavedChanges toolbar={
+
+                <Toolbar sx={{display: 'flex', justifyContent: 'space-between'}}>
+                    <SaveButton/>
+                    <DeleteButton mutationMode="pessimistic"/>
+                </Toolbar>
+            }>
                 <TabbedForm.Tab
                     label="Thông tin khuyến mãi"
                     sx={{maxWidth: '40em'}}

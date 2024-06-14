@@ -1,9 +1,9 @@
 import {
     ArrayInput, AutocompleteInput,
-    BooleanInput, DateInput,
+    BooleanInput, DateInput, DeleteButton,
     Edit, ImageField, ImageInput, NullableBooleanInput, NumberInput, ReferenceInput,
-    required, SimpleFormIterator, TabbedForm,
-    TextInput, useEditContext, useGetList,
+    required, SaveButton, SimpleFormIterator, TabbedForm,
+    TextInput, Toolbar, useEditContext, useGetList,
 } from "react-admin";
 import {Grid, InputAdornment, Typography} from "@mui/material";
 import React from "react";
@@ -57,7 +57,12 @@ const PromotionEdit = () => {
     if (isLoading) return null;
     return (
         <Edit>
-            <TabbedForm warnWhenUnsavedChanges>
+            <TabbedForm warnWhenUnsavedChanges toolbar={
+                <Toolbar sx={{display: 'flex', justifyContent: 'space-between'}}>
+                    <SaveButton/>
+                    <DeleteButton mutationMode="pessimistic"/>
+                </Toolbar>
+            }>
                 <TabbedForm.Tab
                     label="Thông tin khuyến mãi"
                     sx={{maxWidth: '40em'}}

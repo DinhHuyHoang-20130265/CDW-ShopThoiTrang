@@ -48,5 +48,9 @@ public class BlogController {
         return ResponseEntity.ok(blogService.updateBlog(id, blog, request));
     }
 
+    @DeleteMapping("/{id}")
+    public ResponseEntity<?> deleteBlog(@PathVariable Long id) {
+        return ResponseEntity.ok(blogService.deleteBlog(id, request));
+    }
 
 }

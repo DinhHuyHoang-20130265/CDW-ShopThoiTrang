@@ -158,4 +158,23 @@ public class CouponServiceImpl implements CouponService {
     public Coupon getCouponByCode(String code) {
         return couponRepository.findByCouponCode(code).orElse(null);
     }
+
+    @Override
+    public Coupon deleteCoupon(Long id, HttpServletRequest request) {
+        String jwt = jwtUtils.getJwtFromCookies(request, "shop2h_admin");
+        String username = jwtUtils.getUserNameFromJwtToken(jwt);
+        Coupon coupon = couponRepository.findById(id).orElse(null);
+        if (coupon == null) {
+            return null;
+        }
+        coupon.setUpdateBy(userRepository.findByUsername(jwtUtils.getUserNameFromJwtToken(jwt)).orElse(null));
+        try {
+            couponRepository.delete(coupon);
+            Log.info(username + " deleted coupon " + coupon.getName());
+            return coupon;
+        } catch (Exception e) {
+            Log.error("Error while deleting coupon", e);
+            throw new RuntimeException(e);
+        }
+    }
 }

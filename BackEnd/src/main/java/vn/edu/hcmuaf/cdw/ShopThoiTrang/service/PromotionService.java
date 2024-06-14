@@ -19,4 +19,6 @@ public interface PromotionService {
     Promotion savePromotion(Promotion promotion, HttpServletRequest request);
 
     Promotion updatePromotion(long id, Promotion promotion, HttpServletRequest request);
+
+    Promotion deletePromotion(Long id, HttpServletRequest request);
 }

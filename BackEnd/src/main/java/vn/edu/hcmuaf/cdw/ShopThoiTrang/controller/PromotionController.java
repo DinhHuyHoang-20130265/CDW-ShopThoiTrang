@@ -46,4 +46,9 @@ public class PromotionController {
     public ResponseEntity<?> getProductsByPromotionId(@PathVariable int id) {
         return ResponseEntity.ok(promotionService.getProductsByPromotionId(id));
     }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<?> deletePromotion(@PathVariable Long id) {
+        return ResponseEntity.ok(promotionService.deletePromotion(id, request));
+    }
 }

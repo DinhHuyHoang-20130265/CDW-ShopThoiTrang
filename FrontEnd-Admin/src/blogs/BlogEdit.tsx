@@ -3,7 +3,7 @@ import {
     SimpleForm,
     TextInput,
     DateField,
-    required, BooleanInput, ImageInput, ImageField
+    required, BooleanInput, ImageInput, ImageField, SaveButton, DeleteButton, TopToolbar, Toolbar
 } from 'react-admin';
 import React from "react";
 import {useWatch} from "react-hook-form";
@@ -49,7 +49,12 @@ const RichTextInput = React.lazy(() =>
 export const BlogEdit = () => {
     return (
         <Edit>
-            <SimpleForm sx={{bgcolor: 'white', p: 2, borderRadius: 1}}>
+            <SimpleForm sx={{bgcolor: 'white', p: 2, borderRadius: 1}}
+                        toolbar={<Toolbar sx={{display: 'flex', justifyContent: 'space-between'}}>
+                            <SaveButton/>
+                            <DeleteButton mutationMode="pessimistic"/>
+                        </Toolbar>
+                        }>
                 <TextInput disabled label="Id" source="id"/>
                 <ReturnedImg/>
                 <TextInput source="title" label="Tên bài viết" validate={required()} sx={{mb: 1}}/>

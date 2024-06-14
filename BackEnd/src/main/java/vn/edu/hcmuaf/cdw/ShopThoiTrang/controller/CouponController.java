@@ -26,12 +26,11 @@ public class CouponController {
         return ResponseEntity.ok(couponService.getAllCoupons(filter, page, perPage, sort, order));
     }
 
-
-
     @GetMapping("/{id}")
     public ResponseEntity<?> getCouponById(@PathVariable Long id) {
         return ResponseEntity.ok(couponService.getCouponById(id));
     }
+
     @GetMapping("/check/{code}")
     public ResponseEntity<?> getCouponByName(@PathVariable String code) {
         return ResponseEntity.ok(couponService.getCouponByCode(code));
@@ -50,5 +49,10 @@ public class CouponController {
     @GetMapping("/orders/{id}")
     public ResponseEntity<?> getOrdersByCouponId(@PathVariable Long id) {
         return ResponseEntity.ok(couponService.getOrdersByCouponId(id));
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<?> deleteCoupon(@PathVariable Long id) {
+        return ResponseEntity.ok(couponService.deleteCoupon(id, request));
     }
 }
