@@ -2,8 +2,12 @@ package vn.edu.hcmuaf.cdw.ShopThoiTrang.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.web.bind.annotation.*;
+import vn.edu.hcmuaf.cdw.ShopThoiTrang.entity.Notification;
+import vn.edu.hcmuaf.cdw.ShopThoiTrang.entity.Order;
 import vn.edu.hcmuaf.cdw.ShopThoiTrang.model.dto.CreateOrderRequest;
+import vn.edu.hcmuaf.cdw.ShopThoiTrang.service.NotificationService;
 import vn.edu.hcmuaf.cdw.ShopThoiTrang.service.OrderService;
 
 @RestController
@@ -12,6 +16,12 @@ public class OrderController {
 
     @Autowired
     private OrderService orderService;
+
+    @Autowired
+    private SimpMessagingTemplate messagingTemplate;
+
+    @Autowired
+    private NotificationService notificationService;
 
     @GetMapping
     public ResponseEntity<?> getAllOrders(@RequestParam(defaultValue = "0") int page,
@@ -29,7 +39,14 @@ public class OrderController {
 
     @PostMapping
     public ResponseEntity<?> saveOrder(@RequestBody CreateOrderRequest order) {
-        return orderService.createOrder(order);
+        ResponseEntity<?> response = orderService.createOrder(order);
+        Order orderEntity = (Order) response.getBody();
+        if (response.getStatusCode().is2xxSuccessful()) {
+            Notification notification = notificationService.createNotification("New order has been created", orderEntity.getId(), "order");
+            // Gửi thông báo qua WebSocket
+            messagingTemplate.convertAndSend("/topic/notifications", notification);
+        }
+        return response;
     }
 
     @PutMapping("/{id}/status/{statusId}")

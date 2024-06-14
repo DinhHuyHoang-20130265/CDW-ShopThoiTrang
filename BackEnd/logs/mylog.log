@@ -89,3 +89,49 @@ vn.edu.hcmuaf.cdw.ShopThoiTrang.exception.TokenRefreshException: Failed for [700
 2024-06-12 15:38:18 INFO  OrderServiceImpl:228 - Order status updated successfully for order id: 50 to status: ĐÃ HỦY
 2024-06-12 15:40:55 INFO  AuthServiceImpl:90 - hine2 logged in
 2024-06-12 15:41:58 INFO  AuthServiceImpl:90 - hine4 logged in
+2024-06-12 15:44:56 INFO  OrderServiceImpl:228 - Order status updated successfully for order id: 50 to status: ĐÃ HỦY
+2024-06-12 15:44:59 INFO  OrderServiceImpl:228 - Order status updated successfully for order id: 50 to status: ĐÃ HỦY
+2024-06-12 15:45:21 INFO  OrderServiceImpl:228 - Order status updated successfully for order id: 50 to status: ĐÃ HỦY
+2024-06-12 15:47:01 INFO  OrderServiceImpl:228 - Order status updated successfully for order id: 50 to status: ĐÃ HỦY
+2024-06-12 15:47:50 INFO  OrderServiceImpl:228 - Order status updated successfully for order id: 50 to status: ĐÃ HỦY
+2024-06-12 15:51:08 INFO  OrderServiceImpl:228 - Order status updated successfully for order id: 50 to status: ĐÃ HỦY
+2024-06-12 15:51:18 INFO  AuthServiceImpl:90 - hine4 logged in
+2024-06-12 19:59:38 DEBUG AuthServiceImpl:160 - Refresh Token is empty!
+2024-06-12 19:59:38 INFO  AuthServiceImpl:215 - logout
+2024-06-12 20:01:27 INFO  AuthServiceImpl:215 - logout
+2024-06-12 20:08:15 INFO  OrderServiceImpl:205 - hine4 ordered successfully with order id: 51
+2024-06-12 20:12:53 INFO  OrderServiceImpl:205 - hine4 ordered successfully with order id: 52
+2024-06-12 20:17:43 INFO  AuthServiceImpl:90 - hine2 logged in
+2024-06-12 20:19:10 INFO  OrderServiceImpl:205 - hine2 ordered successfully with order id: 53
+2024-06-12 20:25:53 INFO  OrderServiceImpl:205 - hine2 ordered successfully with order id: 54
+2024-06-12 20:30:32 INFO  AuthServiceImpl:215 - logout
+2024-06-12 20:31:38 INFO  AuthServiceImpl:215 - logout
+2024-06-12 20:31:38 DEBUG AuthServiceImpl:160 - Refresh Token is empty!
+2024-06-12 20:31:38 INFO  AuthServiceImpl:215 - logout
+2024-06-12 20:48:43 INFO  AuthServiceImpl:90 - hine4 logged in
+2024-06-12 20:49:06 INFO  AuthServiceImpl:90 - hine3 logged in
+2024-06-12 20:49:45 INFO  OrderServiceImpl:205 - hine3 ordered successfully with order id: 55
+2024-06-13 12:26:43 DEBUG AuthServiceImpl:160 - Refresh Token is empty!
+2024-06-13 12:26:43 INFO  AuthServiceImpl:215 - logout
+2024-06-13 12:28:52 INFO  OrderServiceImpl:205 - hine3 ordered successfully with order id: 56
+2024-06-13 12:59:25 INFO  OrderServiceImpl:205 - hine3 ordered successfully with order id: 57
+2024-06-13 13:58:34 INFO  AuthServiceImpl:90 - hine2 logged in
+2024-06-13 13:58:49 WARN  AuthServiceImpl:63 - username: hine1 not found
+2024-06-13 13:58:55 WARN  AuthServiceImpl:63 - username: hine5 not found
+2024-06-13 13:59:00 WARN  AuthServiceImpl:63 - username: hine6 not found
+2024-06-13 14:00:26 INFO  AuthServiceImpl:90 - hine logged in
+2024-06-13 14:01:28 INFO  OrderServiceImpl:205 - hine ordered successfully with order id: 58
+2024-06-13 14:47:11 INFO  OrderServiceImpl:205 - hine ordered successfully with order id: 59
+2024-06-13 14:52:29 INFO  AuthServiceImpl:90 - hine logged in
+2024-06-13 14:52:52 INFO  OrderServiceImpl:205 - hine ordered successfully with order id: 60
+2024-06-13 14:54:21 INFO  AuthServiceImpl:90 - hine logged in
+2024-06-13 14:54:39 INFO  OrderServiceImpl:205 - hine ordered successfully with order id: 61
+2024-06-13 22:22:58 DEBUG AuthServiceImpl:160 - Refresh Token is empty!
+2024-06-13 22:22:58 INFO  AuthServiceImpl:215 - logout
+2024-06-13 22:43:12 INFO  OrderServiceImpl:205 - hine ordered successfully with order id: 62
+2024-06-14 15:10:33 DEBUG AuthServiceImpl:160 - Refresh Token is empty!
+2024-06-14 15:10:33 INFO  AuthServiceImpl:215 - logout
+2024-06-14 15:10:34 DEBUG AuthServiceImpl:160 - Refresh Token is empty!
+2024-06-14 15:10:34 INFO  AuthServiceImpl:215 - logout
+2024-06-14 16:09:56 INFO  AuthServiceImpl:215 - logout
+2024-06-14 16:41:59 INFO  AuthServiceImpl:215 - logout

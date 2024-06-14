@@ -4,6 +4,6 @@ import {MyAppBar} from "./MyAppBar";
 
 export const LayoutCustom = (props: any) => {
     return (
-        <Layout {...props} appBar={MyAppBar} appBarAlwaysOn/>
+        <Layout {...props} appBar={MyAppBar} appBarAlwaysOn />
     )
 }

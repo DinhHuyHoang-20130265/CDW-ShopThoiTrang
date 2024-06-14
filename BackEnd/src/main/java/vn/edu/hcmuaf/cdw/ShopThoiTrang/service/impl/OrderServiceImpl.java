@@ -203,7 +203,8 @@ public class OrderServiceImpl implements OrderService {
             orderStatusHistory.setStatus(orderStatus);
             orderStatusHistoryService.saveOrderStatusHistory(orderStatusHistory);
             Log.info(savedOrder.getUser().getUsername() + " ordered successfully with order id: " + savedOrder.getId());
-            return ResponseEntity.ok("Order created successfully");
+
+            return ResponseEntity.ok(savedOrder);
         } catch (RuntimeException e) {
             Log.error("Error in createOrder: " ,e);
             throw new RuntimeException(e);

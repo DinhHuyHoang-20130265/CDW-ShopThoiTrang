@@ -83,6 +83,7 @@ public class SecurityConfiguration {
                                 .requestMatchers(("/api/promotion/**")).permitAll()
                                 .requestMatchers("/api/contact/**").permitAll()
                                 .requestMatchers("/api/review/**").permitAll()
+                                .requestMatchers("/ws/**").permitAll()
                                 .anyRequest().authenticated()
                 );
 

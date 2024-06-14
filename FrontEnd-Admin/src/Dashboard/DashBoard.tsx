@@ -14,6 +14,7 @@ import NbNewReviews from "./NbNewReviews";
 import BestSeller from "./BestSeller";
 import OutOfStock from "./OutOfStock";
 import NewCustomers from "./NewCustomers";
+import WebSocketClient from "../websocket/WebSocketClient";
 
 const Spacer = () => <span style={{width: '1em'}}/>;
 const VerticalSpacer = () => <span style={{height: '1em'}}/>;
@@ -235,6 +236,8 @@ const DashBoard = () => {
     return isXSmall ? (
         <div>
             <div style={styles.flexColumn as CSSProperties}>
+                <WebSocketClient/>
+
                 <MonthlyRevenue value={revenue}/>
                 <VerticalSpacer/>
                 <NbNewOrders value={nbNewOrders}/>
@@ -243,7 +246,10 @@ const DashBoard = () => {
             </div>
         </div>
     ) : isSmall ? (
+
         <div style={styles.flexColumn as CSSProperties}>
+            <WebSocketClient/>
+
             <div style={styles.singleCol}>
             </div>
             <div style={styles.flex}>
@@ -260,6 +266,7 @@ const DashBoard = () => {
         </div>
     ) : (
         <>
+            <WebSocketClient/>
             <div style={{margin: "10px"}}>
                 <div>
                     <div style={{display: "flex", flex: 1}}>
