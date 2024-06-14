@@ -41,6 +41,10 @@ const ReviewList = () => {
     return (
         <Box display="flex">
             <List
+                filters={reviewFilters}
+                perPage={25}
+                sort={{field: 'reviewedDate', order: 'DESC'}}
+                actions={<ReviewListActions/>}
                 sx={{
                     flexGrow: 1,
                     transition: (theme: any) =>
@@ -48,11 +52,23 @@ const ReviewList = () => {
                             duration: theme.transitions.duration.enteringScreen,
                         }),
                     marginRight: !!match ? '400px' : 0,
+                    '@media(max-width:900px)': {
+                        '.RaList-main > .RaList-actions': {
+                            display: 'block',
+                            '.MuiToolbar-root.MuiToolbar-dense': {
+                                float: 'left'
+                            }
+                        }
+                    },
+                    '@media(max-width:600px)': {
+                        '.RaList-main > .RaList-actions': {
+                            display: 'block',
+                            '.MuiToolbar-root.MuiToolbar-regular': {
+                                float: 'left'
+                            }
+                        }
+                    }
                 }}
-                filters={reviewFilters}
-                perPage={25}
-                sort={{field: 'reviewedDate', order: 'DESC'}}
-                actions={<ReviewListActions/>}
             >
                 {isXSmall ? (
                     <ReviewListMobile/>

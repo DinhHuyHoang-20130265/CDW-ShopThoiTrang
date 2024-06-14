@@ -93,7 +93,11 @@ const ListActions = () => {
 
     return (
         <>
-            <TopToolbar>
+            <TopToolbar sx={{
+                justifyContent: "center",
+                alignItems: "center"
+
+            }}>
                 <SelectColumnsButton/>
                 <FilterButton/>
                 <CreateButton label={"Nhập hàng"}/>
@@ -163,6 +167,24 @@ const ImportInvoiceList = () => {
             component="div"
             actions={<ListActions/>}
             filters={postFilters}
+            sx={{
+                '@media(max-width:900px)': {
+                    '.RaList-main > .RaList-actions': {
+                        display: 'block',
+                        '.MuiToolbar-root.MuiToolbar-dense': {
+                            float: 'left'
+                        }
+                    }
+                },
+                '@media(max-width:600px)': {
+                    '.RaList-main > .RaList-actions': {
+                        display: 'block',
+                        '.MuiToolbar-root.MuiToolbar-regular': {
+                            float: 'left'
+                        }
+                    }
+                }
+            }}
             empty={false}
         >
             <DatagridConfigurable rowClick="expand" expandSingle expand={<ImportInvoiceShow/>} bulkActionButtons={false}

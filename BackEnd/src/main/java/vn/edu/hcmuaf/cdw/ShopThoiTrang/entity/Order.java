@@ -77,7 +77,6 @@ public class Order {
     @Column(name = "payment_status")
     private String paymentStatus;
 
-    @NotNull(message = "Payment date is required")
     @Column(name = "payment_date")
     private Timestamp paymentDate;
 

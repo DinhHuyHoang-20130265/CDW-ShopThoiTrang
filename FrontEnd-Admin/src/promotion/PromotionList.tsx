@@ -14,6 +14,7 @@ import {
     TopToolbar, useListController, useTheme,
 } from 'react-admin';
 import {Theme, useMediaQuery} from "@mui/material";
+import MobilePromotionGrid from "./MobilePromotionGrid";
 
 const ListActions = () => (
     <TopToolbar>
@@ -30,50 +31,57 @@ const postFilters = () => [
 ];
 
 const PromotionList = () => {
-        const {data, isLoading}: any = useListController();
-        if (isLoading) return null;
+    const {data, isLoading}: any = useListController();
+    const isXsmall = useMediaQuery<Theme>(theme =>
+        theme.breakpoints.down('sm')
+    );
 
-        const checkPromotionStatus = (promotion: any) => {
-            const currentDate = new Date();
-            const startDate = new Date(promotion.startDate);
-            const endDate = new Date(promotion.endDate);
+    const isSmall = useMediaQuery<Theme>(theme => theme.breakpoints.down('md'));
+    if (isLoading) return null;
 
-            if (currentDate < startDate) {
-                return 'Chưa diễn ra';
-            } else if (currentDate >= startDate && currentDate <= endDate) {
-                return 'Đang diễn ra';
-            } else {
-                return 'Đã kết thúc';
-            }
-        };
-        return (
-            data ? (
-                    <List
-                        sort={{field: 'name', order: 'ASC'}}
-                        perPage={20}
-                        pagination={false}
-                        component="div"
-                        actions={<ListActions/>}
-                        filters={postFilters()}
-                        sx={{
-                            '@media(max-width:900px)': {
-                                '.RaList-main > .RaList-actions': {
-                                    display: 'block',
-                                    '.MuiToolbar-root.MuiToolbar-dense': {
-                                        float: 'left'
-                                    }
-                                }
-                            },
-                            '@media(max-width:600px)': {
-                                '.RaList-main > .RaList-actions': {
-                                    display: 'block',
-                                    '.MuiToolbar-root.MuiToolbar-regular': {
-                                        float: 'left'
-                                    }
+
+    const checkPromotionStatus = (promotion: any) => {
+        const currentDate = new Date();
+        const startDate = new Date(promotion.startDate);
+        const endDate = new Date(promotion.endDate);
+
+        if (currentDate < startDate) {
+            return 'Chưa diễn ra';
+        } else if (currentDate >= startDate && currentDate <= endDate) {
+            return 'Đang diễn ra';
+        } else {
+            return 'Đã kết thúc';
+        }
+    };
+    return (
+        data ? (
+                <List
+                    sort={{field: 'name', order: 'ASC'}}
+                    perPage={20}
+                    pagination={false}
+                    component="div"
+                    actions={<ListActions/>}
+                    filters={postFilters()}
+                    sx={{
+                        '@media(max-width:900px)': {
+                            '.RaList-main > .RaList-actions': {
+                                display: 'block',
+                                '.MuiToolbar-root.MuiToolbar-dense': {
+                                    float: 'left'
                                 }
                             }
-                        }}
-                    >
+                        },
+                        '@media(max-width:600px)': {
+                            '.RaList-main > .RaList-actions': {
+                                display: 'block',
+                                '.MuiToolbar-root.MuiToolbar-regular': {
+                                    float: 'left'
+                                }
+                            }
+                        }
+                    }}
+                >
+                    {isXsmall ? <MobilePromotionGrid/> :
                         <DatagridConfigurable>
                             < TextField
                                 source="id"
@@ -98,14 +106,12 @@ const PromotionList = () => {
                                 )}
                             />
                             <EditButton/>
-                        </DatagridConfigurable>
-                    </List>
-                ) :
-                <div>Không có khuyến mãi</div>
-        )
-            ;
-    }
-;
+                        </DatagridConfigurable>}
+                </List>
+            ) :
+            <div>Không có khuyến mãi</div>
+    )
+}
 
 
 export default PromotionList;

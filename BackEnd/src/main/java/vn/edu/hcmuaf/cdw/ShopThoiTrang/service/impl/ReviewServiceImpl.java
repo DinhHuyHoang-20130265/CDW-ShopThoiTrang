@@ -94,7 +94,7 @@ public class ReviewServiceImpl implements ReviewService {
             Specification<Review> specification = (root, query, criteriaBuilder) -> {
                 Predicate predicate = criteriaBuilder.conjunction();
                 if (filterJson.has("q")) {
-                    predicate = criteriaBuilder.and(predicate, criteriaBuilder.like(root.get("content"), "%" + filterJson.get("q").asText().toLowerCase() + "%"));
+                    predicate = criteriaBuilder.and(predicate, criteriaBuilder.like(root.get("content"), "%" + filterJson.get("q").asText() + "%"));
                 }
                 if (filterJson.has("type")) {
                     predicate = criteriaBuilder.and(predicate, criteriaBuilder.equal(root.get("type"), filterJson.get("type").asInt()));
@@ -133,7 +133,8 @@ public class ReviewServiceImpl implements ReviewService {
                         reviewRepository.findAll(specification, PageRequest.of(start, end, Sort.by(direction, "rating")));
                 case "content" ->
                         reviewRepository.findAll(specification, PageRequest.of(start, end, Sort.by(direction, "content")));
-                default -> reviewRepository.findAll(specification, PageRequest.of(start, end, Sort.by(direction, sortBy)));
+                default ->
+                        reviewRepository.findAll(specification, PageRequest.of(start, end, Sort.by(direction, sortBy)));
             };
         } catch (RuntimeException e) {
             Log.error("Error in getAllReviews: ", e);

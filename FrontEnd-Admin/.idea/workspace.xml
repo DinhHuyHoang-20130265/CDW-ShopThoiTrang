@@ -4,11 +4,23 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="89893dc3-088e-47ef-a82c-f709754202c6" name="Changes" comment="update: finished responsive product">
+    <list default="true" id="89893dc3-088e-47ef-a82c-f709754202c6" name="Changes" comment="update: finished responsive promotion">
+      <change afterPath="$PROJECT_DIR$/src/blogs/MobileBlogGrid.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/categories/MobileCategoryGrid.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/orders/OrderMobileGrid.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/promotion/MobilePromotionGrid.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../BackEnd/logs/mylog.log" beforeDir="false" afterPath="$PROJECT_DIR$/../BackEnd/logs/mylog.log" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../BackEnd/src/main/java/vn/edu/hcmuaf/cdw/ShopThoiTrang/config/SecurityConfiguration.java" beforeDir="false" afterPath="$PROJECT_DIR$/../BackEnd/src/main/java/vn/edu/hcmuaf/cdw/ShopThoiTrang/config/SecurityConfiguration.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../BackEnd/src/main/java/vn/edu/hcmuaf/cdw/ShopThoiTrang/entity/Order.java" beforeDir="false" afterPath="$PROJECT_DIR$/../BackEnd/src/main/java/vn/edu/hcmuaf/cdw/ShopThoiTrang/entity/Order.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../BackEnd/src/main/java/vn/edu/hcmuaf/cdw/ShopThoiTrang/service/impl/ReviewServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/../BackEnd/src/main/java/vn/edu/hcmuaf/cdw/ShopThoiTrang/service/impl/ReviewServiceImpl.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/products/ProductEdit.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/products/ProductEdit.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/blogs/BlogEdit.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/blogs/BlogEdit.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/blogs/BlogList.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/blogs/BlogList.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/categories/CategoryList.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/categories/CategoryList.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/importInvoices/ImportInvoiceList.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/importInvoices/ImportInvoiceList.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/orders/OrderList.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/orders/OrderList.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/promotion/PromotionList.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/promotion/PromotionList.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/reviews/ReviewEdit.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/reviews/ReviewEdit.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/reviews/ReviewList.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/reviews/ReviewList.tsx" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -18,8 +30,8 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
-        <option value="TypeScript JSX File" />
         <option value="TypeScript File" />
+        <option value="TypeScript JSX File" />
       </list>
     </option>
   </component>
@@ -52,27 +64,28 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;DinhHuyHoang&quot;,
-    &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
-    &quot;last_opened_file_path&quot;: &quot;D:/CDW-ShopThoiTrang/FrontEnd-Admin&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;nodejs_interpreter_path&quot;: &quot;node&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;npm.npm start.executor&quot;: &quot;Run&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.keymap&quot;,
-    &quot;ts.external.directory.path&quot;: &quot;D:\\CDW-ShopThoiTrang\\FrontEnd-Admin\\node_modules\\typescript\\lib&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "git-widget-placeholder": "DinhHuyHoang",
+    "ignore.virus.scanning.warn.message": "true",
+    "last_opened_file_path": "D:/CDW-ShopThoiTrang/FrontEnd-Admin/src/blogs",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_interpreter_path": "node",
+    "nodejs_package_manager_path": "npm",
+    "npm.npm start.executor": "Run",
+    "settings.editor.selected.configurable": "preferences.keymap",
+    "ts.external.directory.path": "D:\\CDW-ShopThoiTrang\\FrontEnd-Admin\\node_modules\\typescript\\lib",
+    "vue.rearranger.settings.migration": "true"
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="D:\CDW-ShopThoiTrang\FrontEnd-Admin\src\blogs" />
       <recent name="D:\ChuyenDeWeb\CDW-ShopThoiTrang\FrontEnd-Admin\src\orders" />
       <recent name="D:\ChuyenDeWeb\CDW-ShopThoiTrang\FrontEnd-Admin\src\products" />
       <recent name="D:\ChuyenDeWeb\CDW-ShopThoiTrang\FrontEnd-Admin\src\categories" />
@@ -176,7 +189,9 @@
       <workItem from="1718200807585" duration="3878000" />
       <workItem from="1718214902158" duration="5859000" />
       <workItem from="1718265592653" duration="5460000" />
-      <workItem from="1718287812401" duration="11011000" />
+      <workItem from="1718287812401" duration="11835000" />
+      <workItem from="1718311178778" duration="2840000" />
+      <workItem from="1718348649775" duration="6566000" />
     </task>
     <task id="LOCAL-00001" summary="update product for admin (50%&#10;)">
       <option name="closed" value="true" />
@@ -506,7 +521,15 @@
       <option name="project" value="LOCAL" />
       <updated>1718295007015</updated>
     </task>
-    <option name="localTasksCounter" value="42" />
+    <task id="LOCAL-00042" summary="update: finished responsive promotion">
+      <option name="closed" value="true" />
+      <created>1718298921029</created>
+      <option name="number" value="00042" />
+      <option name="presentableId" value="LOCAL-00042" />
+      <option name="project" value="LOCAL" />
+      <updated>1718298921029</updated>
+    </task>
+    <option name="localTasksCounter" value="43" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -527,7 +550,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="add list promotion" />
     <MESSAGE value="add edit promotion" />
     <MESSAGE value="update edit promotion (add product to promotion)" />
     <MESSAGE value="add update status order" />
@@ -552,6 +574,7 @@
     <MESSAGE value="update: fixed css ProductShow.tsx" />
     <MESSAGE value="update: finished responsive user" />
     <MESSAGE value="update: finished responsive product" />
-    <option name="LAST_COMMIT_MESSAGE" value="update: finished responsive product" />
+    <MESSAGE value="update: finished responsive promotion" />
+    <option name="LAST_COMMIT_MESSAGE" value="update: finished responsive promotion" />
   </component>
 </project>
