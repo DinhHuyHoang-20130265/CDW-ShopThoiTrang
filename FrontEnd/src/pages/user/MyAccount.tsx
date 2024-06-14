@@ -30,7 +30,6 @@ const MyAccount = () => {
     const [oldPassword, setOldPassword] = useState('');
 
     const [userProfile, setUserProfile]: any = useState(null);
-
     const checkUser = () => {
         if (!user)
             return <Navigate to={'/login-register'}/>
@@ -47,12 +46,14 @@ const MyAccount = () => {
                 }
             }).then(response => {
                 setUserProfile(response.data);
+                setFullName(response.data.userInfo.fullName);
+                setPhone(response.data.userInfo.phone);
+                setEmail(response.data.userInfo.email);
             })
         }
         fetchUserProfile().then();
     }, []);
 
-    console.log(userProfile)
 
     const displaySelectedImage = (event: any) => {
         const selectedImage: any = document.getElementById('selectedAvatar');
@@ -220,7 +221,7 @@ const MyAccount = () => {
                                                             <div className="billing-info">
                                                                 <label>Họ tên</label>
                                                                 <input type="text"
-                                                                       value={userProfile.userInfo.fullName}
+                                                                       value={fullName}
                                                                        onChange={(e) => setFullName(e.target.value)}/>
                                                             </div>
                                                         </div>
@@ -228,7 +229,7 @@ const MyAccount = () => {
                                                             <div className="billing-info">
                                                                 <label>Số điện thoại</label>
                                                                 <input type="text"
-                                                                       value={userProfile.userInfo.phone}
+                                                                       value={phone}
                                                                        onChange={(e) => setPhone(e.target.value)}/>
                                                             </div>
                                                         </div>
@@ -236,7 +237,7 @@ const MyAccount = () => {
                                                             <div className="billing-info">
                                                                 <label>Email</label>
                                                                 <input type="email"
-                                                                       value={userProfile.userInfo.email}
+                                                                       value={email}
                                                                        onChange={(e) => setEmail(e.target.value)}/>
                                                             </div>
                                                         </div>
@@ -324,7 +325,7 @@ const MyAccount = () => {
                                                                     }}
                                                                     > Đánh giá </Button>
                                                                 )}
-                                                                {order.status.id === 5 && !checkReview(order)  && (
+                                                                {order.status.id === 5 && !checkReview(order) && (
                                                                     <Button variant="outline-info" onClick={() => {
                                                                         setshowOrderReviewModal(true);
                                                                         setOrderDetail(order);
@@ -408,7 +409,7 @@ const MyAccount = () => {
                     </Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
-                    <OrderReviewModal order={orderDetail} addToast={addToast} />
+                    <OrderReviewModal order={orderDetail} addToast={addToast}/>
                 </Modal.Body>
             </Modal>
 
@@ -595,7 +596,6 @@ const OrderReviewModal = ({order, addToast}: any) => {
     const [product, setProduct] = useState(null);
 
 
-
     const submitReview = () => {
         if (rating === 0 || comment === '') {
             addToast("Vui lòng nhập đầy đủ thông tin", {
@@ -644,8 +644,8 @@ const OrderReviewModal = ({order, addToast}: any) => {
                             <tbody className={"mb-20"}>
                             {order.orderDetails.map((orderDetail: any, index: number) => (
                                 <tr key={index}>
-                                    <td >{index + 1}</td>
-                                    <td >{orderDetail.productId.name} /
+                                    <td>{index + 1}</td>
+                                    <td>{orderDetail.productId.name} /
                                         ({orderDetail.variation.color} / {orderDetail.size.size})
                                     </td>
                                     <td className={"review-center"}>
@@ -659,7 +659,8 @@ const OrderReviewModal = ({order, addToast}: any) => {
                                         )}
                                         {orderDetail.review != null && (
                                             <>
-                                                <Rating name="read-only" value={orderDetail.review.rating} readOnly style={{textAlign: 'center'}}/>
+                                                <Rating name="read-only" value={orderDetail.review.rating} readOnly
+                                                        style={{textAlign: 'center'}}/>
                                                 <TextField
                                                     id="outlined-multiline-static"
                                                     multiline

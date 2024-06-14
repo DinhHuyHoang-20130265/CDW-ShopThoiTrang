@@ -2,6 +2,7 @@ import React, {useEffect} from "react";
 import MobileMenuSearch from "./sub-components/MobileSearch";
 import MobileNavMenu from "./sub-components/MobileNavMenu";
 import MobileWidgets from "./sub-components/MobileWidgets";
+import IconGroup from "./IconGroup";
 
 const MobileMenu = () => {
     useEffect(() => {
