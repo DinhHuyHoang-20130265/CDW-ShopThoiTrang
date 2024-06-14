@@ -17,7 +17,7 @@ public interface UserService {
 
     String changePassword(Long id, String oldPassword, String newPassword);
 
-    String updateInfo(Long id, String name, String phone, String email);
+    String updateInfo(Long id, String name, String phone, String email, String avtUrl);
 
     User getUserByUsername(String username);
 

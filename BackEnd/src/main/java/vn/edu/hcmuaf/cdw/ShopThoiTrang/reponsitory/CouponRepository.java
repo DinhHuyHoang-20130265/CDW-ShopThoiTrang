@@ -8,6 +8,7 @@ import org.springframework.stereotype.Repository;
 import vn.edu.hcmuaf.cdw.ShopThoiTrang.entity.Coupon;
 
 import java.util.List;
+import java.util.Optional;
 
 @Repository
 public interface CouponRepository extends JpaRepository<Coupon, Long> {
@@ -16,4 +17,6 @@ public interface CouponRepository extends JpaRepository<Coupon, Long> {
     Page<Coupon> findAll(Specification<Coupon> specification, Pageable pageable);
 
     List<Coupon> findAllById(Iterable<Long> ids);
+
+    Optional<Coupon> findByCouponCode(String coupon_code);
 }

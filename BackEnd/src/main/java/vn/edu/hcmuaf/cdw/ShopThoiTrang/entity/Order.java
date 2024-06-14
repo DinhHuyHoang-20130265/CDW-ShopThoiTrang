@@ -91,7 +91,6 @@ public class Order {
 
     @ManyToOne
     @JoinColumn(name = "coupon_id")
-    @JsonBackReference
     private Coupon coupon;
 
     @OneToMany(mappedBy = "order", fetch = FetchType.LAZY, cascade = CascadeType.ALL)

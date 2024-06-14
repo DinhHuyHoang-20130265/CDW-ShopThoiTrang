@@ -14,7 +14,7 @@ const PaymentResult = ({deleteAllFromCart}: any) => {
     const vnp_BankCode = queryParams.get('vnp_BankCode');
     const vnp_PayDate = queryParams.get('vnp_PayDate');
     const [orderInfo, setOrderInfo] = useState([]);
-    const vnp_TxnRef = queryParams.get('vnp_TxnRef');
+    const vnp_TransactionNo = queryParams.get('vnp_TransactionNo');
     const vnp_TransactionStatus = queryParams.get('vnp_TransactionStatus');
     const PayDate = moment(vnp_PayDate, 'YYYYMMDDHHmmss').format('YYYY-MM-DD HH:mm:ss.SSS');
     const navigate = useNavigate();
@@ -30,7 +30,7 @@ const PaymentResult = ({deleteAllFromCart}: any) => {
             parsedOrder = {
                 ...parsedOrder,
                 status: 2,
-                paymentCode: vnp_TxnRef,
+                paymentCode: vnp_TransactionNo,
                 paymentDate: PayDate,
                 paymentStatus: "yes",
             };
@@ -80,7 +80,7 @@ const PaymentResult = ({deleteAllFromCart}: any) => {
             }
         }
 
-    }, [vnp_TxnRef, vnp_TransactionStatus]);
+    }, [vnp_TransactionNo, vnp_TransactionStatus]);
 
     return (
         <div>

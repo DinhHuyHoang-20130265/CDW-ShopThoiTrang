@@ -27,9 +27,14 @@ public class CouponController {
     }
 
 
+
     @GetMapping("/{id}")
     public ResponseEntity<?> getCouponById(@PathVariable Long id) {
         return ResponseEntity.ok(couponService.getCouponById(id));
+    }
+    @GetMapping("/check/{code}")
+    public ResponseEntity<?> getCouponByName(@PathVariable String code) {
+        return ResponseEntity.ok(couponService.getCouponByCode(code));
     }
 
     @PostMapping

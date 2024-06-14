@@ -101,8 +101,7 @@ public class UserController {
     }
 
     @PutMapping("/update-info")
-    public ResponseEntity<?> updateInfo(@RequestParam String id, @RequestParam String name, @RequestParam String phone, @RequestParam String email) {
-
-        return ResponseEntity.ok(userService.updateInfo(Long.parseLong(id), name, phone, email));
+    public ResponseEntity<?> updateInfo(@RequestParam String id, @RequestParam String name, @RequestParam String phone, @RequestParam String email, @RequestParam String avtUrl) {
+        return ResponseEntity.ok(userService.updateInfo(Long.parseLong(id), name, phone, email, avtUrl));
     }
 }

@@ -17,7 +17,6 @@ import vn.edu.hcmuaf.cdw.ShopThoiTrang.JWT.JwtUtils;
 import vn.edu.hcmuaf.cdw.ShopThoiTrang.entity.Coupon;
 import vn.edu.hcmuaf.cdw.ShopThoiTrang.entity.Order;
 import vn.edu.hcmuaf.cdw.ShopThoiTrang.reponsitory.CouponRepository;
-import vn.edu.hcmuaf.cdw.ShopThoiTrang.reponsitory.OrderRepository;
 import vn.edu.hcmuaf.cdw.ShopThoiTrang.reponsitory.UserRepository;
 import vn.edu.hcmuaf.cdw.ShopThoiTrang.service.CouponService;
 
@@ -30,9 +29,6 @@ public class CouponServiceImpl implements CouponService {
     private static final Logger Log = Logger.getLogger(PromotionServiceImpl.class.getName());
     @Autowired
     private CouponRepository couponRepository;
-
-    @Autowired
-    private OrderRepository orderRepository;
 
     @Autowired
     private JwtUtils jwtUtils;
@@ -59,21 +55,27 @@ public class CouponServiceImpl implements CouponService {
                     predicate = criteriaBuilder.and(predicate, criteriaBuilder.like(root.get("name"), "%" + filterJson.get("q").asText().toLowerCase() + "%"));
                 }
                 if (filterJson.has("status")) {
+                    System.out.println(filterJson.get("status").asBoolean());
                     predicate = criteriaBuilder.and(predicate, criteriaBuilder.equal(root.get("status"), filterJson.get("status").asBoolean()));
                 }
                 if (filterJson.has("expired")) {
-                    predicate = criteriaBuilder.and(predicate, criteriaBuilder.equal(root.get("expired_date"), filterJson.get("expired").asText()));
+                    boolean expired = filterJson.get("expired").asBoolean();
+                    if (expired) {
+                        predicate = criteriaBuilder.and(predicate, criteriaBuilder.lessThanOrEqualTo(root.get("expiredDate"), new Date(System.currentTimeMillis())));
+                    } else {
+                        predicate = criteriaBuilder.and(predicate, criteriaBuilder.greaterThan(root.get("expiredDate"), new Date(System.currentTimeMillis())));
+                    }
                 }
                 return predicate;
             };
 
             return switch (sortBy) {
                 case "name" ->
-                        couponRepository.findAll(specification, PageRequest.of(page, perPage, Sort.by(direction, "name")));
+                        couponRepository.findAll(specification, PageRequest.of(page, perPage == -1 ? Integer.MAX_VALUE : perPage, Sort.by(direction, "name")));
                 case "status" ->
-                        couponRepository.findAll(specification, PageRequest.of(page, perPage, Sort.by(direction, "status")));
+                        couponRepository.findAll(specification, PageRequest.of(page, perPage == -1 ? Integer.MAX_VALUE : perPage, Sort.by(direction, "status")));
                 default ->
-                        couponRepository.findAll(specification, PageRequest.of(page, perPage, Sort.by(direction, sortBy)));
+                        couponRepository.findAll(specification, PageRequest.of(page, perPage == -1 ? Integer.MAX_VALUE : perPage, Sort.by(direction, sortBy)));
             };
         } catch (RuntimeException e) {
             Log.error("Error while getting all coupons", e);
@@ -129,7 +131,7 @@ public class CouponServiceImpl implements CouponService {
             existingCoupon.setPrice(coupon.getPrice());
             existingCoupon.setStatus(coupon.isStatus());
             existingCoupon.setQuantity(coupon.getQuantity());
-            existingCoupon.setExpired_date(coupon.getExpired_date());
+            existingCoupon.setExpiredDate(coupon.getExpiredDate());
             existingCoupon.setUpdateDate(new Date(System.currentTimeMillis()));
             existingCoupon.setUpdateBy(coupon.getUpdateBy());
 
@@ -150,5 +152,10 @@ public class CouponServiceImpl implements CouponService {
             Log.error("Error while getting products by promotion id", e);
             throw new RuntimeException(e);
         }
+    }
+
+    @Override
+    public Coupon getCouponByCode(String code) {
+        return couponRepository.findByCouponCode(code).orElse(null);
     }
 }

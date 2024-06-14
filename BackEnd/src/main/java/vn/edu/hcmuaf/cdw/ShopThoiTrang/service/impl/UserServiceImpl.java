@@ -85,7 +85,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public String updateInfo(Long id, String name, String phone, String email) {
+    public String updateInfo(Long id, String name, String phone, String email, String avtUrl) {
         try {
             UserInfo userInfo = userInfoRepository.findById(id).orElseThrow(() -> {
                 Log.warn("UserId " + id + " tried to update info but user info not found");
@@ -94,6 +94,7 @@ public class UserServiceImpl implements UserService {
             userInfo.setFullName(name);
             userInfo.setPhone(phone);
             userInfo.setEmail(email);
+            userInfo.setAvtUrl(avtUrl);
             userInfoRepository.save(userInfo);
             Log.info("UserId " + id + " updated info successfully");
             return "Cập nhật thông tin thành công!";

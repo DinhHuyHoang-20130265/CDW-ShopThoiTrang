@@ -70,6 +70,8 @@ public class OrderServiceImpl implements OrderService {
 
     @Autowired
     private VariationRepository variationRepository;
+    @Autowired
+    private CouponRepository couponRepository;
 
 
     @Override
@@ -99,7 +101,7 @@ public class OrderServiceImpl implements OrderService {
                     Join<Order, OrderStatus> statusJoin = root.join("status");
                     predicate = criteriaBuilder.and(predicate, criteriaBuilder.equal(statusJoin.get("id"), filterJson.get("statusId").asLong()));
                 }
-                if(filterJson.has("date_gte")){
+                if (filterJson.has("date_gte")) {
                     SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'");
                     try {
                         java.util.Date date = dateFormat.parse(filterJson.get("date_gte").asText());
@@ -149,6 +151,13 @@ public class OrderServiceImpl implements OrderService {
             orderNew.setNote(order.getNote());
             orderNew.setTotalAmount(order.getTotalAmount());
             orderNew.setOrderDate(new Timestamp(System.currentTimeMillis()));
+            if (order.getCoupon() != null && !order.getCoupon().isEmpty()) {
+                Coupon coupon = couponRepository.findByCouponCode(order.getCoupon()).orElseThrow(() -> new RuntimeException("Coupon not found"));
+                orderNew.setCoupon(coupon);
+                coupon.setQuantity(coupon.getQuantity() - 1);
+                couponRepository.save(coupon);
+
+            }
 
             // set shipping information for order
             orderNew.setProvince(order.getProvince());

@@ -91,30 +91,4 @@ public class PaymentController {
                 .url(paymentUrl)
                 .build());
     }
-
-//    @GetMapping("/payment-info")
-//    public ResponseEntity<?> transaction(
-//            @RequestParam(value = "vnp_Amount") String amount,
-//            @RequestParam(value = "vnp_OrderInfo") String orderInfo,
-//            @RequestParam(value = "vnp_BankCode") String bank,
-//            @RequestParam(value = "vnp_PayDate") String createDate,
-//            @RequestParam(value = "vnp_ResponseCode") String code
-//    ) {
-//        TransactionStatusDTO status = null;
-//        if (code.equals("00")) {
-//            status = TransactionStatusDTO.builder()
-//                    .status("ok")
-//                    .message("successfully")
-//                    .data("")
-//                    .build();
-//        } else {
-//            status = TransactionStatusDTO.builder()
-//                    .status("bad")
-//                    .message("failed")
-//                    .data("")
-//                    .build();
-//        }
-//        return ResponseEntity.ok(status);
-//
-//    }
 }

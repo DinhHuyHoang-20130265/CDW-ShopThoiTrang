@@ -19,4 +19,6 @@ public interface CouponService {
     Coupon updateCoupon(Long id, Coupon coupon, HttpServletRequest request);
 
     List<Order> getOrdersByCouponId(Long id);
+
+    Coupon getCouponByCode(String code);
 }

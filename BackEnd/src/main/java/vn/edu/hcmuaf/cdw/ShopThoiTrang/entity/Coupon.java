@@ -28,9 +28,9 @@ public class Coupon {
     @NotNull(message = "Price is required")
     private Double price;
     @NotNull(message = "Code is required")
-    @Column(unique = true)
+    @Column(unique = true, name = "coupon_code")
     @Size(min = 6, max = 10, message = "Code must be 6 characters")
-    private String coupon_code;
+    private String couponCode;
 
     @NotNull(message = "Status is required")
     private boolean status;
@@ -40,7 +40,7 @@ public class Coupon {
 
     @NotNull(message = "Expired date is required")
     @Column(name = "expired_date")
-    private Date expired_date;
+    private Date expiredDate;
 
     @Column(name = "created_date")
     private Date createDate;
@@ -57,7 +57,8 @@ public class Coupon {
     @JoinColumn(name = "updated_by")
     private User updateBy;
 
-    @OneToMany(mappedBy = "order", cascade = CascadeType.ALL)
+    @JsonBackReference
+    @OneToMany(mappedBy = "coupon", cascade = CascadeType.ALL)
     private List<Order> orders;
 
 }

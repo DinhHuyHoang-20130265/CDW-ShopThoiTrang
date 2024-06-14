@@ -1,3 +1,5 @@
+import toast from "react-hot-toast";
+
 const VoucherItemHome = (props: any) => {
 
     return (
@@ -26,13 +28,20 @@ const VoucherItemHome = (props: any) => {
                     </div>
                 </div>
                 <div className="coupon_price">
-                    <h1>{props.item.coupon_price}</h1>
+                    <h1>{props.item.price}</h1>
                     <p>VND</p>
                 </div>
                 <div className="coupon_copy_paste">
                     <span className="code">Nhập mã: {props.item.coupon_code}</span>
-                    <button className="btn btn-main btn-sm coupon_copy" data-code={`${props.item.coupon_code}`}>Sao
-                        chép
+                    <button className="btn btn-main btn-sm coupon_copy" data-code={`${props.item.coupon_code}`}
+                            onClick={(e: any) => {
+                                navigator.clipboard.writeText(e.currentTarget.getAttribute('data-code'));
+                                toast.success('Voucher đã được sao chép vào bộ nhớ tạm của bạn', {
+                                    duration: 2000,
+                                    position: 'top-center',
+                                });
+                            }}
+                    >Sao chép
                     </button>
                 </div>
             </div>
