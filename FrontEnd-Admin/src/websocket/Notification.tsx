@@ -36,7 +36,7 @@ const Notification = () => {
                 stompClient.disconnect();
             }
         };
-    }, [notifications]);
+    }, []);
 
     const getNotifications = async () => {
         try {

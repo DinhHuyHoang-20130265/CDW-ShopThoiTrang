@@ -14,7 +14,6 @@ import NbNewReviews from "./NbNewReviews";
 import BestSeller from "./BestSeller";
 import OutOfStock from "./OutOfStock";
 import NewCustomers from "./NewCustomers";
-import WebSocketClient from "../websocket/WebSocketClient";
 
 const Spacer = () => <span style={{width: '1em'}}/>;
 const VerticalSpacer = () => <span style={{height: '1em'}}/>;
@@ -57,14 +56,14 @@ const DashBoard = () => {
 
     // get reviews
     const {data: reviews} = useGetList<Review>('review', {
-        sort: { field: 'reviewedDate', order: 'DESC' },
-        pagination: { page: 1, perPage: 100 },
+        sort: {field: 'reviewedDate', order: 'DESC'},
+        pagination: {page: 1, perPage: 100},
     });
 
     // get prducts
     const {data: products} = useGetList<Product>('product', {
-        sort: { field: 'name', order: 'DESC' },
-        pagination: { page: 1, perPage: 100 },
+        sort: {field: 'name', order: 'DESC'},
+        pagination: {page: 1, perPage: 100},
     });
 
 
@@ -208,9 +207,9 @@ const DashBoard = () => {
             return [];
         }
 
-        return products.filter((product:any) =>
-            product.variations.some((variation : any) =>
-                variation.sizes.some((size : any) => size.stock === 0)
+        return products.filter((product: any) =>
+            product.variations.some((variation: any) =>
+                variation.sizes.some((size: any) => size.stock === 0)
             )
         );
     };
@@ -236,37 +235,95 @@ const DashBoard = () => {
     return isXSmall ? (
         <div>
             <div style={styles.flexColumn as CSSProperties}>
-                <WebSocketClient/>
-
-                <MonthlyRevenue value={revenue}/>
                 <VerticalSpacer/>
-                <NbNewOrders value={nbNewOrders}/>
+                <MonthlyRevenue value={getRevenue(ordersCurrentMonth).toLocaleString(undefined, {
+                    style: 'currency',
+                    currency: 'VND',
+                    minimumFractionDigits: 0,
+                    maximumFractionDigits: 0,
+                })}
+                                percent={compareGetPercent(getRevenue(ordersCurrentMonth), getRevenue(ordersLastMonth))}
+                />
+                <VerticalSpacer/>
+                <NbNewOrders value={ordersCurrentMonth.length}
+                             percent={compareGetPercent(ordersCurrentMonth.length, ordersLastMonth.length)}
+                />
+                <VerticalSpacer/>
+                <NbNewUsers value={usersCurrentMonth.length}
+                            percent={compareGetPercent(usersCurrentMonth.length, usersLastMonth.length)}
+                />
+                <VerticalSpacer/>
+                <NbNewReviews value={reviewsCurrentMonth.length}
+                              percent={compareGetPercent(reviewsCurrentMonth.length, reviewsLastMonth.length)}
+                />
+                <VerticalSpacer/>
+                <OrderChart orders={orders}/>
+                <VerticalSpacer/>
+                <OrderPieChart orders={orders}/>
                 <VerticalSpacer/>
                 <PendingOrders orders={pendingOrders}/>
+                <VerticalSpacer/>
+                <BestSeller products={bestSeller}/>
+                <VerticalSpacer/>
+                <OutOfStock products={outOfStock}/>
+                <VerticalSpacer/>
+                <NewCustomers loyalCustomers={loyalCustomers}/>
+                <VerticalSpacer/>
+                <PendingReviews reviews={reviews}/>
+                <VerticalSpacer/>
             </div>
         </div>
     ) : isSmall ? (
 
         <div style={styles.flexColumn as CSSProperties}>
-            <WebSocketClient/>
-
-            <div style={styles.singleCol}>
-            </div>
             <div style={styles.flex}>
-                <MonthlyRevenue value={revenue}/>
+                <MonthlyRevenue value={getRevenue(ordersCurrentMonth).toLocaleString(undefined, {
+                    style: 'currency',
+                    currency: 'VND',
+                    minimumFractionDigits: 0,
+                    maximumFractionDigits: 0,
+                })}
+                                percent={compareGetPercent(getRevenue(ordersCurrentMonth), getRevenue(ordersLastMonth))}
+                />
                 <Spacer/>
-                <NbNewOrders value={nbNewOrders}/>
+                <NbNewOrders value={ordersCurrentMonth.length}
+                             percent={compareGetPercent(ordersCurrentMonth.length, ordersLastMonth.length)}
+                />
+            </div>
+            <VerticalSpacer/>
+            <div style={styles.flex}>
+                <NbNewUsers value={usersCurrentMonth.length}
+                            percent={compareGetPercent(usersCurrentMonth.length, usersLastMonth.length)}
+                />
+                <Spacer/>
+                <NbNewReviews value={reviewsCurrentMonth.length}
+                              percent={compareGetPercent(reviewsCurrentMonth.length, reviewsLastMonth.length)}
+                />
             </div>
             <div style={styles.singleCol}>
                 <OrderChart orders={orders}/>
             </div>
             <div style={styles.singleCol}>
+                <OrderPieChart orders={orders}/>
+            </div>
+            <div style={styles.singleCol}>
                 <PendingOrders orders={pendingOrders}/>
+            </div>
+            <div style={styles.singleCol}>
+                <BestSeller products={bestSeller}/>
+            </div>
+            <div style={styles.singleCol}>
+                <OutOfStock products={outOfStock}/>
+            </div>
+            <div style={styles.singleCol}>
+                <NewCustomers loyalCustomers={loyalCustomers}/>
+            </div>
+            <div style={styles.singleCol}>
+                <PendingReviews reviews={reviews}/>
             </div>
         </div>
     ) : (
         <>
-            <WebSocketClient/>
             <div style={{margin: "10px"}}>
                 <div>
                     <div style={{display: "flex", flex: 1}}>
@@ -276,19 +333,19 @@ const DashBoard = () => {
                             minimumFractionDigits: 0,
                             maximumFractionDigits: 0,
                         })}
-                        percent={compareGetPercent(getRevenue(ordersCurrentMonth),getRevenue(ordersLastMonth))}
+                                        percent={compareGetPercent(getRevenue(ordersCurrentMonth), getRevenue(ordersLastMonth))}
                         />
                         <Spacer/>
                         <NbNewOrders value={ordersCurrentMonth.length}
-                                     percent={compareGetPercent(ordersCurrentMonth.length,ordersLastMonth.length)}
+                                     percent={compareGetPercent(ordersCurrentMonth.length, ordersLastMonth.length)}
                         />
                         <Spacer/>
                         <NbNewUsers value={usersCurrentMonth.length}
-                                    percent={compareGetPercent(usersCurrentMonth.length,usersLastMonth.length)}
+                                    percent={compareGetPercent(usersCurrentMonth.length, usersLastMonth.length)}
                         />
                         <Spacer/>
                         <NbNewReviews value={reviewsCurrentMonth.length}
-                                      percent={compareGetPercent(reviewsCurrentMonth.length,reviewsLastMonth.length)}
+                                      percent={compareGetPercent(reviewsCurrentMonth.length, reviewsLastMonth.length)}
                         />
                     </div>
                     <div style={styles.singleCol}>
