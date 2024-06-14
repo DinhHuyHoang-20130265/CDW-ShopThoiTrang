@@ -1716,3 +1716,7 @@ java.lang.NullPointerException: Cannot invoke "String.equals(Object)" because "r
 2024-06-15 03:23:20 INFO  AuthServiceImpl:91 - hine2 logged in
 2024-06-15 03:38:20 INFO  OrderServiceImpl:214 - hine2 ordered successfully with order id: 35
 2024-06-15 03:51:11 INFO  OrderServiceImpl:214 - hine2 ordered successfully with order id: 36
+2024-06-15 03:55:54 INFO  OrderServiceImpl:214 - hine2 ordered successfully with order id: 37
+2024-06-15 04:02:02 INFO  OrderServiceImpl:214 - hine2 ordered successfully with order id: 38
+2024-06-15 04:22:40 INFO  UserServiceImpl:99 - UserId 4 updated info successfully
+2024-06-15 04:25:28 INFO  UserServiceImpl:99 - UserId 4 updated info successfully

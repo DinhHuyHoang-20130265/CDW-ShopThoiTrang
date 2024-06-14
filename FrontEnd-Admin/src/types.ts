@@ -44,6 +44,21 @@ export interface Category extends RaRecord {
     updateBy: string
 }
 
+export interface Coupon extends RaRecord {
+    id: number,
+    name: string,
+    price: number,
+    couponCode: string,
+    status: boolean,
+    quantity: number,
+    expiredDate: string,
+    createDate: string,
+    createBy: string,
+    updateDate: string,
+    updateBy: string,
+    orders: Order[],
+}
+
 export interface Size extends RaRecord {
     id: number,
     size: string,
@@ -134,7 +149,7 @@ export interface ImportInvoice extends RaRecord {
 
 }
 
-export interface ImportInvoiceDetail extends RaRecord{
+export interface ImportInvoiceDetail extends RaRecord {
     id: number,
     product: Product,
     variation: Variation,

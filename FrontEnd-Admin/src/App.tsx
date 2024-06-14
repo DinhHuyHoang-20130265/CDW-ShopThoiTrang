@@ -32,12 +32,14 @@ import PromotionList from "./promotion/PromotionList";
 import PromotionEdit from "./promotion/PromotionEdit";
 import PromotionCreate from "./promotion/PromotionCreate";
 import ReviewList from "./reviews/ReviewList";
-import ReviewEdit from "./reviews/ReviewEdit";
 import DashBoard from "./Dashboard/DashBoard";
 import {LayoutCustom} from "./Layout/LayoutCustom";
 import {Route} from 'react-router-dom';
 import {ProfileEdit, ProfileProvider} from "./profile/profile";
-
+import CouponList from "./coupons/CouponList";
+import CouponEdit from "./coupons/CouponEdit";
+import CouponCreate from "./coupons/CouponCreate";
+import LocalOfferIcon from '@mui/icons-material/LocalOffer';
 
 const App = () => {
     return (
@@ -61,6 +63,14 @@ const App = () => {
                       create={UserCreate}
                       icon={UserIcon}
                       options={{label: "Tài Khoản"}}
+                      hasShow={false}
+            />
+            <Resource name="coupon"
+                      list={CouponList}
+                      edit={CouponEdit}
+                      create={CouponCreate}
+                      icon={LocalOfferIcon}
+                      options={{label: "Mã giảm giá"}}
                       hasShow={false}
             />
             <Resource name="product"

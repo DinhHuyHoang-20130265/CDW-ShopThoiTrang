@@ -52,7 +52,7 @@ public class CouponServiceImpl implements CouponService {
             Specification<Coupon> specification = (root, query, criteriaBuilder) -> {
                 Predicate predicate = criteriaBuilder.conjunction();
                 if (filterJson.has("q")) {
-                    predicate = criteriaBuilder.and(predicate, criteriaBuilder.like(root.get("name"), "%" + filterJson.get("q").asText().toLowerCase() + "%"));
+                    predicate = criteriaBuilder.and(predicate, criteriaBuilder.like(root.get("name"), "%" + filterJson.get("q").asText() + "%"));
                 }
                 if (filterJson.has("status")) {
                     System.out.println(filterJson.get("status").asBoolean());
