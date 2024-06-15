@@ -1,6 +1,5 @@
 import * as React from 'react';
-import {AppBar, Logout, TitlePortal, UserMenu, useTheme, useUserMenu} from 'react-admin';
-import {AppBar, LoadingIndicator, LocalesMenuButton, Logout, TitlePortal, UserMenu, useUserMenu} from 'react-admin';
+import {AppBar, LoadingIndicator, Logout, TitlePortal, UserMenu, useUserMenu} from 'react-admin';
 import Box from '@mui/material/Box';
 import {MenuItem, ListItemIcon, ListItemText} from '@mui/material';
 import SettingsIcon from '@mui/icons-material/Settings';
@@ -37,8 +36,8 @@ export const MyAppBar = () => {
                     </UserMenu>
                 }
                 toolbar={<>
-                    <LoadingIndicator />
-                    <Notification />
+                    <LoadingIndicator/>
+                    <Notification/>
                 </>}
                 sx={theme => ({
                     '.MuiToolbar-root': {

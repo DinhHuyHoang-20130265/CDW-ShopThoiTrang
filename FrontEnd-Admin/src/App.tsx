@@ -1,5 +1,15 @@
 import * as React from 'react';
-import {Admin, AppBar, CustomRoutes, Layout, Login, Resource, houseLightTheme, radiantLightTheme} from 'react-admin';
+import {
+    Admin,
+    AppBar,
+    CustomRoutes,
+    Layout,
+    Login,
+    Resource,
+    houseLightTheme,
+    radiantLightTheme,
+    usePermissions
+} from 'react-admin';
 import {dataProvider} from "./dataProvider/dataProvider";
 import UserList from "./users/UserList";
 import {authProvider} from "./authProvider";
@@ -40,6 +50,7 @@ import CouponList from "./coupons/CouponList";
 import CouponEdit from "./coupons/CouponEdit";
 import CouponCreate from "./coupons/CouponCreate";
 import LocalOfferIcon from '@mui/icons-material/LocalOffer';
+import {useEffect} from "react";
 
 const App = () => {
     return (

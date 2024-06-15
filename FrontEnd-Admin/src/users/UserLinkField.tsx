@@ -10,7 +10,7 @@ const UserLinkField = (_: FieldProps<Customer>) => {
         return null;
     }
     return (
-        <FullNameField/>
+        <FullNameField sx={{paddingLeft: 1}}/>
     );
 };
 

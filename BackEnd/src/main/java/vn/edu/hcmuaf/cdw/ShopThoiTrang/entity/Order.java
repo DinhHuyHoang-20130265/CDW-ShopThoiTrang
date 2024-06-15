@@ -45,7 +45,6 @@ public class Order {
     @NotNull(message = "Address is required")
     private String address;
 
-
     @Column(name = "order_date")
     private Timestamp orderDate;
     private String note;
@@ -54,7 +53,6 @@ public class Order {
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "status_id")
     private OrderStatus status;
-
 
     @NotNull(message = "ShippingFee is required")
     @Column(name = "shipping_fee")
@@ -71,7 +69,6 @@ public class Order {
     @NotNull(message = "Payment method is required")
     @Column(name = "payment_method")
     private String paymentMethod;
-
 
     @NotNull(message = "Payment status is required")
     @Column(name = "payment_status")

@@ -4,6 +4,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import jakarta.persistence.criteria.Predicate;
+import jakarta.servlet.http.HttpServletRequest;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -11,8 +12,10 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
+import vn.edu.hcmuaf.cdw.ShopThoiTrang.JWT.JwtUtils;
 import vn.edu.hcmuaf.cdw.ShopThoiTrang.entity.Category;
 import vn.edu.hcmuaf.cdw.ShopThoiTrang.reponsitory.CategoryRepository;
+import vn.edu.hcmuaf.cdw.ShopThoiTrang.reponsitory.UserRepository;
 import vn.edu.hcmuaf.cdw.ShopThoiTrang.service.CategoryService;
 
 import java.nio.charset.StandardCharsets;
@@ -28,13 +31,17 @@ public class CategoryServiceImpl implements CategoryService {
     @Autowired
     private CategoryRepository categoryRepository;
 
+    @Autowired
+    private JwtUtils jwtUtils;
+
+    @Autowired
+    private UserRepository userRepository;
 
     @Override
     public Page<Category> getAllCategories(String filter, int start, int end, String sortBy, String order) {
         try {
             Sort.Direction direction = Sort.Direction.ASC;
-            if (order.equalsIgnoreCase("DESC"))
-                direction = Sort.Direction.DESC;
+            if (order.equalsIgnoreCase("DESC")) direction = Sort.Direction.DESC;
 
             JsonNode filterJson;
             try {
@@ -113,11 +120,30 @@ public class CategoryServiceImpl implements CategoryService {
     }
 
     @Override
-    public Category saveCategory(Category category) {
+    public void deleteCategory(Long id, HttpServletRequest request) {
         try {
+            String jwt = jwtUtils.getJwtFromCookies(request, "shop2h_admin");
+            String username = jwtUtils.getUserNameFromJwtToken(jwt);
+            Category category = categoryRepository.findById(id).orElse(null);
+            if (category != null) {
+                category.setProducts(null);
+                categoryRepository.delete(category);
+                Log.info(username + " delete category: " + category.getName());
+            }
+        } catch (Exception e) {
+            Log.error("Error in deleteCategory: " + e.getMessage());
+            throw new RuntimeException(e);
+        }
+    }
+
+    @Override
+    public Category saveCategory(Category category, HttpServletRequest request) {
+        try {
+            String jwt = jwtUtils.getJwtFromCookies(request, "shop2h_admin");
+            String username = jwtUtils.getUserNameFromJwtToken(jwt);
             Date currentDate = new Date(System.currentTimeMillis());
             category.setReleaseDate(currentDate);
-            category.setUpdateDate(currentDate);
+            category.setReleaseBy(userRepository.findByUsername(username).orElse(null));
             Log.info(category.getReleaseBy().getUsername() + " add new category: " + category.getName());
             return categoryRepository.save(category);
         } catch (Exception e) {
@@ -127,16 +153,19 @@ public class CategoryServiceImpl implements CategoryService {
     }
 
     @Override
-    public Category updateCategory(Long id, Category category) {
+    public Category updateCategory(Long id, Category category, HttpServletRequest request) {
         try {
+            String jwt = jwtUtils.getJwtFromCookies(request, "shop2h_admin");
+            String username = jwtUtils.getUserNameFromJwtToken(jwt);
             Category categoryUpdate = categoryRepository.findById(id).orElse(null);
             categoryUpdate.setName(category.getName());
             categoryUpdate.setStatus(category.isStatus());
             categoryUpdate.setUpdateDate(new Date(System.currentTimeMillis()));
-            Log.info(category.getUpdateBy().getUsername() + " update category: " + category.getName());
+            categoryUpdate.setUpdateBy(userRepository.findByUsername(username).orElse(null));
+            Log.info(username + " update category: " + category.getName());
             return categoryRepository.save(categoryUpdate);
         } catch (Exception e) {
-            Log.error("Error in CategoryServiceImpl.updateCategory: " + e.getMessage());
+            Log.error("Error in updateCategory: " + e.getMessage());
             throw new RuntimeException(e);
         }
     }

@@ -29,7 +29,9 @@ public interface UserService {
 
     User updateUser(Long id, UpdateUserDTO dto, HttpServletRequest request);
 
-    void deleteUser(Long id);
+    void deleteUser(Long id, HttpServletRequest request);
 
     List<User> getAllUsers(String ids);
+
+    void restoreUser(Long id, HttpServletRequest request);
 }

@@ -12,7 +12,7 @@ import java.util.List;
 @Repository
 public interface ProductRepository extends JpaRepository<Product, Long> {
 
-    List<Product> findByStatusTrue();
+    List<Product> findByStatusTrueAndDeletedFalse();
 
     Page<Product> findAll(Specification<Product> specification, Pageable pageable);
 }

@@ -1,5 +1,6 @@
 package vn.edu.hcmuaf.cdw.ShopThoiTrang.controller;
 
+import jakarta.annotation.security.PermitAll;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -21,22 +22,22 @@ public class ProductController {
 
     @GetMapping("/user")
     public ResponseEntity<?> getProductsStatusTrue() {
-        return ResponseEntity.ok(productService.getProductsStatusTrue());
+        return ResponseEntity.ok(productService.getProductsStatusTrueAndDeleteFalse());
     }
 
+    @PreAuthorize("hasAuthority('ROLE_ADMIN') or @securityService.isSuperAdmin()")
     @GetMapping("/{id}")
-    @PreAuthorize("hasAuthority('ROLE_ADMIN') and hasAuthority('PRODUCT_READ')")
     public ResponseEntity<?> getProductById(@PathVariable Long id) {
         return ResponseEntity.ok(productService.getProductById(id));
     }
 
-    @PreAuthorize("hasAuthority('ROLE_ADMIN')")
+    @PreAuthorize("hasAuthority('ROLE_ADMIN') or @securityService.isSuperAdmin()")
     @GetMapping("/ids")
     public ResponseEntity<?> getAllProducts(@RequestParam(defaultValue = "{}") String ids) {
         return ResponseEntity.ok(productService.getAllProducts(ids));
     }
 
-    @PreAuthorize("hasAuthority('ROLE_ADMIN')")
+    @PreAuthorize("hasAuthority('ROLE_ADMIN') or @securityService.isSuperAdmin()")
     @GetMapping
     public ResponseEntity<Page<Product>> getAllProducts(@RequestParam(defaultValue = "0") int page,
                                                         @RequestParam(defaultValue = "{}") String filter,
@@ -48,22 +49,30 @@ public class ProductController {
     }
 
     @ResponseStatus
-    @PreAuthorize("hasAuthority('ROLE_ADMIN') and hasAuthority('PRODUCT_CREATE')")
+    @PreAuthorize("(hasAuthority('ROLE_ADMIN') and hasAuthority('PRODUCT_CREATE')) or @securityService.isSuperAdmin()")
     @PostMapping
     public ResponseEntity<?> saveProduct(@RequestBody Product product) {
         return ResponseEntity.ok(productService.saveProduct(product, request));
     }
 
-    @PreAuthorize("hasAuthority('ROLE_ADMIN') and hasAuthority('PRODUCT_UPDATE')")
+    @PreAuthorize("(hasAuthority('ROLE_ADMIN') and hasAuthority('PRODUCT_UPDATE')) or @securityService.isSuperAdmin()")
     @PutMapping("/{id}")
     public ResponseEntity<?> updateProduct(@PathVariable Long id, @RequestBody Product product) {
         return ResponseEntity.ok(productService.updateProduct(id, product, request));
     }
 
-    @PreAuthorize("hasAuthority('ROLE_ADMIN') and hasAuthority('PRODUC_DELETE')")
+    @PreAuthorize("(hasAuthority('ROLE_ADMIN') and hasAuthority('PRODUC_DELETE')) or @securityService.isSuperAdmin()")
     @DeleteMapping("/{id}")
     public ResponseEntity<?> deleteProduct(@PathVariable Long id) {
-        productService.deleteProduct(id);
+        productService.deleteProduct(id, request);
         return ResponseEntity.ok("Deleted");
     }
+
+    @PreAuthorize("(hasAuthority('ROLE_ADMIN') and hasAuthority('PRODUCT_UPDATE')) or @securityService.isSuperAdmin()")
+    @PutMapping("/deleted/{id}")
+    public ResponseEntity<?> restoreProduct(@PathVariable Long id) {
+        productService.restoreProduct(id, request);
+        return ResponseEntity.ok("Restored");
+    }
+
 }

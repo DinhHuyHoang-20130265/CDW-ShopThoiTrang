@@ -3,6 +3,7 @@ package vn.edu.hcmuaf.cdw.ShopThoiTrang.controller;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import vn.edu.hcmuaf.cdw.ShopThoiTrang.model.dto.PaymentReqDTO;
 import vn.edu.hcmuaf.cdw.ShopThoiTrang.model.dto.PaymentResDTO;
@@ -15,6 +16,7 @@ import java.text.SimpleDateFormat;
 import java.util.*;
 
 @RestController
+@PreAuthorize("hasRole('USER')")
 @RequestMapping("/api/payment")
 public class PaymentController {
     @Autowired

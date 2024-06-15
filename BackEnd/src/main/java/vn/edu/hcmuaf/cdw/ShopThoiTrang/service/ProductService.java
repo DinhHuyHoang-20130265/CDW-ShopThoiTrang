@@ -14,13 +14,15 @@ public interface ProductService {
 
     List<Product> getAllProducts(String ids);
 
-    List<Product> getProductsStatusTrue();
+    List<Product> getProductsStatusTrueAndDeleteFalse();
 
     Product getProductById(Long id);
 
     Page<Product> getAllProducts(String filter, int page, int perPage, String sortBy, String order);
 
-    void deleteProduct(Long id);
+    void deleteProduct(Long id, HttpServletRequest request);
+
+    void restoreProduct(Long id, HttpServletRequest request);
 
     ResponseEntity<?> saveProduct(Product product, HttpServletRequest request);
 

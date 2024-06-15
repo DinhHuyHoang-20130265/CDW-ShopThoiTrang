@@ -3,12 +3,12 @@ import {
     ArrayField, BulkDeleteButton, BulkUpdateButton, Button,
     CreateButton,
     DatagridConfigurable,
-    DateField,
+    DateField, DeleteButton,
     EditButton,
     ExportButton, FilterList, FilterListItem, FilterLiveSearch,
     List, SavedQueriesList,
     SelectColumnsButton, TextField,
-    TopToolbar
+    TopToolbar, usePermissions
 } from 'react-admin';
 import {useMediaQuery, Theme, Dialog, DialogContent, DialogTitle, DialogActions} from '@mui/material';
 import UserListAside from "./UserListAside";
@@ -20,6 +20,8 @@ import LockIcon from "@mui/icons-material/Lock";
 import FilterListIcon from '@mui/icons-material/FilterList';
 import DoneOutlineIcon from '@mui/icons-material/DoneOutline';
 import CancelIcon from '@mui/icons-material/Cancel';
+import {useEffect} from "react";
+import {authProvider} from "../authProvider";
 
 const BootstrapDialog = styled(Dialog)(({theme}: any) => ({
     '& .MuiDialogContent-root': {
@@ -89,6 +91,21 @@ function CustomDialog() {
                             label="Chưa khoá"
                             value={{status: true}}
                         />
+
+                    </FilterList>
+                    <FilterList
+                        label="Đã bị xoá"
+                        icon={<LockIcon/>}
+                    >
+                        <FilterListItem
+                            label="Đã xoá"
+                            value={{deleted: true}}
+                        />
+                        <FilterListItem
+                            label="Chưa xoá"
+                            value={{deleted: false}}
+                        />
+
                     </FilterList>
                 </DialogContent>
                 <DialogActions>
@@ -114,10 +131,14 @@ const UserListActions = (props: any) => (
 );
 
 const UserList = () => {
-    //
-    // useEffect(() => {
-    //     console.log(permissions, isLoading, error)
-    // }, [permissions, isLoading, error]);
+    const [permissions, setPermissions] = React.useState<any>(null)
+    const fetch: any = authProvider.getPermissions(null);
+    useEffect(() => {
+        fetch.then((response: any) => {
+            setPermissions(response.permissions)
+        })
+        console.log(permissions)
+    }, [])
     const isXsmall = useMediaQuery<Theme>(theme =>
         theme.breakpoints.down('sm')
     );
@@ -140,11 +161,7 @@ const UserList = () => {
                             lg: {display: 'table-cell'},
                         },
                     }}
-                    bulkActionButtons={
-                        <>
-                            <BulkUpdateButton data={{enabled: false}} label="Ngưng hoạt động tất cả tài khoản đã chọn"/>
-                        </>
-                    }
+                    bulkActionButtons={false}
                 >
                     <UserLinkField
                         source="fullName"
@@ -153,7 +170,8 @@ const UserList = () => {
                     <TextField source="username" label="Tên đăng nhập"/>
                     <DateField source="createdDate" label={"Ngày tạo"}/>
                     <ArrayField label={"Tuỳ chọn"}>
-                        <EditButton/>
+                        {permissions && permissions.indexOf("USER_EDIT") > -1 && <EditButton/>}
+                        {permissions && permissions.indexOf("USER_DELETE") > -1 && <DeleteButton/>}
                     </ArrayField>
                 </DatagridConfigurable>
             )}

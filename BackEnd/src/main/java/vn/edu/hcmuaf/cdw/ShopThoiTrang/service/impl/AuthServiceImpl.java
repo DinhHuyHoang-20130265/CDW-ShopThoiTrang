@@ -111,7 +111,8 @@ public class AuthServiceImpl implements AuthService {
             Log.warn("wrong password");
             return new ResponseEntity<>("wrong password", HttpStatus.EXPECTATION_FAILED);
         }
-        if (!user.getRole().getName().equals("ADMIN")) {
+        if (!(user.getRole().getName().equals("ADMIN") || user.getRole().getName().equals("SUPER_ADMIN"))) {
+            System.out.println(user.getRole().getName());
             Log.warn("unauthorized");
             return new ResponseEntity<>("unauthorized ", HttpStatus.NOT_ACCEPTABLE);
         }

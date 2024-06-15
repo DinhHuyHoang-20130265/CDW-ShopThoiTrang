@@ -453,7 +453,7 @@ export const dataProvider: DataProvider = {
                         .catch(err => console.log(err))
                     imageUrl = await imgProvider(selectedImg);
                 }
-                payload = {...params.data, thumbnail: imageUrl};
+                payload = {...params.data, thumbnail: imageUrl !== null ? imageUrl : params.data.thumbnail};
                 break;
             default:
                 payload = params.data;

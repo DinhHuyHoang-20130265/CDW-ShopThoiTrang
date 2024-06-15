@@ -40,6 +40,7 @@ httpClient.interceptors.response.use(
         }
     }
 )
+
 export const authProvider: AuthProvider = {
 
     login: async ({username, password}) => {
@@ -75,18 +76,17 @@ export const authProvider: AuthProvider = {
     checkError: () => Promise.resolve(),
     checkAuth: () =>
         localStorage.getItem('admin') ? Promise.resolve() : Promise.reject(),
-    getPermissions: async () => {
-        await httpClient.get(`${process.env.REACT_APP_API_URL}/user/get-authorities`, {
+    getPermissions: async (params: any) => {
+        return await httpClient.get(`${process.env.REACT_APP_API_URL}/user/get-authorities`, {
             headers: {
                 Accept: 'application/json',
                 'Content-Type': 'application/json'
             },
             withCredentials: true
-        }).then((response) => {
-            if (response.status === 200) {
-                console.log(response.data)
-                return Promise.resolve([response.data]);
-            }
+        }).then((response: any) => {
+            return {permissions: response.data};
+        }).catch((error) => {
+            console.log(error)
         })
     },
     getIdentity: async () => {

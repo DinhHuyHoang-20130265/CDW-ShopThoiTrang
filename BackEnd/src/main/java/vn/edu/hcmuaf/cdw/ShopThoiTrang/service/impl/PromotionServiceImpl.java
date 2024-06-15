@@ -65,6 +65,12 @@ public class PromotionServiceImpl implements PromotionService {
                     predicate = criteriaBuilder.and(predicate, criteriaBuilder.equal(root.get("status"), filterJson.get("status").asBoolean()));
                 }
                 if (filterJson.has("expired")) {
+                    boolean expired = filterJson.get("expired").asBoolean();
+                    if (expired) {
+                        predicate = criteriaBuilder.and(predicate, criteriaBuilder.lessThanOrEqualTo(root.get("endDate"), new Date(System.currentTimeMillis())));
+                    } else {
+                        predicate = criteriaBuilder.and(predicate, criteriaBuilder.greaterThan(root.get("endDate"), new Date(System.currentTimeMillis())));
+                    }
                 }
                 return predicate;
             };

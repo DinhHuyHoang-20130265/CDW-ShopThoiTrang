@@ -1,12 +1,12 @@
 package vn.edu.hcmuaf.cdw.ShopThoiTrang.controller;
 
+import jakarta.annotation.security.PermitAll;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import vn.edu.hcmuaf.cdw.ShopThoiTrang.entity.Webhook;
 import vn.edu.hcmuaf.cdw.ShopThoiTrang.reponsitory.WebhookRepository;
 
-import java.net.URI;
 import java.util.LinkedHashMap;
 
 @RequestMapping("/api/payos")
