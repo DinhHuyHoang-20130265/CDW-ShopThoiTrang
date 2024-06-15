@@ -172,7 +172,7 @@ public class ProductServiceImpl implements ProductService {
     public ResponseEntity<?> saveProduct(Product product, HttpServletRequest request) {
         try {
             Date currentDate = new Date(System.currentTimeMillis());
-            String jwt = jwtUtils.getJwtFromCookies(request);
+            String jwt = jwtUtils.getJwtFromCookies(request, "shop2h_admin");
             if (jwt == null) {
                 return ResponseEntity.badRequest().body("Token is null");
             }
@@ -252,7 +252,7 @@ public class ProductServiceImpl implements ProductService {
     public ResponseEntity<?> updateProduct(long productId, Product productUpdate, HttpServletRequest request) {
         try {
             Date currentDate = new Date(System.currentTimeMillis());
-            String jwt = jwtUtils.getJwtFromCookies(request);
+            String jwt = jwtUtils.getJwtFromCookies(request, "shop2h_admin");
             if (jwt == null) {
                 return ResponseEntity.badRequest().body("Token is null");
             }

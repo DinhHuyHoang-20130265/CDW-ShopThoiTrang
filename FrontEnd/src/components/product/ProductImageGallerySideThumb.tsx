@@ -27,6 +27,21 @@ const ProductImageGalleryLeftThumb = ({product, thumbPosition}: any) => {
         spaceBetween: 10,
         loopedSlides: product.imgProducts.length,
         loop: product.imgProducts.length > 3,
+        slideToClickedSlide: true,
+        navigation: {
+            nextEl: ".swiper-button-next",
+            prevEl: ".swiper-button-prev"
+        },
+        renderPrevButton: () => (
+            <button className="swiper-button-prev ht-swiper-button-nav" style={{borderRadius: "15%"}}>
+                <i className="pe-7s-angle-left"/>
+            </button>
+        ),
+        renderNextButton: () => (
+            <button className="swiper-button-next ht-swiper-button-nav" style={{borderRadius: "15%"}}>
+                <i className="pe-7s-angle-right"/>
+            </button>
+        )
     };
 
     const thumbnailSwiperParams = {
@@ -38,6 +53,7 @@ const ProductImageGalleryLeftThumb = ({product, thumbPosition}: any) => {
         loop: product.imgProducts.length > 3,
         slideToClickedSlide: true,
         direction: "vertical",
+
         breakpoints: {
             1200: {
                 slidesPerView: 4,
@@ -76,15 +92,11 @@ const ProductImageGalleryLeftThumb = ({product, thumbPosition}: any) => {
                         {product.promotions[0] ? (
                             <div className="product-img-badges">
                                 {product.promotions[0] ? (
-                                    <span className="pink">-{product.promotions[0].discount}%</span>
-                                ) : (
+                                    <span className="pink">-{product.promotions[0].discount}%</span>) : (
                                     ""
                                 )}
                                 {product.variations ? <span className="purple">Còn hàng</span> : ""}
-                            </div>
-                        ) : (
-                            ""
-                        )}
+                            </div>) : ("")}
                         <LightgalleryProvider>
                             <Swiper {...gallerySwiperParams}>
                                 {product.imgProducts.map((single: any, key: any) => {
@@ -112,13 +124,8 @@ const ProductImageGalleryLeftThumb = ({product, thumbPosition}: any) => {
                         </LightgalleryProvider>
                     </div>
                 </div>
-                <div
-                    className={` ${
-                        thumbPosition && thumbPosition === "left"
-                            ? "col-xl-2 order-2 order-xl-1"
-                            : "col-xl-2"
-                    }`}
-                >
+                <div className={` ${
+                    thumbPosition && thumbPosition === "left" ? "col-xl-2 order-2 order-xl-1" : "col-xl-2"}`}>
                     <div className="product-small-image-wrapper product-small-image-wrapper--side-thumb">
                         <Swiper {...thumbnailSwiperParams}>
                             {
