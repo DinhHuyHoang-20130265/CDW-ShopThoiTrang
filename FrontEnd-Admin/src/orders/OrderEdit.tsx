@@ -2,16 +2,14 @@ import * as React from 'react';
 import {
     BooleanInput,
     DateField,
-    Edit, ExportButton,
+    Edit,
     Form,
     Labeled,
     PrevNextButtons,
-    ReferenceField,
     SelectInput,
     TextField,
-    Toolbar, useEditController, useNotify,
+    Toolbar, useNotify,
     useRecordContext,
-    useTranslate,
 } from 'react-admin';
 import {Link as RouterLink} from 'react-router-dom';
 import {Card, CardContent, Box, Grid, Typography, Link, Button} from '@mui/material';

@@ -123,7 +123,7 @@ public class OrderServiceImpl implements OrderService {
 
             return orderRepository.findAll(specification, PageRequest.of(page, perPage, Sort.by(direction, sortBy)));
         } catch (RuntimeException e) {
-            Log.error("Error in getAllOrders: " + e.getMessage());
+            Log.error("Error in getAllOrders: " ,e);
             throw new RuntimeException(e);
         }
     }
@@ -133,7 +133,7 @@ public class OrderServiceImpl implements OrderService {
         try {
             return orderRepository.findById(id).orElse(null);
         } catch (Exception e) {
-            Log.error("Error in getOrderById: " + e.getMessage());
+            Log.error("Error in getOrderById: " ,e);
             throw new RuntimeException(e);
         }
     }
@@ -212,9 +212,10 @@ public class OrderServiceImpl implements OrderService {
             orderStatusHistory.setStatus(orderStatus);
             orderStatusHistoryService.saveOrderStatusHistory(orderStatusHistory);
             Log.info(savedOrder.getUser().getUsername() + " ordered successfully with order id: " + savedOrder.getId());
-            return ResponseEntity.ok("Order created successfully");
+
+            return ResponseEntity.ok(savedOrder);
         } catch (RuntimeException e) {
-            Log.error("Error in createOrder: " + e.getMessage());
+            Log.error("Error in createOrder: " ,e);
             throw new RuntimeException(e);
         }
     }
@@ -240,7 +241,7 @@ public class OrderServiceImpl implements OrderService {
                 return ResponseEntity.badRequest().body("Order status update failed");
             }
         } catch (RuntimeException e) {
-            Log.error("Error in updateOrderStatus: " + e.getMessage());
+            Log.error("Error in updateOrderStatus: ",e);
             throw new RuntimeException(e);
         }
     }
@@ -358,7 +359,7 @@ public class OrderServiceImpl implements OrderService {
             Log.info("Order exported successfully with order id: " + orderId);
             return ResponseEntity.ok().headers(headers).contentType(MediaType.APPLICATION_PDF).body(new ByteArrayResource(byteArrayOutputStream.toByteArray()));
         } catch (RuntimeException e) {
-            Log.error("Error in exportOrder: " + e.getMessage());
+            Log.error("Error in exportOrder: ", e);
             throw new RuntimeException(e);
         }
     }

@@ -4,16 +4,16 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="89893dc3-088e-47ef-a82c-f709754202c6" name="Changes" comment="update: finished responsive and management coupon list">
+    <list default="true" id="89893dc3-088e-47ef-a82c-f709754202c6" name="Changes" comment="add websocket to notify">
       <change beforePath="$PROJECT_DIR$/../BackEnd/logs/mylog.log" beforeDir="false" afterPath="$PROJECT_DIR$/../BackEnd/logs/mylog.log" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../BackEnd/src/main/java/vn/edu/hcmuaf/cdw/ShopThoiTrang/controller/CouponController.java" beforeDir="false" afterPath="$PROJECT_DIR$/../BackEnd/src/main/java/vn/edu/hcmuaf/cdw/ShopThoiTrang/controller/CouponController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../BackEnd/src/main/java/vn/edu/hcmuaf/cdw/ShopThoiTrang/service/CouponService.java" beforeDir="false" afterPath="$PROJECT_DIR$/../BackEnd/src/main/java/vn/edu/hcmuaf/cdw/ShopThoiTrang/service/CouponService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../BackEnd/src/main/java/vn/edu/hcmuaf/cdw/ShopThoiTrang/service/impl/CouponServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/../BackEnd/src/main/java/vn/edu/hcmuaf/cdw/ShopThoiTrang/service/impl/CouponServiceImpl.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/blogs/BlogEdit.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/blogs/BlogEdit.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/coupons/CouponEdit.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/coupons/CouponEdit.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/dataProvider/dataProvider.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/dataProvider/dataProvider.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/promotion/PromotionEdit.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/promotion/PromotionEdit.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Dashboard/DashBoard.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/Dashboard/DashBoard.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Dashboard/NewCustomers.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/Dashboard/NewCustomers.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Dashboard/OrderPieChart.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/Dashboard/OrderPieChart.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Dashboard/PendingOrder.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/Dashboard/PendingOrder.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Dashboard/ProductItem.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/Dashboard/ProductItem.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/websocket/Notification.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/websocket/Notification.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/websocket/WebSocketClient.tsx" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -23,8 +23,8 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
-        <option value="TypeScript File" />
         <option value="TypeScript JSX File" />
+        <option value="TypeScript File" />
       </list>
     </option>
   </component>
@@ -61,7 +61,7 @@
   &quot;keyToString&quot;: {
     &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;DinhHuyHoang&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;NguyenNgocHuy&quot;,
     &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
     &quot;last_opened_file_path&quot;: &quot;D:/CDW-ShopThoiTrang/FrontEnd-Admin&quot;,
     &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
@@ -72,13 +72,12 @@
     &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
     &quot;npm.npm start.executor&quot;: &quot;Run&quot;,
     &quot;settings.editor.selected.configurable&quot;: &quot;preferences.keymap&quot;,
-    &quot;ts.external.directory.path&quot;: &quot;D:\\CDW-ShopThoiTrang\\FrontEnd-Admin\\node_modules\\typescript\\lib&quot;,
+    &quot;ts.external.directory.path&quot;: &quot;D:\\ChuyenDeWeb\\CDW-ShopThoiTrang\\FrontEnd-Admin\\node_modules\\typescript\\lib&quot;,
     &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
 }</component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
-      <recent name="D:\CDW-ShopThoiTrang\FrontEnd-Admin\src\blogs" />
       <recent name="D:\ChuyenDeWeb\CDW-ShopThoiTrang\FrontEnd-Admin\src\orders" />
       <recent name="D:\ChuyenDeWeb\CDW-ShopThoiTrang\FrontEnd-Admin\src\products" />
       <recent name="D:\ChuyenDeWeb\CDW-ShopThoiTrang\FrontEnd-Admin\src\categories" />
@@ -102,13 +101,6 @@
       <envs />
       <method v="2" />
     </configuration>
-  </component>
-  <component name="SharedIndexes">
-    <attachedChunks>
-      <set>
-        <option value="bundled-js-predefined-1d06a55b98c1-91d5c284f522-JavaScript-WS-241.15989.105" />
-      </set>
-    </attachedChunks>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
@@ -177,16 +169,11 @@
       <workItem from="1717998048485" duration="16171000" />
       <workItem from="1718076303051" duration="1908000" />
       <workItem from="1718123972888" duration="19000" />
-      <workItem from="1718132810406" duration="4882000" />
-      <workItem from="1718197668968" duration="980000" />
-      <workItem from="1718200807585" duration="3878000" />
-      <workItem from="1718214902158" duration="5859000" />
-      <workItem from="1718265592653" duration="5460000" />
-      <workItem from="1718287812401" duration="11835000" />
-      <workItem from="1718311178778" duration="2840000" />
-      <workItem from="1718348649775" duration="7193000" />
-      <workItem from="1718399129024" duration="218000" />
-      <workItem from="1718400395272" duration="3231000" />
+      <workItem from="1718132810406" duration="4807000" />
+      <workItem from="1718172179939" duration="6855000" />
+      <workItem from="1718255785736" duration="8712000" />
+      <workItem from="1718292147404" duration="1678000" />
+      <workItem from="1718352575560" duration="10421000" />
     </task>
     <task id="LOCAL-00001" summary="update product for admin (50%&#10;)">
       <option name="closed" value="true" />
@@ -484,63 +471,15 @@
       <option name="project" value="LOCAL" />
       <updated>1718135738574</updated>
     </task>
-    <task id="LOCAL-00038" summary="update: fixed css">
+    <task id="LOCAL-00038" summary="add websocket to notify">
       <option name="closed" value="true" />
-      <created>1718137877142</created>
+      <created>1718360491719</created>
       <option name="number" value="00038" />
       <option name="presentableId" value="LOCAL-00038" />
       <option name="project" value="LOCAL" />
-      <updated>1718137877142</updated>
+      <updated>1718360491719</updated>
     </task>
-    <task id="LOCAL-00039" summary="update: fixed css ProductShow.tsx">
-      <option name="closed" value="true" />
-      <created>1718221029358</created>
-      <option name="number" value="00039" />
-      <option name="presentableId" value="LOCAL-00039" />
-      <option name="project" value="LOCAL" />
-      <updated>1718221029359</updated>
-    </task>
-    <task id="LOCAL-00040" summary="update: finished responsive user">
-      <option name="closed" value="true" />
-      <created>1718291681454</created>
-      <option name="number" value="00040" />
-      <option name="presentableId" value="LOCAL-00040" />
-      <option name="project" value="LOCAL" />
-      <updated>1718291681454</updated>
-    </task>
-    <task id="LOCAL-00041" summary="update: finished responsive product">
-      <option name="closed" value="true" />
-      <created>1718295007015</created>
-      <option name="number" value="00041" />
-      <option name="presentableId" value="LOCAL-00041" />
-      <option name="project" value="LOCAL" />
-      <updated>1718295007015</updated>
-    </task>
-    <task id="LOCAL-00042" summary="update: finished responsive promotion">
-      <option name="closed" value="true" />
-      <created>1718298921029</created>
-      <option name="number" value="00042" />
-      <option name="presentableId" value="LOCAL-00042" />
-      <option name="project" value="LOCAL" />
-      <updated>1718298921029</updated>
-    </task>
-    <task id="LOCAL-00043" summary="update: finished responsive">
-      <option name="closed" value="true" />
-      <created>1718359251193</created>
-      <option name="number" value="00043" />
-      <option name="presentableId" value="LOCAL-00043" />
-      <option name="project" value="LOCAL" />
-      <updated>1718359251194</updated>
-    </task>
-    <task id="LOCAL-00044" summary="update: finished responsive and management coupon list">
-      <option name="closed" value="true" />
-      <created>1718401988164</created>
-      <option name="number" value="00044" />
-      <option name="presentableId" value="LOCAL-00044" />
-      <option name="project" value="LOCAL" />
-      <updated>1718401988164</updated>
-    </task>
-    <option name="localTasksCounter" value="45" />
+    <option name="localTasksCounter" value="39" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -561,6 +500,12 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
+    <MESSAGE value="resolve conflict" />
+    <MESSAGE value="Add Order Detail" />
+    <MESSAGE value="update status order" />
+    <MESSAGE value="add list promotion" />
+    <MESSAGE value="add edit promotion" />
+    <MESSAGE value="update edit promotion (add product to promotion)" />
     <MESSAGE value="add update status order" />
     <MESSAGE value="fix conflict" />
     <MESSAGE value="update import-invoice" />
@@ -579,13 +524,7 @@
     <MESSAGE value="fix update product" />
     <MESSAGE value="update: finished edit img promotion" />
     <MESSAGE value="update: finished edit img and create img for blog" />
-    <MESSAGE value="update: fixed css" />
-    <MESSAGE value="update: fixed css ProductShow.tsx" />
-    <MESSAGE value="update: finished responsive user" />
-    <MESSAGE value="update: finished responsive product" />
-    <MESSAGE value="update: finished responsive promotion" />
-    <MESSAGE value="update: finished responsive" />
-    <MESSAGE value="update: finished responsive and management coupon list" />
-    <option name="LAST_COMMIT_MESSAGE" value="update: finished responsive and management coupon list" />
+    <MESSAGE value="add websocket to notify" />
+    <option name="LAST_COMMIT_MESSAGE" value="add websocket to notify" />
   </component>
 </project>

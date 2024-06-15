@@ -490,6 +490,29 @@ const formatPrice = (price: any) => {
 }
 
 const OrderDetailModal = ({order}: any) => {
+    const {addToast} = useToasts();
+
+    const cancelOrder = () => {
+        axios.put(`${process.env.REACT_APP_API_ENDPOINT}order/${order.id}/cancel`, null, {
+            headers: {
+                Accept: 'application/json',
+                "Content-Type": "application/json"
+            }
+        }).then(response => {
+            addToast("Hủy đơn hàng thành công", {
+                appearance: 'success',
+                autoDismiss: true,
+                autoDismissTimeout: 3000
+            });
+        }).catch(error => {
+            addToast("Hủy đơn hàng thất bại", {
+                appearance: 'error',
+                autoDismiss: true,
+                autoDismissTimeout: 3000
+            });
+        });
+    }
+
     return (
         <Container>
             <Row>
@@ -616,8 +639,9 @@ const OrderDetailModal = ({order}: any) => {
                         </tbody>
                     </Table>
 
-                    {order.status.id === 1 && (
-                        <Button variant="danger" className={"mt-25"}>Hủy đơn hàng</Button>
+                    {order.status.id === 1 && order.paymentMethod === "cod" && (
+                        <Button variant="danger" className={"mt-25"}
+                        onClick={() => cancelOrder()}>Hủy đơn hàng</Button>
                     )}
 
                 </Col>

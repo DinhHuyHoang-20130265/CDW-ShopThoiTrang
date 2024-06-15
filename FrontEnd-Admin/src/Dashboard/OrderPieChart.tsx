@@ -1,11 +1,15 @@
 import {Order} from "../types";
-import {Card, CardContent, CardHeader} from "@mui/material";
+import {Card, CardContent, CardHeader, Theme, useMediaQuery} from "@mui/material";
 import React from "react";
 import {pieArcLabelClasses, PieChart} from '@mui/x-charts/PieChart';
 import {DefaultizedPieValueType} from "@mui/x-charts";
-import {ResponsiveContainer} from "recharts";
+
 
 const OrderPieChart = (props: { orders?: Order[] }) => {
+    const isXSmall = useMediaQuery((theme: Theme) =>
+        theme.breakpoints.down('sm')
+    );
+
     const {orders} = props;
 
     const aggregateOrders = (orders: Order[]): Aggregate => {
@@ -76,13 +80,13 @@ const OrderPieChart = (props: { orders?: Order[] }) => {
                             data,
                         },
                     ]}
-
                     sx={{
                         [`& .${pieArcLabelClasses.root}`]: {
                             fill: 'white',
                             fontWeight: 'bold',
-                        }
+                        },
                     }}
+                    legend={isXSmall ? {hidden: true} : {hidden: false}}
                     height={360}
                 />
             </CardContent>

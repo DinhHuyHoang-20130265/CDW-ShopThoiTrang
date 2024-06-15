@@ -80,10 +80,11 @@ public class SecurityConfiguration {
                                 .requestMatchers("/api/import-invoice/**").permitAll()
                                 .requestMatchers("/api/order-status/**").permitAll()
                                 .requestMatchers("/api/order/**").permitAll()
-                                .requestMatchers("/api/promotion/**").permitAll()
+                                .requestMatchers(("/api/promotion/**")).permitAll()
                                 .requestMatchers("/api/contact/**").permitAll()
                                 .requestMatchers("/api/review/**").permitAll()
                                 .requestMatchers("/api/coupon/**").permitAll()
+                                .requestMatchers("/ws/**").permitAll()
                                 .anyRequest().authenticated()
                 );
 

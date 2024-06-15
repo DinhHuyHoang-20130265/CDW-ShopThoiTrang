@@ -46,7 +46,6 @@ public class Order {
     private String address;
 
 
-    @NotNull(message = "Order date is required")
     @Column(name = "order_date")
     private Timestamp orderDate;
     private String note;

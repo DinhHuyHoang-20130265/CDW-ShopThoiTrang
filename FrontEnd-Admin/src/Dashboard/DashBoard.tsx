@@ -235,27 +235,91 @@ const DashBoard = () => {
     return isXSmall ? (
         <div>
             <div style={styles.flexColumn as CSSProperties}>
-                <MonthlyRevenue value={revenue}/>
                 <VerticalSpacer/>
-                <NbNewOrders value={nbNewOrders}/>
+                <MonthlyRevenue value={getRevenue(ordersCurrentMonth).toLocaleString(undefined, {
+                    style: 'currency',
+                    currency: 'VND',
+                    minimumFractionDigits: 0,
+                    maximumFractionDigits: 0,
+                })}
+                                percent={compareGetPercent(getRevenue(ordersCurrentMonth), getRevenue(ordersLastMonth))}
+                />
+                <VerticalSpacer/>
+                <NbNewOrders value={ordersCurrentMonth.length}
+                             percent={compareGetPercent(ordersCurrentMonth.length, ordersLastMonth.length)}
+                />
+                <VerticalSpacer/>
+                <NbNewUsers value={usersCurrentMonth.length}
+                            percent={compareGetPercent(usersCurrentMonth.length, usersLastMonth.length)}
+                />
+                <VerticalSpacer/>
+                <NbNewReviews value={reviewsCurrentMonth.length}
+                              percent={compareGetPercent(reviewsCurrentMonth.length, reviewsLastMonth.length)}
+                />
+                <VerticalSpacer/>
+                <OrderChart orders={orders}/>
+                <VerticalSpacer/>
+                <OrderPieChart orders={orders}/>
                 <VerticalSpacer/>
                 <PendingOrders orders={pendingOrders}/>
+                <VerticalSpacer/>
+                <BestSeller products={bestSeller}/>
+                <VerticalSpacer/>
+                <OutOfStock products={outOfStock}/>
+                <VerticalSpacer/>
+                <NewCustomers loyalCustomers={loyalCustomers}/>
+                <VerticalSpacer/>
+                <PendingReviews reviews={reviews}/>
+                <VerticalSpacer/>
             </div>
         </div>
     ) : isSmall ? (
+
         <div style={styles.flexColumn as CSSProperties}>
-            <div style={styles.singleCol}>
-            </div>
             <div style={styles.flex}>
-                <MonthlyRevenue value={revenue}/>
+                <MonthlyRevenue value={getRevenue(ordersCurrentMonth).toLocaleString(undefined, {
+                    style: 'currency',
+                    currency: 'VND',
+                    minimumFractionDigits: 0,
+                    maximumFractionDigits: 0,
+                })}
+                                percent={compareGetPercent(getRevenue(ordersCurrentMonth), getRevenue(ordersLastMonth))}
+                />
                 <Spacer/>
-                <NbNewOrders value={nbNewOrders}/>
+                <NbNewOrders value={ordersCurrentMonth.length}
+                             percent={compareGetPercent(ordersCurrentMonth.length, ordersLastMonth.length)}
+                />
+            </div>
+            <VerticalSpacer/>
+            <div style={styles.flex}>
+                <NbNewUsers value={usersCurrentMonth.length}
+                            percent={compareGetPercent(usersCurrentMonth.length, usersLastMonth.length)}
+                />
+                <Spacer/>
+                <NbNewReviews value={reviewsCurrentMonth.length}
+                              percent={compareGetPercent(reviewsCurrentMonth.length, reviewsLastMonth.length)}
+                />
             </div>
             <div style={styles.singleCol}>
                 <OrderChart orders={orders}/>
             </div>
             <div style={styles.singleCol}>
+                <OrderPieChart orders={orders}/>
+            </div>
+            <div style={styles.singleCol}>
                 <PendingOrders orders={pendingOrders}/>
+            </div>
+            <div style={styles.singleCol}>
+                <BestSeller products={bestSeller}/>
+            </div>
+            <div style={styles.singleCol}>
+                <OutOfStock products={outOfStock}/>
+            </div>
+            <div style={styles.singleCol}>
+                <NewCustomers loyalCustomers={loyalCustomers}/>
+            </div>
+            <div style={styles.singleCol}>
+                <PendingReviews reviews={reviews}/>
             </div>
         </div>
     ) : (

@@ -5,7 +5,7 @@ import {
     ListItemAvatar,
     ListItemText,
     Avatar,
-    Box,
+    Box, useMediaQuery, Theme,
 } from '@mui/material';
 import { Link } from 'react-router-dom';
 import { useTranslate, useReference } from 'react-admin';
@@ -17,6 +17,9 @@ interface Props {
 }
 
 export const PendingOrder = (props: Props) => {
+    const isXSmall = useMediaQuery((theme: Theme) =>
+        theme.breakpoints.down('sm')
+    );
     const { order } = props;
     const { referenceRecord: customer, isLoading } = useReference<Customer>({
         reference: 'customers',
@@ -38,7 +41,7 @@ export const PendingOrder = (props: Props) => {
             </ListItemAvatar>
             <ListItemText
                 secondary={new Date(order.orderDate).toLocaleString('vi-VN')}
-                primary= {'Đơn hàng #' + order.id +' của ' + (order?.user?.userInfo?.fullName)+ ', ' + (order?.orderDetails?.length) + ' sản phẩm'}
+                primary= {isXSmall ? 'Đơn hàng #' + order.id+ ', ' + (order?.orderDetails?.length) + ' sản phẩm' :'Đơn hàng #' + order.id +' của ' + (order?.user?.userInfo?.fullName)+ ', ' + (order?.orderDetails?.length) + ' sản phẩm'}
             />
             <ListItemSecondaryAction>
                 <Box

@@ -4,9 +4,11 @@ import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
+import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.web.bind.annotation.*;
 import vn.edu.hcmuaf.cdw.ShopThoiTrang.entity.Review;
 import vn.edu.hcmuaf.cdw.ShopThoiTrang.model.dto.ReviewRequest;
+import vn.edu.hcmuaf.cdw.ShopThoiTrang.service.NotificationService;
 import vn.edu.hcmuaf.cdw.ShopThoiTrang.service.ReviewService;
 
 import java.util.LinkedHashMap;
@@ -18,10 +20,20 @@ public class ReviewController {
     @Autowired
     private ReviewService reviewService;
 
+    @Autowired
+    private NotificationService notificationService;
+
+    @Autowired
+    private SimpMessagingTemplate messagingTemplate;
+
     @PostMapping
     public ResponseEntity<Review> createReview(@RequestBody ReviewRequest review) {
-        Review createdReview = reviewService.createReview(review);
-        return ResponseEntity.ok(createdReview);
+        Review reviewEntity = reviewService.createReview(review);
+        if (reviewEntity != null) {
+            notificationService.createNotification("New review has been created", reviewEntity.getId(), "review");
+            messagingTemplate.convertAndSend("/topic/notifications", reviewEntity);
+        }
+        return ResponseEntity.ok(reviewEntity);
     }
 
     @GetMapping("/product/{productId}")
