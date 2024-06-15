@@ -1,72 +1,14 @@
 2024-06-12 02:54:51 INFO  BlogServiceImpl:134 - super-admin update blog: 123123
-2024-06-12 20:31:24 INFO  UserServiceImpl:98 - UserId 4 updated info successfully
-2024-06-12 21:11:44 INFO  AuthServiceImpl:215 - logout
-2024-06-12 21:11:44 INFO  AuthServiceImpl:215 - logout
-2024-06-12 21:11:44 INFO  AuthServiceImpl:215 - logout
-2024-06-12 21:11:44 INFO  AuthServiceImpl:215 - logout
-2024-06-12 21:14:00 WARN  AuthServiceImpl:71 - username: super-admin unauthorized
-2024-06-12 21:14:03 INFO  AuthServiceImpl:90 - hine2 logged in
-2024-06-12 21:14:11 INFO  AuthServiceImpl:215 - logout
-2024-06-12 21:14:21 INFO  AuthServiceImpl:90 - hine2 logged in
-2024-06-12 21:15:42 INFO  AuthServiceImpl:215 - logout
-2024-06-12 21:16:00 INFO  AuthServiceImpl:90 - hine2 logged in
-2024-06-12 21:16:39 INFO  PromotionServiceImpl:181 - hine2 updated promotion Dinh Hoang huy12
-2024-06-12 21:16:55 INFO  AuthServiceImpl:215 - logout
-2024-06-12 21:17:23 INFO  PromotionServiceImpl:181 - super-admin updated promotion Dinh Hoang huy1
-2024-06-12 21:51:58 INFO  AuthServiceImpl:90 - hine2 logged in
-2024-06-12 22:10:16 INFO  AuthServiceImpl:215 - logout
-2024-06-12 22:10:42 INFO  AuthServiceImpl:215 - logout
-2024-06-12 22:10:59 INFO  AuthServiceImpl:90 - hine2 logged in
-2024-06-12 22:11:40 INFO  AuthServiceImpl:215 - logout
-2024-06-12 22:15:35 INFO  AuthServiceImpl:215 - logout
-2024-06-12 22:15:47 INFO  AuthServiceImpl:90 - hine2 logged in
-2024-06-12 22:16:23 INFO  AuthServiceImpl:215 - logout
-2024-06-12 22:16:23 INFO  AuthServiceImpl:215 - logout
-2024-06-12 22:18:28 INFO  AuthServiceImpl:90 - hine2 logged in
-2024-06-12 22:18:57 INFO  AuthServiceImpl:215 - logout
-2024-06-12 22:19:12 INFO  AuthServiceImpl:215 - logout
-2024-06-12 22:19:12 INFO  AuthServiceImpl:215 - logout
-2024-06-12 22:19:12 INFO  AuthServiceImpl:215 - logout
-2024-06-12 22:19:12 INFO  AuthServiceImpl:215 - logout
-2024-06-12 22:19:12 INFO  AuthServiceImpl:215 - logout
-2024-06-12 22:19:12 INFO  AuthServiceImpl:215 - logout
-2024-06-12 22:19:12 INFO  AuthServiceImpl:215 - logout
-2024-06-12 22:19:12 INFO  AuthServiceImpl:215 - logout
-2024-06-12 22:19:12 INFO  AuthServiceImpl:215 - logout
-2024-06-12 22:19:12 INFO  AuthServiceImpl:215 - logout
-2024-06-12 22:19:12 INFO  AuthServiceImpl:215 - logout
-2024-06-12 22:19:12 INFO  AuthServiceImpl:215 - logout
-2024-06-12 22:19:12 INFO  AuthServiceImpl:215 - logout
-2024-06-12 22:19:12 INFO  AuthServiceImpl:215 - logout
-2024-06-12 22:19:12 INFO  AuthServiceImpl:215 - logout
-2024-06-12 22:19:12 INFO  AuthServiceImpl:215 - logout
-2024-06-12 22:19:12 INFO  AuthServiceImpl:215 - logout
-2024-06-12 22:19:12 INFO  AuthServiceImpl:215 - logout
-2024-06-12 22:19:12 INFO  AuthServiceImpl:215 - logout
-2024-06-12 22:19:12 INFO  AuthServiceImpl:215 - logout
-2024-06-12 22:19:13 INFO  AuthServiceImpl:215 - logout
-2024-06-12 22:19:13 INFO  AuthServiceImpl:215 - logout
-2024-06-12 22:19:13 INFO  AuthServiceImpl:215 - logout
-2024-06-12 22:19:13 INFO  AuthServiceImpl:215 - logout
-2024-06-12 22:19:13 INFO  AuthServiceImpl:215 - logout
-2024-06-12 22:19:13 INFO  AuthServiceImpl:215 - logout
-2024-06-12 22:19:13 INFO  AuthServiceImpl:215 - logout
-2024-06-12 22:19:13 INFO  AuthServiceImpl:215 - logout
-2024-06-12 22:20:56 INFO  AuthServiceImpl:90 - hine2 logged in
-2024-06-12 22:21:35 INFO  AuthServiceImpl:215 - logout
-2024-06-12 22:21:45 INFO  AuthServiceImpl:215 - logout
-2024-06-12 22:21:45 INFO  AuthServiceImpl:215 - logout
-2024-06-13 00:07:53 INFO  AuthServiceImpl:221 - logout
-2024-06-13 00:07:53 INFO  AuthServiceImpl:221 - logout
-2024-06-13 00:07:53 INFO  AuthServiceImpl:221 - logout
-2024-06-13 00:08:22 INFO  AuthServiceImpl:91 - hine2 logged in
-2024-06-13 00:09:23 INFO  AuthServiceImpl:221 - logout
-2024-06-13 00:09:31 INFO  AuthServiceImpl:221 - logout
-2024-06-13 00:22:32 ERROR AuthTokenFilter:71 - Cannot set user authentication: {}
-vn.edu.hcmuaf.cdw.ShopThoiTrang.exception.TokenRefreshException: Failed for []: Refresh token is not valid or expired!
-	at vn.edu.hcmuaf.cdw.ShopThoiTrang.filters.AuthTokenFilter.lambda$doFilterInternal$0(AuthTokenFilter.java:59)
-	at java.base/java.util.Optional.orElseThrow(Optional.java:403)
-	at vn.edu.hcmuaf.cdw.ShopThoiTrang.filters.AuthTokenFilter.doFilterInternal(AuthTokenFilter.java:59)
+2024-06-12 13:03:52 ERROR RefreshTokenService:79 - Error in verifyExpiration: 
+vn.edu.hcmuaf.cdw.ShopThoiTrang.exception.TokenRefreshException: Failed for [70031dcc-e843-4fbe-9869-46040f63000b]: Refresh token was expired. Please make a new signing request
+	at vn.edu.hcmuaf.cdw.ShopThoiTrang.service.RefreshTokenService.verifyExpiration(RefreshTokenService.java:75)
+	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:103)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:580)
+	at org.springframework.aop.support.AopUtils.invokeJoinpointUsingReflection(AopUtils.java:351)
+	at org.springframework.aop.framework.CglibAopProxy$DynamicAdvisedInterceptor.intercept(CglibAopProxy.java:713)
+	at vn.edu.hcmuaf.cdw.ShopThoiTrang.service.RefreshTokenService$$SpringCGLIB$$0.verifyExpiration(<generated>)
+	at java.base/java.util.Optional.map(Optional.java:260)
+	at vn.edu.hcmuaf.cdw.ShopThoiTrang.filters.AuthTokenFilter.doFilterInternal(AuthTokenFilter.java:57)
 	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)
 	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374)
 	at org.springframework.security.web.authentication.logout.LogoutFilter.doFilter(LogoutFilter.java:107)
@@ -126,7 +68,74 @@ vn.edu.hcmuaf.cdw.ShopThoiTrang.exception.TokenRefreshException: Failed for []: 
 	at org.apache.tomcat.util.threads.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1191)
 	at org.apache.tomcat.util.threads.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:659)
 	at org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:63)
-	at java.base/java.lang.Thread.run(Thread.java:842)
-2024-06-13 00:24:06 INFO  AuthServiceImpl:91 - hine2 logged in
-2024-06-13 00:53:53 INFO  AuthServiceImpl:221 - logout
-2024-06-13 00:54:03 INFO  AuthServiceImpl:91 - hine2 logged in
+	at java.base/java.lang.Thread.run(Thread.java:1583)
+2024-06-12 13:03:52 DEBUG AuthServiceImpl:160 - Refresh Token is empty!
+2024-06-12 13:03:52 INFO  AuthServiceImpl:215 - logout
+2024-06-12 13:06:28 WARN  AuthServiceImpl:114 - unauthorized
+2024-06-12 13:06:31 WARN  AuthServiceImpl:114 - unauthorized
+2024-06-12 13:06:32 WARN  AuthServiceImpl:114 - unauthorized
+2024-06-12 13:06:32 WARN  AuthServiceImpl:114 - unauthorized
+2024-06-12 13:06:34 WARN  AuthServiceImpl:114 - unauthorized
+2024-06-12 13:18:43 INFO  UserServiceImpl:334 - ResourceVariation updated: ResourceVariation(id=1, resource=Resource(id=1, name=USER), permissions=[Permission(id=2, name=DELETE)])by user super-admin
+2024-06-12 13:18:43 INFO  UserServiceImpl:334 - ResourceVariation updated: ResourceVariation(id=3, resource=Resource(id=2, name=PRODUCT), permissions=[Permission(id=4, name=READ), Permission(id=1, name=UPDATE)])by user super-admin
+2024-06-12 13:18:43 INFO  UserServiceImpl:334 - ResourceVariation updated: ResourceVariation(id=4, resource=Resource(id=3, name=POST), permissions=[Permission(id=4, name=READ)])by user super-admin
+2024-06-12 13:18:43 INFO  UserServiceImpl:309 - User super-admin updated user super-admin
+2024-06-12 15:21:17 WARN  AuthServiceImpl:71 - username: super-admin unauthorized
+2024-06-12 15:21:20 INFO  AuthServiceImpl:90 - hine4 logged in
+2024-06-12 15:22:29 INFO  AuthServiceImpl:90 - hine4 logged in
+2024-06-12 15:23:30 INFO  AuthServiceImpl:90 - hine4 logged in
+2024-06-12 15:29:39 INFO  AuthServiceImpl:215 - logout
+2024-06-12 15:38:07 INFO  AuthServiceImpl:90 - hine4 logged in
+2024-06-12 15:38:18 INFO  OrderServiceImpl:228 - Order status updated successfully for order id: 50 to status: ĐÃ HỦY
+2024-06-12 15:40:55 INFO  AuthServiceImpl:90 - hine2 logged in
+2024-06-12 15:41:58 INFO  AuthServiceImpl:90 - hine4 logged in
+2024-06-12 15:44:56 INFO  OrderServiceImpl:228 - Order status updated successfully for order id: 50 to status: ĐÃ HỦY
+2024-06-12 15:44:59 INFO  OrderServiceImpl:228 - Order status updated successfully for order id: 50 to status: ĐÃ HỦY
+2024-06-12 15:45:21 INFO  OrderServiceImpl:228 - Order status updated successfully for order id: 50 to status: ĐÃ HỦY
+2024-06-12 15:47:01 INFO  OrderServiceImpl:228 - Order status updated successfully for order id: 50 to status: ĐÃ HỦY
+2024-06-12 15:47:50 INFO  OrderServiceImpl:228 - Order status updated successfully for order id: 50 to status: ĐÃ HỦY
+2024-06-12 15:51:08 INFO  OrderServiceImpl:228 - Order status updated successfully for order id: 50 to status: ĐÃ HỦY
+2024-06-12 15:51:18 INFO  AuthServiceImpl:90 - hine4 logged in
+2024-06-12 19:59:38 DEBUG AuthServiceImpl:160 - Refresh Token is empty!
+2024-06-12 19:59:38 INFO  AuthServiceImpl:215 - logout
+2024-06-12 20:01:27 INFO  AuthServiceImpl:215 - logout
+2024-06-12 20:08:15 INFO  OrderServiceImpl:205 - hine4 ordered successfully with order id: 51
+2024-06-12 20:12:53 INFO  OrderServiceImpl:205 - hine4 ordered successfully with order id: 52
+2024-06-12 20:17:43 INFO  AuthServiceImpl:90 - hine2 logged in
+2024-06-12 20:19:10 INFO  OrderServiceImpl:205 - hine2 ordered successfully with order id: 53
+2024-06-12 20:25:53 INFO  OrderServiceImpl:205 - hine2 ordered successfully with order id: 54
+2024-06-12 20:30:32 INFO  AuthServiceImpl:215 - logout
+2024-06-12 20:31:38 INFO  AuthServiceImpl:215 - logout
+2024-06-12 20:31:38 DEBUG AuthServiceImpl:160 - Refresh Token is empty!
+2024-06-12 20:31:38 INFO  AuthServiceImpl:215 - logout
+2024-06-12 20:48:43 INFO  AuthServiceImpl:90 - hine4 logged in
+2024-06-12 20:49:06 INFO  AuthServiceImpl:90 - hine3 logged in
+2024-06-12 20:49:45 INFO  OrderServiceImpl:205 - hine3 ordered successfully with order id: 55
+2024-06-13 12:26:43 DEBUG AuthServiceImpl:160 - Refresh Token is empty!
+2024-06-13 12:26:43 INFO  AuthServiceImpl:215 - logout
+2024-06-13 12:28:52 INFO  OrderServiceImpl:205 - hine3 ordered successfully with order id: 56
+2024-06-13 12:59:25 INFO  OrderServiceImpl:205 - hine3 ordered successfully with order id: 57
+2024-06-13 13:58:34 INFO  AuthServiceImpl:90 - hine2 logged in
+2024-06-13 13:58:49 WARN  AuthServiceImpl:63 - username: hine1 not found
+2024-06-13 13:58:55 WARN  AuthServiceImpl:63 - username: hine5 not found
+2024-06-13 13:59:00 WARN  AuthServiceImpl:63 - username: hine6 not found
+2024-06-13 14:00:26 INFO  AuthServiceImpl:90 - hine logged in
+2024-06-13 14:01:28 INFO  OrderServiceImpl:205 - hine ordered successfully with order id: 58
+2024-06-13 14:47:11 INFO  OrderServiceImpl:205 - hine ordered successfully with order id: 59
+2024-06-13 14:52:29 INFO  AuthServiceImpl:90 - hine logged in
+2024-06-13 14:52:52 INFO  OrderServiceImpl:205 - hine ordered successfully with order id: 60
+2024-06-13 14:54:21 INFO  AuthServiceImpl:90 - hine logged in
+2024-06-13 14:54:39 INFO  OrderServiceImpl:205 - hine ordered successfully with order id: 61
+2024-06-13 22:22:58 DEBUG AuthServiceImpl:160 - Refresh Token is empty!
+2024-06-13 22:22:58 INFO  AuthServiceImpl:215 - logout
+2024-06-13 22:43:12 INFO  OrderServiceImpl:205 - hine ordered successfully with order id: 62
+2024-06-14 15:10:33 DEBUG AuthServiceImpl:160 - Refresh Token is empty!
+2024-06-14 15:10:33 INFO  AuthServiceImpl:215 - logout
+2024-06-14 15:10:34 DEBUG AuthServiceImpl:160 - Refresh Token is empty!
+2024-06-14 15:10:34 INFO  AuthServiceImpl:215 - logout
+2024-06-14 16:09:56 INFO  AuthServiceImpl:215 - logout
+2024-06-14 16:41:59 INFO  AuthServiceImpl:215 - logout
+2024-06-14 16:49:09 INFO  AuthServiceImpl:90 - hine2 logged in
+2024-06-14 16:49:30 INFO  OrderServiceImpl:205 - hine2 ordered successfully with order id: 63
+2024-06-14 16:49:46 INFO  AuthServiceImpl:215 - logout
+2024-06-14 17:46:57 INFO  OrderServiceImpl:229 - Order status updated successfully for order id: 63 to status: ĐANG ĐÓNG GÓI
