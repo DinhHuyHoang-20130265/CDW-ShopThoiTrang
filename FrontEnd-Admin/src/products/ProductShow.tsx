@@ -1,16 +1,26 @@
 import * as React from 'react';
 import {
     ArrayField,
-    BooleanField, ChipField, Datagrid, DatagridHeader,
-    DateField, FunctionField, ImageField, Labeled, NumberField, RichTextField,
-    Show, SimpleShowLayout, TextField, useRecordContext, useShowContext, useShowController, useTheme,
+    BooleanField, ChipField, Datagrid,
+    DateField, EditButton, FunctionField, ImageField, Labeled, NumberField, RichTextField,
+    Show, TextField, TopToolbar
 } from 'react-admin';
-import {Grid, ImageList, Stack, Table, Typography} from "@mui/material";
+import {Grid, Stack} from "@mui/material";
 import {ColorField} from "react-admin-color-picker";
-import Grid2 from "@mui/material/Unstable_Grid2";
+import {authProvider} from "../authProvider";
+import {useEffect} from "react";
+import {checkPermission} from "../helpers";
 
 
 const ProductShow = () => {
+    const [permissions, setPermissions] = React.useState<any>(null)
+    const fetch: any = authProvider.getPermissions(null);
+    useEffect(() => {
+        fetch.then((response: any) => {
+            setPermissions(response.permissions)
+        })
+    }, []);
+
     const getPromotionPrice = (product: any) => {
         const currentDate = new Date();
         const activePromotion = product.promotions.find((promotion: any) => {
@@ -46,7 +56,10 @@ const ProductShow = () => {
     }
     return (
         <>
-            <Show>
+            <Show actions={permissions && checkPermission(permissions, "PRODUCT_UPDATE") &&
+                <TopToolbar>
+                    <EditButton/>
+                </TopToolbar>}>
                 <Grid container margin={0} spacing={2} padding={4} sx={{width: "100%"}}>
                     <Grid item xs={4} sm={"auto"} alignContent={"center"} justifyContent={"center"}
                           sx={theme => ({

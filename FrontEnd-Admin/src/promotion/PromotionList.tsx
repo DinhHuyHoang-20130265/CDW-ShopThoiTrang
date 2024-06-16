@@ -1,9 +1,10 @@
 import * as React from 'react';
 import {
+    ArrayField,
     BooleanField,
     CreateButton,
     DatagridConfigurable,
-    DateField,
+    DateField, DeleteButton,
     EditButton,
     ExportButton,
     FilterButton, FunctionField,
@@ -15,12 +16,16 @@ import {
 } from 'react-admin';
 import {Theme, useMediaQuery} from "@mui/material";
 import MobilePromotionGrid from "./MobilePromotionGrid";
+import {authProvider} from "../authProvider";
+import {useEffect} from "react";
+import LinkToProducts from "../categories/LinkToProducts";
+import {checkPermission} from "../helpers";
 
-const ListActions = () => (
+const ListActions = ({permissions}: any) => (
     <TopToolbar>
         <SelectColumnsButton/>
         <FilterButton/>
-        <CreateButton/>
+        {permissions && checkPermission(permissions, "PROMOTION_CREATE") && <CreateButton/>}
         <ExportButton label={"Xuất File"}/>
     </TopToolbar>
 );
@@ -31,6 +36,13 @@ const postFilters = () => [
 ];
 
 const PromotionList = () => {
+    const [permissions, setPermissions] = React.useState<any>(null)
+    const fetch: any = authProvider.getPermissions(null);
+    useEffect(() => {
+        fetch.then((response: any) => {
+            setPermissions(response.permissions)
+        })
+    }, [])
     const {data, isLoading}: any = useListController();
     const isXsmall = useMediaQuery<Theme>(theme =>
         theme.breakpoints.down('sm')
@@ -60,7 +72,7 @@ const PromotionList = () => {
                     perPage={20}
                     pagination={false}
                     component="div"
-                    actions={<ListActions/>}
+                    actions={<ListActions permissions={permissions}/>}
                     filters={postFilters()}
                     sx={{
                         '@media(max-width:900px)': {
@@ -81,8 +93,8 @@ const PromotionList = () => {
                         }
                     }}
                 >
-                    {isXsmall ? <MobilePromotionGrid/> :
-                        <DatagridConfigurable>
+                    {isXsmall ? <MobilePromotionGrid permissions={permissions}/> :
+                        <DatagridConfigurable bulkActionButtons={false}>
                             < TextField
                                 source="id"
                                 label={"Mã"}
@@ -105,7 +117,19 @@ const PromotionList = () => {
                                     <span>{record.products.length}</span>
                                 )}
                             />
-                            <EditButton/>
+                            <ArrayField label={"Hành động"} textAlign={'center'}>
+                                <div style={{
+                                    display: 'flex',
+                                    flexDirection: 'row',
+                                    justifyContent: 'space-evenly'
+                                }}>
+                                    <LinkToProducts/>
+                                    {permissions && checkPermission(permissions, "PROMOTION_UPDATE") &&
+                                        <EditButton sx={{lineHeight: '1.75 !important'}}/>}
+                                    {permissions && checkPermission(permissions, "PROMOTION_DELETE") &&
+                                        <DeleteButton mutationMode={'pessimistic'} sx={{lineHeight: '1.75 !important'}}/>}
+                                </div>
+                            </ArrayField>
                         </DatagridConfigurable>}
                 </List>
             ) :

@@ -1,15 +1,26 @@
 import {
     ArrayInput, AutocompleteInput,
-    BooleanInput, Create, DateInput,
-    Edit, ImageField, ImageInput, NullableBooleanInput, NumberInput, ReferenceInput,
+    Create, DateInput, ImageField, ImageInput, NullableBooleanInput, NumberInput, ReferenceInput,
     required, SimpleFormIterator, TabbedForm,
-    TextInput, useEditContext, useGetList,
+    TextInput, useEditContext, useGetList, useNotify,
 } from "react-admin";
 import {Grid, InputAdornment, Typography} from "@mui/material";
-import React from "react";
-import {Category, Product} from "../types";
+import React, {useEffect} from "react";
+import {Product} from "../types";
+import {authProvider} from "../authProvider";
+import {checkPermission} from "../helpers";
 
-const PromotionCreate = () => {
+const PromotionCreate = (props: any) => {
+    const notify = useNotify();
+    const fetch: any = authProvider.getPermissions(null);
+    useEffect(() => {
+        fetch.then((response: any) => {
+            if (response && !checkPermission(response.permissions, "PROMOTION_CREATE")) {
+                window.location.replace("/#/promotion");
+                notify("Permission denied", {type: 'error'});
+            }
+        })
+    }, [props]);
 
     const {record, isLoading}: any = useEditContext();
 
@@ -70,8 +81,6 @@ const PromotionCreate = () => {
                         <Grid item xs={12} sm={6}>
                             <NullableBooleanInput source="status" label="Trạng thái" defaultValue={false} fullWidth/>
                         </Grid>
-
-
                     </Grid>
                 </TabbedForm.Tab>
                 <TabbedForm.Tab

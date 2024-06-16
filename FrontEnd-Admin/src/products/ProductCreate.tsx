@@ -12,12 +12,14 @@ import {
     SelectArrayInput,
     useGetList,
     ImageInput,
-    Toolbar, SaveButton,
+    Toolbar, SaveButton, useNotify,
 } from "react-admin";
 import React, {useEffect, useState} from "react";
 import {Category, Product} from "../types";
 import {Grid, InputAdornment, Typography} from "@mui/material";
 import {ColorInput} from "react-admin-color-picker";
+import {authProvider} from "../authProvider";
+import {checkPermission} from "../helpers";
 
 
 const RichTextInput = React.lazy(() =>
@@ -31,6 +33,16 @@ const ProductTitle = () => {
     return record ? <span>{record.name}</span> : null;
 };
 export const ProductCreate = (props: any) => {
+    const notify = useNotify();
+    const fetch: any = authProvider.getPermissions(null);
+    useEffect(() => {
+        fetch.then((response: any) => {
+            if (response && !checkPermission(response.permissions, "PRODUCT_CREATE")) {
+                window.location.replace("/#/product");
+                notify("Permission denied", {type: 'error'});
+            }
+        })
+    }, [])
     const [categories, setCategories] = useState<Category[]>([]);
     const {data}: any = useGetList<Category>('category', {
         pagination: {page: 1, perPage: 100},

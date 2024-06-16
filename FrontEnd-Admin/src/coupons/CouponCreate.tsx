@@ -3,13 +3,25 @@ import {
     DateInput,
     NullableBooleanInput, NumberInput,
     required, TabbedForm,
-    TextInput
+    TextInput, useNotify
 } from "react-admin";
 import {Grid, InputAdornment} from "@mui/material";
-import React from "react";
+import React, {useEffect} from "react";
+import {authProvider} from "../authProvider";
+import {checkPermission} from "../helpers";
 
 
-const CouponCreate = () => {
+const CouponCreate = (props: any) => {
+    const notify = useNotify();
+    const fetch: any = authProvider.getPermissions(null);
+    useEffect(() => {
+        fetch.then((response: any) => {
+            if (response && !checkPermission(response.permissions, "COUPON_CREATE")) {
+                window.location.replace("/#/coupon");
+                notify("Permission denied", {type: 'error'});
+            }
+        })
+    }, [props]);
     return (
         <Create>
             <TabbedForm warnWhenUnsavedChanges>

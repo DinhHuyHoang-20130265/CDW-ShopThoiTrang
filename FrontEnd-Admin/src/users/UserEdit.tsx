@@ -12,7 +12,7 @@ import {
     BooleanInput,
     email,
     Toolbar,
-    SaveButton, ImageInput, ImageField,
+    SaveButton, ImageInput, ImageField, useNotify,
 } from 'react-admin';
 import {Grid, Box, Typography} from '@mui/material';
 
@@ -20,6 +20,8 @@ import FullNameField from './FullNameField';
 import {useCallback, useEffect, useState} from "react";
 import {checkPassword} from "./UserCreate";
 import {useWatch} from 'react-hook-form';
+import {authProvider} from "../authProvider";
+import {checkPermission} from "../helpers";
 
 export const ReturnedImg = () => {
     const isReturned = useWatch({name: 'userInfo.avtUrl'});
@@ -70,6 +72,17 @@ const ReturnedRole = (props: any) => {
 };
 
 const UserEdit = () => {
+    const notify = useNotify();
+    const fetch: any = authProvider.getPermissions(null);
+    useEffect(() => {
+        fetch.then((response: any) => {
+            if (response && !checkPermission(response.permissions, "USER_UPDATE")) {
+                window.location.replace("/#/user");
+                notify("Permission denied", {type: 'error'});
+            }
+        })
+    }, [])
+
     const [admin, setAdmin] = useState(false)
     const [password, setPassword] = useState(false)
 
@@ -253,10 +266,6 @@ const UserEdit = () => {
                                     source="enabled"
                                 />
                                 <ReturnedRole handleRoleChange={handleRoleChange} setAdmin={setAdmin}/>
-                                {/*<ReferenceInput label="Role" source="role.id" reference="role">*/}
-                                {/*    <AutocompleteInput label={"Loại tài khoản"} optionText={"name"} optionValue={"id"}*/}
-                                {/*                       onChange={handleRoleChange} allowCreate={false}/>*/}
-                                {/*</ReferenceInput>*/}
                                 <Typography variant="h6" gutterBottom>
                                     Ảnh đại diện
                                 </Typography>

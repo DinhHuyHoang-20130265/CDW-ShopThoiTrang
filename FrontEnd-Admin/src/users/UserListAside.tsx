@@ -8,6 +8,7 @@ import {
     FilterLiveSearch,
     SavedQueriesList,
 } from 'react-admin';
+import DeleteIcon from "@mui/icons-material/Delete";
 
 const UserListAside = () => (
     <Card
@@ -58,7 +59,20 @@ const UserListAside = () => (
                     value={{status: true}}
                 />
             </FilterList>
+            <FilterList
+                label="Đã bị xoá"
+                icon={<DeleteIcon/>}
+            >
+                <FilterListItem
+                    label="Đã xoá"
+                    value={{deleted: true}}
+                />
+                <FilterListItem
+                    label="Chưa xoá"
+                    value={{deleted: false}}
+                />
 
+            </FilterList>
         </CardContent>
     </Card>
 );

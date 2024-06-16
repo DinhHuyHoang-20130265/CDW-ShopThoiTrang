@@ -4,12 +4,13 @@ import {
     DateField,
     EditButton,
     RecordContextProvider,
-    useListContext, TextField, SelectField, BooleanField
+    useListContext, BooleanField, DeleteButton
 } from 'react-admin';
 
 import {Category} from '../types';
+import {checkPermission} from "../helpers";
 
-const MobileCategoryGrid = () => {
+const MobileCategoryGrid = ({permissions}: any) => {
     const {data, isLoading} = useListContext<Category>();
 
     if (isLoading || data.length === 0) {
@@ -30,7 +31,17 @@ const MobileCategoryGrid = () => {
                                     </Typography>
                                 </>
                             }
-                            action={<EditButton/>}
+                            action={<div style={{
+                                display: 'flex',
+                                justifyContent: 'space-evenly',
+                                alignItems: 'center',
+                                width: '100%'
+                            }}>
+                                {permissions && checkPermission(permissions, "CATEGORY_UPDATE") &&
+                                    <EditButton/>}
+                                {permissions && checkPermission(permissions, "CATEGORY_DELETE") &&
+                                    <DeleteButton mutationMode={'pessimistic'}/>}
+                            </div>}
                         />
                         <CardContent sx={{pt: 0}}>
                             <Typography variant="body2" color="textSecondary" component="p">

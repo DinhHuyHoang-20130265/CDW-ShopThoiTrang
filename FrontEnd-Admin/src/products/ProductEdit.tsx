@@ -6,20 +6,16 @@ import {
     useRecordContext,
     required,
     ImageInput,
-    SimpleFormIterator, ArrayInput, NumberField, NullableBooleanInput,
+    SimpleFormIterator, ArrayInput, NumberField, NullableBooleanInput, useNotify, SaveButton, TopToolbar, DeleteButton,
 } from "react-admin";
-import React from "react";
+import React, {useEffect} from "react";
 import {Product} from "../types";
 import {ProductEditDetails} from "./ProductEditDetails";
 import {Grid, Typography} from "@mui/material";
 import {useWatch} from "react-hook-form";
 import {ColorInput} from "react-admin-color-picker";
-
-const RichTextInput = React.lazy(() =>
-    import('ra-input-rich-text').then(module => ({
-        default: module.RichTextInput,
-    }))
-);
+import {authProvider} from "../authProvider";
+import {checkPermission} from "../helpers";
 
 const ProductTitle = () => {
     const record = useRecordContext<Product>();
@@ -72,9 +68,26 @@ const ReturnedImg = () => {
 };
 
 export const ProductEdit = (props: any) => {
+    const notify = useNotify();
+    const [permissions, setPermissions] = React.useState<any>(null)
+    const fetch: any = authProvider.getPermissions(null);
+    useEffect(() => {
+        fetch.then((response: any) => {
+            if (response && !checkPermission(response.permissions, "PRODUCT_UPDATE")) {
+                window.location.replace("/#/product");
+                notify("Permission denied", {type: 'error'});
+            } else
+                setPermissions(response.permissions)
+        })
+    }, [props]);
+
     return (
         <Edit title={<ProductTitle/>} hasShow={false}>
-            <TabbedForm>
+            <TabbedForm toolbar={<TopToolbar sx={{justifyContent: 'space-between'}}>
+                <SaveButton/>
+                {permissions && checkPermission(permissions, "PRODUCT_DELETE") &&
+                    <DeleteButton mutationMode={'pessimistic'}/>}
+            </TopToolbar>}>
                 <TabbedForm.Tab
                     label="Ảnh"
                     sx={{maxWidth: '40em'}}

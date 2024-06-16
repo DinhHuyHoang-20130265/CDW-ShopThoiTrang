@@ -12,7 +12,7 @@ import {Category, Product} from '../types';
 import LockIcon from "@mui/icons-material/Lock";
 import CategoryIcon from '@mui/icons-material/CategoryRounded';
 import AttachMoneyRoundedIcon from '@mui/icons-material/AttachMoneyRounded';
-
+import DeleteIcon from '@mui/icons-material/Delete';
 
 const Aside = () => {
     const {data} = useGetList<Category>('category', {
@@ -57,10 +57,23 @@ const Aside = () => {
                     />
 
                 </FilterList>
+                <FilterList
+                    label="Đã bị xoá"
+                    icon={<DeleteIcon/>}
+                >
+                    <FilterListItem
+                        label="Đã xoá"
+                        value={{deleted: true}}
+                    />
+                    <FilterListItem
+                        label="Chưa xoá"
+                        value={{deleted: false}}
+                    />
 
+                </FilterList>
                 <FilterList
                     label="Giá"
-                    icon={<AttachMoneyRoundedIcon />}
+                    icon={<AttachMoneyRoundedIcon/>}
                 >
                     <FilterListItem
                         label="0 - 99.000"
@@ -88,7 +101,7 @@ const Aside = () => {
 
                 <FilterList
                     label="Danh mục"
-                    icon={<CategoryIcon />}
+                    icon={<CategoryIcon/>}
                 >
                     {data &&
                         data.map((record: any) => (

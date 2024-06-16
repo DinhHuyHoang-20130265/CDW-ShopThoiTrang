@@ -108,8 +108,7 @@ public class UserController {
     @PreAuthorize("(hasAuthority('ROLE_ADMIN') and hasAuthority('USER_UPDATE')) or @securityService.isSuperAdmin()")
     @PutMapping("/deleted/{id}")
     public ResponseEntity<?> restoreUser(@PathVariable Long id) {
-        userService.restoreUser(id, request);
-        return ResponseEntity.ok("Restored");
+        return ResponseEntity.ok(userService.restoreUser(id, request));
     }
 
     @PreAuthorize("@securityService.isUser()")

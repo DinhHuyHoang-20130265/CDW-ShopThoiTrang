@@ -4,15 +4,15 @@ import {
     DateField,
     EditButton,
     RecordContextProvider,
-    useListContext, TextField, ImageField, FunctionField, ChipField, NumberField
+    useListContext, TextField, NumberField
 } from 'react-admin';
 
 import {Order} from '../types';
 import {useEffect, useState} from "react";
 import axios from "axios";
-import listItem from "./ListItem";
+import {checkPermission} from "../helpers";
 
-const OrderMobileGrid = () => {
+const OrderMobileGrid = ({permissions}: any) => {
     const {data, isLoading} = useListContext<Order>();
     const [statusList, setStatusList] = useState([]);
 
@@ -61,7 +61,7 @@ const OrderMobileGrid = () => {
                                         Trạng thái: <Chip label={record.status.name} color={colors[record.status.id]}/>
                                     </Typography>
                                 </div>}
-                            action={<EditButton/>}
+                            action={permissions && checkPermission(permissions, "ORDER_UPDATE") ? <EditButton/> : false}
                         />
                         <CardContent
                             sx={{pt: 0, display: "flex", flexDirection: 'column', justifyContent: "center"}}>

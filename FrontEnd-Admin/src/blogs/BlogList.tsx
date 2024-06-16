@@ -11,19 +11,21 @@ import {
     List,
     Pagination,
     SelectColumnsButton,
-    ShowButton,
     TextField,
     TextInput,
     TopToolbar,
 } from 'react-admin';
 import {Theme, useMediaQuery} from "@mui/material";
 import MobileBlogGrid from "./MobileBlogGrid";
+import {authProvider} from "../authProvider";
+import {useEffect} from "react";
+import {checkPermission} from "../helpers";
 
-const ListActions = () => (
+const ListActions = (props: any) => (
     <TopToolbar>
         <SelectColumnsButton/>
         <FilterButton/>
-        <CreateButton/>
+        {props.permissions && checkPermission(props.permissions, "BLOG_CREATE") && <CreateButton/>}
         <ExportButton label={"Xuất File"}/>
     </TopToolbar>
 );
@@ -33,6 +35,13 @@ const postFilters = [
 ];
 
 const BlogList = () => {
+    const [permissions, setPermissions] = React.useState<any>(null)
+    const fetch: any = authProvider.getPermissions(null);
+    useEffect(() => {
+        fetch.then((response: any) => {
+            setPermissions(response.permissions)
+        })
+    }, [])
     const isXsmall = useMediaQuery<Theme>(theme =>
         theme.breakpoints.down('sm')
     );
@@ -44,7 +53,7 @@ const BlogList = () => {
             perPage={10}
             pagination={false}
             component="div"
-            actions={<ListActions/>}
+            actions={<ListActions permissions={permissions}/>}
             filters={postFilters}
             sx={{
                 '@media(max-width:900px)': {
@@ -65,7 +74,7 @@ const BlogList = () => {
                 }
             }}
         >
-            {isSmall ? <MobileBlogGrid/> :
+            {isSmall ? <MobileBlogGrid permissions={permissions}/> :
                 <DatagridConfigurable>
                     <TextField source="id" label="ID"/>
                     <ImageField source="thumbnail" label="Ảnh"/>
@@ -80,8 +89,7 @@ const BlogList = () => {
                             flexDirection: 'row',
                             justifyContent: 'space-evenly'
                         }}>
-                            <EditButton label={"Sửa"}/>
-                            <ShowButton label={"Xem"}/>
+                            {permissions && checkPermission(permissions, "BLOG_UPDATE") && <EditButton label={"Sửa"}/>}
                         </div>
                     </ArrayField>
                 </DatagridConfigurable>

@@ -1,14 +1,14 @@
 import * as React from 'react';
 import {
-    ArrayField, BulkDeleteButton, BulkUpdateButton, Button,
+    ArrayField, Button,
     CreateButton,
     DatagridConfigurable,
     DateField, DeleteButton,
     EditButton,
-    ExportButton, FilterList, FilterListItem, FilterLiveSearch,
+    ExportButton, FilterList, FilterListItem, FilterLiveSearch, FunctionField,
     List, SavedQueriesList,
     SelectColumnsButton, TextField,
-    TopToolbar, usePermissions
+    TopToolbar, UpdateButton
 } from 'react-admin';
 import {useMediaQuery, Theme, Dialog, DialogContent, DialogTitle, DialogActions} from '@mui/material';
 import UserListAside from "./UserListAside";
@@ -22,6 +22,8 @@ import DoneOutlineIcon from '@mui/icons-material/DoneOutline';
 import CancelIcon from '@mui/icons-material/Cancel';
 import {useEffect} from "react";
 import {authProvider} from "../authProvider";
+import RestoreIcon from '@mui/icons-material/Restore';
+import {checkPermission} from "../helpers";
 
 const BootstrapDialog = styled(Dialog)(({theme}: any) => ({
     '& .MuiDialogContent-root': {
@@ -123,7 +125,7 @@ function CustomDialog() {
 
 const UserListActions = (props: any) => (
     <TopToolbar>
-        <CreateButton/>
+        {props.permissions && checkPermission(props.permissions, "USER_CREATE") && <CreateButton/>}
         {props.isSmall && <CustomDialog/>}
         <SelectColumnsButton/>
         <ExportButton/>
@@ -137,7 +139,6 @@ const UserList = () => {
         fetch.then((response: any) => {
             setPermissions(response.permissions)
         })
-        console.log(permissions)
     }, [])
     const isXsmall = useMediaQuery<Theme>(theme =>
         theme.breakpoints.down('sm')
@@ -148,11 +149,11 @@ const UserList = () => {
             sort={{field: 'createdDate', order: 'DESC'}}
             perPage={25}
             aside={<UserListAside/>}
-            actions={<UserListActions isSmall={isSmall}/>}
+            actions={<UserListActions permissions={permissions} isSmall={isSmall}/>}
             sx={{height: '100%'}}
         >
             {isXsmall ? (
-                <MobileGrid/>
+                <MobileGrid permissions={permissions}/>
             ) : (
                 <DatagridConfigurable
                     sx={{
@@ -169,10 +170,33 @@ const UserList = () => {
                     />
                     <TextField source="username" label="Tên đăng nhập"/>
                     <DateField source="createdDate" label={"Ngày tạo"}/>
-                    <ArrayField label={"Tuỳ chọn"}>
-                        {permissions && permissions.indexOf("USER_EDIT") > -1 && <EditButton/>}
-                        {permissions && permissions.indexOf("USER_DELETE") > -1 && <DeleteButton/>}
-                    </ArrayField>
+                    <FunctionField render={
+                        (record: any) => {
+                            return (<ArrayField label={"Tuỳ chọn"}>
+                                <div style={{
+                                    display: 'flex',
+                                    justifyContent: 'space-evenly',
+                                    alignItems: 'center',
+                                    width: '100%'
+                                }}>
+                                    {permissions && checkPermission(permissions, "USER_UPDATE") &&
+                                        <EditButton/>}
+                                    {permissions && checkPermission(permissions, "USER_DELETE") && !record.deleted &&
+                                        <DeleteButton mutationMode={'pessimistic'}/>}
+                                    {permissions && checkPermission(permissions, "USER_UPDATE") && record.deleted &&
+                                        <UpdateButton resource={'user/deleted'} label="Restore"
+                                                      data={{deleted: false}}
+                                                      sx={{
+                                                          color: 'green',
+                                                          borderColor: 'green',
+                                                      }}>
+                                            <RestoreIcon/>
+                                        </UpdateButton>}
+                                </div>
+                            </ArrayField>)
+                        }
+                    }
+                    />
                 </DatagridConfigurable>
             )}
         </List>

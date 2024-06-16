@@ -133,6 +133,9 @@ public class ProductServiceImpl implements ProductService {
                 if (filterJson.has("status")) {
                     predicate = criteriaBuilder.and(predicate, criteriaBuilder.equal(root.get("status"), filterJson.get("status").asBoolean()));
                 }
+                if (filterJson.has("deleted")) {
+                    predicate = criteriaBuilder.and(predicate, criteriaBuilder.equal(root.get("deleted"), filterJson.get("deleted").asBoolean()));
+                }
                 if (filterJson.has("categoryId")) {
                     Join<Product, Category> categoryJoin = root.join("categories");
                     predicate = criteriaBuilder.and(predicate, criteriaBuilder.equal(categoryJoin.get("id"), filterJson.get("categoryId").asLong()));
@@ -178,7 +181,8 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public void restoreProduct(Long id, HttpServletRequest request) {
+    @Transactional
+    public Product restoreProduct(Long id, HttpServletRequest request) {
         try {
             Product product = productRepository.findById(id).orElse(null);
             String jwt = jwtUtils.getJwtFromCookies(request, "shop2h_admin");
@@ -187,13 +191,14 @@ public class ProductServiceImpl implements ProductService {
                 product.setDeleted(false);
                 product.setUpdateDate(new Date(System.currentTimeMillis()));
                 product.setUpdateBy(userRepository.findByUsername(username).orElse(null));
-                productRepository.save(product);
                 Log.info(username + "restored product: " + product.getName());
+                return productRepository.save(product);
             }
         } catch (Exception e) {
             Log.error("Error restore product", e);
             throw new RuntimeException(e);
         }
+        return null;
     }
 
     @Override

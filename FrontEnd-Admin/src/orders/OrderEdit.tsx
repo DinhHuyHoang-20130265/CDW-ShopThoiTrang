@@ -6,7 +6,7 @@ import {
     Form,
     Labeled,
     PrevNextButtons,
-    SelectInput,
+    SelectInput, Show,
     TextField,
     Toolbar, useNotify,
     useRecordContext,
@@ -14,28 +14,33 @@ import {
 import {Link as RouterLink} from 'react-router-dom';
 import {Card, CardContent, Box, Grid, Typography, Link, Button} from '@mui/material';
 
-import {Order, Customer} from '../types';
+import {Order} from '../types';
 import ListItem from "./ListItem";
 import Total from "./Total";
 import {useEffect, useState} from "react";
 import axios from "axios";
+import {authProvider} from "../authProvider";
+import {checkPermission} from "../helpers";
 
-const OrderEdit = () => (
-    <Edit component="div">
-        <OrderForm/>
-    </Edit>
-);
-
-// const OrderTitle = () => {
-//     const record = useRecordContext<Order>();
-//     return record ? (
-//         <span>
-//             {translate('resources.commands.title', {
-//                 reference: record.reference,
-//             })}
-//         </span>
-//     ) : null;
-// };
+const OrderEdit = () => {
+    const notify = useNotify();
+    const [permissions, setPermissions] = useState([]);
+    const fetch: any = authProvider.getPermissions(null);
+    useEffect(() => {
+        fetch.then((response: any) => {
+            if (response && !checkPermission(response.permissions, "ORDER_UPDATE")) {
+                window.location.replace("/#/order");
+                notify("Permission denied", {type: 'error'});
+            } else {
+                setPermissions(response.permissions)
+            }
+        })
+    }, [])
+    return (
+        <Edit component="div">
+            <OrderForm/>
+        </Edit>)
+};
 
 const CustomerDetails = () => {
     const record = useRecordContext();

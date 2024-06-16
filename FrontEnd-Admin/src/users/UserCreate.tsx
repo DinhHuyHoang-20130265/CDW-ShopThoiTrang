@@ -10,10 +10,12 @@ import {
     AutocompleteInput,
     ArrayInput,
     SimpleFormIterator,
-    Toolbar, SaveButton, ImageInput, ImageField,
+    Toolbar, SaveButton, ImageInput, ImageField, useNotify,
 } from 'react-admin';
 import {Box, Grid, Typography} from '@mui/material';
-import {useState} from "react";
+import {useEffect, useState} from "react";
+import {authProvider} from "../authProvider";
+import {checkPermission} from "../helpers";
 
 
 export const checkPassword = (password: string) => {
@@ -75,6 +77,16 @@ const validateForm = (values: Record<any, any>): Record<any, any> => {
 }
 
 const UserCreate = () => {
+    const notify = useNotify();
+    const fetch: any = authProvider.getPermissions(null);
+    useEffect(() => {
+        fetch.then((response: any) => {
+            if (response && !checkPermission(response.permissions, "USER_CREATE")) {
+                window.location.replace("/#/user");
+                notify("Permission denied", {type: 'error'});
+            }
+        })
+    }, [])
 
     const [admin, setAdmin] = useState(true)
 

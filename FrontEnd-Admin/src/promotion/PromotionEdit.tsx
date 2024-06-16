@@ -3,12 +3,14 @@ import {
     BooleanInput, DateInput, DeleteButton,
     Edit, ImageField, ImageInput, NullableBooleanInput, NumberInput, ReferenceInput,
     required, SaveButton, SimpleFormIterator, TabbedForm,
-    TextInput, Toolbar, useEditContext, useGetList,
+    TextInput, Toolbar, useEditContext, useGetList, useNotify,
 } from "react-admin";
 import {Grid, InputAdornment, Typography} from "@mui/material";
-import React from "react";
+import React, {useEffect} from "react";
 import {Category, Product} from "../types";
 import {useWatch} from "react-hook-form";
+import {checkPermission} from "../helpers";
+import {authProvider} from "../authProvider";
 
 
 export const ReturnedImg = () => {
@@ -44,8 +46,19 @@ export const ReturnedImg = () => {
         </ImageInput>;
 };
 
-const PromotionEdit = () => {
-
+const PromotionEdit = (props: any) => {
+    const notify = useNotify();
+    const [permissions, setPermissions] = React.useState<any>(null)
+    const fetch: any = authProvider.getPermissions(null);
+    useEffect(() => {
+        fetch.then((response: any) => {
+            if (response && !checkPermission(response.permissions, "PROMOTION_UPDATE")) {
+                window.location.replace("/#/promotion");
+                notify("Permission denied", {type: 'error'});
+            } else
+                setPermissions(response.permissions)
+        })
+    }, [props]);
     const {record, isLoading}: any = useEditContext();
     console.log(record);
 
@@ -57,12 +70,12 @@ const PromotionEdit = () => {
     if (isLoading) return null;
     return (
         <Edit>
-            <TabbedForm warnWhenUnsavedChanges toolbar={
-                <Toolbar sx={{display: 'flex', justifyContent: 'space-between'}}>
-                    <SaveButton/>
-                    <DeleteButton mutationMode="pessimistic"/>
-                </Toolbar>
-            }>
+            <TabbedForm warnWhenUnsavedChanges
+                        toolbar={<Toolbar sx={{display: 'flex', justifyContent: 'space-between'}}>
+                            <SaveButton/>
+                            {permissions && checkPermission(permissions, "PROMOTION_DELETE") &&
+                                <DeleteButton mutationMode="pessimistic"/>}
+                        </Toolbar>}>
                 <TabbedForm.Tab
                     label="Thông tin khuyến mãi"
                     sx={{maxWidth: '40em'}}

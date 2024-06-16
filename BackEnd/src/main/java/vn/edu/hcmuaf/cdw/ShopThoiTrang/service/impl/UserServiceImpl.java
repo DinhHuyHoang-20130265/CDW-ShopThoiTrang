@@ -149,6 +149,11 @@ public class UserServiceImpl implements UserService {
                     predicate = criteriaBuilder.and(predicate, criteriaBuilder.equal(root.get("enabled"), accountStatus));
                 }
 
+                if (filterJson.has("deleted")) {
+                    boolean accountStatus = filterJson.get("deleted").asBoolean();
+                    predicate = criteriaBuilder.and(predicate, criteriaBuilder.equal(root.get("deleted"), accountStatus));
+                }
+
                 if (filterJson.has("q")) {
                     String searchString = filterJson.get("q").asText();
                     Join<User, UserInfo> userInfoJoin = root.join("userInfo");
@@ -397,14 +402,14 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public void restoreUser(Long id, HttpServletRequest request) {
+    public User restoreUser(Long id, HttpServletRequest request) {
         try {
             String jwt = jwtUtils.getJwtFromCookies(request, "shop2h_admin");
             String username = jwtUtils.getUserNameFromJwtToken(jwt);
             User user = userRepository.findById(id).orElseThrow(() -> new RuntimeException("User not found"));
             user.setDeleted(false);
-            userRepository.save(user);
             Log.info("User " + username + " restored user " + user.getUsername());
+            return userRepository.save(user);
         } catch (RuntimeException e) {
             Log.error("Error in restoreUser: ", e);
             throw new RuntimeException(e);

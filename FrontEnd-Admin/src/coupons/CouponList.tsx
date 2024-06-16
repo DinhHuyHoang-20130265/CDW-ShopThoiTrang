@@ -1,26 +1,31 @@
 import * as React from 'react';
 import {
+    ArrayField,
     BooleanField,
     CreateButton,
     DatagridConfigurable,
-    DateField,
+    DateField, DeleteButton,
     EditButton,
     ExportButton,
     FilterButton, FunctionField,
-    List, NullableBooleanInput, NumberField, RaThemeOptions,
+    List, NullableBooleanInput, NumberField,
     SelectColumnsButton,
     TextField,
-    TextInput, ThemeSetter, ThemeType,
-    TopToolbar, useListController, useTheme,
+    TextInput,
+    TopToolbar, useListController,
 } from 'react-admin';
 import {Theme, useMediaQuery} from "@mui/material";
 import MobileCouponGrid from "./MobileCouponGrid";
+import {authProvider} from "../authProvider";
+import {useEffect} from "react";
+import {checkPermission} from "../helpers";
+import LinkToProducts from "../categories/LinkToProducts";
 
-const ListActions = () => (
+const ListActions = ({permissions}: any) => (
     <TopToolbar>
         <SelectColumnsButton/>
         <FilterButton/>
-        <CreateButton/>
+        {permissions && checkPermission(permissions, "COUPON_CREATE") && <CreateButton/>}
         <ExportButton label={"Xuất File"}/>
     </TopToolbar>
 );
@@ -32,6 +37,13 @@ const postFilters = () => [
 ];
 
 const CouponList = () => {
+    const [permissions, setPermissions] = React.useState<any>(null)
+    const fetch: any = authProvider.getPermissions(null);
+    useEffect(() => {
+        fetch.then((response: any) => {
+            setPermissions(response.permissions)
+        })
+    }, [])
     const {data, isLoading}: any = useListController();
     const isXsmall = useMediaQuery<Theme>(theme =>
         theme.breakpoints.down('sm')
@@ -46,7 +58,7 @@ const CouponList = () => {
             perPage={20}
             pagination={false}
             component="div"
-            actions={<ListActions/>}
+            actions={<ListActions permissions={permissions}/>}
             filters={postFilters()}
             sx={{
                 '@media(max-width:900px)': {
@@ -67,8 +79,8 @@ const CouponList = () => {
                 }
             }}
         >
-            {isSmall ? <MobileCouponGrid/> :
-                <DatagridConfigurable empty={<div>Hiện không có mã giảm giá nào</div>}>
+            {isSmall ? <MobileCouponGrid permissions={permissions}/> :
+                <DatagridConfigurable empty={<div>Hiện không có mã giảm giá nào</div>} bulkActionButtons={false}>
                     < TextField
                         source="id"
                         label={"Mã"}
@@ -85,7 +97,18 @@ const CouponList = () => {
                             <span>{record.quantity}</span>
                         )}
                     />
-                    <EditButton/>
+                    <ArrayField label={"Hành động"} textAlign={'center'}>
+                        <div style={{
+                            display: 'flex',
+                            flexDirection: 'row',
+                            justifyContent: 'space-evenly'
+                        }}>
+                            {permissions && checkPermission(permissions, "COUPON_UPDATE") &&
+                                <EditButton sx={{lineHeight: '1.75 !important'}}/>}
+                            {permissions && checkPermission(permissions, "COUPON_DELETE") &&
+                                <DeleteButton mutationMode={'pessimistic'} sx={{lineHeight: '1.75 !important'}}/>}
+                        </div>
+                    </ArrayField>
                 </DatagridConfigurable>}
         </List>
     )

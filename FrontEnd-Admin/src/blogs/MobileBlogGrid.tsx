@@ -4,12 +4,13 @@ import {
     DateField,
     EditButton,
     RecordContextProvider,
-    useListContext, TextField, BooleanField, ImageField
+    useListContext, TextField, BooleanField, ImageField, DeleteButton, UpdateButton
 } from 'react-admin';
 
 import {Blog} from '../types';
+import {checkPermission} from "../helpers";
 
-const MobileBlogGrid = () => {
+const MobileBlogGrid = ({permissions}: any) => {
     const {data, isLoading} = useListContext<Blog>();
 
     if (isLoading || data.length === 0) {
@@ -28,7 +29,17 @@ const MobileBlogGrid = () => {
                                     Ngày đăng: <DateField source="createDate" label={"Ngày tạo"}/>
                                 </Typography>
                             }
-                            action={<EditButton/>}
+                            action={<div style={{
+                                display: 'flex',
+                                justifyContent: 'space-evenly',
+                                alignItems: 'center',
+                                width: '100%'
+                            }}>
+                                {permissions && checkPermission(permissions, "BLOG_UPDATE") &&
+                                    <EditButton/>}
+                                {permissions && checkPermission(permissions, "BLOG_DELETE") &&
+                                    <DeleteButton mutationMode={'pessimistic'}/>}
+                            </div>}
                         />
                         <CardContent sx={{pt: 0, display: "flex", alignItems: "center", flexDirection: 'row'}}>
                             <ImageField className={"cent"} source="thumbnail" label="Ảnh"/>

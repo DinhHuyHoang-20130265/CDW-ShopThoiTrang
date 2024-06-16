@@ -4,12 +4,13 @@ import {
     DateField,
     EditButton,
     RecordContextProvider,
-    useListContext, TextField, ImageField, FunctionField, ChipField, NumberField
+    useListContext, TextField, ImageField, FunctionField, ChipField, NumberField, DeleteButton
 } from 'react-admin';
 
 import {Coupon} from '../types';
+import {checkPermission} from "../helpers";
 
-const MobileCouponGrid = () => {
+const MobileCouponGrid = ({permissions}: any) => {
     const {data, isLoading} = useListContext<Coupon>();
 
     return (
@@ -26,7 +27,17 @@ const MobileCouponGrid = () => {
                                     </Typography>
                                 </div>
                             }
-                            action={<EditButton/>}
+                            action={<div style={{
+                                display: 'flex',
+                                justifyContent: 'space-evenly',
+                                alignItems: 'center',
+                                width: '100%'
+                            }}>
+                                {permissions && checkPermission(permissions, "COUPON_UPDATE") &&
+                                    <EditButton/>}
+                                {permissions && checkPermission(permissions, "COUPON_DELETE") &&
+                                    <DeleteButton mutationMode={'pessimistic'}/>}
+                            </div>}
                         />
                         <CardContent sx={{pt: 0, display: "flex", alignItems: "center", float: "inline-start"}}>
                             <div style={{display: 'flex', flexDirection: 'column'}}>

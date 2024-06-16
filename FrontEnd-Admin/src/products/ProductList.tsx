@@ -13,7 +13,7 @@ import {
     useRecordContext,
     WrapperField,
     ArrayField,
-    Button, FilterLiveSearch, SavedQueriesList, FilterList, FilterListItem, useGetList,
+    Button, FilterLiveSearch, SavedQueriesList, FilterList, FilterListItem, useGetList, DeleteButton, UpdateButton,
 } from 'react-admin';
 
 import {
@@ -33,6 +33,11 @@ import CategoryIcon from "@mui/icons-material/CategoryRounded";
 import {Category} from "../types";
 import DoneOutlineIcon from "@mui/icons-material/DoneOutline";
 import CancelIcon from "@mui/icons-material/Cancel";
+import {checkPermission} from "../helpers";
+import {authProvider} from "../authProvider";
+import {useEffect} from "react";
+import RestoreIcon from "@mui/icons-material/Restore";
+import DeleteIcon from "@mui/icons-material/Delete";
 
 const BootstrapDialog = styled(Dialog)(({theme}: any) => ({
     '& .MuiDialogContent-root': {
@@ -95,7 +100,20 @@ function CustomDialog() {
                         />
 
                     </FilterList>
+                    <FilterList
+                        label="Đã bị xoá"
+                        icon={<DeleteIcon/>}
+                    >
+                        <FilterListItem
+                            label="Đã xoá"
+                            value={{deleted: true}}
+                        />
+                        <FilterListItem
+                            label="Chưa xoá"
+                            value={{deleted: false}}
+                        />
 
+                    </FilterList>
                     <FilterList
                         label="Giá"
                         icon={<AttachMoneyRoundedIcon/>}
@@ -153,7 +171,7 @@ function CustomDialog() {
 
 const ProductListActions = (props: any) => (
     <TopToolbar>
-        <CreateButton label="Tạo sản phẩm"/>
+        {props.permissions && checkPermission(props.permissions, "PRODUCT_CREATE") && <CreateButton/>}
         {props.isSmall && <CustomDialog/>}
         <SelectColumnsButton/>
         <ExportButton/>
@@ -161,6 +179,13 @@ const ProductListActions = (props: any) => (
 );
 
 const ProductList = () => {
+    const [permissions, setPermissions] = React.useState<any>(null)
+    const fetch: any = authProvider.getPermissions(null);
+    useEffect(() => {
+        fetch.then((response: any) => {
+            setPermissions(response.permissions)
+        })
+    }, []);
     const isXsmall = useMediaQuery<Theme>(theme =>
         theme.breakpoints.down('sm')
     );
@@ -203,10 +228,10 @@ const ProductList = () => {
             sort={{field: 'name', order: 'DESC'}}
             perPage={25}
             aside={<Aside/>}
-            actions={<ProductListActions isSmall={isSmall}/>}
+            actions={<ProductListActions permissions={permissions} isSmall={isSmall}/>}
         >
             {isXsmall ? (
-                <MobileProductGrid/>
+                <MobileProductGrid permissions={permissions}/>
             ) : (
                 <DatagridConfigurable
                     rowClick="show"
@@ -234,9 +259,32 @@ const ProductList = () => {
                         sortable
                     />
 
-                    <ArrayField label="Hành động">
-                        <EditButton/>
-                    </ArrayField>
+                    <FunctionField render={
+                        (record: any) => {
+                            return (<ArrayField label={"Tuỳ chọn"}>
+                                <div style={{
+                                    display: 'flex',
+                                    justifyContent: 'space-evenly',
+                                    alignItems: 'center',
+                                    width: '100%'
+                                }}>
+                                    {permissions && checkPermission(permissions, "PRODUCT_UPDATE") &&
+                                        <EditButton/>}
+                                    {permissions && checkPermission(permissions, "PRODUCT_DELETE") && !record.deleted &&
+                                        <DeleteButton mutationMode={'pessimistic'}/>}
+                                    {permissions && checkPermission(permissions, "PRODUCT_UPDATE") && record.deleted &&
+                                        <UpdateButton resource={'product/deleted'} label="Restore"
+                                                      data={{deleted: false}}
+                                                      sx={{
+                                                          color: 'green',
+                                                          borderColor: 'green',
+                                                      }}>
+                                            <RestoreIcon/>
+                                        </UpdateButton>}
+                                </div>
+                            </ArrayField>)
+                        }
+                    }/>
                 </DatagridConfigurable>
             )}
         </List>

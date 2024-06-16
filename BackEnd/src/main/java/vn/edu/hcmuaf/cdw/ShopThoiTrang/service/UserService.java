@@ -33,5 +33,5 @@ public interface UserService {
 
     List<User> getAllUsers(String ids);
 
-    void restoreUser(Long id, HttpServletRequest request);
+    User restoreUser(Long id, HttpServletRequest request);
 }

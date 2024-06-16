@@ -3,10 +3,12 @@ import {
     SimpleForm,
     TextInput,
     DateField,
-    required, BooleanInput, ImageInput, ImageField, SaveButton, DeleteButton, TopToolbar, Toolbar
+    required, BooleanInput, ImageInput, ImageField, SaveButton, DeleteButton, TopToolbar, Toolbar, useNotify
 } from 'react-admin';
-import React from "react";
+import React, {useEffect} from "react";
 import {useWatch} from "react-hook-form";
+import {authProvider} from "../authProvider";
+import {checkPermission} from "../helpers";
 
 export const ReturnedImg = () => {
     const isReturned = useWatch({name: 'thumbnail'});
@@ -46,16 +48,28 @@ const RichTextInput = React.lazy(() =>
         default: module.RichTextInput,
     }))
 );
-export const BlogEdit = () => {
+export const BlogEdit = (props: any) => {
+    const notify = useNotify();
+    const [permissions, setPermissions] = React.useState<any>(null)
+    const fetch: any = authProvider.getPermissions(null);
+    useEffect(() => {
+        fetch.then((response: any) => {
+            if (response && !checkPermission(response.permissions, "BLOG_UPDATE")) {
+                window.location.replace("/#/blog");
+                notify("Permission denied", {type: 'error'});
+            } else
+                setPermissions(response.permissions)
+        })
+    }, [props]);
     return (
         <Edit>
             <SimpleForm sx={{bgcolor: 'white', p: 2, borderRadius: 1}}
                         toolbar={<Toolbar sx={{display: 'flex', justifyContent: 'space-between'}}>
                             <SaveButton/>
-                            <DeleteButton mutationMode="pessimistic"/>
-                        </Toolbar>
-                        }>
-                <TextInput disabled label="Id" source="id"/>
+                            {permissions && checkPermission(permissions, "BLOG_DELETE") &&
+                                <DeleteButton mutationMode="pessimistic"/>}
+                        </Toolbar>}>
+                <TextInput label="Id" source="id" contentEditable={false}/>
                 <ReturnedImg/>
                 <TextInput source="title" label="Tên bài viết" validate={required()} sx={{mb: 1}}/>
                 <TextInput source="description" label="Mô tả ngắn" multiline validate={required()} sx={{mb: 1}}

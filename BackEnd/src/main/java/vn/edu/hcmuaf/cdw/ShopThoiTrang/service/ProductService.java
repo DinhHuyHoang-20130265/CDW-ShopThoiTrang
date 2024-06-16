@@ -22,7 +22,7 @@ public interface ProductService {
 
     void deleteProduct(Long id, HttpServletRequest request);
 
-    void restoreProduct(Long id, HttpServletRequest request);
+    Product restoreProduct(Long id, HttpServletRequest request);
 
     ResponseEntity<?> saveProduct(Product product, HttpServletRequest request);
 

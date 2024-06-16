@@ -4,7 +4,7 @@ import {
     BooleanField,
     CreateButton,
     DatagridConfigurable,
-    DateField,
+    DateField, DeleteButton,
     EditButton,
     ExportButton,
     FilterButton,
@@ -20,11 +20,13 @@ import {Category} from "../types";
 import LinkToProducts from "./LinkToProducts";
 import {Theme, useMediaQuery} from "@mui/material";
 import MobileCategoryGrid from "./MobileCategoryGrid";
+import {authProvider} from "../authProvider";
+import {checkPermission} from "../helpers";
 
-const ListActions = () => (
+const ListActions = ({permissions}: any) => (
     <TopToolbar>
         <SelectColumnsButton/>
-        <CreateButton/>
+        {permissions && checkPermission(permissions, "CATEGORY_CREATE") && <CreateButton/>}
         <ExportButton label={"Xuất File"}/>
     </TopToolbar>
 );
@@ -34,6 +36,13 @@ const postFilters = (cate: any) => [
 ];
 
 const CategoryList = () => {
+    const [permissions, setPermissions] = React.useState<any>(null)
+    const fetch: any = authProvider.getPermissions(null);
+    useEffect(() => {
+        fetch.then((response: any) => {
+            setPermissions(response.permissions)
+        })
+    }, [])
     const [categories, setCategories] = useState<Category[]>([]);
     const {data}: any = useGetList<Category>('category', {
         pagination: {page: 1, perPage: 100},
@@ -55,7 +64,7 @@ const CategoryList = () => {
             perPage={20}
             pagination={false}
             component="div"
-            actions={<ListActions/>}
+            actions={<ListActions permissions={permissions}/>}
             filters={postFilters(categories)}
             sx={{
                 '@media(max-width:900px)': {
@@ -76,7 +85,7 @@ const CategoryList = () => {
                 }
             }}
         >
-            {isXsmall ? <MobileCategoryGrid/> :
+            {isXsmall ? <MobileCategoryGrid permissions={permissions}/> :
                 <DatagridConfigurable>
                     <TextField source="id" label={"Id"}/>
                     <TextField source="name" label={"Tên"}/>
@@ -90,7 +99,10 @@ const CategoryList = () => {
                             justifyContent: 'space-evenly'
                         }}>
                             <LinkToProducts/>
-                            <EditButton sx={{lineHeight: '1.75 !important'}}/>
+                            {permissions && checkPermission(permissions, "BLOG_UPDATE") &&
+                                <EditButton sx={{lineHeight: '1.75 !important'}}/>}
+                            {permissions && checkPermission(permissions, "BLOG_DELETE") &&
+                                <DeleteButton mutationMode={'pessimistic'} sx={{lineHeight: '1.75 !important'}}/>}
                         </div>
                     </ArrayField>
                 </DatagridConfigurable>

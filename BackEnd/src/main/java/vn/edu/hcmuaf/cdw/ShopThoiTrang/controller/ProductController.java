@@ -70,9 +70,8 @@ public class ProductController {
 
     @PreAuthorize("(hasAuthority('ROLE_ADMIN') and hasAuthority('PRODUCT_UPDATE')) or @securityService.isSuperAdmin()")
     @PutMapping("/deleted/{id}")
-    public ResponseEntity<?> restoreProduct(@PathVariable Long id) {
-        productService.restoreProduct(id, request);
-        return ResponseEntity.ok("Restored");
+    public ResponseEntity<?> restoreProduct(@PathVariable Long id) {;
+        return ResponseEntity.ok(productService.restoreProduct(id, request));
     }
 
 }

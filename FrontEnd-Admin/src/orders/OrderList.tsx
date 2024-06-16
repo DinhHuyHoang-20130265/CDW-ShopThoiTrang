@@ -1,6 +1,5 @@
 import * as React from 'react';
 import {
-    CreateButton,
     ExportButton,
     TopToolbar,
     FunctionField,
@@ -28,6 +27,8 @@ import CancelIcon from "@mui/icons-material/Cancel";
 import {styled} from "@mui/material/styles";
 import {useEffect, useState} from "react";
 import axios from "axios";
+import {authProvider} from "../authProvider";
+import {checkPermission} from "../helpers";
 
 
 const BootstrapDialog = styled(Dialog)(({theme}: any) => ({
@@ -85,7 +86,6 @@ function CustomDialog() {
                     <FilterLiveSearch label={"Tìm..."} name={"search"}/>
 
                     <SavedQueriesList/>
-
 
                     <FilterList
                         label="Giá"
@@ -162,23 +162,26 @@ const OrderListActions = (props: any) => (
 
 
 export const OrderList = () => {
+    const [permissions, setPermissions] = React.useState<any>(null)
+    const fetch: any = authProvider.getPermissions(null);
+    useEffect(() => {
+        fetch.then((response: any) => {
+            setPermissions(response.permissions)
+        })
+    }, [])
     const isXsmall = useMediaQuery<Theme>(theme =>
         theme.breakpoints.down('sm')
     );
-    const {data}: any = useGetList<Category>('category', {
-        pagination: {page: 1, perPage: 100},
-        sort: {field: 'name', order: 'ASC'},
-    });
     const isSmall = useMediaQuery<Theme>(theme => theme.breakpoints.down('md'));
     return (
         <List
             sort={{field: 'id', order: 'DESC'}}
             perPage={25}
             aside={<OrderAside/>}
-            actions={<OrderListActions isSmall={isSmall}/>}
+            actions={<OrderListActions isSmall={isSmall} permissions={permissions}/>}
         >
             {isXsmall ? (
-                <OrderMobileGrid/>
+                <OrderMobileGrid permissions={permissions}/>
             ) : (
                 <DatagridConfigurable
                     rowClick={false}
@@ -192,7 +195,7 @@ export const OrderList = () => {
                         <LinkToUser/>
                     </ArrayField>
                     <ArrayField label="Tuỳ chọn">
-                        <EditButton/>
+                        {permissions && checkPermission(permissions, "ORDER_UPDATE") && <EditButton/>}
                     </ArrayField>
                 </DatagridConfigurable>
             )}

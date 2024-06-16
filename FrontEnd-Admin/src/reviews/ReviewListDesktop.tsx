@@ -26,7 +26,6 @@ const ReviewsBulkActionButtons = () => (
     <>
         <BulkAcceptButton/>
         <BulkRejectButton/>
-        <BulkDeleteButton/>
     </>
 );
 
