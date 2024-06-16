@@ -49,7 +49,10 @@ import CouponList from "./coupons/CouponList";
 import CouponEdit from "./coupons/CouponEdit";
 import CouponCreate from "./coupons/CouponCreate";
 import LocalOfferIcon from '@mui/icons-material/LocalOffer';
-import {useEffect} from "react";
+import ContactList from "./contact/ContactList";
+import QuickreplyIcon from '@mui/icons-material/Quickreply';
+import {ReplyContact} from "./contact/ReplyContact";
+import {ShowContact} from "./contact/ShowContact";
 
 const App = () => {
     return (
@@ -134,6 +137,13 @@ const App = () => {
                       list={ReviewList}
                       icon={CommentRoundedIcon}
                       options={{label: "Đánh giá"}}
+            />
+            <Resource name={'contact'}
+                      list={ContactList}
+                      edit={ReplyContact}
+                      show={ShowContact}
+                      icon={QuickreplyIcon}
+                      options={{label: "Liên hệ"}}
             />
         </Admin>
     );

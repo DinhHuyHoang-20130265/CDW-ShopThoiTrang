@@ -1,6 +1,6 @@
 import * as React from 'react';
 import {
-    BulkDeleteButton,
+    BooleanField,
     DatagridConfigurable,
     DateField, FunctionField,
     Identifier,
@@ -15,25 +15,15 @@ import UserReferenceField from '../users/UserReferenceField';
 import StarRatingField from './StarRatingField';
 import rowSx from './rowSx';
 
-import BulkAcceptButton from './BulkAcceptButton';
-import BulkRejectButton from './BulkRejectButton';
-
 export interface ReviewListDesktopProps {
     selectedRow?: Identifier;
 }
-
-const ReviewsBulkActionButtons = () => (
-    <>
-        <BulkAcceptButton/>
-        <BulkRejectButton/>
-    </>
-);
 
 const ReviewListDesktop = ({selectedRow}: ReviewListDesktopProps) => (
     <DatagridConfigurable
         rowClick="edit"
         rowSx={rowSx(selectedRow)}
-        bulkActionButtons={<ReviewsBulkActionButtons/>}
+        bulkActionButtons={false}
         sx={{
             '& .RaDatagrid-thead': {
                 borderLeftColor: 'transparent',
@@ -74,6 +64,7 @@ const ReviewListDesktop = ({selectedRow}: ReviewListDesktopProps) => (
             }
         } label={"Loại"}
         />
+        <BooleanField source="deleted" label={"Bị xoá"}/>
     </DatagridConfigurable>
 );
 

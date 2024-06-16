@@ -6,6 +6,15 @@ export type ThemeName = 'light' | 'dark';
 //     name: string;
 // }
 
+export interface Contact extends RaRecord {
+    name: string;
+    email: string;
+    message: string;
+    status: boolean;
+    createdDate: string;
+    repliedBy: number;
+}
+
 export interface Customer extends RaRecord {
     username: string;
     enabled: boolean;

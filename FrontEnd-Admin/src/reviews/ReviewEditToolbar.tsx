@@ -13,8 +13,9 @@ import {
 import AcceptButton from './AcceptButton';
 import RejectButton from './RejectButton';
 import {Review} from '../types';
+import {checkPermission} from "../helpers";
 
-const ReviewEditToolbar = (props: ToolbarProps) => {
+const ReviewEditToolbar = (props: any) => {
     const {resource} = props;
     const redirect = useRedirect();
     const notify = useNotify();
@@ -31,27 +32,14 @@ const ReviewEditToolbar = (props: ToolbarProps) => {
             }}
         >
             {record.type === 1 ? (
-                <Fragment>
+                props.permissions && checkPermission(props.permissions, "REVIEW_UPDATE") && <Fragment>
                     <AcceptButton/>
                     <RejectButton/>
                 </Fragment>
             ) : (
-                <Fragment>
-                    <SaveButton
-                        label={'Lưu'}
-                        mutationOptions={{
-                            onSuccess: () => {
-                                notify('ra.notification.updated', {
-                                    type: 'info',
-                                    messageArgs: {smart_count: 1},
-                                    undoable: true,
-                                });
-                                redirect('list', 'review');
-                            },
-                        }}
-                        type="button"
-                    />
-                    <DeleteButton record={record} resource={resource} label={'Xoá đánh giá'}/>
+                props.permissions && checkPermission(props.permissions, "REVIEW_DELETE") && <Fragment>
+                    <DeleteButton mutationMode={'pessimistic'} record={record} resource={resource}
+                                  label={'Xoá đánh giá'}/>
                 </Fragment>
             )}
         </Toolbar>

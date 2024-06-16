@@ -15,12 +15,21 @@ import UserReferenceField from "../users/UserReferenceField";
 import StarRatingField from './StarRatingField';
 import ReviewEditToolbar from './ReviewEditToolbar';
 import {Review} from '../types';
+import {authProvider} from "../authProvider";
+import {useEffect} from "react";
 
 interface Props extends EditProps<Review> {
     onCancel: () => void;
 }
 
 const ReviewEdit = ({id, onCancel}: Props) => {
+    const [permissions, setPermissions] = React.useState<any>(null)
+    const fetch: any = authProvider.getPermissions(null);
+    useEffect(() => {
+        fetch.then((response: any) => {
+            setPermissions(response.permissions)
+        })
+    }, [])
 
     return (
         <EditBase id={id}>
@@ -35,7 +44,7 @@ const ReviewEdit = ({id, onCancel}: Props) => {
                 </Stack>
                 <SimpleForm
                     sx={{pt: 0, pb: 0}}
-                    toolbar={<ReviewEditToolbar/>}
+                    toolbar={<ReviewEditToolbar permissions={permissions}/>}
                 >
                     <Grid container rowSpacing={1} mb={1}>
                         <Grid item xs={6}>
@@ -68,6 +77,7 @@ const ReviewEdit = ({id, onCancel}: Props) => {
                         maxRows={15}
                         multiline
                         fullWidth
+                        disabled
                     />
                 </SimpleForm>
             </Box>

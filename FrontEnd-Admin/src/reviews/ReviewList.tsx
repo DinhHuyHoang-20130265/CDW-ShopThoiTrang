@@ -19,7 +19,6 @@ import ReviewEdit from './ReviewEdit';
 const ReviewListActions = ({permissions} : any) => (
     <TopToolbar>
         <FilterButton/>
-        <CreateButton/>
         <SelectColumnsButton/>
         <ExportButton/>
     </TopToolbar>

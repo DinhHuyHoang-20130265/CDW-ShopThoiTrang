@@ -17,14 +17,25 @@ import {
 } from 'react-admin';
 import * as React from "react";
 import {Product} from "../types";
-import {useState} from "react";
+import {useEffect, useState} from "react";
+import {authProvider} from "../authProvider";
+import {checkPermission} from "../helpers";
 
 const ImportInvoiceCreate = () => {
-    const addNotify= useNotify();
+    const addNotify = useNotify();
     const [product, setProduct] = useState<number | null>(null);
     const [variation, setVariation] = useState<number | null>(null);
     const [size, setSize] = useState<number | null>(null);
 
+    const fetch: any = authProvider.getPermissions(null);
+    useEffect(() => {
+        fetch.then((response: any) => {
+            if (response && !checkPermission(response.permissions, "INVOICE_CREATE")) {
+                window.location.replace("/#/import-invoice");
+                addNotify("Permission denied", {type: 'error'});
+            }
+        })
+    }, [])
     const {data} = useGetList<Product>('product', {
         pagination: {page: 1, perPage: 100},
         sort: {field: 'name', order: 'ASC'},
@@ -39,7 +50,7 @@ const ImportInvoiceCreate = () => {
             }
         }
         // Nếu không tìm thấy id nào khớp, hiển thị thông báo và trả về false
-        addNotify("Mã sản phẩm không tồn tại trong hệ thống", { type: 'error', timeout: 1000 });
+        addNotify("Mã sản phẩm không tồn tại trong hệ thống", {type: 'error', timeout: 1000});
         return false;
     }
 
@@ -50,19 +61,19 @@ const ImportInvoiceCreate = () => {
         for (let i = 0; i < product.variations.length; i++) {
             if (product.variations[i].id === parseInt(variation)) {
                 setVariation(product.variations[i]);
-                return ;
+                return;
             }
         }
-        return addNotify("Mã biến thể không tồn tại trong hệ thống", { type: 'error', timeout: 1000 });
+        return addNotify("Mã biến thể không tồn tại trong hệ thống", {type: 'error', timeout: 1000});
     }
 
     const checkVariationContainsSize = (variation: any, size: any) => {
         for (let i = 0; i < variation.sizes.length; i++) {
             if (variation.sizes[i].id === parseInt(size)) {
-                return ;
+                return;
             }
         }
-        return addNotify("Mã kích cỡ không tồn tại trong hệ thống", { type: 'error', timeout: 1000 });
+        return addNotify("Mã kích cỡ không tồn tại trong hệ thống", {type: 'error', timeout: 1000});
     }
 
 
@@ -77,7 +88,7 @@ const ImportInvoiceCreate = () => {
                         <NumberInput source="variation" label="Mã biến thể" validate={required()} onChange={(e) => {
                             setVariation(e.target.value);
                             checkPrductContainsVariation(product, e.target.value);
-                        } }
+                        }}
                         />
                         <NumberInput source="size" label="Mã kích cỡ" validate={required()} onChange={(e) => {
                             setSize(e.target.value);

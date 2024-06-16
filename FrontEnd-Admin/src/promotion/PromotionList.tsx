@@ -70,7 +70,6 @@ const PromotionList = () => {
                 <List
                     sort={{field: 'name', order: 'ASC'}}
                     perPage={20}
-                    pagination={false}
                     component="div"
                     actions={<ListActions permissions={permissions}/>}
                     filters={postFilters()}

@@ -73,10 +73,6 @@ public class ImportInvoiceServiceImpl implements ImportInvoiceService {
             }
             Specification<ImportInvoice> specification = (root, query, criteriaBuilder) -> {
                 Predicate predicate = criteriaBuilder.conjunction();
-                if (filterJson.has("importDate")) {
-                    predicate = criteriaBuilder.and(predicate, criteriaBuilder.like(root.get("importDate"), "%" + filterJson.get("importDate").asText() + "%"));
-                }
-
                 return predicate;
             };
 
@@ -118,6 +114,9 @@ public class ImportInvoiceServiceImpl implements ImportInvoiceService {
             newImportInvoice.setImportBy(importBy);
 
             double totalPrice = 0;
+
+            newImportInvoice = importInvoiceRepository.save(newImportInvoice);
+
             for (ImportInvoiceDetailRequest importInvoiceDetailRequest : importInvoice) {
                 ImportInvoiceDetail newImportInvoiceDetail = new ImportInvoiceDetail();
                 newImportInvoiceDetail.setImportInvoice(newImportInvoice);
