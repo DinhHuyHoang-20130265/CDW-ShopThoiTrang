@@ -15,14 +15,16 @@ import {
 import {Button, Dialog, DialogActions, DialogContent, DialogTitle, MenuItem, Select, Stack} from '@mui/material';
 import ImportInvoiceShow from "./ImportInvoiceShow";
 import * as XLSX from 'xlsx';
-import {ChangeEvent, useRef, useState} from "react";
+import {ChangeEvent, useEffect, useRef, useState} from "react";
+import {authProvider} from "../authProvider";
+import {checkPermission} from "../helpers";
 
 interface Field {
     label: string;
     value: string;
 }
 
-const ListActions = () => {
+const ListActions = ({permissions}: any) => {
     const fileInputRef = useRef<HTMLInputElement>(null);
     const [open, setOpen] = useState(false);
     const [columns, setColumns] = useState<string[]>([]);
@@ -80,7 +82,7 @@ const ListActions = () => {
                     setOpen(false);
                 }
             }
-        ).then(r => console.log(r));
+        );
     }
 
     const fields: Field[] = [
@@ -93,11 +95,15 @@ const ListActions = () => {
 
     return (
         <>
-            <TopToolbar>
+            <TopToolbar sx={{
+                justifyContent: "center",
+                alignItems: "center"
+
+            }}>
                 <SelectColumnsButton/>
-                <FilterButton/>
-                <CreateButton label={"Nhập hàng"}/>
-                <Button onClick={handleImportClick}>Nhập hàng từ Excel</Button>
+                {permissions && checkPermission(permissions, "INVOICE_CREATE") && <CreateButton label={"Nhập hàng"}/>}
+                {permissions && checkPermission(permissions, "INVOICE_CREATE") &&
+                    <Button onClick={handleImportClick}>Nhập hàng từ Excel</Button>}
                 <input
                     type="file"
                     ref={fileInputRef}
@@ -138,11 +144,14 @@ const ListActions = () => {
     );
 };
 
-const postFilters = [
-    <TextInput label="Tìm kiếm..." source="q" alwaysOn/>,
-];
-
 const ImportInvoiceList = () => {
+    const [permissions, setPermissions] = React.useState<any>(null)
+    const fetch: any = authProvider.getPermissions(null);
+    useEffect(() => {
+        fetch.then((response: any) => {
+            setPermissions(response.permissions)
+        })
+    }, [])
     const {data, isLoading}: any = useListController();
 
     if (isLoading) return null;
@@ -161,8 +170,25 @@ const ImportInvoiceList = () => {
             perPage={10}
             pagination={false}
             component="div"
-            actions={<ListActions/>}
-            filters={postFilters}
+            actions={<ListActions permissions={permissions}/>}
+            sx={{
+                '@media(max-width:900px)': {
+                    '.RaList-main > .RaList-actions': {
+                        display: 'block',
+                        '.MuiToolbar-root.MuiToolbar-dense': {
+                            float: 'left'
+                        }
+                    }
+                },
+                '@media(max-width:600px)': {
+                    '.RaList-main > .RaList-actions': {
+                        display: 'block',
+                        '.MuiToolbar-root.MuiToolbar-regular': {
+                            float: 'left'
+                        }
+                    }
+                }
+            }}
             empty={false}
         >
             <DatagridConfigurable rowClick="expand" expandSingle expand={<ImportInvoiceShow/>} bulkActionButtons={false}

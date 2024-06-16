@@ -33,6 +33,7 @@ import java.nio.charset.StandardCharsets;
 import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -55,6 +56,9 @@ public class UserServiceImpl implements UserService {
     private JwtUtils jwtUtils;
     @Autowired
     private PasswordEncoder passwordEncoder;
+
+    @Autowired
+    private HttpServletRequest request;
 
     @Override
     public UserDto getUserById(Long id) {
@@ -85,7 +89,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public String updateInfo(Long id, String name, String phone, String email) {
+    public String updateInfo(Long id, String name, String phone, String email, String avtUrl) {
         try {
             UserInfo userInfo = userInfoRepository.findById(id).orElseThrow(() -> {
                 Log.warn("UserId " + id + " tried to update info but user info not found");
@@ -94,6 +98,7 @@ public class UserServiceImpl implements UserService {
             userInfo.setFullName(name);
             userInfo.setPhone(phone);
             userInfo.setEmail(email);
+            userInfo.setAvtUrl(avtUrl);
             userInfoRepository.save(userInfo);
             Log.info("UserId " + id + " updated info successfully");
             return "Cập nhật thông tin thành công!";
@@ -144,6 +149,11 @@ public class UserServiceImpl implements UserService {
                     predicate = criteriaBuilder.and(predicate, criteriaBuilder.equal(root.get("enabled"), accountStatus));
                 }
 
+                if (filterJson.has("deleted")) {
+                    boolean accountStatus = filterJson.get("deleted").asBoolean();
+                    predicate = criteriaBuilder.and(predicate, criteriaBuilder.equal(root.get("deleted"), accountStatus));
+                }
+
                 if (filterJson.has("q")) {
                     String searchString = filterJson.get("q").asText();
                     Join<User, UserInfo> userInfoJoin = root.join("userInfo");
@@ -155,6 +165,12 @@ public class UserServiceImpl implements UserService {
                     Join<User, Role> roleJoin = root.join("role");
                     predicate = criteriaBuilder.and(predicate, criteriaBuilder.isTrue(roleJoin.get("name").in(type)));
                 }
+
+                String jwt = jwtUtils.getJwtFromCookies(request, "shop2h_admin");
+                String username = jwtUtils.getUserNameFromJwtToken(jwt);
+
+                predicate = criteriaBuilder.and(predicate, criteriaBuilder.notEqual(root.get("username"), username));
+                predicate = criteriaBuilder.and(predicate, criteriaBuilder.notEqual(root.get("role").get("name"), "SUPER_ADMIN"));
 
                 return predicate;
             };
@@ -270,9 +286,11 @@ public class UserServiceImpl implements UserService {
                     resourceVariationRepository.deleteAll(resourceVariations);
                 }
             } else {
-                if (dto.getResourceVariations() == null || dto.getResourceVariations().isEmpty()) {
-                    Log.warn("In updateUser: Resource variations is required");
-                    throw new RuntimeException("Resource variations is required");
+                if (!Objects.equals(user.getRole().getName(), "SUPER_ADMIN")) {
+                    if (dto.getResourceVariations() == null || dto.getResourceVariations().isEmpty()) {
+                        Log.warn("In updateUser: Resource variations is required");
+                        throw new RuntimeException("Resource variations is required");
+                    }
                 }
                 List<ResourceVariation> resourceVariations = new ArrayList<>();
                 for (ResourceVariation rv : dto.getResourceVariations()) {
@@ -340,8 +358,22 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public void deleteUser(Long id) {
-
+    public void deleteUser(Long id, HttpServletRequest request) {
+        try {
+            String jwt = jwtUtils.getJwtFromCookies(request, "shop2h_admin");
+            String username = jwtUtils.getUserNameFromJwtToken(jwt);
+            User user = userRepository.findById(id).orElseThrow(() -> new RuntimeException("User not found"));
+            if (username.equals(user.getUsername())) {
+                Log.warn("User " + username + " tried to delete himself");
+                throw new RuntimeException("You can't delete yourself");
+            }
+            user.setDeleted(true);
+            userRepository.save(user);
+            Log.info("User " + username + " deleted user " + user.getUsername());
+        } catch (RuntimeException e) {
+            Log.error("Error in deleteUser: ", e);
+            throw new RuntimeException(e);
+        }
     }
 
     @Override
@@ -365,6 +397,21 @@ public class UserServiceImpl implements UserService {
             return null;
         } catch (RuntimeException e) {
             Log.error("Error in getAllUsers: ", e);
+            throw new RuntimeException(e);
+        }
+    }
+
+    @Override
+    public User restoreUser(Long id, HttpServletRequest request) {
+        try {
+            String jwt = jwtUtils.getJwtFromCookies(request, "shop2h_admin");
+            String username = jwtUtils.getUserNameFromJwtToken(jwt);
+            User user = userRepository.findById(id).orElseThrow(() -> new RuntimeException("User not found"));
+            user.setDeleted(false);
+            Log.info("User " + username + " restored user " + user.getUsername());
+            return userRepository.save(user);
+        } catch (RuntimeException e) {
+            Log.error("Error in restoreUser: ", e);
             throw new RuntimeException(e);
         }
     }

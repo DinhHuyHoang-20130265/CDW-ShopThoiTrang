@@ -2,10 +2,12 @@ import {
     SimpleForm,
     TextInput,
     DateField,
-    required, BooleanInput, ImageInput, ImageField, Create
+    required, BooleanInput, ImageInput, ImageField, Create, useNotify
 } from 'react-admin';
-import React from "react";
+import React, {useEffect} from "react";
 import {Box} from "@mui/material";
+import {authProvider} from "../authProvider";
+import {checkPermission} from "../helpers";
 
 const RichTextInput = React.lazy(() =>
     import('ra-input-rich-text').then(module => ({
@@ -13,6 +15,16 @@ const RichTextInput = React.lazy(() =>
     }))
 );
 export const BlogCreate = () => {
+    const notify = useNotify();
+    const fetch: any = authProvider.getPermissions(null);
+    useEffect(() => {
+        fetch.then((response: any) => {
+            if (response && !checkPermission(response.permissions, "BLOG_CREATE")) {
+                window.location.replace("/#/blog");
+                notify("Permission denied", {type: 'error'});
+            }
+        })
+    }, [])
     return (
         <Create>
             <Box sx={{bgcolor: '#f8f9fa', p: 2, borderRadius: 1}}>

@@ -1,0 +1,244 @@
+$color_1: #27b56b;
+$color_2: #fff;
+$color_3: rgb(255, 0, 0);
+
+@media (min-width: 992px) {
+  .container-1265 {
+    max-width: 1275px;
+    width: 100%;
+    margin-left: auto;
+    margin-right: auto;
+    padding-left: 15px !important;
+    padding-right: 15px !important;
+  }
+}
+
+@media (min-width: 1200px) {
+  .index_coupons {
+    .img-coupon.col-xl-3 {
+      width: 20%;
+    }
+  }
+  .h1 {
+    font-size: 2.5rem;
+  }
+  h1 {
+    font-size: 2.5rem;
+  }
+}
+
+.section_coupons {
+  .row.coupon_bill {
+    border-bottom: unset;
+    border-bottom: 5px solid #000;
+  }
+
+  .row {
+    margin-left: -0.5rem;
+    margin-right: -0.5rem;
+    flex-wrap: nowrap;
+    overflow-x: auto;
+  }
+
+  margin: 10px 0 30px 0;
+
+  [class*=col-] {
+    padding: 10px 15px;
+  }
+
+  .coupon_item {
+    box-shadow: 0 0 4px 2px #ccc;
+  }
+}
+
+.index_coupons {
+  .coupon_item {
+    padding: 5px 20px;
+
+    .coupon_body {
+      padding: 5px 5px 5px 2px;
+
+      .coupon_title {
+        font-size: 13px;
+      }
+
+      .coupon_desc {
+        font-size: 13px;
+      }
+    }
+
+    .coupon_price {
+      h1 {
+        font-size: 18px;
+      }
+    }
+
+    .coupon_copy {
+      opacity: 1;
+      font-size: 10px;
+      padding: 2px 5px 0 5px;
+    }
+  }
+
+  .coupon_copy_paste {
+    .code {
+      font-size: 12px;
+    }
+  }
+}
+
+.img-coupon {
+  .coupon_item {
+    display: grid;
+    align-items: center;
+    background-size: contain;
+    background-repeat: no-repeat;
+    height: 100%;
+    width: 100%;
+    background-position: center;
+  }
+}
+
+.coupon_item {
+  position: relative;
+  background: #fff;
+  filter: drop-shadow(0px 0px 3px rgba(0, 0, 0, .15));
+  display: flex;
+  min-height: 120px;
+  height: 100%;
+  padding: 7px 27px;
+
+  .coupon_body {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 5px 5px 5px 10px;
+
+    .coupon_head {
+      text-align: left;
+      width: 100%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-weight: 600;
+    }
+
+    .coupon_title {
+      font-size: 16px;
+      color: $color_1;
+      font-weight: bold;
+      margin-bottom: 0;
+    }
+
+    .coupon_desc {
+      font-size: 14px;
+      line-height: 1.2;
+      color: $color_1;
+      font-weight: 600;
+    }
+  }
+
+  .coupon_price {
+    font-size: 30px;
+    display: flex;
+    align-items: baseline;
+
+    h1 {
+      margin-bottom: 0;
+      font-size: 31px;
+      color: $color_1;
+      font-weight: 900;
+    }
+  }
+
+  .coupon_copy {
+    border: none;
+    padding: 2px 8px 3px 8px;
+    border-radius: 0;
+    margin-bottom: 3px;
+    background: #27b56b;
+    color: $color_2;
+    line-height: 22px;
+    border: 0;
+  }
+}
+
+.tron_container {
+  position: absolute;
+  top: 0;
+  left: -5px;
+}
+
+.tron {
+  border-radius: 999px;
+  background: white;
+  border: 1px solid #fff;
+  width: 25px;
+  height: 20px;
+  margin-bottom: 0.7px;
+}
+
+.tron_container1 {
+  position: absolute;
+  top: 0;
+  right: -5px;
+}
+
+.tron1 {
+  border-radius: 999px;
+  background: white;
+  border: 1px solid #fff;
+  width: 25px;
+  height: 20px;
+  margin-bottom: 0.7px;
+}
+
+.coupon_copy_paste {
+  font-size: 30px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  .code {
+    font-size: 12px;
+    font-weight: 500;
+    color: $color_1;
+  }
+}
+
+.btn {
+  &:not(:disabled) {
+    &:not(.disabled) {
+      cursor: pointer;
+    }
+  }
+}
+
+.coupon_het {
+  border: 0;
+  padding: 2px 8px 2px 8px;
+  border-radius: 0;
+}
+
+.coupon_copy {
+  position: relative;
+
+  &::after {
+    content: "Đã sao chép";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: $color_3;
+    font-size: 18px;
+    font-weight: bold;
+    text-transform: uppercase;
+    opacity: 0;
+    visibility: hidden;
+    background: rgba(255, 255, 255, 0.3);
+  }
+}

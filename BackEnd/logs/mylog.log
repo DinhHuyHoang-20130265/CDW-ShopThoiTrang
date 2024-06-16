@@ -1,14 +1,560 @@
-2024-06-12 02:54:51 INFO  BlogServiceImpl:134 - super-admin update blog: 123123
-2024-06-12 13:03:52 ERROR RefreshTokenService:79 - Error in verifyExpiration: 
-vn.edu.hcmuaf.cdw.ShopThoiTrang.exception.TokenRefreshException: Failed for [70031dcc-e843-4fbe-9869-46040f63000b]: Refresh token was expired. Please make a new signing request
-	at vn.edu.hcmuaf.cdw.ShopThoiTrang.service.RefreshTokenService.verifyExpiration(RefreshTokenService.java:75)
-	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:103)
-	at java.base/java.lang.reflect.Method.invoke(Method.java:580)
-	at org.springframework.aop.support.AopUtils.invokeJoinpointUsingReflection(AopUtils.java:351)
-	at org.springframework.aop.framework.CglibAopProxy$DynamicAdvisedInterceptor.intercept(CglibAopProxy.java:713)
-	at vn.edu.hcmuaf.cdw.ShopThoiTrang.service.RefreshTokenService$$SpringCGLIB$$0.verifyExpiration(<generated>)
-	at java.base/java.util.Optional.map(Optional.java:260)
-	at vn.edu.hcmuaf.cdw.ShopThoiTrang.filters.AuthTokenFilter.doFilterInternal(AuthTokenFilter.java:57)
+2024-06-17 00:25:07 ERROR ImportInvoiceServiceImpl:94 - Error in getImportInvoices: Error coercing value
+2024-06-17 00:25:07 ERROR ImportInvoiceServiceImpl:94 - Error in getImportInvoices: Error coercing value
+2024-06-17 00:25:07 ERROR ImportInvoiceServiceImpl:94 - Error in getImportInvoices: Error coercing value
+2024-06-17 00:25:07 ERROR ImportInvoiceServiceImpl:94 - Error in getImportInvoices: Error coercing value
+2024-06-17 00:25:07 ERROR ImportInvoiceServiceImpl:94 - Error in getImportInvoices: Error coercing value
+2024-06-17 00:25:07 ERROR ImportInvoiceServiceImpl:94 - Error in getImportInvoices: Error coercing value
+2024-06-17 00:25:07 ERROR ImportInvoiceServiceImpl:94 - Error in getImportInvoices: Error coercing value
+2024-06-17 00:25:07 ERROR ImportInvoiceServiceImpl:94 - Error in getImportInvoices: Error coercing value
+2024-06-17 00:25:07 ERROR ImportInvoiceServiceImpl:94 - Error in getImportInvoices: Error coercing value
+2024-06-17 00:25:07 ERROR ImportInvoiceServiceImpl:94 - Error in getImportInvoices: Error coercing value
+2024-06-17 00:25:07 ERROR ImportInvoiceServiceImpl:94 - Error in getImportInvoices: Error coercing value
+2024-06-17 00:25:07 ERROR ImportInvoiceServiceImpl:94 - Error in getImportInvoices: Error coercing value
+2024-06-17 00:25:07 ERROR ImportInvoiceServiceImpl:94 - Error in getImportInvoices: Error coercing value
+2024-06-17 00:25:07 ERROR ImportInvoiceServiceImpl:94 - Error in getImportInvoices: Error coercing value
+2024-06-17 00:25:08 ERROR ImportInvoiceServiceImpl:94 - Error in getImportInvoices: Error coercing value
+2024-06-17 00:25:08 ERROR ImportInvoiceServiceImpl:94 - Error in getImportInvoices: Error coercing value
+2024-06-17 00:25:08 ERROR ImportInvoiceServiceImpl:94 - Error in getImportInvoices: Error coercing value
+2024-06-17 00:25:08 ERROR ImportInvoiceServiceImpl:94 - Error in getImportInvoices: Error coercing value
+2024-06-17 00:25:08 ERROR ImportInvoiceServiceImpl:94 - Error in getImportInvoices: Error coercing value
+2024-06-17 00:25:08 ERROR ImportInvoiceServiceImpl:94 - Error in getImportInvoices: Error coercing value
+2024-06-17 00:25:08 ERROR ImportInvoiceServiceImpl:94 - Error in getImportInvoices: Error coercing value
+2024-06-17 00:25:08 ERROR ImportInvoiceServiceImpl:94 - Error in getImportInvoices: Error coercing value
+2024-06-17 00:25:08 ERROR ImportInvoiceServiceImpl:94 - Error in getImportInvoices: Error coercing value
+2024-06-17 00:25:08 ERROR ImportInvoiceServiceImpl:94 - Error in getImportInvoices: Error coercing value
+2024-06-17 00:25:08 ERROR ImportInvoiceServiceImpl:94 - Error in getImportInvoices: Error coercing value
+2024-06-17 00:25:08 ERROR ImportInvoiceServiceImpl:94 - Error in getImportInvoices: Error coercing value
+2024-06-17 00:25:08 ERROR ImportInvoiceServiceImpl:94 - Error in getImportInvoices: Error coercing value
+2024-06-17 00:25:08 ERROR ImportInvoiceServiceImpl:94 - Error in getImportInvoices: Error coercing value
+2024-06-17 00:25:08 ERROR ImportInvoiceServiceImpl:94 - Error in getImportInvoices: Error coercing value
+2024-06-17 00:25:08 ERROR ImportInvoiceServiceImpl:94 - Error in getImportInvoices: Error coercing value
+2024-06-17 00:25:08 ERROR ImportInvoiceServiceImpl:94 - Error in getImportInvoices: Error coercing value
+2024-06-17 00:25:08 ERROR ImportInvoiceServiceImpl:94 - Error in getImportInvoices: Error coercing value
+2024-06-17 00:25:08 ERROR ImportInvoiceServiceImpl:94 - Error in getImportInvoices: Error coercing value
+2024-06-17 00:25:08 ERROR ImportInvoiceServiceImpl:94 - Error in getImportInvoices: Error coercing value
+2024-06-17 00:25:08 ERROR ImportInvoiceServiceImpl:94 - Error in getImportInvoices: Error coercing value
+2024-06-17 00:25:08 ERROR ImportInvoiceServiceImpl:94 - Error in getImportInvoices: Error coercing value
+2024-06-17 00:25:08 ERROR ImportInvoiceServiceImpl:94 - Error in getImportInvoices: Error coercing value
+2024-06-17 00:25:08 ERROR ImportInvoiceServiceImpl:94 - Error in getImportInvoices: Error coercing value
+2024-06-17 00:25:08 ERROR ImportInvoiceServiceImpl:94 - Error in getImportInvoices: Error coercing value
+2024-06-17 00:25:09 ERROR ImportInvoiceServiceImpl:94 - Error in getImportInvoices: Error coercing value
+2024-06-17 00:25:09 ERROR ImportInvoiceServiceImpl:94 - Error in getImportInvoices: Error coercing value
+2024-06-17 00:25:09 ERROR ImportInvoiceServiceImpl:94 - Error in getImportInvoices: Error coercing value
+2024-06-17 00:25:09 ERROR ImportInvoiceServiceImpl:94 - Error in getImportInvoices: Error coercing value
+2024-06-17 00:25:09 ERROR ImportInvoiceServiceImpl:94 - Error in getImportInvoices: Error coercing value
+2024-06-17 00:25:09 ERROR ImportInvoiceServiceImpl:94 - Error in getImportInvoices: Error coercing value
+2024-06-17 00:25:09 ERROR ImportInvoiceServiceImpl:94 - Error in getImportInvoices: Error coercing value
+2024-06-17 00:25:09 ERROR ImportInvoiceServiceImpl:94 - Error in getImportInvoices: Error coercing value
+2024-06-17 00:25:09 ERROR ImportInvoiceServiceImpl:94 - Error in getImportInvoices: Error coercing value
+2024-06-17 00:25:09 ERROR ImportInvoiceServiceImpl:94 - Error in getImportInvoices: Error coercing value
+2024-06-17 00:25:09 ERROR ImportInvoiceServiceImpl:94 - Error in getImportInvoices: Error coercing value
+2024-06-17 00:25:09 ERROR ImportInvoiceServiceImpl:94 - Error in getImportInvoices: Error coercing value
+2024-06-17 00:25:09 ERROR ImportInvoiceServiceImpl:94 - Error in getImportInvoices: Error coercing value
+2024-06-17 00:25:09 ERROR ImportInvoiceServiceImpl:94 - Error in getImportInvoices: Error coercing value
+2024-06-17 00:25:09 ERROR ImportInvoiceServiceImpl:94 - Error in getImportInvoices: Error coercing value
+2024-06-17 00:25:09 ERROR ImportInvoiceServiceImpl:94 - Error in getImportInvoices: Error coercing value
+2024-06-17 00:25:09 ERROR ImportInvoiceServiceImpl:94 - Error in getImportInvoices: Error coercing value
+2024-06-17 00:25:09 ERROR ImportInvoiceServiceImpl:94 - Error in getImportInvoices: Error coercing value
+2024-06-17 00:25:09 ERROR ImportInvoiceServiceImpl:94 - Error in getImportInvoices: Error coercing value
+2024-06-17 00:25:09 ERROR ImportInvoiceServiceImpl:94 - Error in getImportInvoices: Error coercing value
+2024-06-17 00:25:09 ERROR ImportInvoiceServiceImpl:94 - Error in getImportInvoices: Error coercing value
+2024-06-17 00:25:09 ERROR ImportInvoiceServiceImpl:94 - Error in getImportInvoices: Error coercing value
+2024-06-17 00:25:09 ERROR ImportInvoiceServiceImpl:94 - Error in getImportInvoices: Error coercing value
+2024-06-17 00:25:09 ERROR ImportInvoiceServiceImpl:94 - Error in getImportInvoices: Error coercing value
+2024-06-17 00:25:09 ERROR ImportInvoiceServiceImpl:94 - Error in getImportInvoices: Error coercing value
+2024-06-17 00:25:09 ERROR ImportInvoiceServiceImpl:94 - Error in getImportInvoices: Error coercing value
+2024-06-17 00:25:10 ERROR ImportInvoiceServiceImpl:94 - Error in getImportInvoices: Error coercing value
+2024-06-17 00:25:10 ERROR ImportInvoiceServiceImpl:94 - Error in getImportInvoices: Error coercing value
+2024-06-17 00:25:10 ERROR ImportInvoiceServiceImpl:94 - Error in getImportInvoices: Error coercing value
+2024-06-17 00:25:10 ERROR ImportInvoiceServiceImpl:94 - Error in getImportInvoices: Error coercing value
+2024-06-17 00:25:10 ERROR ImportInvoiceServiceImpl:94 - Error in getImportInvoices: Error coercing value
+2024-06-17 00:25:10 ERROR ImportInvoiceServiceImpl:94 - Error in getImportInvoices: Error coercing value
+2024-06-17 00:25:10 ERROR ImportInvoiceServiceImpl:94 - Error in getImportInvoices: Error coercing value
+2024-06-17 00:25:10 ERROR ImportInvoiceServiceImpl:94 - Error in getImportInvoices: Error coercing value
+2024-06-17 00:25:10 ERROR ImportInvoiceServiceImpl:94 - Error in getImportInvoices: Error coercing value
+2024-06-17 00:25:10 ERROR ImportInvoiceServiceImpl:94 - Error in getImportInvoices: Error coercing value
+2024-06-17 00:25:10 ERROR ImportInvoiceServiceImpl:94 - Error in getImportInvoices: Error coercing value
+2024-06-17 00:25:10 ERROR ImportInvoiceServiceImpl:94 - Error in getImportInvoices: Error coercing value
+2024-06-17 00:25:10 ERROR ImportInvoiceServiceImpl:94 - Error in getImportInvoices: Error coercing value
+2024-06-17 00:25:10 ERROR ImportInvoiceServiceImpl:94 - Error in getImportInvoices: Error coercing value
+2024-06-17 00:25:10 ERROR ImportInvoiceServiceImpl:94 - Error in getImportInvoices: Error coercing value
+2024-06-17 00:25:10 ERROR ImportInvoiceServiceImpl:94 - Error in getImportInvoices: Error coercing value
+2024-06-17 00:25:10 ERROR ImportInvoiceServiceImpl:94 - Error in getImportInvoices: Error coercing value
+2024-06-17 00:25:10 ERROR ImportInvoiceServiceImpl:94 - Error in getImportInvoices: Error coercing value
+2024-06-17 00:25:10 ERROR ImportInvoiceServiceImpl:94 - Error in getImportInvoices: Error coercing value
+2024-06-17 00:25:10 ERROR ImportInvoiceServiceImpl:94 - Error in getImportInvoices: Error coercing value
+2024-06-17 00:25:10 ERROR ImportInvoiceServiceImpl:94 - Error in getImportInvoices: Error coercing value
+2024-06-17 00:25:10 ERROR ImportInvoiceServiceImpl:94 - Error in getImportInvoices: Error coercing value
+2024-06-17 00:25:10 ERROR ImportInvoiceServiceImpl:94 - Error in getImportInvoices: Error coercing value
+2024-06-17 00:25:10 ERROR ImportInvoiceServiceImpl:94 - Error in getImportInvoices: Error coercing value
+2024-06-17 00:25:10 ERROR ImportInvoiceServiceImpl:94 - Error in getImportInvoices: Error coercing value
+2024-06-17 00:25:11 ERROR ImportInvoiceServiceImpl:94 - Error in getImportInvoices: Error coercing value
+2024-06-17 00:25:11 ERROR ImportInvoiceServiceImpl:94 - Error in getImportInvoices: Error coercing value
+2024-06-17 00:25:11 ERROR ImportInvoiceServiceImpl:94 - Error in getImportInvoices: Error coercing value
+2024-06-17 00:25:11 ERROR ImportInvoiceServiceImpl:94 - Error in getImportInvoices: Error coercing value
+2024-06-17 00:25:11 ERROR ImportInvoiceServiceImpl:94 - Error in getImportInvoices: Error coercing value
+2024-06-17 00:25:11 ERROR ImportInvoiceServiceImpl:94 - Error in getImportInvoices: Error coercing value
+2024-06-17 00:25:11 ERROR ImportInvoiceServiceImpl:94 - Error in getImportInvoices: Error coercing value
+2024-06-17 00:25:11 ERROR ImportInvoiceServiceImpl:94 - Error in getImportInvoices: Error coercing value
+2024-06-17 00:25:11 ERROR ImportInvoiceServiceImpl:94 - Error in getImportInvoices: Error coercing value
+2024-06-17 00:25:11 ERROR ImportInvoiceServiceImpl:94 - Error in getImportInvoices: Error coercing value
+2024-06-17 00:25:11 ERROR ImportInvoiceServiceImpl:94 - Error in getImportInvoices: Error coercing value
+2024-06-17 00:25:11 ERROR ImportInvoiceServiceImpl:94 - Error in getImportInvoices: Error coercing value
+2024-06-17 00:25:11 ERROR ImportInvoiceServiceImpl:94 - Error in getImportInvoices: Error coercing value
+2024-06-17 00:25:11 ERROR ImportInvoiceServiceImpl:94 - Error in getImportInvoices: Error coercing value
+2024-06-17 00:25:11 ERROR ImportInvoiceServiceImpl:94 - Error in getImportInvoices: Error coercing value
+2024-06-17 00:25:11 ERROR ImportInvoiceServiceImpl:94 - Error in getImportInvoices: Error coercing value
+2024-06-17 00:25:11 ERROR ImportInvoiceServiceImpl:94 - Error in getImportInvoices: Error coercing value
+2024-06-17 00:25:11 ERROR ImportInvoiceServiceImpl:94 - Error in getImportInvoices: Error coercing value
+2024-06-17 00:25:11 ERROR ImportInvoiceServiceImpl:94 - Error in getImportInvoices: Error coercing value
+2024-06-17 00:25:11 ERROR ImportInvoiceServiceImpl:94 - Error in getImportInvoices: Error coercing value
+2024-06-17 00:25:11 ERROR ImportInvoiceServiceImpl:94 - Error in getImportInvoices: Error coercing value
+2024-06-17 00:25:11 ERROR ImportInvoiceServiceImpl:94 - Error in getImportInvoices: Error coercing value
+2024-06-17 00:25:11 ERROR ImportInvoiceServiceImpl:94 - Error in getImportInvoices: Error coercing value
+2024-06-17 00:25:11 ERROR ImportInvoiceServiceImpl:94 - Error in getImportInvoices: Error coercing value
+2024-06-17 00:25:11 ERROR ImportInvoiceServiceImpl:94 - Error in getImportInvoices: Error coercing value
+2024-06-17 00:25:11 ERROR ImportInvoiceServiceImpl:94 - Error in getImportInvoices: Error coercing value
+2024-06-17 00:25:11 ERROR ImportInvoiceServiceImpl:94 - Error in getImportInvoices: Error coercing value
+2024-06-17 00:25:11 ERROR ImportInvoiceServiceImpl:94 - Error in getImportInvoices: Error coercing value
+2024-06-17 00:25:12 ERROR ImportInvoiceServiceImpl:94 - Error in getImportInvoices: Error coercing value
+2024-06-17 00:25:12 ERROR ImportInvoiceServiceImpl:94 - Error in getImportInvoices: Error coercing value
+2024-06-17 00:25:12 ERROR ImportInvoiceServiceImpl:94 - Error in getImportInvoices: Error coercing value
+2024-06-17 00:25:12 ERROR ImportInvoiceServiceImpl:94 - Error in getImportInvoices: Error coercing value
+2024-06-17 00:25:12 ERROR ImportInvoiceServiceImpl:94 - Error in getImportInvoices: Error coercing value
+2024-06-17 00:25:12 ERROR ImportInvoiceServiceImpl:94 - Error in getImportInvoices: Error coercing value
+2024-06-17 00:25:12 ERROR ImportInvoiceServiceImpl:94 - Error in getImportInvoices: Error coercing value
+2024-06-17 00:25:12 ERROR ImportInvoiceServiceImpl:94 - Error in getImportInvoices: Error coercing value
+2024-06-17 00:25:12 ERROR ImportInvoiceServiceImpl:94 - Error in getImportInvoices: Error coercing value
+2024-06-17 00:25:12 ERROR ImportInvoiceServiceImpl:94 - Error in getImportInvoices: Error coercing value
+2024-06-17 00:25:12 ERROR ImportInvoiceServiceImpl:94 - Error in getImportInvoices: Error coercing value
+2024-06-17 00:25:12 ERROR ImportInvoiceServiceImpl:94 - Error in getImportInvoices: Error coercing value
+2024-06-17 00:25:12 ERROR ImportInvoiceServiceImpl:94 - Error in getImportInvoices: Error coercing value
+2024-06-17 00:25:12 ERROR ImportInvoiceServiceImpl:94 - Error in getImportInvoices: Error coercing value
+2024-06-17 00:25:12 ERROR ImportInvoiceServiceImpl:94 - Error in getImportInvoices: Error coercing value
+2024-06-17 00:25:12 ERROR ImportInvoiceServiceImpl:94 - Error in getImportInvoices: Error coercing value
+2024-06-17 00:25:12 ERROR ImportInvoiceServiceImpl:94 - Error in getImportInvoices: Error coercing value
+2024-06-17 00:25:12 ERROR ImportInvoiceServiceImpl:94 - Error in getImportInvoices: Error coercing value
+2024-06-17 00:25:12 ERROR ImportInvoiceServiceImpl:94 - Error in getImportInvoices: Error coercing value
+2024-06-17 00:25:12 ERROR ImportInvoiceServiceImpl:94 - Error in getImportInvoices: Error coercing value
+2024-06-17 00:25:12 ERROR ImportInvoiceServiceImpl:94 - Error in getImportInvoices: Error coercing value
+2024-06-17 00:25:12 ERROR ImportInvoiceServiceImpl:94 - Error in getImportInvoices: Error coercing value
+2024-06-17 00:25:12 ERROR ImportInvoiceServiceImpl:94 - Error in getImportInvoices: Error coercing value
+2024-06-17 00:25:12 ERROR ImportInvoiceServiceImpl:94 - Error in getImportInvoices: Error coercing value
+2024-06-17 00:25:12 ERROR ImportInvoiceServiceImpl:94 - Error in getImportInvoices: Error coercing value
+2024-06-17 00:25:12 ERROR ImportInvoiceServiceImpl:94 - Error in getImportInvoices: Error coercing value
+2024-06-17 00:25:12 ERROR ImportInvoiceServiceImpl:94 - Error in getImportInvoices: Error coercing value
+2024-06-17 00:25:13 ERROR ImportInvoiceServiceImpl:94 - Error in getImportInvoices: Error coercing value
+2024-06-17 00:25:13 ERROR ImportInvoiceServiceImpl:94 - Error in getImportInvoices: Error coercing value
+2024-06-17 00:25:13 ERROR ImportInvoiceServiceImpl:94 - Error in getImportInvoices: Error coercing value
+2024-06-17 00:25:13 ERROR ImportInvoiceServiceImpl:94 - Error in getImportInvoices: Error coercing value
+2024-06-17 00:25:13 ERROR ImportInvoiceServiceImpl:94 - Error in getImportInvoices: Error coercing value
+2024-06-17 00:25:13 ERROR ImportInvoiceServiceImpl:94 - Error in getImportInvoices: Error coercing value
+2024-06-17 00:25:13 ERROR ImportInvoiceServiceImpl:94 - Error in getImportInvoices: Error coercing value
+2024-06-17 00:25:13 ERROR ImportInvoiceServiceImpl:94 - Error in getImportInvoices: Error coercing value
+2024-06-17 00:25:13 ERROR ImportInvoiceServiceImpl:94 - Error in getImportInvoices: Error coercing value
+2024-06-17 00:25:13 ERROR ImportInvoiceServiceImpl:94 - Error in getImportInvoices: Error coercing value
+2024-06-17 00:25:13 ERROR ImportInvoiceServiceImpl:94 - Error in getImportInvoices: Error coercing value
+2024-06-17 00:25:13 ERROR ImportInvoiceServiceImpl:94 - Error in getImportInvoices: Error coercing value
+2024-06-17 00:25:13 ERROR ImportInvoiceServiceImpl:94 - Error in getImportInvoices: Error coercing value
+2024-06-17 00:25:13 ERROR ImportInvoiceServiceImpl:94 - Error in getImportInvoices: Error coercing value
+2024-06-17 00:25:13 ERROR ImportInvoiceServiceImpl:94 - Error in getImportInvoices: Error coercing value
+2024-06-17 00:25:13 ERROR ImportInvoiceServiceImpl:94 - Error in getImportInvoices: Error coercing value
+2024-06-17 00:25:13 ERROR ImportInvoiceServiceImpl:94 - Error in getImportInvoices: Error coercing value
+2024-06-17 00:25:13 ERROR ImportInvoiceServiceImpl:94 - Error in getImportInvoices: Error coercing value
+2024-06-17 00:25:13 ERROR ImportInvoiceServiceImpl:94 - Error in getImportInvoices: Error coercing value
+2024-06-17 00:25:13 ERROR ImportInvoiceServiceImpl:94 - Error in getImportInvoices: Error coercing value
+2024-06-17 00:25:13 ERROR ImportInvoiceServiceImpl:94 - Error in getImportInvoices: Error coercing value
+2024-06-17 00:25:13 ERROR ImportInvoiceServiceImpl:94 - Error in getImportInvoices: Error coercing value
+2024-06-17 00:25:13 ERROR ImportInvoiceServiceImpl:94 - Error in getImportInvoices: Error coercing value
+2024-06-17 00:25:13 ERROR ImportInvoiceServiceImpl:94 - Error in getImportInvoices: Error coercing value
+2024-06-17 00:25:13 ERROR ImportInvoiceServiceImpl:94 - Error in getImportInvoices: Error coercing value
+2024-06-17 00:25:14 ERROR ImportInvoiceServiceImpl:94 - Error in getImportInvoices: Error coercing value
+2024-06-17 00:25:14 ERROR ImportInvoiceServiceImpl:94 - Error in getImportInvoices: Error coercing value
+2024-06-17 00:25:14 ERROR ImportInvoiceServiceImpl:94 - Error in getImportInvoices: Error coercing value
+2024-06-17 00:25:14 ERROR ImportInvoiceServiceImpl:94 - Error in getImportInvoices: Error coercing value
+2024-06-17 00:25:14 ERROR ImportInvoiceServiceImpl:94 - Error in getImportInvoices: Error coercing value
+2024-06-17 00:25:14 ERROR ImportInvoiceServiceImpl:94 - Error in getImportInvoices: Error coercing value
+2024-06-17 00:25:14 ERROR ImportInvoiceServiceImpl:94 - Error in getImportInvoices: Error coercing value
+2024-06-17 00:25:14 ERROR ImportInvoiceServiceImpl:94 - Error in getImportInvoices: Error coercing value
+2024-06-17 00:25:14 ERROR ImportInvoiceServiceImpl:94 - Error in getImportInvoices: Error coercing value
+2024-06-17 00:25:14 ERROR ImportInvoiceServiceImpl:94 - Error in getImportInvoices: Error coercing value
+2024-06-17 00:25:14 ERROR ImportInvoiceServiceImpl:94 - Error in getImportInvoices: Error coercing value
+2024-06-17 00:25:14 ERROR ImportInvoiceServiceImpl:94 - Error in getImportInvoices: Error coercing value
+2024-06-17 00:25:14 ERROR ImportInvoiceServiceImpl:94 - Error in getImportInvoices: Error coercing value
+2024-06-17 00:25:14 ERROR ImportInvoiceServiceImpl:94 - Error in getImportInvoices: Error coercing value
+2024-06-17 00:25:14 ERROR ImportInvoiceServiceImpl:94 - Error in getImportInvoices: Error coercing value
+2024-06-17 00:25:14 ERROR ImportInvoiceServiceImpl:94 - Error in getImportInvoices: Error coercing value
+2024-06-17 00:25:14 ERROR ImportInvoiceServiceImpl:94 - Error in getImportInvoices: Error coercing value
+2024-06-17 00:25:14 ERROR ImportInvoiceServiceImpl:94 - Error in getImportInvoices: Error coercing value
+2024-06-17 00:25:14 ERROR ImportInvoiceServiceImpl:94 - Error in getImportInvoices: Error coercing value
+2024-06-17 00:25:14 ERROR ImportInvoiceServiceImpl:94 - Error in getImportInvoices: Error coercing value
+2024-06-17 00:25:14 ERROR ImportInvoiceServiceImpl:94 - Error in getImportInvoices: Error coercing value
+2024-06-17 00:25:14 ERROR ImportInvoiceServiceImpl:94 - Error in getImportInvoices: Error coercing value
+2024-06-17 00:25:15 ERROR ImportInvoiceServiceImpl:94 - Error in getImportInvoices: Error coercing value
+2024-06-17 00:25:15 ERROR ImportInvoiceServiceImpl:94 - Error in getImportInvoices: Error coercing value
+2024-06-17 00:25:15 ERROR ImportInvoiceServiceImpl:94 - Error in getImportInvoices: Error coercing value
+2024-06-17 00:25:15 ERROR ImportInvoiceServiceImpl:94 - Error in getImportInvoices: Error coercing value
+2024-06-17 00:25:15 ERROR ImportInvoiceServiceImpl:94 - Error in getImportInvoices: Error coercing value
+2024-06-17 00:25:15 ERROR ImportInvoiceServiceImpl:94 - Error in getImportInvoices: Error coercing value
+2024-06-17 00:25:15 ERROR ImportInvoiceServiceImpl:94 - Error in getImportInvoices: Error coercing value
+2024-06-17 00:25:15 ERROR ImportInvoiceServiceImpl:94 - Error in getImportInvoices: Error coercing value
+2024-06-17 00:25:15 ERROR ImportInvoiceServiceImpl:94 - Error in getImportInvoices: Error coercing value
+2024-06-17 00:25:15 ERROR ImportInvoiceServiceImpl:94 - Error in getImportInvoices: Error coercing value
+2024-06-17 00:25:15 ERROR ImportInvoiceServiceImpl:94 - Error in getImportInvoices: Error coercing value
+2024-06-17 00:25:15 ERROR ImportInvoiceServiceImpl:94 - Error in getImportInvoices: Error coercing value
+2024-06-17 00:25:15 ERROR ImportInvoiceServiceImpl:94 - Error in getImportInvoices: Error coercing value
+2024-06-17 00:25:15 ERROR ImportInvoiceServiceImpl:94 - Error in getImportInvoices: Error coercing value
+2024-06-17 00:25:15 ERROR ImportInvoiceServiceImpl:94 - Error in getImportInvoices: Error coercing value
+2024-06-17 00:25:15 ERROR ImportInvoiceServiceImpl:94 - Error in getImportInvoices: Error coercing value
+2024-06-17 00:25:15 ERROR ImportInvoiceServiceImpl:94 - Error in getImportInvoices: Error coercing value
+2024-06-17 00:25:15 ERROR ImportInvoiceServiceImpl:94 - Error in getImportInvoices: Error coercing value
+2024-06-17 00:25:15 ERROR ImportInvoiceServiceImpl:94 - Error in getImportInvoices: Error coercing value
+2024-06-17 00:25:15 ERROR ImportInvoiceServiceImpl:94 - Error in getImportInvoices: Error coercing value
+2024-06-17 00:25:15 ERROR ImportInvoiceServiceImpl:94 - Error in getImportInvoices: Error coercing value
+2024-06-17 00:25:15 ERROR ImportInvoiceServiceImpl:94 - Error in getImportInvoices: Error coercing value
+2024-06-17 00:25:15 ERROR ImportInvoiceServiceImpl:94 - Error in getImportInvoices: Error coercing value
+2024-06-17 00:25:15 ERROR ImportInvoiceServiceImpl:94 - Error in getImportInvoices: Error coercing value
+2024-06-17 00:25:16 ERROR ImportInvoiceServiceImpl:94 - Error in getImportInvoices: Error coercing value
+2024-06-17 00:25:16 ERROR ImportInvoiceServiceImpl:94 - Error in getImportInvoices: Error coercing value
+2024-06-17 00:25:16 ERROR ImportInvoiceServiceImpl:94 - Error in getImportInvoices: Error coercing value
+2024-06-17 00:25:16 ERROR ImportInvoiceServiceImpl:94 - Error in getImportInvoices: Error coercing value
+2024-06-17 00:25:16 ERROR ImportInvoiceServiceImpl:94 - Error in getImportInvoices: Error coercing value
+2024-06-17 00:25:16 ERROR ImportInvoiceServiceImpl:94 - Error in getImportInvoices: Error coercing value
+2024-06-17 00:25:16 ERROR ImportInvoiceServiceImpl:94 - Error in getImportInvoices: Error coercing value
+2024-06-17 00:25:16 ERROR ImportInvoiceServiceImpl:94 - Error in getImportInvoices: Error coercing value
+2024-06-17 00:25:16 ERROR ImportInvoiceServiceImpl:94 - Error in getImportInvoices: Error coercing value
+2024-06-17 00:25:16 ERROR ImportInvoiceServiceImpl:94 - Error in getImportInvoices: Error coercing value
+2024-06-17 00:25:16 ERROR ImportInvoiceServiceImpl:94 - Error in getImportInvoices: Error coercing value
+2024-06-17 00:25:16 ERROR ImportInvoiceServiceImpl:94 - Error in getImportInvoices: Error coercing value
+2024-06-17 00:25:16 ERROR ImportInvoiceServiceImpl:94 - Error in getImportInvoices: Error coercing value
+2024-06-17 00:25:16 ERROR ImportInvoiceServiceImpl:94 - Error in getImportInvoices: Error coercing value
+2024-06-17 00:25:16 ERROR ImportInvoiceServiceImpl:94 - Error in getImportInvoices: Error coercing value
+2024-06-17 00:25:16 ERROR ImportInvoiceServiceImpl:94 - Error in getImportInvoices: Error coercing value
+2024-06-17 00:25:16 ERROR ImportInvoiceServiceImpl:94 - Error in getImportInvoices: Error coercing value
+2024-06-17 00:25:16 ERROR ImportInvoiceServiceImpl:94 - Error in getImportInvoices: Error coercing value
+2024-06-17 00:25:17 ERROR ImportInvoiceServiceImpl:94 - Error in getImportInvoices: Error coercing value
+2024-06-17 00:25:17 ERROR ImportInvoiceServiceImpl:94 - Error in getImportInvoices: Error coercing value
+2024-06-17 00:25:17 ERROR ImportInvoiceServiceImpl:94 - Error in getImportInvoices: Error coercing value
+2024-06-17 00:25:17 ERROR ImportInvoiceServiceImpl:94 - Error in getImportInvoices: Error coercing value
+2024-06-17 00:25:17 ERROR ImportInvoiceServiceImpl:94 - Error in getImportInvoices: Error coercing value
+2024-06-17 00:25:17 ERROR ImportInvoiceServiceImpl:94 - Error in getImportInvoices: Error coercing value
+2024-06-17 00:25:17 ERROR ImportInvoiceServiceImpl:94 - Error in getImportInvoices: Error coercing value
+2024-06-17 00:25:17 ERROR ImportInvoiceServiceImpl:94 - Error in getImportInvoices: Error coercing value
+2024-06-17 00:25:17 ERROR ImportInvoiceServiceImpl:94 - Error in getImportInvoices: Error coercing value
+2024-06-17 00:25:17 ERROR ImportInvoiceServiceImpl:94 - Error in getImportInvoices: Error coercing value
+2024-06-17 00:25:17 ERROR ImportInvoiceServiceImpl:94 - Error in getImportInvoices: Error coercing value
+2024-06-17 00:25:17 ERROR ImportInvoiceServiceImpl:94 - Error in getImportInvoices: Error coercing value
+2024-06-17 00:25:17 ERROR ImportInvoiceServiceImpl:94 - Error in getImportInvoices: Error coercing value
+2024-06-17 00:25:17 ERROR ImportInvoiceServiceImpl:94 - Error in getImportInvoices: Error coercing value
+2024-06-17 00:25:17 ERROR ImportInvoiceServiceImpl:94 - Error in getImportInvoices: Error coercing value
+2024-06-17 00:25:17 ERROR ImportInvoiceServiceImpl:94 - Error in getImportInvoices: Error coercing value
+2024-06-17 00:25:17 ERROR ImportInvoiceServiceImpl:94 - Error in getImportInvoices: Error coercing value
+2024-06-17 00:25:17 ERROR ImportInvoiceServiceImpl:94 - Error in getImportInvoices: Error coercing value
+2024-06-17 00:25:18 ERROR ImportInvoiceServiceImpl:94 - Error in getImportInvoices: Error coercing value
+2024-06-17 00:25:18 ERROR ImportInvoiceServiceImpl:94 - Error in getImportInvoices: Error coercing value
+2024-06-17 00:25:18 ERROR ImportInvoiceServiceImpl:94 - Error in getImportInvoices: Error coercing value
+2024-06-17 00:25:18 ERROR ImportInvoiceServiceImpl:94 - Error in getImportInvoices: Error coercing value
+2024-06-17 00:25:18 ERROR ImportInvoiceServiceImpl:94 - Error in getImportInvoices: Error coercing value
+2024-06-17 00:25:42 ERROR ImportInvoiceServiceImpl:91 - Error in getImportInvoices: Error coercing value
+2024-06-17 00:25:42 ERROR ImportInvoiceServiceImpl:91 - Error in getImportInvoices: Error coercing value
+2024-06-17 00:25:42 ERROR ImportInvoiceServiceImpl:91 - Error in getImportInvoices: Error coercing value
+2024-06-17 00:25:42 ERROR ImportInvoiceServiceImpl:91 - Error in getImportInvoices: Error coercing value
+2024-06-17 00:25:42 ERROR ImportInvoiceServiceImpl:91 - Error in getImportInvoices: Error coercing value
+2024-06-17 00:25:42 ERROR ImportInvoiceServiceImpl:91 - Error in getImportInvoices: Error coercing value
+2024-06-17 00:25:42 ERROR ImportInvoiceServiceImpl:91 - Error in getImportInvoices: Error coercing value
+2024-06-17 00:25:43 ERROR ImportInvoiceServiceImpl:91 - Error in getImportInvoices: Error coercing value
+2024-06-17 00:25:43 ERROR ImportInvoiceServiceImpl:91 - Error in getImportInvoices: Error coercing value
+2024-06-17 00:25:43 ERROR ImportInvoiceServiceImpl:91 - Error in getImportInvoices: Error coercing value
+2024-06-17 00:25:43 ERROR ImportInvoiceServiceImpl:91 - Error in getImportInvoices: Error coercing value
+2024-06-17 00:25:43 ERROR ImportInvoiceServiceImpl:91 - Error in getImportInvoices: Error coercing value
+2024-06-17 00:25:43 ERROR ImportInvoiceServiceImpl:91 - Error in getImportInvoices: Error coercing value
+2024-06-17 00:25:43 ERROR ImportInvoiceServiceImpl:91 - Error in getImportInvoices: Error coercing value
+2024-06-17 00:25:43 ERROR ImportInvoiceServiceImpl:91 - Error in getImportInvoices: Error coercing value
+2024-06-17 00:25:43 ERROR ImportInvoiceServiceImpl:91 - Error in getImportInvoices: Error coercing value
+2024-06-17 00:25:43 ERROR ImportInvoiceServiceImpl:91 - Error in getImportInvoices: Error coercing value
+2024-06-17 00:25:43 ERROR ImportInvoiceServiceImpl:91 - Error in getImportInvoices: Error coercing value
+2024-06-17 00:25:43 ERROR ImportInvoiceServiceImpl:91 - Error in getImportInvoices: Error coercing value
+2024-06-17 00:25:43 ERROR ImportInvoiceServiceImpl:91 - Error in getImportInvoices: Error coercing value
+2024-06-17 00:25:43 ERROR ImportInvoiceServiceImpl:91 - Error in getImportInvoices: Error coercing value
+2024-06-17 00:25:44 ERROR ImportInvoiceServiceImpl:91 - Error in getImportInvoices: Error coercing value
+2024-06-17 00:25:44 ERROR ImportInvoiceServiceImpl:91 - Error in getImportInvoices: Error coercing value
+2024-06-17 00:25:44 ERROR ImportInvoiceServiceImpl:91 - Error in getImportInvoices: Error coercing value
+2024-06-17 00:25:44 ERROR ImportInvoiceServiceImpl:91 - Error in getImportInvoices: Error coercing value
+2024-06-17 00:25:44 ERROR ImportInvoiceServiceImpl:91 - Error in getImportInvoices: Error coercing value
+2024-06-17 00:25:44 ERROR ImportInvoiceServiceImpl:91 - Error in getImportInvoices: Error coercing value
+2024-06-17 00:25:44 ERROR ImportInvoiceServiceImpl:91 - Error in getImportInvoices: Error coercing value
+2024-06-17 00:25:44 ERROR ImportInvoiceServiceImpl:91 - Error in getImportInvoices: Error coercing value
+2024-06-17 00:25:44 ERROR ImportInvoiceServiceImpl:91 - Error in getImportInvoices: Error coercing value
+2024-06-17 00:25:44 ERROR ImportInvoiceServiceImpl:91 - Error in getImportInvoices: Error coercing value
+2024-06-17 00:25:44 ERROR ImportInvoiceServiceImpl:91 - Error in getImportInvoices: Error coercing value
+2024-06-17 00:25:44 ERROR ImportInvoiceServiceImpl:91 - Error in getImportInvoices: Error coercing value
+2024-06-17 00:25:44 ERROR ImportInvoiceServiceImpl:91 - Error in getImportInvoices: Error coercing value
+2024-06-17 00:25:44 ERROR ImportInvoiceServiceImpl:91 - Error in getImportInvoices: Error coercing value
+2024-06-17 00:25:45 ERROR ImportInvoiceServiceImpl:91 - Error in getImportInvoices: Error coercing value
+2024-06-17 00:25:45 ERROR ImportInvoiceServiceImpl:91 - Error in getImportInvoices: Error coercing value
+2024-06-17 00:25:45 ERROR ImportInvoiceServiceImpl:91 - Error in getImportInvoices: Error coercing value
+2024-06-17 00:25:45 ERROR ImportInvoiceServiceImpl:91 - Error in getImportInvoices: Error coercing value
+2024-06-17 00:25:45 ERROR ImportInvoiceServiceImpl:91 - Error in getImportInvoices: Error coercing value
+2024-06-17 00:25:45 ERROR ImportInvoiceServiceImpl:91 - Error in getImportInvoices: Error coercing value
+2024-06-17 00:25:45 ERROR ImportInvoiceServiceImpl:91 - Error in getImportInvoices: Error coercing value
+2024-06-17 00:25:46 ERROR ImportInvoiceServiceImpl:91 - Error in getImportInvoices: Error coercing value
+2024-06-17 00:25:46 ERROR ImportInvoiceServiceImpl:91 - Error in getImportInvoices: Error coercing value
+2024-06-17 00:25:46 ERROR ImportInvoiceServiceImpl:91 - Error in getImportInvoices: Error coercing value
+2024-06-17 00:25:46 ERROR ImportInvoiceServiceImpl:91 - Error in getImportInvoices: Error coercing value
+2024-06-17 00:25:46 ERROR ImportInvoiceServiceImpl:91 - Error in getImportInvoices: Error coercing value
+2024-06-17 00:25:46 ERROR ImportInvoiceServiceImpl:91 - Error in getImportInvoices: Error coercing value
+2024-06-17 00:25:46 ERROR ImportInvoiceServiceImpl:91 - Error in getImportInvoices: Error coercing value
+2024-06-17 00:25:46 ERROR ImportInvoiceServiceImpl:91 - Error in getImportInvoices: Error coercing value
+2024-06-17 00:25:46 ERROR ImportInvoiceServiceImpl:91 - Error in getImportInvoices: Error coercing value
+2024-06-17 00:25:46 ERROR ImportInvoiceServiceImpl:91 - Error in getImportInvoices: Error coercing value
+2024-06-17 00:25:46 ERROR ImportInvoiceServiceImpl:91 - Error in getImportInvoices: Error coercing value
+2024-06-17 00:25:46 ERROR ImportInvoiceServiceImpl:91 - Error in getImportInvoices: Error coercing value
+2024-06-17 00:25:46 ERROR ImportInvoiceServiceImpl:91 - Error in getImportInvoices: Error coercing value
+2024-06-17 00:25:47 ERROR ImportInvoiceServiceImpl:91 - Error in getImportInvoices: Error coercing value
+2024-06-17 00:25:47 ERROR ImportInvoiceServiceImpl:91 - Error in getImportInvoices: Error coercing value
+2024-06-17 00:25:47 ERROR ImportInvoiceServiceImpl:91 - Error in getImportInvoices: Error coercing value
+2024-06-17 00:25:47 ERROR ImportInvoiceServiceImpl:91 - Error in getImportInvoices: Error coercing value
+2024-06-17 00:25:47 ERROR ImportInvoiceServiceImpl:91 - Error in getImportInvoices: Error coercing value
+2024-06-17 00:25:47 ERROR ImportInvoiceServiceImpl:91 - Error in getImportInvoices: Error coercing value
+2024-06-17 00:25:47 ERROR ImportInvoiceServiceImpl:91 - Error in getImportInvoices: Error coercing value
+2024-06-17 00:25:47 ERROR ImportInvoiceServiceImpl:91 - Error in getImportInvoices: Error coercing value
+2024-06-17 00:25:48 ERROR ImportInvoiceServiceImpl:91 - Error in getImportInvoices: Error coercing value
+2024-06-17 00:25:48 ERROR ImportInvoiceServiceImpl:91 - Error in getImportInvoices: Error coercing value
+2024-06-17 00:25:48 ERROR ImportInvoiceServiceImpl:91 - Error in getImportInvoices: Error coercing value
+2024-06-17 00:25:48 ERROR ImportInvoiceServiceImpl:91 - Error in getImportInvoices: Error coercing value
+2024-06-17 00:25:48 ERROR ImportInvoiceServiceImpl:91 - Error in getImportInvoices: Error coercing value
+2024-06-17 00:25:48 ERROR ImportInvoiceServiceImpl:91 - Error in getImportInvoices: Error coercing value
+2024-06-17 00:25:48 ERROR ImportInvoiceServiceImpl:91 - Error in getImportInvoices: Error coercing value
+2024-06-17 00:25:48 ERROR ImportInvoiceServiceImpl:91 - Error in getImportInvoices: Error coercing value
+2024-06-17 00:25:48 ERROR ImportInvoiceServiceImpl:91 - Error in getImportInvoices: Error coercing value
+2024-06-17 00:25:48 ERROR ImportInvoiceServiceImpl:91 - Error in getImportInvoices: Error coercing value
+2024-06-17 00:25:48 ERROR ImportInvoiceServiceImpl:91 - Error in getImportInvoices: Error coercing value
+2024-06-17 00:25:49 ERROR ImportInvoiceServiceImpl:91 - Error in getImportInvoices: Error coercing value
+2024-06-17 00:25:49 ERROR ImportInvoiceServiceImpl:91 - Error in getImportInvoices: Error coercing value
+2024-06-17 00:25:49 ERROR ImportInvoiceServiceImpl:91 - Error in getImportInvoices: Error coercing value
+2024-06-17 00:25:49 ERROR ImportInvoiceServiceImpl:91 - Error in getImportInvoices: Error coercing value
+2024-06-17 00:25:49 ERROR ImportInvoiceServiceImpl:91 - Error in getImportInvoices: Error coercing value
+2024-06-17 00:25:49 ERROR ImportInvoiceServiceImpl:91 - Error in getImportInvoices: Error coercing value
+2024-06-17 00:25:49 ERROR ImportInvoiceServiceImpl:91 - Error in getImportInvoices: Error coercing value
+2024-06-17 00:25:49 ERROR ImportInvoiceServiceImpl:91 - Error in getImportInvoices: Error coercing value
+2024-06-17 00:25:49 ERROR ImportInvoiceServiceImpl:91 - Error in getImportInvoices: Error coercing value
+2024-06-17 00:25:49 ERROR ImportInvoiceServiceImpl:91 - Error in getImportInvoices: Error coercing value
+2024-06-17 00:25:49 ERROR ImportInvoiceServiceImpl:91 - Error in getImportInvoices: Error coercing value
+2024-06-17 00:25:49 ERROR ImportInvoiceServiceImpl:91 - Error in getImportInvoices: Error coercing value
+2024-06-17 00:25:51 ERROR ImportInvoiceServiceImpl:91 - Error in getImportInvoices: Error coercing value
+2024-06-17 00:25:52 ERROR ImportInvoiceServiceImpl:91 - Error in getImportInvoices: Error coercing value
+2024-06-17 00:25:52 ERROR ImportInvoiceServiceImpl:91 - Error in getImportInvoices: Error coercing value
+2024-06-17 00:25:53 ERROR ImportInvoiceServiceImpl:91 - Error in getImportInvoices: Error coercing value
+2024-06-17 00:25:54 ERROR ImportInvoiceServiceImpl:91 - Error in getImportInvoices: Error coercing value
+2024-06-17 00:25:54 ERROR ImportInvoiceServiceImpl:91 - Error in getImportInvoices: Error coercing value
+2024-06-17 00:25:54 ERROR ImportInvoiceServiceImpl:91 - Error in getImportInvoices: Error coercing value
+2024-06-17 00:25:54 ERROR ImportInvoiceServiceImpl:91 - Error in getImportInvoices: Error coercing value
+2024-06-17 00:25:54 ERROR ImportInvoiceServiceImpl:91 - Error in getImportInvoices: Error coercing value
+2024-06-17 00:25:54 ERROR ImportInvoiceServiceImpl:91 - Error in getImportInvoices: Error coercing value
+2024-06-17 00:25:54 ERROR ImportInvoiceServiceImpl:91 - Error in getImportInvoices: Error coercing value
+2024-06-17 00:25:55 ERROR ImportInvoiceServiceImpl:91 - Error in getImportInvoices: Error coercing value
+2024-06-17 00:25:55 ERROR ImportInvoiceServiceImpl:91 - Error in getImportInvoices: Error coercing value
+2024-06-17 00:25:55 ERROR ImportInvoiceServiceImpl:91 - Error in getImportInvoices: Error coercing value
+2024-06-17 00:25:55 ERROR ImportInvoiceServiceImpl:91 - Error in getImportInvoices: Error coercing value
+2024-06-17 00:25:55 ERROR ImportInvoiceServiceImpl:91 - Error in getImportInvoices: Error coercing value
+2024-06-17 00:25:55 ERROR ImportInvoiceServiceImpl:91 - Error in getImportInvoices: Error coercing value
+2024-06-17 00:25:55 ERROR ImportInvoiceServiceImpl:91 - Error in getImportInvoices: Error coercing value
+2024-06-17 00:25:55 ERROR ImportInvoiceServiceImpl:91 - Error in getImportInvoices: Error coercing value
+2024-06-17 00:25:56 ERROR ImportInvoiceServiceImpl:91 - Error in getImportInvoices: Error coercing value
+2024-06-17 00:25:56 ERROR ImportInvoiceServiceImpl:91 - Error in getImportInvoices: Error coercing value
+2024-06-17 00:25:56 ERROR ImportInvoiceServiceImpl:91 - Error in getImportInvoices: Error coercing value
+2024-06-17 00:25:56 ERROR ImportInvoiceServiceImpl:91 - Error in getImportInvoices: Error coercing value
+2024-06-17 00:25:56 ERROR ImportInvoiceServiceImpl:91 - Error in getImportInvoices: Error coercing value
+2024-06-17 00:25:56 ERROR ImportInvoiceServiceImpl:91 - Error in getImportInvoices: Error coercing value
+2024-06-17 00:25:56 ERROR ImportInvoiceServiceImpl:91 - Error in getImportInvoices: Error coercing value
+2024-06-17 00:25:56 ERROR ImportInvoiceServiceImpl:91 - Error in getImportInvoices: Error coercing value
+2024-06-17 00:25:57 ERROR ImportInvoiceServiceImpl:91 - Error in getImportInvoices: Error coercing value
+2024-06-17 00:25:57 ERROR ImportInvoiceServiceImpl:91 - Error in getImportInvoices: Error coercing value
+2024-06-17 00:25:57 ERROR ImportInvoiceServiceImpl:91 - Error in getImportInvoices: Error coercing value
+2024-06-17 00:25:57 ERROR ImportInvoiceServiceImpl:91 - Error in getImportInvoices: Error coercing value
+2024-06-17 00:25:57 ERROR ImportInvoiceServiceImpl:91 - Error in getImportInvoices: Error coercing value
+2024-06-17 00:25:57 ERROR ImportInvoiceServiceImpl:91 - Error in getImportInvoices: Error coercing value
+2024-06-17 00:25:57 ERROR ImportInvoiceServiceImpl:91 - Error in getImportInvoices: Error coercing value
+2024-06-17 00:25:58 ERROR ImportInvoiceServiceImpl:91 - Error in getImportInvoices: Error coercing value
+2024-06-17 00:25:58 ERROR ImportInvoiceServiceImpl:91 - Error in getImportInvoices: Error coercing value
+2024-06-17 00:25:58 ERROR ImportInvoiceServiceImpl:91 - Error in getImportInvoices: Error coercing value
+2024-06-17 00:25:58 ERROR ImportInvoiceServiceImpl:91 - Error in getImportInvoices: Error coercing value
+2024-06-17 00:25:58 ERROR ImportInvoiceServiceImpl:91 - Error in getImportInvoices: Error coercing value
+2024-06-17 00:25:58 ERROR ImportInvoiceServiceImpl:91 - Error in getImportInvoices: Error coercing value
+2024-06-17 00:25:58 ERROR ImportInvoiceServiceImpl:91 - Error in getImportInvoices: Error coercing value
+2024-06-17 00:25:58 ERROR ImportInvoiceServiceImpl:91 - Error in getImportInvoices: Error coercing value
+2024-06-17 00:25:59 ERROR ImportInvoiceServiceImpl:91 - Error in getImportInvoices: Error coercing value
+2024-06-17 00:25:59 ERROR ImportInvoiceServiceImpl:91 - Error in getImportInvoices: Error coercing value
+2024-06-17 00:25:59 ERROR ImportInvoiceServiceImpl:91 - Error in getImportInvoices: Error coercing value
+2024-06-17 00:25:59 ERROR ImportInvoiceServiceImpl:91 - Error in getImportInvoices: Error coercing value
+2024-06-17 00:25:59 ERROR ImportInvoiceServiceImpl:91 - Error in getImportInvoices: Error coercing value
+2024-06-17 00:25:59 ERROR ImportInvoiceServiceImpl:91 - Error in getImportInvoices: Error coercing value
+2024-06-17 00:25:59 ERROR ImportInvoiceServiceImpl:91 - Error in getImportInvoices: Error coercing value
+2024-06-17 00:25:59 ERROR ImportInvoiceServiceImpl:91 - Error in getImportInvoices: Error coercing value
+2024-06-17 00:25:59 ERROR ImportInvoiceServiceImpl:91 - Error in getImportInvoices: Error coercing value
+2024-06-17 00:25:59 ERROR ImportInvoiceServiceImpl:91 - Error in getImportInvoices: Error coercing value
+2024-06-17 00:25:59 ERROR ImportInvoiceServiceImpl:91 - Error in getImportInvoices: Error coercing value
+2024-06-17 00:26:00 ERROR ImportInvoiceServiceImpl:91 - Error in getImportInvoices: Error coercing value
+2024-06-17 00:26:00 ERROR ImportInvoiceServiceImpl:91 - Error in getImportInvoices: Error coercing value
+2024-06-17 00:26:00 ERROR ImportInvoiceServiceImpl:91 - Error in getImportInvoices: Error coercing value
+2024-06-17 00:26:00 ERROR ImportInvoiceServiceImpl:91 - Error in getImportInvoices: Error coercing value
+2024-06-17 00:26:00 ERROR ImportInvoiceServiceImpl:91 - Error in getImportInvoices: Error coercing value
+2024-06-17 00:26:00 ERROR ImportInvoiceServiceImpl:91 - Error in getImportInvoices: Error coercing value
+2024-06-17 00:26:00 ERROR ImportInvoiceServiceImpl:91 - Error in getImportInvoices: Error coercing value
+2024-06-17 00:26:00 ERROR ImportInvoiceServiceImpl:91 - Error in getImportInvoices: Error coercing value
+2024-06-17 00:26:00 ERROR ImportInvoiceServiceImpl:91 - Error in getImportInvoices: Error coercing value
+2024-06-17 00:26:01 ERROR ImportInvoiceServiceImpl:91 - Error in getImportInvoices: Error coercing value
+2024-06-17 00:26:01 ERROR ImportInvoiceServiceImpl:91 - Error in getImportInvoices: Error coercing value
+2024-06-17 00:26:01 ERROR ImportInvoiceServiceImpl:91 - Error in getImportInvoices: Error coercing value
+2024-06-17 00:26:01 ERROR ImportInvoiceServiceImpl:91 - Error in getImportInvoices: Error coercing value
+2024-06-17 00:26:01 ERROR ImportInvoiceServiceImpl:91 - Error in getImportInvoices: Error coercing value
+2024-06-17 00:26:01 ERROR ImportInvoiceServiceImpl:91 - Error in getImportInvoices: Error coercing value
+2024-06-17 00:26:01 ERROR ImportInvoiceServiceImpl:91 - Error in getImportInvoices: Error coercing value
+2024-06-17 00:26:01 ERROR ImportInvoiceServiceImpl:91 - Error in getImportInvoices: Error coercing value
+2024-06-17 00:26:01 ERROR ImportInvoiceServiceImpl:91 - Error in getImportInvoices: Error coercing value
+2024-06-17 00:26:01 ERROR ImportInvoiceServiceImpl:91 - Error in getImportInvoices: Error coercing value
+2024-06-17 00:26:01 ERROR ImportInvoiceServiceImpl:91 - Error in getImportInvoices: Error coercing value
+2024-06-17 00:26:01 ERROR ImportInvoiceServiceImpl:91 - Error in getImportInvoices: Error coercing value
+2024-06-17 00:26:02 ERROR ImportInvoiceServiceImpl:91 - Error in getImportInvoices: Error coercing value
+2024-06-17 00:26:02 ERROR ImportInvoiceServiceImpl:91 - Error in getImportInvoices: Error coercing value
+2024-06-17 00:26:02 ERROR ImportInvoiceServiceImpl:91 - Error in getImportInvoices: Error coercing value
+2024-06-17 00:26:02 ERROR ImportInvoiceServiceImpl:91 - Error in getImportInvoices: Error coercing value
+2024-06-17 00:26:02 ERROR ImportInvoiceServiceImpl:91 - Error in getImportInvoices: Error coercing value
+2024-06-17 00:26:02 ERROR ImportInvoiceServiceImpl:91 - Error in getImportInvoices: Error coercing value
+2024-06-17 00:26:02 ERROR ImportInvoiceServiceImpl:91 - Error in getImportInvoices: Error coercing value
+2024-06-17 00:26:02 ERROR ImportInvoiceServiceImpl:91 - Error in getImportInvoices: Error coercing value
+2024-06-17 00:26:02 ERROR ImportInvoiceServiceImpl:91 - Error in getImportInvoices: Error coercing value
+2024-06-17 00:26:02 ERROR ImportInvoiceServiceImpl:91 - Error in getImportInvoices: Error coercing value
+2024-06-17 00:26:02 ERROR ImportInvoiceServiceImpl:91 - Error in getImportInvoices: Error coercing value
+2024-06-17 00:26:03 ERROR ImportInvoiceServiceImpl:91 - Error in getImportInvoices: Error coercing value
+2024-06-17 00:26:03 ERROR ImportInvoiceServiceImpl:91 - Error in getImportInvoices: Error coercing value
+2024-06-17 00:26:03 ERROR ImportInvoiceServiceImpl:91 - Error in getImportInvoices: Error coercing value
+2024-06-17 00:26:03 ERROR ImportInvoiceServiceImpl:91 - Error in getImportInvoices: Error coercing value
+2024-06-17 00:26:03 ERROR ImportInvoiceServiceImpl:91 - Error in getImportInvoices: Error coercing value
+2024-06-17 00:26:03 ERROR ImportInvoiceServiceImpl:91 - Error in getImportInvoices: Error coercing value
+2024-06-17 00:26:03 ERROR ImportInvoiceServiceImpl:91 - Error in getImportInvoices: Error coercing value
+2024-06-17 00:26:03 ERROR ImportInvoiceServiceImpl:91 - Error in getImportInvoices: Error coercing value
+2024-06-17 00:26:03 ERROR ImportInvoiceServiceImpl:91 - Error in getImportInvoices: Error coercing value
+2024-06-17 00:26:03 ERROR ImportInvoiceServiceImpl:91 - Error in getImportInvoices: Error coercing value
+2024-06-17 00:26:03 ERROR ImportInvoiceServiceImpl:91 - Error in getImportInvoices: Error coercing value
+2024-06-17 00:26:03 ERROR ImportInvoiceServiceImpl:91 - Error in getImportInvoices: Error coercing value
+2024-06-17 00:26:03 ERROR ImportInvoiceServiceImpl:91 - Error in getImportInvoices: Error coercing value
+2024-06-17 00:26:03 ERROR ImportInvoiceServiceImpl:91 - Error in getImportInvoices: Error coercing value
+2024-06-17 00:26:03 ERROR ImportInvoiceServiceImpl:91 - Error in getImportInvoices: Error coercing value
+2024-06-17 00:26:03 ERROR ImportInvoiceServiceImpl:91 - Error in getImportInvoices: Error coercing value
+2024-06-17 00:26:03 ERROR ImportInvoiceServiceImpl:91 - Error in getImportInvoices: Error coercing value
+2024-06-17 00:26:03 ERROR ImportInvoiceServiceImpl:91 - Error in getImportInvoices: Error coercing value
+2024-06-17 00:26:04 ERROR ImportInvoiceServiceImpl:91 - Error in getImportInvoices: Error coercing value
+2024-06-17 00:26:04 ERROR ImportInvoiceServiceImpl:91 - Error in getImportInvoices: Error coercing value
+2024-06-17 00:26:04 ERROR ImportInvoiceServiceImpl:91 - Error in getImportInvoices: Error coercing value
+2024-06-17 00:26:04 ERROR ImportInvoiceServiceImpl:91 - Error in getImportInvoices: Error coercing value
+2024-06-17 00:26:04 ERROR ImportInvoiceServiceImpl:91 - Error in getImportInvoices: Error coercing value
+2024-06-17 00:26:04 ERROR ImportInvoiceServiceImpl:91 - Error in getImportInvoices: Error coercing value
+2024-06-17 00:26:04 ERROR ImportInvoiceServiceImpl:91 - Error in getImportInvoices: Error coercing value
+2024-06-17 00:26:04 ERROR ImportInvoiceServiceImpl:91 - Error in getImportInvoices: Error coercing value
+2024-06-17 00:26:04 ERROR ImportInvoiceServiceImpl:91 - Error in getImportInvoices: Error coercing value
+2024-06-17 00:26:04 ERROR ImportInvoiceServiceImpl:91 - Error in getImportInvoices: Error coercing value
+2024-06-17 00:26:04 ERROR ImportInvoiceServiceImpl:91 - Error in getImportInvoices: Error coercing value
+2024-06-17 00:26:05 ERROR ImportInvoiceServiceImpl:91 - Error in getImportInvoices: Error coercing value
+2024-06-17 00:26:05 ERROR ImportInvoiceServiceImpl:91 - Error in getImportInvoices: Error coercing value
+2024-06-17 00:26:05 ERROR ImportInvoiceServiceImpl:91 - Error in getImportInvoices: Error coercing value
+2024-06-17 00:26:05 ERROR ImportInvoiceServiceImpl:91 - Error in getImportInvoices: Error coercing value
+2024-06-17 00:26:05 ERROR ImportInvoiceServiceImpl:91 - Error in getImportInvoices: Error coercing value
+2024-06-17 00:26:05 ERROR ImportInvoiceServiceImpl:91 - Error in getImportInvoices: Error coercing value
+2024-06-17 00:26:05 ERROR ImportInvoiceServiceImpl:91 - Error in getImportInvoices: Error coercing value
+2024-06-17 00:26:05 ERROR ImportInvoiceServiceImpl:91 - Error in getImportInvoices: Error coercing value
+2024-06-17 00:26:05 ERROR ImportInvoiceServiceImpl:91 - Error in getImportInvoices: Error coercing value
+2024-06-17 00:26:05 ERROR ImportInvoiceServiceImpl:91 - Error in getImportInvoices: Error coercing value
+2024-06-17 00:26:05 ERROR ImportInvoiceServiceImpl:91 - Error in getImportInvoices: Error coercing value
+2024-06-17 00:26:05 ERROR ImportInvoiceServiceImpl:91 - Error in getImportInvoices: Error coercing value
+2024-06-17 00:26:05 ERROR ImportInvoiceServiceImpl:91 - Error in getImportInvoices: Error coercing value
+2024-06-17 00:26:05 ERROR ImportInvoiceServiceImpl:91 - Error in getImportInvoices: Error coercing value
+2024-06-17 00:26:06 ERROR ImportInvoiceServiceImpl:91 - Error in getImportInvoices: Error coercing value
+2024-06-17 00:26:06 ERROR ImportInvoiceServiceImpl:91 - Error in getImportInvoices: Error coercing value
+2024-06-17 00:26:06 ERROR ImportInvoiceServiceImpl:91 - Error in getImportInvoices: Error coercing value
+2024-06-17 00:26:06 ERROR ImportInvoiceServiceImpl:91 - Error in getImportInvoices: Error coercing value
+2024-06-17 00:26:06 ERROR ImportInvoiceServiceImpl:91 - Error in getImportInvoices: Error coercing value
+2024-06-17 00:26:06 ERROR ImportInvoiceServiceImpl:91 - Error in getImportInvoices: Error coercing value
+2024-06-17 00:26:06 ERROR ImportInvoiceServiceImpl:91 - Error in getImportInvoices: Error coercing value
+2024-06-17 00:26:06 ERROR ImportInvoiceServiceImpl:91 - Error in getImportInvoices: Error coercing value
+2024-06-17 00:26:06 ERROR ImportInvoiceServiceImpl:91 - Error in getImportInvoices: Error coercing value
+2024-06-17 00:26:06 ERROR ImportInvoiceServiceImpl:91 - Error in getImportInvoices: Error coercing value
+2024-06-17 00:26:06 ERROR ImportInvoiceServiceImpl:91 - Error in getImportInvoices: Error coercing value
+2024-06-17 00:26:06 ERROR ImportInvoiceServiceImpl:91 - Error in getImportInvoices: Error coercing value
+2024-06-17 00:26:06 ERROR ImportInvoiceServiceImpl:91 - Error in getImportInvoices: Error coercing value
+2024-06-17 00:26:07 ERROR ImportInvoiceServiceImpl:91 - Error in getImportInvoices: Error coercing value
+2024-06-17 00:26:07 ERROR ImportInvoiceServiceImpl:91 - Error in getImportInvoices: Error coercing value
+2024-06-17 00:26:07 ERROR ImportInvoiceServiceImpl:91 - Error in getImportInvoices: Error coercing value
+2024-06-17 00:26:07 ERROR ImportInvoiceServiceImpl:91 - Error in getImportInvoices: Error coercing value
+2024-06-17 00:26:07 ERROR ImportInvoiceServiceImpl:91 - Error in getImportInvoices: Error coercing value
+2024-06-17 00:26:07 ERROR ImportInvoiceServiceImpl:91 - Error in getImportInvoices: Error coercing value
+2024-06-17 00:26:07 ERROR ImportInvoiceServiceImpl:91 - Error in getImportInvoices: Error coercing value
+2024-06-17 00:26:07 ERROR ImportInvoiceServiceImpl:91 - Error in getImportInvoices: Error coercing value
+2024-06-17 00:26:07 ERROR ImportInvoiceServiceImpl:91 - Error in getImportInvoices: Error coercing value
+2024-06-17 00:26:07 ERROR ImportInvoiceServiceImpl:91 - Error in getImportInvoices: Error coercing value
+2024-06-17 00:26:07 ERROR ImportInvoiceServiceImpl:91 - Error in getImportInvoices: Error coercing value
+2024-06-17 00:26:07 ERROR ImportInvoiceServiceImpl:91 - Error in getImportInvoices: Error coercing value
+2024-06-17 00:26:07 ERROR ImportInvoiceServiceImpl:91 - Error in getImportInvoices: Error coercing value
+2024-06-17 00:26:08 ERROR ImportInvoiceServiceImpl:91 - Error in getImportInvoices: Error coercing value
+2024-06-17 00:26:08 ERROR ImportInvoiceServiceImpl:91 - Error in getImportInvoices: Error coercing value
+2024-06-17 00:26:08 ERROR ImportInvoiceServiceImpl:91 - Error in getImportInvoices: Error coercing value
+2024-06-17 00:26:08 ERROR ImportInvoiceServiceImpl:91 - Error in getImportInvoices: Error coercing value
+2024-06-17 00:26:08 ERROR ImportInvoiceServiceImpl:91 - Error in getImportInvoices: Error coercing value
+2024-06-17 00:26:08 ERROR ImportInvoiceServiceImpl:91 - Error in getImportInvoices: Error coercing value
+2024-06-17 00:26:08 ERROR ImportInvoiceServiceImpl:91 - Error in getImportInvoices: Error coercing value
+2024-06-17 00:26:08 ERROR ImportInvoiceServiceImpl:91 - Error in getImportInvoices: Error coercing value
+2024-06-17 00:26:08 ERROR ImportInvoiceServiceImpl:91 - Error in getImportInvoices: Error coercing value
+2024-06-17 00:26:08 ERROR ImportInvoiceServiceImpl:91 - Error in getImportInvoices: Error coercing value
+2024-06-17 00:26:08 ERROR ImportInvoiceServiceImpl:91 - Error in getImportInvoices: Error coercing value
+2024-06-17 00:26:08 ERROR ImportInvoiceServiceImpl:91 - Error in getImportInvoices: Error coercing value
+2024-06-17 00:26:08 ERROR ImportInvoiceServiceImpl:91 - Error in getImportInvoices: Error coercing value
+2024-06-17 00:26:09 ERROR ImportInvoiceServiceImpl:91 - Error in getImportInvoices: Error coercing value
+2024-06-17 00:26:09 ERROR ImportInvoiceServiceImpl:91 - Error in getImportInvoices: Error coercing value
+2024-06-17 00:26:09 ERROR ImportInvoiceServiceImpl:91 - Error in getImportInvoices: Error coercing value
+2024-06-17 00:26:09 ERROR ImportInvoiceServiceImpl:91 - Error in getImportInvoices: Error coercing value
+2024-06-17 00:26:09 ERROR ImportInvoiceServiceImpl:91 - Error in getImportInvoices: Error coercing value
+2024-06-17 00:26:09 ERROR ImportInvoiceServiceImpl:91 - Error in getImportInvoices: Error coercing value
+2024-06-17 00:26:09 ERROR ImportInvoiceServiceImpl:91 - Error in getImportInvoices: Error coercing value
+2024-06-17 00:26:09 ERROR ImportInvoiceServiceImpl:91 - Error in getImportInvoices: Error coercing value
+2024-06-17 00:26:09 ERROR ImportInvoiceServiceImpl:91 - Error in getImportInvoices: Error coercing value
+2024-06-17 00:26:09 ERROR ImportInvoiceServiceImpl:91 - Error in getImportInvoices: Error coercing value
+2024-06-17 00:26:09 ERROR ImportInvoiceServiceImpl:91 - Error in getImportInvoices: Error coercing value
+2024-06-17 00:26:09 ERROR ImportInvoiceServiceImpl:91 - Error in getImportInvoices: Error coercing value
+2024-06-17 00:26:09 ERROR ImportInvoiceServiceImpl:91 - Error in getImportInvoices: Error coercing value
+2024-06-17 00:26:10 ERROR ImportInvoiceServiceImpl:91 - Error in getImportInvoices: Error coercing value
+2024-06-17 00:26:10 ERROR ImportInvoiceServiceImpl:91 - Error in getImportInvoices: Error coercing value
+2024-06-17 00:26:10 ERROR ImportInvoiceServiceImpl:91 - Error in getImportInvoices: Error coercing value
+2024-06-17 00:26:10 ERROR ImportInvoiceServiceImpl:91 - Error in getImportInvoices: Error coercing value
+2024-06-17 00:26:10 ERROR ImportInvoiceServiceImpl:91 - Error in getImportInvoices: Error coercing value
+2024-06-17 00:26:10 ERROR ImportInvoiceServiceImpl:91 - Error in getImportInvoices: Error coercing value
+2024-06-17 00:26:10 ERROR ImportInvoiceServiceImpl:91 - Error in getImportInvoices: Error coercing value
+2024-06-17 00:27:20 ERROR ImportInvoiceServiceImpl:91 - Error in getImportInvoices: Error coercing value
+2024-06-17 00:27:20 ERROR ImportInvoiceServiceImpl:91 - Error in getImportInvoices: Error coercing value
+2024-06-17 00:27:20 ERROR ImportInvoiceServiceImpl:91 - Error in getImportInvoices: Error coercing value
+2024-06-17 00:27:20 ERROR ImportInvoiceServiceImpl:91 - Error in getImportInvoices: Error coercing value
+2024-06-17 00:27:20 ERROR ImportInvoiceServiceImpl:91 - Error in getImportInvoices: Error coercing value
+2024-06-17 00:27:20 ERROR ImportInvoiceServiceImpl:91 - Error in getImportInvoices: Error coercing value
+2024-06-17 00:27:21 ERROR ImportInvoiceServiceImpl:91 - Error in getImportInvoices: Error coercing value
+2024-06-17 00:27:21 ERROR ImportInvoiceServiceImpl:91 - Error in getImportInvoices: Error coercing value
+2024-06-17 00:27:21 ERROR ImportInvoiceServiceImpl:91 - Error in getImportInvoices: Error coercing value
+2024-06-17 00:27:21 ERROR ImportInvoiceServiceImpl:91 - Error in getImportInvoices: Error coercing value
+2024-06-17 00:27:21 ERROR ImportInvoiceServiceImpl:91 - Error in getImportInvoices: Error coercing value
+2024-06-17 00:27:21 ERROR ImportInvoiceServiceImpl:91 - Error in getImportInvoices: Error coercing value
+2024-06-17 00:27:21 ERROR ImportInvoiceServiceImpl:91 - Error in getImportInvoices: Error coercing value
+2024-06-17 00:27:21 ERROR ImportInvoiceServiceImpl:91 - Error in getImportInvoices: Error coercing value
+2024-06-17 00:27:21 ERROR ImportInvoiceServiceImpl:91 - Error in getImportInvoices: Error coercing value
+2024-06-17 00:27:22 ERROR ImportInvoiceServiceImpl:91 - Error in getImportInvoices: Error coercing value
+2024-06-17 00:27:22 ERROR ImportInvoiceServiceImpl:91 - Error in getImportInvoices: Error coercing value
+2024-06-17 00:27:22 ERROR ImportInvoiceServiceImpl:91 - Error in getImportInvoices: Error coercing value
+2024-06-17 00:27:22 ERROR ImportInvoiceServiceImpl:91 - Error in getImportInvoices: Error coercing value
+2024-06-17 00:27:22 ERROR ImportInvoiceServiceImpl:91 - Error in getImportInvoices: Error coercing value
+2024-06-17 00:27:22 ERROR ImportInvoiceServiceImpl:91 - Error in getImportInvoices: Error coercing value
+2024-06-17 00:32:11 INFO  AuthServiceImpl:222 - logout
+2024-06-17 00:32:14 ERROR AuthTokenFilter:71 - Cannot set user authentication: {}
+vn.edu.hcmuaf.cdw.ShopThoiTrang.exception.TokenRefreshException: Failed for []: Refresh token is not valid or expired!
+	at vn.edu.hcmuaf.cdw.ShopThoiTrang.filters.AuthTokenFilter.lambda$doFilterInternal$0(AuthTokenFilter.java:59)
+	at java.base/java.util.Optional.orElseThrow(Optional.java:403)
+	at vn.edu.hcmuaf.cdw.ShopThoiTrang.filters.AuthTokenFilter.doFilterInternal(AuthTokenFilter.java:59)
 	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)
 	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374)
 	at org.springframework.security.web.authentication.logout.LogoutFilter.doFilter(LogoutFilter.java:107)
@@ -68,74 +614,406 @@ vn.edu.hcmuaf.cdw.ShopThoiTrang.exception.TokenRefreshException: Failed for [700
 	at org.apache.tomcat.util.threads.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1191)
 	at org.apache.tomcat.util.threads.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:659)
 	at org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:63)
-	at java.base/java.lang.Thread.run(Thread.java:1583)
-2024-06-12 13:03:52 DEBUG AuthServiceImpl:160 - Refresh Token is empty!
-2024-06-12 13:03:52 INFO  AuthServiceImpl:215 - logout
-2024-06-12 13:06:28 WARN  AuthServiceImpl:114 - unauthorized
-2024-06-12 13:06:31 WARN  AuthServiceImpl:114 - unauthorized
-2024-06-12 13:06:32 WARN  AuthServiceImpl:114 - unauthorized
-2024-06-12 13:06:32 WARN  AuthServiceImpl:114 - unauthorized
-2024-06-12 13:06:34 WARN  AuthServiceImpl:114 - unauthorized
-2024-06-12 13:18:43 INFO  UserServiceImpl:334 - ResourceVariation updated: ResourceVariation(id=1, resource=Resource(id=1, name=USER), permissions=[Permission(id=2, name=DELETE)])by user super-admin
-2024-06-12 13:18:43 INFO  UserServiceImpl:334 - ResourceVariation updated: ResourceVariation(id=3, resource=Resource(id=2, name=PRODUCT), permissions=[Permission(id=4, name=READ), Permission(id=1, name=UPDATE)])by user super-admin
-2024-06-12 13:18:43 INFO  UserServiceImpl:334 - ResourceVariation updated: ResourceVariation(id=4, resource=Resource(id=3, name=POST), permissions=[Permission(id=4, name=READ)])by user super-admin
-2024-06-12 13:18:43 INFO  UserServiceImpl:309 - User super-admin updated user super-admin
-2024-06-12 15:21:17 WARN  AuthServiceImpl:71 - username: super-admin unauthorized
-2024-06-12 15:21:20 INFO  AuthServiceImpl:90 - hine4 logged in
-2024-06-12 15:22:29 INFO  AuthServiceImpl:90 - hine4 logged in
-2024-06-12 15:23:30 INFO  AuthServiceImpl:90 - hine4 logged in
-2024-06-12 15:29:39 INFO  AuthServiceImpl:215 - logout
-2024-06-12 15:38:07 INFO  AuthServiceImpl:90 - hine4 logged in
-2024-06-12 15:38:18 INFO  OrderServiceImpl:228 - Order status updated successfully for order id: 50 to status: ĐÃ HỦY
-2024-06-12 15:40:55 INFO  AuthServiceImpl:90 - hine2 logged in
-2024-06-12 15:41:58 INFO  AuthServiceImpl:90 - hine4 logged in
-2024-06-12 15:44:56 INFO  OrderServiceImpl:228 - Order status updated successfully for order id: 50 to status: ĐÃ HỦY
-2024-06-12 15:44:59 INFO  OrderServiceImpl:228 - Order status updated successfully for order id: 50 to status: ĐÃ HỦY
-2024-06-12 15:45:21 INFO  OrderServiceImpl:228 - Order status updated successfully for order id: 50 to status: ĐÃ HỦY
-2024-06-12 15:47:01 INFO  OrderServiceImpl:228 - Order status updated successfully for order id: 50 to status: ĐÃ HỦY
-2024-06-12 15:47:50 INFO  OrderServiceImpl:228 - Order status updated successfully for order id: 50 to status: ĐÃ HỦY
-2024-06-12 15:51:08 INFO  OrderServiceImpl:228 - Order status updated successfully for order id: 50 to status: ĐÃ HỦY
-2024-06-12 15:51:18 INFO  AuthServiceImpl:90 - hine4 logged in
-2024-06-12 19:59:38 DEBUG AuthServiceImpl:160 - Refresh Token is empty!
-2024-06-12 19:59:38 INFO  AuthServiceImpl:215 - logout
-2024-06-12 20:01:27 INFO  AuthServiceImpl:215 - logout
-2024-06-12 20:08:15 INFO  OrderServiceImpl:205 - hine4 ordered successfully with order id: 51
-2024-06-12 20:12:53 INFO  OrderServiceImpl:205 - hine4 ordered successfully with order id: 52
-2024-06-12 20:17:43 INFO  AuthServiceImpl:90 - hine2 logged in
-2024-06-12 20:19:10 INFO  OrderServiceImpl:205 - hine2 ordered successfully with order id: 53
-2024-06-12 20:25:53 INFO  OrderServiceImpl:205 - hine2 ordered successfully with order id: 54
-2024-06-12 20:30:32 INFO  AuthServiceImpl:215 - logout
-2024-06-12 20:31:38 INFO  AuthServiceImpl:215 - logout
-2024-06-12 20:31:38 DEBUG AuthServiceImpl:160 - Refresh Token is empty!
-2024-06-12 20:31:38 INFO  AuthServiceImpl:215 - logout
-2024-06-12 20:48:43 INFO  AuthServiceImpl:90 - hine4 logged in
-2024-06-12 20:49:06 INFO  AuthServiceImpl:90 - hine3 logged in
-2024-06-12 20:49:45 INFO  OrderServiceImpl:205 - hine3 ordered successfully with order id: 55
-2024-06-13 12:26:43 DEBUG AuthServiceImpl:160 - Refresh Token is empty!
-2024-06-13 12:26:43 INFO  AuthServiceImpl:215 - logout
-2024-06-13 12:28:52 INFO  OrderServiceImpl:205 - hine3 ordered successfully with order id: 56
-2024-06-13 12:59:25 INFO  OrderServiceImpl:205 - hine3 ordered successfully with order id: 57
-2024-06-13 13:58:34 INFO  AuthServiceImpl:90 - hine2 logged in
-2024-06-13 13:58:49 WARN  AuthServiceImpl:63 - username: hine1 not found
-2024-06-13 13:58:55 WARN  AuthServiceImpl:63 - username: hine5 not found
-2024-06-13 13:59:00 WARN  AuthServiceImpl:63 - username: hine6 not found
-2024-06-13 14:00:26 INFO  AuthServiceImpl:90 - hine logged in
-2024-06-13 14:01:28 INFO  OrderServiceImpl:205 - hine ordered successfully with order id: 58
-2024-06-13 14:47:11 INFO  OrderServiceImpl:205 - hine ordered successfully with order id: 59
-2024-06-13 14:52:29 INFO  AuthServiceImpl:90 - hine logged in
-2024-06-13 14:52:52 INFO  OrderServiceImpl:205 - hine ordered successfully with order id: 60
-2024-06-13 14:54:21 INFO  AuthServiceImpl:90 - hine logged in
-2024-06-13 14:54:39 INFO  OrderServiceImpl:205 - hine ordered successfully with order id: 61
-2024-06-13 22:22:58 DEBUG AuthServiceImpl:160 - Refresh Token is empty!
-2024-06-13 22:22:58 INFO  AuthServiceImpl:215 - logout
-2024-06-13 22:43:12 INFO  OrderServiceImpl:205 - hine ordered successfully with order id: 62
-2024-06-14 15:10:33 DEBUG AuthServiceImpl:160 - Refresh Token is empty!
-2024-06-14 15:10:33 INFO  AuthServiceImpl:215 - logout
-2024-06-14 15:10:34 DEBUG AuthServiceImpl:160 - Refresh Token is empty!
-2024-06-14 15:10:34 INFO  AuthServiceImpl:215 - logout
-2024-06-14 16:09:56 INFO  AuthServiceImpl:215 - logout
-2024-06-14 16:41:59 INFO  AuthServiceImpl:215 - logout
-2024-06-14 16:49:09 INFO  AuthServiceImpl:90 - hine2 logged in
-2024-06-14 16:49:30 INFO  OrderServiceImpl:205 - hine2 ordered successfully with order id: 63
-2024-06-14 16:49:46 INFO  AuthServiceImpl:215 - logout
-2024-06-14 17:46:57 INFO  OrderServiceImpl:229 - Order status updated successfully for order id: 63 to status: ĐANG ĐÓNG GÓI
+	at java.base/java.lang.Thread.run(Thread.java:842)
+2024-06-17 00:38:32 INFO  AuthServiceImpl:222 - logout
+2024-06-17 00:38:34 ERROR AuthTokenFilter:71 - Cannot set user authentication: {}
+vn.edu.hcmuaf.cdw.ShopThoiTrang.exception.TokenRefreshException: Failed for []: Refresh token is not valid or expired!
+	at vn.edu.hcmuaf.cdw.ShopThoiTrang.filters.AuthTokenFilter.lambda$doFilterInternal$0(AuthTokenFilter.java:59)
+	at java.base/java.util.Optional.orElseThrow(Optional.java:403)
+	at vn.edu.hcmuaf.cdw.ShopThoiTrang.filters.AuthTokenFilter.doFilterInternal(AuthTokenFilter.java:59)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374)
+	at org.springframework.security.web.authentication.logout.LogoutFilter.doFilter(LogoutFilter.java:107)
+	at org.springframework.security.web.authentication.logout.LogoutFilter.doFilter(LogoutFilter.java:93)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374)
+	at org.springframework.web.filter.CorsFilter.doFilterInternal(CorsFilter.java:91)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374)
+	at org.springframework.security.web.header.HeaderWriterFilter.doHeadersAfter(HeaderWriterFilter.java:90)
+	at org.springframework.security.web.header.HeaderWriterFilter.doFilterInternal(HeaderWriterFilter.java:75)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374)
+	at org.springframework.security.web.context.SecurityContextHolderFilter.doFilter(SecurityContextHolderFilter.java:82)
+	at org.springframework.security.web.context.SecurityContextHolderFilter.doFilter(SecurityContextHolderFilter.java:69)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374)
+	at org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter.doFilterInternal(WebAsyncManagerIntegrationFilter.java:62)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374)
+	at org.springframework.security.web.session.DisableEncodeUrlFilter.doFilterInternal(DisableEncodeUrlFilter.java:42)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374)
+	at org.springframework.security.web.FilterChainProxy.doFilterInternal(FilterChainProxy.java:233)
+	at org.springframework.security.web.FilterChainProxy.doFilter(FilterChainProxy.java:191)
+	at org.springframework.web.filter.CompositeFilter$VirtualFilterChain.doFilter(CompositeFilter.java:113)
+	at org.springframework.web.servlet.handler.HandlerMappingIntrospector.lambda$createCacheFilter$3(HandlerMappingIntrospector.java:195)
+	at org.springframework.web.filter.CompositeFilter$VirtualFilterChain.doFilter(CompositeFilter.java:113)
+	at org.springframework.web.filter.CompositeFilter.doFilter(CompositeFilter.java:74)
+	at org.springframework.security.config.annotation.web.configuration.WebMvcSecurityConfiguration$CompositeFilterChainProxy.doFilter(WebMvcSecurityConfiguration.java:230)
+	at org.springframework.web.filter.DelegatingFilterProxy.invokeDelegate(DelegatingFilterProxy.java:352)
+	at org.springframework.web.filter.DelegatingFilterProxy.doFilter(DelegatingFilterProxy.java:268)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:174)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:149)
+	at org.springframework.web.filter.RequestContextFilter.doFilterInternal(RequestContextFilter.java:100)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:174)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:149)
+	at org.springframework.web.filter.FormContentFilter.doFilterInternal(FormContentFilter.java:93)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:174)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:149)
+	at org.springframework.web.filter.CharacterEncodingFilter.doFilterInternal(CharacterEncodingFilter.java:201)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:174)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:149)
+	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:167)
+	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:90)
+	at org.apache.catalina.authenticator.AuthenticatorBase.invoke(AuthenticatorBase.java:482)
+	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:115)
+	at org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:93)
+	at org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:74)
+	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:344)
+	at org.apache.coyote.http11.Http11Processor.service(Http11Processor.java:391)
+	at org.apache.coyote.AbstractProcessorLight.process(AbstractProcessorLight.java:63)
+	at org.apache.coyote.AbstractProtocol$ConnectionHandler.process(AbstractProtocol.java:896)
+	at org.apache.tomcat.util.net.NioEndpoint$SocketProcessor.doRun(NioEndpoint.java:1744)
+	at org.apache.tomcat.util.net.SocketProcessorBase.run(SocketProcessorBase.java:52)
+	at org.apache.tomcat.util.threads.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1191)
+	at org.apache.tomcat.util.threads.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:659)
+	at org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:63)
+	at java.base/java.lang.Thread.run(Thread.java:842)
+2024-06-17 00:38:48 INFO  ReviewServiceImpl:180 - Review updated: Review(id=9, content=Vải đẹp!, rating=4, status=true, isDeleted=false, type=2, reviewedDate=2024-05-28)
+2024-06-17 00:38:58 INFO  ReviewServiceImpl:180 - Review updated: Review(id=9, content=Vải đẹp!, rating=4, status=true, isDeleted=false, type=2, reviewedDate=2024-05-28)
+2024-06-17 00:45:21 INFO  ReviewServiceImpl:196 - Review deleted: Review(id=9, content=Vải đẹp!, rating=4, status=true, isDeleted=true, type=2, reviewedDate=2024-05-28)
+2024-06-17 00:51:06 ERROR ReviewServiceImpl:143 - Error in getAllReviews: 
+org.springframework.dao.InvalidDataAccessApiUsageException: Unable to locate Attribute with the given name [deleted] on this ManagedType [vn.edu.hcmuaf.cdw.ShopThoiTrang.entity.Review]
+	at org.springframework.orm.jpa.EntityManagerFactoryUtils.convertJpaAccessExceptionIfPossible(EntityManagerFactoryUtils.java:371)
+	at org.springframework.orm.jpa.vendor.HibernateJpaDialect.translateExceptionIfPossible(HibernateJpaDialect.java:246)
+	at org.springframework.orm.jpa.AbstractEntityManagerFactoryBean.translateExceptionIfPossible(AbstractEntityManagerFactoryBean.java:550)
+	at org.springframework.dao.support.ChainedPersistenceExceptionTranslator.translateExceptionIfPossible(ChainedPersistenceExceptionTranslator.java:61)
+	at org.springframework.dao.support.DataAccessUtils.translateIfNecessary(DataAccessUtils.java:335)
+	at org.springframework.dao.support.PersistenceExceptionTranslationInterceptor.invoke(PersistenceExceptionTranslationInterceptor.java:152)
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:184)
+	at org.springframework.data.jpa.repository.support.CrudMethodMetadataPostProcessor$CrudMethodMetadataPopulatingMethodInterceptor.invoke(CrudMethodMetadataPostProcessor.java:164)
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:184)
+	at org.springframework.aop.interceptor.ExposeInvocationInterceptor.invoke(ExposeInvocationInterceptor.java:97)
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:184)
+	at org.springframework.aop.framework.JdkDynamicAopProxy.invoke(JdkDynamicAopProxy.java:220)
+	at jdk.proxy4/jdk.proxy4.$Proxy174.findAll(Unknown Source)
+	at vn.edu.hcmuaf.cdw.ShopThoiTrang.service.impl.ReviewServiceImpl.getAllReviews(ReviewServiceImpl.java:140)
+	at vn.edu.hcmuaf.cdw.ShopThoiTrang.controller.ReviewController.getAllReviews(ReviewController.java:52)
+	at jdk.internal.reflect.GeneratedMethodAccessor141.invoke(Unknown Source)
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:568)
+	at org.springframework.aop.support.AopUtils.invokeJoinpointUsingReflection(AopUtils.java:351)
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.invokeJoinpoint(ReflectiveMethodInvocation.java:196)
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:163)
+	at org.springframework.aop.framework.CglibAopProxy$CglibMethodInvocation.proceed(CglibAopProxy.java:765)
+	at org.springframework.security.authorization.method.AuthorizationManagerBeforeMethodInterceptor.invoke(AuthorizationManagerBeforeMethodInterceptor.java:198)
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:184)
+	at org.springframework.aop.framework.CglibAopProxy$CglibMethodInvocation.proceed(CglibAopProxy.java:765)
+	at org.springframework.aop.framework.CglibAopProxy$DynamicAdvisedInterceptor.intercept(CglibAopProxy.java:717)
+	at vn.edu.hcmuaf.cdw.ShopThoiTrang.controller.ReviewController$$SpringCGLIB$$0.getAllReviews(<generated>)
+	at jdk.internal.reflect.GeneratedMethodAccessor141.invoke(Unknown Source)
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:568)
+	at org.springframework.web.method.support.InvocableHandlerMethod.doInvoke(InvocableHandlerMethod.java:259)
+	at org.springframework.web.method.support.InvocableHandlerMethod.invokeForRequest(InvocableHandlerMethod.java:192)
+	at org.springframework.web.servlet.mvc.method.annotation.ServletInvocableHandlerMethod.invokeAndHandle(ServletInvocableHandlerMethod.java:118)
+	at org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.invokeHandlerMethod(RequestMappingHandlerAdapter.java:920)
+	at org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.handleInternal(RequestMappingHandlerAdapter.java:830)
+	at org.springframework.web.servlet.mvc.method.AbstractHandlerMethodAdapter.handle(AbstractHandlerMethodAdapter.java:87)
+	at org.springframework.web.servlet.DispatcherServlet.doDispatch(DispatcherServlet.java:1089)
+	at org.springframework.web.servlet.DispatcherServlet.doService(DispatcherServlet.java:979)
+	at org.springframework.web.servlet.FrameworkServlet.processRequest(FrameworkServlet.java:1014)
+	at org.springframework.web.servlet.FrameworkServlet.doGet(FrameworkServlet.java:903)
+	at jakarta.servlet.http.HttpServlet.service(HttpServlet.java:564)
+	at org.springframework.web.servlet.FrameworkServlet.service(FrameworkServlet.java:885)
+	at jakarta.servlet.http.HttpServlet.service(HttpServlet.java:658)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:205)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:149)
+	at org.apache.tomcat.websocket.server.WsFilter.doFilter(WsFilter.java:51)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:174)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:149)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:110)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:174)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:149)
+	at org.springframework.web.filter.CompositeFilter$VirtualFilterChain.doFilter(CompositeFilter.java:108)
+	at org.springframework.security.web.FilterChainProxy.lambda$doFilterInternal$3(FilterChainProxy.java:231)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:365)
+	at org.springframework.security.web.access.intercept.AuthorizationFilter.doFilter(AuthorizationFilter.java:100)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374)
+	at org.springframework.security.web.access.ExceptionTranslationFilter.doFilter(ExceptionTranslationFilter.java:126)
+	at org.springframework.security.web.access.ExceptionTranslationFilter.doFilter(ExceptionTranslationFilter.java:120)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374)
+	at org.springframework.security.web.session.SessionManagementFilter.doFilter(SessionManagementFilter.java:131)
+	at org.springframework.security.web.session.SessionManagementFilter.doFilter(SessionManagementFilter.java:85)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374)
+	at org.springframework.security.web.authentication.AnonymousAuthenticationFilter.doFilter(AnonymousAuthenticationFilter.java:100)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374)
+	at org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter.doFilter(SecurityContextHolderAwareRequestFilter.java:179)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374)
+	at org.springframework.security.web.savedrequest.RequestCacheAwareFilter.doFilter(RequestCacheAwareFilter.java:63)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374)
+	at vn.edu.hcmuaf.cdw.ShopThoiTrang.filters.AuthTokenFilter.doFilterInternal(AuthTokenFilter.java:73)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374)
+	at org.springframework.security.web.authentication.logout.LogoutFilter.doFilter(LogoutFilter.java:107)
+	at org.springframework.security.web.authentication.logout.LogoutFilter.doFilter(LogoutFilter.java:93)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374)
+	at org.springframework.web.filter.CorsFilter.doFilterInternal(CorsFilter.java:91)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374)
+	at org.springframework.security.web.header.HeaderWriterFilter.doHeadersAfter(HeaderWriterFilter.java:90)
+	at org.springframework.security.web.header.HeaderWriterFilter.doFilterInternal(HeaderWriterFilter.java:75)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374)
+	at org.springframework.security.web.context.SecurityContextHolderFilter.doFilter(SecurityContextHolderFilter.java:82)
+	at org.springframework.security.web.context.SecurityContextHolderFilter.doFilter(SecurityContextHolderFilter.java:69)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374)
+	at org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter.doFilterInternal(WebAsyncManagerIntegrationFilter.java:62)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374)
+	at org.springframework.security.web.session.DisableEncodeUrlFilter.doFilterInternal(DisableEncodeUrlFilter.java:42)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374)
+	at org.springframework.security.web.FilterChainProxy.doFilterInternal(FilterChainProxy.java:233)
+	at org.springframework.security.web.FilterChainProxy.doFilter(FilterChainProxy.java:191)
+	at org.springframework.web.filter.CompositeFilter$VirtualFilterChain.doFilter(CompositeFilter.java:113)
+	at org.springframework.web.servlet.handler.HandlerMappingIntrospector.lambda$createCacheFilter$3(HandlerMappingIntrospector.java:195)
+	at org.springframework.web.filter.CompositeFilter$VirtualFilterChain.doFilter(CompositeFilter.java:113)
+	at org.springframework.web.filter.CompositeFilter.doFilter(CompositeFilter.java:74)
+	at org.springframework.security.config.annotation.web.configuration.WebMvcSecurityConfiguration$CompositeFilterChainProxy.doFilter(WebMvcSecurityConfiguration.java:230)
+	at org.springframework.web.filter.DelegatingFilterProxy.invokeDelegate(DelegatingFilterProxy.java:352)
+	at org.springframework.web.filter.DelegatingFilterProxy.doFilter(DelegatingFilterProxy.java:268)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:174)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:149)
+	at org.springframework.web.filter.RequestContextFilter.doFilterInternal(RequestContextFilter.java:100)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:174)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:149)
+	at org.springframework.web.filter.FormContentFilter.doFilterInternal(FormContentFilter.java:93)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:174)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:149)
+	at org.springframework.web.filter.CharacterEncodingFilter.doFilterInternal(CharacterEncodingFilter.java:201)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:174)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:149)
+	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:167)
+	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:90)
+	at org.apache.catalina.authenticator.AuthenticatorBase.invoke(AuthenticatorBase.java:482)
+	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:115)
+	at org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:93)
+	at org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:74)
+	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:344)
+	at org.apache.coyote.http11.Http11Processor.service(Http11Processor.java:391)
+	at org.apache.coyote.AbstractProcessorLight.process(AbstractProcessorLight.java:63)
+	at org.apache.coyote.AbstractProtocol$ConnectionHandler.process(AbstractProtocol.java:896)
+	at org.apache.tomcat.util.net.NioEndpoint$SocketProcessor.doRun(NioEndpoint.java:1744)
+	at org.apache.tomcat.util.net.SocketProcessorBase.run(SocketProcessorBase.java:52)
+	at org.apache.tomcat.util.threads.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1191)
+	at org.apache.tomcat.util.threads.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:659)
+	at org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:63)
+	at java.base/java.lang.Thread.run(Thread.java:842)
+Caused by: java.lang.IllegalArgumentException: Unable to locate Attribute with the given name [deleted] on this ManagedType [vn.edu.hcmuaf.cdw.ShopThoiTrang.entity.Review]
+	at org.hibernate.metamodel.model.domain.AbstractManagedType.checkNotNull(AbstractManagedType.java:225)
+	at org.hibernate.metamodel.model.domain.AbstractManagedType.getAttribute(AbstractManagedType.java:148)
+	at org.hibernate.metamodel.model.domain.AbstractManagedType.getAttribute(AbstractManagedType.java:43)
+	at org.springframework.data.jpa.repository.query.QueryUtils.requiresOuterJoin(QueryUtils.java:847)
+	at org.springframework.data.jpa.repository.query.QueryUtils.toExpressionRecursively(QueryUtils.java:788)
+	at org.springframework.data.jpa.repository.query.QueryUtils.toExpressionRecursively(QueryUtils.java:767)
+	at org.springframework.data.jpa.repository.query.QueryUtils.toExpressionRecursively(QueryUtils.java:763)
+	at org.springframework.data.jpa.repository.query.QueryUtils.toJpaOrder(QueryUtils.java:752)
+	at org.springframework.data.jpa.repository.query.QueryUtils.toOrders(QueryUtils.java:704)
+	at org.springframework.data.jpa.repository.support.SimpleJpaRepository.getQuery(SimpleJpaRepository.java:753)
+	at org.springframework.data.jpa.repository.support.SimpleJpaRepository.getQuery(SimpleJpaRepository.java:710)
+	at org.springframework.data.jpa.repository.support.SimpleJpaRepository.findAll(SimpleJpaRepository.java:447)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77)
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:568)
+	at org.springframework.aop.support.AopUtils.invokeJoinpointUsingReflection(AopUtils.java:351)
+	at org.springframework.data.repository.core.support.RepositoryMethodInvoker$RepositoryFragmentMethodInvoker.lambda$new$0(RepositoryMethodInvoker.java:277)
+	at org.springframework.data.repository.core.support.RepositoryMethodInvoker.doInvoke(RepositoryMethodInvoker.java:170)
+	at org.springframework.data.repository.core.support.RepositoryMethodInvoker.invoke(RepositoryMethodInvoker.java:158)
+	at org.springframework.data.repository.core.support.RepositoryComposition$RepositoryFragments.invoke(RepositoryComposition.java:516)
+	at org.springframework.data.repository.core.support.RepositoryComposition.invoke(RepositoryComposition.java:285)
+	at org.springframework.data.repository.core.support.RepositoryFactorySupport$ImplementationMethodExecutionInterceptor.invoke(RepositoryFactorySupport.java:628)
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:184)
+	at org.springframework.data.repository.core.support.QueryExecutorMethodInterceptor.doInvoke(QueryExecutorMethodInterceptor.java:168)
+	at org.springframework.data.repository.core.support.QueryExecutorMethodInterceptor.invoke(QueryExecutorMethodInterceptor.java:143)
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:184)
+	at org.springframework.data.projection.DefaultMethodInvokingMethodInterceptor.invoke(DefaultMethodInvokingMethodInterceptor.java:70)
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:184)
+	at org.springframework.transaction.interceptor.TransactionInterceptor$1.proceedWithInvocation(TransactionInterceptor.java:123)
+	at org.springframework.transaction.interceptor.TransactionAspectSupport.invokeWithinTransaction(TransactionAspectSupport.java:385)
+	at org.springframework.transaction.interceptor.TransactionInterceptor.invoke(TransactionInterceptor.java:119)
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:184)
+	at org.springframework.dao.support.PersistenceExceptionTranslationInterceptor.invoke(PersistenceExceptionTranslationInterceptor.java:137)
+	... 123 more
+2024-06-17 00:51:09 ERROR ReviewServiceImpl:143 - Error in getAllReviews: 
+org.springframework.dao.InvalidDataAccessApiUsageException: Unable to locate Attribute with the given name [deleted] on this ManagedType [vn.edu.hcmuaf.cdw.ShopThoiTrang.entity.Review]
+	at org.springframework.orm.jpa.EntityManagerFactoryUtils.convertJpaAccessExceptionIfPossible(EntityManagerFactoryUtils.java:371)
+	at org.springframework.orm.jpa.vendor.HibernateJpaDialect.translateExceptionIfPossible(HibernateJpaDialect.java:246)
+	at org.springframework.orm.jpa.AbstractEntityManagerFactoryBean.translateExceptionIfPossible(AbstractEntityManagerFactoryBean.java:550)
+	at org.springframework.dao.support.ChainedPersistenceExceptionTranslator.translateExceptionIfPossible(ChainedPersistenceExceptionTranslator.java:61)
+	at org.springframework.dao.support.DataAccessUtils.translateIfNecessary(DataAccessUtils.java:335)
+	at org.springframework.dao.support.PersistenceExceptionTranslationInterceptor.invoke(PersistenceExceptionTranslationInterceptor.java:152)
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:184)
+	at org.springframework.data.jpa.repository.support.CrudMethodMetadataPostProcessor$CrudMethodMetadataPopulatingMethodInterceptor.invoke(CrudMethodMetadataPostProcessor.java:164)
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:184)
+	at org.springframework.aop.interceptor.ExposeInvocationInterceptor.invoke(ExposeInvocationInterceptor.java:97)
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:184)
+	at org.springframework.aop.framework.JdkDynamicAopProxy.invoke(JdkDynamicAopProxy.java:220)
+	at jdk.proxy4/jdk.proxy4.$Proxy174.findAll(Unknown Source)
+	at vn.edu.hcmuaf.cdw.ShopThoiTrang.service.impl.ReviewServiceImpl.getAllReviews(ReviewServiceImpl.java:140)
+	at vn.edu.hcmuaf.cdw.ShopThoiTrang.controller.ReviewController.getAllReviews(ReviewController.java:52)
+	at jdk.internal.reflect.GeneratedMethodAccessor141.invoke(Unknown Source)
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:568)
+	at org.springframework.aop.support.AopUtils.invokeJoinpointUsingReflection(AopUtils.java:351)
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.invokeJoinpoint(ReflectiveMethodInvocation.java:196)
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:163)
+	at org.springframework.aop.framework.CglibAopProxy$CglibMethodInvocation.proceed(CglibAopProxy.java:765)
+	at org.springframework.security.authorization.method.AuthorizationManagerBeforeMethodInterceptor.invoke(AuthorizationManagerBeforeMethodInterceptor.java:198)
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:184)
+	at org.springframework.aop.framework.CglibAopProxy$CglibMethodInvocation.proceed(CglibAopProxy.java:765)
+	at org.springframework.aop.framework.CglibAopProxy$DynamicAdvisedInterceptor.intercept(CglibAopProxy.java:717)
+	at vn.edu.hcmuaf.cdw.ShopThoiTrang.controller.ReviewController$$SpringCGLIB$$0.getAllReviews(<generated>)
+	at jdk.internal.reflect.GeneratedMethodAccessor141.invoke(Unknown Source)
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:568)
+	at org.springframework.web.method.support.InvocableHandlerMethod.doInvoke(InvocableHandlerMethod.java:259)
+	at org.springframework.web.method.support.InvocableHandlerMethod.invokeForRequest(InvocableHandlerMethod.java:192)
+	at org.springframework.web.servlet.mvc.method.annotation.ServletInvocableHandlerMethod.invokeAndHandle(ServletInvocableHandlerMethod.java:118)
+	at org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.invokeHandlerMethod(RequestMappingHandlerAdapter.java:920)
+	at org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.handleInternal(RequestMappingHandlerAdapter.java:830)
+	at org.springframework.web.servlet.mvc.method.AbstractHandlerMethodAdapter.handle(AbstractHandlerMethodAdapter.java:87)
+	at org.springframework.web.servlet.DispatcherServlet.doDispatch(DispatcherServlet.java:1089)
+	at org.springframework.web.servlet.DispatcherServlet.doService(DispatcherServlet.java:979)
+	at org.springframework.web.servlet.FrameworkServlet.processRequest(FrameworkServlet.java:1014)
+	at org.springframework.web.servlet.FrameworkServlet.doGet(FrameworkServlet.java:903)
+	at jakarta.servlet.http.HttpServlet.service(HttpServlet.java:564)
+	at org.springframework.web.servlet.FrameworkServlet.service(FrameworkServlet.java:885)
+	at jakarta.servlet.http.HttpServlet.service(HttpServlet.java:658)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:205)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:149)
+	at org.apache.tomcat.websocket.server.WsFilter.doFilter(WsFilter.java:51)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:174)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:149)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:110)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:174)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:149)
+	at org.springframework.web.filter.CompositeFilter$VirtualFilterChain.doFilter(CompositeFilter.java:108)
+	at org.springframework.security.web.FilterChainProxy.lambda$doFilterInternal$3(FilterChainProxy.java:231)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:365)
+	at org.springframework.security.web.access.intercept.AuthorizationFilter.doFilter(AuthorizationFilter.java:100)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374)
+	at org.springframework.security.web.access.ExceptionTranslationFilter.doFilter(ExceptionTranslationFilter.java:126)
+	at org.springframework.security.web.access.ExceptionTranslationFilter.doFilter(ExceptionTranslationFilter.java:120)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374)
+	at org.springframework.security.web.session.SessionManagementFilter.doFilter(SessionManagementFilter.java:131)
+	at org.springframework.security.web.session.SessionManagementFilter.doFilter(SessionManagementFilter.java:85)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374)
+	at org.springframework.security.web.authentication.AnonymousAuthenticationFilter.doFilter(AnonymousAuthenticationFilter.java:100)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374)
+	at org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter.doFilter(SecurityContextHolderAwareRequestFilter.java:179)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374)
+	at org.springframework.security.web.savedrequest.RequestCacheAwareFilter.doFilter(RequestCacheAwareFilter.java:63)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374)
+	at vn.edu.hcmuaf.cdw.ShopThoiTrang.filters.AuthTokenFilter.doFilterInternal(AuthTokenFilter.java:73)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374)
+	at org.springframework.security.web.authentication.logout.LogoutFilter.doFilter(LogoutFilter.java:107)
+	at org.springframework.security.web.authentication.logout.LogoutFilter.doFilter(LogoutFilter.java:93)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374)
+	at org.springframework.web.filter.CorsFilter.doFilterInternal(CorsFilter.java:91)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374)
+	at org.springframework.security.web.header.HeaderWriterFilter.doHeadersAfter(HeaderWriterFilter.java:90)
+	at org.springframework.security.web.header.HeaderWriterFilter.doFilterInternal(HeaderWriterFilter.java:75)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374)
+	at org.springframework.security.web.context.SecurityContextHolderFilter.doFilter(SecurityContextHolderFilter.java:82)
+	at org.springframework.security.web.context.SecurityContextHolderFilter.doFilter(SecurityContextHolderFilter.java:69)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374)
+	at org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter.doFilterInternal(WebAsyncManagerIntegrationFilter.java:62)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374)
+	at org.springframework.security.web.session.DisableEncodeUrlFilter.doFilterInternal(DisableEncodeUrlFilter.java:42)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374)
+	at org.springframework.security.web.FilterChainProxy.doFilterInternal(FilterChainProxy.java:233)
+	at org.springframework.security.web.FilterChainProxy.doFilter(FilterChainProxy.java:191)
+	at org.springframework.web.filter.CompositeFilter$VirtualFilterChain.doFilter(CompositeFilter.java:113)
+	at org.springframework.web.servlet.handler.HandlerMappingIntrospector.lambda$createCacheFilter$3(HandlerMappingIntrospector.java:195)
+	at org.springframework.web.filter.CompositeFilter$VirtualFilterChain.doFilter(CompositeFilter.java:113)
+	at org.springframework.web.filter.CompositeFilter.doFilter(CompositeFilter.java:74)
+	at org.springframework.security.config.annotation.web.configuration.WebMvcSecurityConfiguration$CompositeFilterChainProxy.doFilter(WebMvcSecurityConfiguration.java:230)
+	at org.springframework.web.filter.DelegatingFilterProxy.invokeDelegate(DelegatingFilterProxy.java:352)
+	at org.springframework.web.filter.DelegatingFilterProxy.doFilter(DelegatingFilterProxy.java:268)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:174)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:149)
+	at org.springframework.web.filter.RequestContextFilter.doFilterInternal(RequestContextFilter.java:100)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:174)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:149)
+	at org.springframework.web.filter.FormContentFilter.doFilterInternal(FormContentFilter.java:93)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:174)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:149)
+	at org.springframework.web.filter.CharacterEncodingFilter.doFilterInternal(CharacterEncodingFilter.java:201)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:174)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:149)
+	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:167)
+	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:90)
+	at org.apache.catalina.authenticator.AuthenticatorBase.invoke(AuthenticatorBase.java:482)
+	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:115)
+	at org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:93)
+	at org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:74)
+	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:344)
+	at org.apache.coyote.http11.Http11Processor.service(Http11Processor.java:391)
+	at org.apache.coyote.AbstractProcessorLight.process(AbstractProcessorLight.java:63)
+	at org.apache.coyote.AbstractProtocol$ConnectionHandler.process(AbstractProtocol.java:896)
+	at org.apache.tomcat.util.net.NioEndpoint$SocketProcessor.doRun(NioEndpoint.java:1744)
+	at org.apache.tomcat.util.net.SocketProcessorBase.run(SocketProcessorBase.java:52)
+	at org.apache.tomcat.util.threads.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1191)
+	at org.apache.tomcat.util.threads.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:659)
+	at org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:63)
+	at java.base/java.lang.Thread.run(Thread.java:842)
+Caused by: java.lang.IllegalArgumentException: Unable to locate Attribute with the given name [deleted] on this ManagedType [vn.edu.hcmuaf.cdw.ShopThoiTrang.entity.Review]
+	at org.hibernate.metamodel.model.domain.AbstractManagedType.checkNotNull(AbstractManagedType.java:225)
+	at org.hibernate.metamodel.model.domain.AbstractManagedType.getAttribute(AbstractManagedType.java:148)
+	at org.hibernate.metamodel.model.domain.AbstractManagedType.getAttribute(AbstractManagedType.java:43)
+	at org.springframework.data.jpa.repository.query.QueryUtils.requiresOuterJoin(QueryUtils.java:847)
+	at org.springframework.data.jpa.repository.query.QueryUtils.toExpressionRecursively(QueryUtils.java:788)
+	at org.springframework.data.jpa.repository.query.QueryUtils.toExpressionRecursively(QueryUtils.java:767)
+	at org.springframework.data.jpa.repository.query.QueryUtils.toExpressionRecursively(QueryUtils.java:763)
+	at org.springframework.data.jpa.repository.query.QueryUtils.toJpaOrder(QueryUtils.java:752)
+	at org.springframework.data.jpa.repository.query.QueryUtils.toOrders(QueryUtils.java:704)
+	at org.springframework.data.jpa.repository.support.SimpleJpaRepository.getQuery(SimpleJpaRepository.java:753)
+	at org.springframework.data.jpa.repository.support.SimpleJpaRepository.getQuery(SimpleJpaRepository.java:710)
+	at org.springframework.data.jpa.repository.support.SimpleJpaRepository.findAll(SimpleJpaRepository.java:447)
+	at jdk.internal.reflect.GeneratedMethodAccessor211.invoke(Unknown Source)
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:568)
+	at org.springframework.aop.support.AopUtils.invokeJoinpointUsingReflection(AopUtils.java:351)
+	at org.springframework.data.repository.core.support.RepositoryMethodInvoker$RepositoryFragmentMethodInvoker.lambda$new$0(RepositoryMethodInvoker.java:277)
+	at org.springframework.data.repository.core.support.RepositoryMethodInvoker.doInvoke(RepositoryMethodInvoker.java:170)
+	at org.springframework.data.repository.core.support.RepositoryMethodInvoker.invoke(RepositoryMethodInvoker.java:158)
+	at org.springframework.data.repository.core.support.RepositoryComposition$RepositoryFragments.invoke(RepositoryComposition.java:516)
+	at org.springframework.data.repository.core.support.RepositoryComposition.invoke(RepositoryComposition.java:285)
+	at org.springframework.data.repository.core.support.RepositoryFactorySupport$ImplementationMethodExecutionInterceptor.invoke(RepositoryFactorySupport.java:628)
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:184)
+	at org.springframework.data.repository.core.support.QueryExecutorMethodInterceptor.doInvoke(QueryExecutorMethodInterceptor.java:168)
+	at org.springframework.data.repository.core.support.QueryExecutorMethodInterceptor.invoke(QueryExecutorMethodInterceptor.java:143)
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:184)
+	at org.springframework.data.projection.DefaultMethodInvokingMethodInterceptor.invoke(DefaultMethodInvokingMethodInterceptor.java:70)
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:184)
+	at org.springframework.transaction.interceptor.TransactionInterceptor$1.proceedWithInvocation(TransactionInterceptor.java:123)
+	at org.springframework.transaction.interceptor.TransactionAspectSupport.invokeWithinTransaction(TransactionAspectSupport.java:385)
+	at org.springframework.transaction.interceptor.TransactionInterceptor.invoke(TransactionInterceptor.java:119)
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:184)
+	at org.springframework.dao.support.PersistenceExceptionTranslationInterceptor.invoke(PersistenceExceptionTranslationInterceptor.java:137)
+	... 123 more

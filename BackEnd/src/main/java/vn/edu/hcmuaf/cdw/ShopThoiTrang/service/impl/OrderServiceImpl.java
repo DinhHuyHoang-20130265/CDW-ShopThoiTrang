@@ -11,6 +11,7 @@ import com.itextpdf.text.pdf.PdfPTable;
 import com.itextpdf.text.pdf.PdfWriter;
 import jakarta.persistence.criteria.Join;
 import jakarta.persistence.criteria.Predicate;
+import jakarta.servlet.http.HttpServletRequest;
 import jakarta.transaction.Transactional;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,6 +24,7 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import vn.edu.hcmuaf.cdw.ShopThoiTrang.JWT.JwtUtils;
 import vn.edu.hcmuaf.cdw.ShopThoiTrang.entity.*;
 import vn.edu.hcmuaf.cdw.ShopThoiTrang.model.dto.CreateOrderRequest;
 import vn.edu.hcmuaf.cdw.ShopThoiTrang.model.dto.OrderDetailRequest;
@@ -70,6 +72,10 @@ public class OrderServiceImpl implements OrderService {
 
     @Autowired
     private VariationRepository variationRepository;
+    @Autowired
+    private CouponRepository couponRepository;
+    @Autowired
+    private JwtUtils jwtUtils;
 
 
     @Override
@@ -99,7 +105,7 @@ public class OrderServiceImpl implements OrderService {
                     Join<Order, OrderStatus> statusJoin = root.join("status");
                     predicate = criteriaBuilder.and(predicate, criteriaBuilder.equal(statusJoin.get("id"), filterJson.get("statusId").asLong()));
                 }
-                if(filterJson.has("date_gte")){
+                if (filterJson.has("date_gte")) {
                     SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'");
                     try {
                         java.util.Date date = dateFormat.parse(filterJson.get("date_gte").asText());
@@ -121,7 +127,7 @@ public class OrderServiceImpl implements OrderService {
 
             return orderRepository.findAll(specification, PageRequest.of(page, perPage, Sort.by(direction, sortBy)));
         } catch (RuntimeException e) {
-            Log.error("Error in getAllOrders: " ,e);
+            Log.error("Error in getAllOrders: ", e);
             throw new RuntimeException(e);
         }
     }
@@ -131,7 +137,7 @@ public class OrderServiceImpl implements OrderService {
         try {
             return orderRepository.findById(id).orElse(null);
         } catch (Exception e) {
-            Log.error("Error in getOrderById: " ,e);
+            Log.error("Error in getOrderById: ", e);
             throw new RuntimeException(e);
         }
     }
@@ -149,6 +155,13 @@ public class OrderServiceImpl implements OrderService {
             orderNew.setNote(order.getNote());
             orderNew.setTotalAmount(order.getTotalAmount());
             orderNew.setOrderDate(new Timestamp(System.currentTimeMillis()));
+            if (order.getCoupon() != null && !order.getCoupon().isEmpty()) {
+                Coupon coupon = couponRepository.findByCouponCode(order.getCoupon()).orElseThrow(() -> new RuntimeException("Coupon not found"));
+                orderNew.setCoupon(coupon);
+                coupon.setQuantity(coupon.getQuantity() - 1);
+                couponRepository.save(coupon);
+
+            }
 
             // set shipping information for order
             orderNew.setProvince(order.getProvince());
@@ -206,7 +219,7 @@ public class OrderServiceImpl implements OrderService {
 
             return ResponseEntity.ok(savedOrder);
         } catch (RuntimeException e) {
-            Log.error("Error in createOrder: " ,e);
+            Log.error("Error in createOrder: ", e);
             throw new RuntimeException(e);
         }
     }
@@ -232,7 +245,7 @@ public class OrderServiceImpl implements OrderService {
                 return ResponseEntity.badRequest().body("Order status update failed");
             }
         } catch (RuntimeException e) {
-            Log.error("Error in updateOrderStatus: ",e);
+            Log.error("Error in updateOrderStatus: ", e);
             throw new RuntimeException(e);
         }
     }

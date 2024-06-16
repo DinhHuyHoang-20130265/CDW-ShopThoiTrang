@@ -86,9 +86,9 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public List<Product> getProductsStatusTrue() {
+    public List<Product> getProductsStatusTrueAndDeleteFalse() {
         try {
-            return productRepository.findByStatusTrue();
+            return productRepository.findByStatusTrueAndDeletedFalse();
         } catch (Exception e) {
             Log.error("Error get all products status true", e);
             throw new RuntimeException(e);
@@ -133,6 +133,9 @@ public class ProductServiceImpl implements ProductService {
                 if (filterJson.has("status")) {
                     predicate = criteriaBuilder.and(predicate, criteriaBuilder.equal(root.get("status"), filterJson.get("status").asBoolean()));
                 }
+                if (filterJson.has("deleted")) {
+                    predicate = criteriaBuilder.and(predicate, criteriaBuilder.equal(root.get("deleted"), filterJson.get("deleted").asBoolean()));
+                }
                 if (filterJson.has("categoryId")) {
                     Join<Product, Category> categoryJoin = root.join("categories");
                     predicate = criteriaBuilder.and(predicate, criteriaBuilder.equal(categoryJoin.get("id"), filterJson.get("categoryId").asLong()));
@@ -158,13 +161,44 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public void deleteProduct(Long id) {
+    @Transactional
+    public void deleteProduct(Long id, HttpServletRequest request) {
         try {
-            productRepository.deleteById(id);
+            String jwt = jwtUtils.getJwtFromCookies(request, "shop2h_admin");
+            String username = jwtUtils.getUserNameFromJwtToken(jwt);
+            Product product = productRepository.findById(id).orElse(null);
+            if (product != null) {
+                product.setDeleted(true);
+                product.setUpdateDate(new Date(System.currentTimeMillis()));
+                product.setUpdateBy(userRepository.findByUsername(username).orElse(null));
+                productRepository.save(product);
+                Log.info(username + "deleted product: " + product.getName());
+            }
         } catch (Exception e) {
             Log.error("Error delete product", e);
             throw new RuntimeException(e);
         }
+    }
+
+    @Override
+    @Transactional
+    public Product restoreProduct(Long id, HttpServletRequest request) {
+        try {
+            Product product = productRepository.findById(id).orElse(null);
+            String jwt = jwtUtils.getJwtFromCookies(request, "shop2h_admin");
+            String username = jwtUtils.getUserNameFromJwtToken(jwt);
+            if (product != null) {
+                product.setDeleted(false);
+                product.setUpdateDate(new Date(System.currentTimeMillis()));
+                product.setUpdateBy(userRepository.findByUsername(username).orElse(null));
+                Log.info(username + "restored product: " + product.getName());
+                return productRepository.save(product);
+            }
+        } catch (Exception e) {
+            Log.error("Error restore product", e);
+            throw new RuntimeException(e);
+        }
+        return null;
     }
 
     @Override

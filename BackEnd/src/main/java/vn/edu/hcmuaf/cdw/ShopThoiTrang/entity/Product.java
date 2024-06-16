@@ -43,6 +43,10 @@ public class Product {
     @Column(name = "released_date")
     private Date releaseDate;
 
+    @NotNull(message = "Deleted status is required")
+    @Column(name = "deleted")
+    private boolean deleted;
+
     @JsonIgnore
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "released_by")

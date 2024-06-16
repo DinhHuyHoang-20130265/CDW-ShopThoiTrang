@@ -453,7 +453,7 @@ export const dataProvider: DataProvider = {
                         .catch(err => console.log(err))
                     imageUrl = await imgProvider(selectedImg);
                 }
-                payload = {...params.data, thumbnail: imageUrl};
+                payload = {...params.data, thumbnail: imageUrl !== null ? imageUrl : params.data.thumbnail};
                 break;
             default:
                 payload = params.data;
@@ -475,16 +475,16 @@ export const dataProvider: DataProvider = {
 
     updateMany: (resource: any, params: any) => Promise.resolve({data: []}),
 
-    delete: (resource: any, params: any) =>
-        httpClient.delete(`${process.env.REACT_APP_API_URL}/${resource}/${params.id}`, {
+    delete: async (resource: any, params: any) =>
+        await httpClient.delete(`${process.env.REACT_APP_API_URL}/${resource}/${params.id}`, {
             headers: {
                 'Content-Type': 'application/json',
                 Accept: 'application/json',
             },
             withCredentials: true
-        }).then((response) => ({
-            data: response.data,
-        })),
+        }).then((response) => {
+            return Promise.resolve({data: response.data})
+        }),
     deleteMany: (resource: any, params: any) => {
         console.log("Delete many")
         console.log(resource, params)

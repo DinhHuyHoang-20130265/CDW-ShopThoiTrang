@@ -17,7 +17,7 @@ public interface UserService {
 
     String changePassword(Long id, String oldPassword, String newPassword);
 
-    String updateInfo(Long id, String name, String phone, String email);
+    String updateInfo(Long id, String name, String phone, String email, String avtUrl);
 
     User getUserByUsername(String username);
 
@@ -29,7 +29,9 @@ public interface UserService {
 
     User updateUser(Long id, UpdateUserDTO dto, HttpServletRequest request);
 
-    void deleteUser(Long id);
+    void deleteUser(Long id, HttpServletRequest request);
 
     List<User> getAllUsers(String ids);
+
+    User restoreUser(Long id, HttpServletRequest request);
 }

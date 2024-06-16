@@ -8,6 +8,9 @@ import {useToasts} from "react-toast-notifications";
 import {Navigate} from "react-router-dom";
 import {Rating, TextField} from "@mui/material";
 import "../../assets/css/review.css";
+import {getBase64, imgProvider} from "../../imgProvider/imgProvider";
+import toast from "react-hot-toast";
+import {ClipLoader} from "react-spinners";
 
 
 const MyAccount = () => {
@@ -28,9 +31,14 @@ const MyAccount = () => {
     const [newPassword, setNewPassword] = useState('');
     const [confirmPassword, setConfirmPassword] = useState('');
     const [oldPassword, setOldPassword] = useState('');
+    const [file, setFile]: any = useState(null);
+    const [loading, setLoading] = useState(false);
+
+    function handleChange(e: any) {
+        setFile(e.target.files[0]);
+    }
 
     const [userProfile, setUserProfile]: any = useState(null);
-
     const checkUser = () => {
         if (!user)
             return <Navigate to={'/login-register'}/>
@@ -47,14 +55,17 @@ const MyAccount = () => {
                 }
             }).then(response => {
                 setUserProfile(response.data);
+                setFullName(response.data.userInfo.fullName);
+                setPhone(response.data.userInfo.phone);
+                setEmail(response.data.userInfo.email);
             })
         }
         fetchUserProfile().then();
     }, []);
 
-    console.log(userProfile)
 
     const displaySelectedImage = (event: any) => {
+        handleChange(event);
         const selectedImage: any = document.getElementById('selectedAvatar');
         const fileInput = event.target;
 
@@ -69,7 +80,7 @@ const MyAccount = () => {
         }
     };
 
-    const updateProfile = () => {
+    const updateProfile = async () => {
         if (fullName === '' || phone === '' || email === '') {
             addToast("Vui lòng nhập đầy đủ thông tin", {
                 appearance: 'error',
@@ -79,10 +90,14 @@ const MyAccount = () => {
             return;
         }
 
+        setLoading(true)
+
+        let newImg = '';
         // check info change
         if (fullName === userProfile.userInfo.fullName &&
             phone === userProfile.userInfo.phone &&
-            email === userProfile.userInfo.email) {
+            email === userProfile.userInfo.email && file === null
+        ) {
             addToast("Không có thông tin nào thay đổi", {
                 appearance: 'error',
                 autoDismiss: true,
@@ -90,19 +105,29 @@ const MyAccount = () => {
             });
             return;
         }
-
-        const selectedImage: any = document.getElementById('selectedAvatar');
+        if (file !== null) {
+            await getBase64(file)
+                .then(async res => {
+                    newImg = await imgProvider(res)
+                })
+                .catch(err => {
+                    console.log(err)
+                    toast.error("Lỗi upload ảnh", {duration: 3000})
+                    setLoading(false)
+                    return;
+                })
+        }
         axios.put(`${process.env.REACT_APP_API_ENDPOINT}user/update-info`, null, {
             headers: {
                 Accept: 'application/json',
                 "Content-Type": "application/json"
-            }, withCredentials: true
-            ,
+            }, withCredentials: true,
             params: {
                 id: userProfile.id,
                 name: fullName,
                 phone: phone,
                 email: email,
+                avtUrl: newImg !== '' ? newImg : userProfile.userInfo.avtUrl
             }
         }).then(response => {
             console.log(response)
@@ -115,6 +140,7 @@ const MyAccount = () => {
             console.log(error)
             addToast("Cập nhật thông tin thất bại", {appearance: 'error', autoDismiss: true, autoDismissTimeout: 3000});
         });
+        setLoading(false)
     }
 
     const changePassword = () => {
@@ -220,7 +246,7 @@ const MyAccount = () => {
                                                             <div className="billing-info">
                                                                 <label>Họ tên</label>
                                                                 <input type="text"
-                                                                       value={userProfile.userInfo.fullName}
+                                                                       value={fullName}
                                                                        onChange={(e) => setFullName(e.target.value)}/>
                                                             </div>
                                                         </div>
@@ -228,7 +254,7 @@ const MyAccount = () => {
                                                             <div className="billing-info">
                                                                 <label>Số điện thoại</label>
                                                                 <input type="text"
-                                                                       value={userProfile.userInfo.phone}
+                                                                       value={phone}
                                                                        onChange={(e) => setPhone(e.target.value)}/>
                                                             </div>
                                                         </div>
@@ -236,15 +262,21 @@ const MyAccount = () => {
                                                             <div className="billing-info">
                                                                 <label>Email</label>
                                                                 <input type="email"
-                                                                       value={userProfile.userInfo.email}
+                                                                       value={email}
                                                                        onChange={(e) => setEmail(e.target.value)}/>
                                                             </div>
                                                         </div>
                                                     </div>
                                                     <div className="billing-back-btn">
                                                         <div className="billing-btn">
-                                                            <button type="submit" onClick={updateProfile}>Lưu thay đổi
-                                                            </button>
+                                                            {loading ?
+                                                                <button disabled
+                                                                        className={'d-flex justify-content-center'}>
+                                                                    <ClipLoader color="#36d7b7" size={14}/>
+                                                                </button> :
+                                                                <button type="submit" onClick={updateProfile}>Lưu thay
+                                                                    đổi
+                                                                </button>}
                                                         </div>
                                                     </div>
                                                 </div>
@@ -324,7 +356,7 @@ const MyAccount = () => {
                                                                     }}
                                                                     > Đánh giá </Button>
                                                                 )}
-                                                                {order.status.id === 5 && !checkReview(order)  && (
+                                                                {order.status.id === 5 && !checkReview(order) && (
                                                                     <Button variant="outline-info" onClick={() => {
                                                                         setshowOrderReviewModal(true);
                                                                         setOrderDetail(order);
@@ -408,7 +440,7 @@ const MyAccount = () => {
                     </Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
-                    <OrderReviewModal order={orderDetail} addToast={addToast} />
+                    <OrderReviewModal order={orderDetail} addToast={addToast}/>
                 </Modal.Body>
             </Modal>
 
@@ -552,8 +584,12 @@ const OrderDetailModal = ({order}: any) => {
                             <td>{formatPrice(order.shippingFee)}</td>
                         </tr>
                         <tr>
+                            <th colSpan={3}>Giảm giá</th>
+                            <td style={{color: 'red'}}> - {formatPrice(order.coupon ? order.coupon.price : 0)}</td>
+                        </tr>
+                        <tr>
                             <th colSpan={3}>Tổng tiền</th>
-                            <td>{formatPrice(order.totalAmount + order.shippingFee)}</td>
+                            <td>{formatPrice(order.totalAmount + order.shippingFee - (order.coupon ? order.coupon.price : 0))}</td>
                         </tr>
                         </tbody>
                     </Table>
@@ -574,7 +610,7 @@ const OrderDetailModal = ({order}: any) => {
                             <th>Trạng thái thanh toán</th>
                             <td>{order.paymentStatus === "yes" ? "Đã thanh toán" : "Chưa thanh toán"}</td>
                         </tr>
-                        {order.paymentMethod === "vnpay" || order.paymentMethod === "payos" && order.paymentStatus === "yes" && (
+                        {(order.paymentMethod === "vnpay" || order.paymentMethod === "payos") && order.paymentStatus === "yes" && (
                             <tr>
                                 <th>Mã thanh toán</th>
                                 <td>{order.paymentCode}</td>
@@ -586,6 +622,14 @@ const OrderDetailModal = ({order}: any) => {
                             </th>
                             <td>
                                 {order.shippingCode}
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>
+                                Mã đơn hàng từ hệ thống
+                            </th>
+                            <td>
+                                {order.generated_order_id}
                             </td>
                         </tr>
                         <tr>
@@ -617,7 +661,6 @@ const OrderReviewModal = ({order, addToast}: any) => {
     const [comment, setComment] = useState('');
     const [orderDetailId, setOrderDetail] = useState(null);
     const [product, setProduct] = useState(null);
-
 
 
     const submitReview = () => {
@@ -668,8 +711,8 @@ const OrderReviewModal = ({order, addToast}: any) => {
                             <tbody className={"mb-20"}>
                             {order.orderDetails.map((orderDetail: any, index: number) => (
                                 <tr key={index}>
-                                    <td >{index + 1}</td>
-                                    <td >{orderDetail.productId.name} /
+                                    <td>{index + 1}</td>
+                                    <td>{orderDetail.productId.name} /
                                         ({orderDetail.variation.color} / {orderDetail.size.size})
                                     </td>
                                     <td className={"review-center"}>
@@ -683,7 +726,8 @@ const OrderReviewModal = ({order, addToast}: any) => {
                                         )}
                                         {orderDetail.review != null && (
                                             <>
-                                                <Rating name="read-only" value={orderDetail.review.rating} readOnly style={{textAlign: 'center'}}/>
+                                                <Rating name="read-only" value={orderDetail.review.rating} readOnly
+                                                        style={{textAlign: 'center'}}/>
                                                 <TextField
                                                     id="outlined-multiline-static"
                                                     multiline

@@ -13,7 +13,7 @@ public class UserInfoServiceImpl implements UserInfoService {
     UserInfoRepository userInfoRepository;
 
     @Override
-    public ResponseEntity<?> findById(Long id) {
-        return ResponseEntity.ok(userInfoRepository.findById(id));
+    public ResponseEntity<?> findByUserId(Long id) {
+        return ResponseEntity.ok(userInfoRepository.findByUserId(id));
     }
 }

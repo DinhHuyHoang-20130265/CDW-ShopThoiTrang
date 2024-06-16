@@ -45,6 +45,10 @@ public class User implements UserDetails {
     @Column(name = "enabled")
     private boolean enabled;
 
+    @NotNull(message = "Deleted is required")
+    @Column(name = "deleted")
+    private boolean deleted;
+
     @OneToOne(mappedBy = "user", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private UserInfo userInfo;
 

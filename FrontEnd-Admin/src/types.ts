@@ -6,6 +6,15 @@ export type ThemeName = 'light' | 'dark';
 //     name: string;
 // }
 
+export interface Contact extends RaRecord {
+    name: string;
+    email: string;
+    message: string;
+    status: boolean;
+    createdDate: string;
+    repliedBy: number;
+}
+
 export interface Customer extends RaRecord {
     username: string;
     enabled: boolean;
@@ -42,6 +51,21 @@ export interface Category extends RaRecord {
     releaseBy: string,
     updateDate: string,
     updateBy: string
+}
+
+export interface Coupon extends RaRecord {
+    id: number,
+    name: string,
+    price: number,
+    couponCode: string,
+    status: boolean,
+    quantity: number,
+    expiredDate: string,
+    createDate: string,
+    createBy: string,
+    updateDate: string,
+    updateBy: string,
+    orders: Order[],
 }
 
 export interface Size extends RaRecord {
@@ -134,7 +158,7 @@ export interface ImportInvoice extends RaRecord {
 
 }
 
-export interface ImportInvoiceDetail extends RaRecord{
+export interface ImportInvoiceDetail extends RaRecord {
     id: number,
     product: Product,
     variation: Variation,

@@ -4,16 +4,30 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="89893dc3-088e-47ef-a82c-f709754202c6" name="Changes" comment="add websocket to notify">
+    <list default="true" id="89893dc3-088e-47ef-a82c-f709754202c6" name="Changes" comment="updated: finishing authorities admin frontend (80%)">
+      <change afterPath="$PROJECT_DIR$/src/contact/ContactList.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/contact/ContactMobileGrid.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/contact/ReplyContact.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/contact/ShowContact.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../BackEnd/logs/mylog.log" beforeDir="false" afterPath="$PROJECT_DIR$/../BackEnd/logs/mylog.log" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../BackEnd/src/main/java/vn/edu/hcmuaf/cdw/ShopThoiTrang/controller/ContactController.java" beforeDir="false" afterPath="$PROJECT_DIR$/../BackEnd/src/main/java/vn/edu/hcmuaf/cdw/ShopThoiTrang/controller/ContactController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../BackEnd/src/main/java/vn/edu/hcmuaf/cdw/ShopThoiTrang/entity/Contact.java" beforeDir="false" afterPath="$PROJECT_DIR$/../BackEnd/src/main/java/vn/edu/hcmuaf/cdw/ShopThoiTrang/entity/Contact.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../BackEnd/src/main/java/vn/edu/hcmuaf/cdw/ShopThoiTrang/reponsitory/ContactRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/../BackEnd/src/main/java/vn/edu/hcmuaf/cdw/ShopThoiTrang/reponsitory/ContactRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../BackEnd/src/main/java/vn/edu/hcmuaf/cdw/ShopThoiTrang/service/ContactService.java" beforeDir="false" afterPath="$PROJECT_DIR$/../BackEnd/src/main/java/vn/edu/hcmuaf/cdw/ShopThoiTrang/service/ContactService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../BackEnd/src/main/java/vn/edu/hcmuaf/cdw/ShopThoiTrang/service/EmailService.java" beforeDir="false" afterPath="$PROJECT_DIR$/../BackEnd/src/main/java/vn/edu/hcmuaf/cdw/ShopThoiTrang/service/EmailService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../BackEnd/src/main/java/vn/edu/hcmuaf/cdw/ShopThoiTrang/service/ReviewService.java" beforeDir="false" afterPath="$PROJECT_DIR$/../BackEnd/src/main/java/vn/edu/hcmuaf/cdw/ShopThoiTrang/service/ReviewService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../BackEnd/src/main/java/vn/edu/hcmuaf/cdw/ShopThoiTrang/service/impl/ContactServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/../BackEnd/src/main/java/vn/edu/hcmuaf/cdw/ShopThoiTrang/service/impl/ContactServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../BackEnd/src/main/java/vn/edu/hcmuaf/cdw/ShopThoiTrang/service/impl/ReviewServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/../BackEnd/src/main/java/vn/edu/hcmuaf/cdw/ShopThoiTrang/service/impl/ReviewServiceImpl.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Dashboard/DashBoard.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/Dashboard/DashBoard.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Dashboard/NewCustomers.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/Dashboard/NewCustomers.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Dashboard/OrderPieChart.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/Dashboard/OrderPieChart.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Dashboard/PendingOrder.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/Dashboard/PendingOrder.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Dashboard/ProductItem.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/Dashboard/ProductItem.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/websocket/Notification.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/websocket/Notification.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/websocket/WebSocketClient.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/App.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/App.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/importInvoices/ImportInvoiceCreate.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/importInvoices/ImportInvoiceCreate.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/importInvoices/ImportInvoiceList.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/importInvoices/ImportInvoiceList.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/promotion/PromotionList.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/promotion/PromotionList.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/reviews/ReviewEdit.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/reviews/ReviewEdit.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/reviews/ReviewEditToolbar.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/reviews/ReviewEditToolbar.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/reviews/ReviewList.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/reviews/ReviewList.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/reviews/ReviewListDesktop.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/reviews/ReviewListDesktop.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/types.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/types.ts" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -23,8 +37,8 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
-        <option value="TypeScript JSX File" />
         <option value="TypeScript File" />
+        <option value="TypeScript JSX File" />
       </list>
     </option>
   </component>
@@ -61,7 +75,7 @@
   &quot;keyToString&quot;: {
     &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;NguyenNgocHuy&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;DinhHuyHoang&quot;,
     &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
     &quot;last_opened_file_path&quot;: &quot;D:/CDW-ShopThoiTrang/FrontEnd-Admin&quot;,
     &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
@@ -72,7 +86,7 @@
     &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
     &quot;npm.npm start.executor&quot;: &quot;Run&quot;,
     &quot;settings.editor.selected.configurable&quot;: &quot;preferences.keymap&quot;,
-    &quot;ts.external.directory.path&quot;: &quot;D:\\ChuyenDeWeb\\CDW-ShopThoiTrang\\FrontEnd-Admin\\node_modules\\typescript\\lib&quot;,
+    &quot;ts.external.directory.path&quot;: &quot;D:\\CDW-ShopThoiTrang\\FrontEnd-Admin\\node_modules\\typescript\\lib&quot;,
     &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
 }</component>
@@ -101,6 +115,13 @@
       <envs />
       <method v="2" />
     </configuration>
+  </component>
+  <component name="SharedIndexes">
+    <attachedChunks>
+      <set>
+        <option value="bundled-js-predefined-1d06a55b98c1-91d5c284f522-JavaScript-WS-241.15989.105" />
+      </set>
+    </attachedChunks>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
@@ -174,6 +195,11 @@
       <workItem from="1718255785736" duration="8712000" />
       <workItem from="1718292147404" duration="1678000" />
       <workItem from="1718352575560" duration="10421000" />
+      <workItem from="1718454856943" duration="9748000" />
+      <workItem from="1718472990665" duration="4175000" />
+      <workItem from="1718519683170" duration="1511000" />
+      <workItem from="1718524294350" duration="3905000" />
+      <workItem from="1718544279943" duration="8788000" />
     </task>
     <task id="LOCAL-00001" summary="update product for admin (50%&#10;)">
       <option name="closed" value="true" />
@@ -479,7 +505,15 @@
       <option name="project" value="LOCAL" />
       <updated>1718360491719</updated>
     </task>
-    <option name="localTasksCounter" value="39" />
+    <task id="LOCAL-00039" summary="updated: finishing authorities admin frontend (80%)">
+      <option name="closed" value="true" />
+      <created>1718528267822</created>
+      <option name="number" value="00039" />
+      <option name="presentableId" value="LOCAL-00039" />
+      <option name="project" value="LOCAL" />
+      <updated>1718528267822</updated>
+    </task>
+    <option name="localTasksCounter" value="40" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -500,7 +534,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="resolve conflict" />
     <MESSAGE value="Add Order Detail" />
     <MESSAGE value="update status order" />
     <MESSAGE value="add list promotion" />
@@ -525,6 +558,7 @@
     <MESSAGE value="update: finished edit img promotion" />
     <MESSAGE value="update: finished edit img and create img for blog" />
     <MESSAGE value="add websocket to notify" />
-    <option name="LAST_COMMIT_MESSAGE" value="add websocket to notify" />
+    <MESSAGE value="updated: finishing authorities admin frontend (80%)" />
+    <option name="LAST_COMMIT_MESSAGE" value="updated: finishing authorities admin frontend (80%)" />
   </component>
 </project>

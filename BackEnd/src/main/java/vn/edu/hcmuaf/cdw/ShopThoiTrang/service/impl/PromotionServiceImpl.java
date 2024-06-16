@@ -65,6 +65,12 @@ public class PromotionServiceImpl implements PromotionService {
                     predicate = criteriaBuilder.and(predicate, criteriaBuilder.equal(root.get("status"), filterJson.get("status").asBoolean()));
                 }
                 if (filterJson.has("expired")) {
+                    boolean expired = filterJson.get("expired").asBoolean();
+                    if (expired) {
+                        predicate = criteriaBuilder.and(predicate, criteriaBuilder.lessThanOrEqualTo(root.get("endDate"), new Date(System.currentTimeMillis())));
+                    } else {
+                        predicate = criteriaBuilder.and(predicate, criteriaBuilder.greaterThan(root.get("endDate"), new Date(System.currentTimeMillis())));
+                    }
                 }
                 return predicate;
             };
@@ -182,6 +188,28 @@ public class PromotionServiceImpl implements PromotionService {
             return promotionRepository.save(existingPromotion);
         } catch (Exception e) {
             Log.error("Error while updating promotion", e);
+            throw new RuntimeException(e);
+        }
+    }
+
+    @Override
+    public Promotion deletePromotion(Long id, HttpServletRequest request) {
+        String jwt = jwtUtils.getJwtFromCookies(request, "shop2h_admin");
+        String username = jwtUtils.getUserNameFromJwtToken(jwt);
+        Promotion promotion = promotionRepository.findById(id).orElse(null);
+        if (promotion == null) {
+            return null;
+        }
+        promotion.setUpdatedBy(userRepository.findByUsername(jwtUtils.getUserNameFromJwtToken(jwt)).orElse(null));
+        promotion.setStatus(false);
+        promotion.setUpdatedDate(new Date(System.currentTimeMillis()));
+        promotion.setProducts(new ArrayList<>());
+        try {
+            Log.info(username + " deleted promotion " + promotion.getName());
+            promotionRepository.delete(promotion);
+            return promotion;
+        } catch (Exception e) {
+            Log.error("Error while deleting promotion", e);
             throw new RuntimeException(e);
         }
     }

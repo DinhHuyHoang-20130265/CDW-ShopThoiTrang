@@ -94,7 +94,7 @@ public class ReviewServiceImpl implements ReviewService {
             Specification<Review> specification = (root, query, criteriaBuilder) -> {
                 Predicate predicate = criteriaBuilder.conjunction();
                 if (filterJson.has("q")) {
-                    predicate = criteriaBuilder.and(predicate, criteriaBuilder.like(root.get("content"), "%" + filterJson.get("q").asText().toLowerCase() + "%"));
+                    predicate = criteriaBuilder.and(predicate, criteriaBuilder.like(root.get("content"), "%" + filterJson.get("q").asText() + "%"));
                 }
                 if (filterJson.has("type")) {
                     predicate = criteriaBuilder.and(predicate, criteriaBuilder.equal(root.get("type"), filterJson.get("type").asInt()));
@@ -104,6 +104,9 @@ public class ReviewServiceImpl implements ReviewService {
                 }
                 if (filterJson.has("product.id")) {
                     predicate = criteriaBuilder.and(predicate, criteriaBuilder.equal(root.get("product").get("id"), filterJson.get("product.id").asLong()));
+                }
+                if (filterJson.has("deleted")) {
+                    predicate = criteriaBuilder.and(predicate, criteriaBuilder.equal(root.get("isDeleted"), filterJson.get("deleted").asBoolean()));
                 }
                 if (filterJson.has("reviewedDate")) {
                     String dateString = filterJson.get("reviewedDate").asText();
@@ -133,7 +136,10 @@ public class ReviewServiceImpl implements ReviewService {
                         reviewRepository.findAll(specification, PageRequest.of(start, end, Sort.by(direction, "rating")));
                 case "content" ->
                         reviewRepository.findAll(specification, PageRequest.of(start, end, Sort.by(direction, "content")));
-                default -> reviewRepository.findAll(specification, PageRequest.of(start, end, Sort.by(direction, sortBy)));
+                case "deleted" ->
+                        reviewRepository.findAll(specification, PageRequest.of(start, end, Sort.by(direction, "isDeleted")));
+                default ->
+                        reviewRepository.findAll(specification, PageRequest.of(start, end, Sort.by(direction, sortBy)));
             };
         } catch (RuntimeException e) {
             Log.error("Error in getAllReviews: ", e);
@@ -196,17 +202,6 @@ public class ReviewServiceImpl implements ReviewService {
             reviewRepository.save(review);
         } catch (Exception e) {
             Log.error("Error in deleteReview: ", e);
-            throw new RuntimeException(e);
-        }
-    }
-
-    @Override
-    public void hardDeleteReview(Long id) {
-        try {
-            Log.info("Review hard deleted: " + id);
-            reviewRepository.deleteById(id);
-        } catch (Exception e) {
-            Log.error("Error in hardDeleteReview: ", e);
             throw new RuntimeException(e);
         }
     }

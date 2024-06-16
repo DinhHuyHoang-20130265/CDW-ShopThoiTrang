@@ -3,6 +3,7 @@ package vn.edu.hcmuaf.cdw.ShopThoiTrang.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 import vn.edu.hcmuaf.cdw.ShopThoiTrang.entity.Permission;
@@ -18,6 +19,7 @@ public class PermissionController {
     @Autowired
     private PermissionService permissionService;
 
+    @PreAuthorize("hasAuthority('ROLE_ADMIN') or @securityService.isSuperAdmin()")
     @GetMapping
     public ResponseEntity<Page<Permission>> getAllResources(@RequestParam(defaultValue = "0") int start,
                                                             @RequestParam(defaultValue = "{}") String filter,
@@ -28,6 +30,7 @@ public class PermissionController {
         return ResponseEntity.ok(permissions);
     }
 
+    @PreAuthorize("hasAuthority('ROLE_ADMIN') or @securityService.isSuperAdmin()")
     @GetMapping("/ids")
     public ResponseEntity<List<Permission>> getAllResources(@RequestParam(defaultValue = "{}") String ids) {
         List<Permission> permissions = permissionService.getAllPermissions(ids);

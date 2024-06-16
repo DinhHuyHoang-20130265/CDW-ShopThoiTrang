@@ -3,8 +3,6 @@ package vn.edu.hcmuaf.cdw.ShopThoiTrang.controller;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import jakarta.servlet.http.HttpServletRequest;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.http.codec.ServerSentEvent;
@@ -26,7 +24,7 @@ public class PayOSSSEController {
     @Autowired
     WebhookRepository webhookRepository;
 
-    @PreAuthorize("hasAuthority('ROLE_USER')")
+    @PreAuthorize("@securityService.isUser()")
     @GetMapping(path = "/{orderCode}", produces = MediaType.TEXT_EVENT_STREAM_VALUE)
     public Flux<ServerSentEvent<String>> getEvents(@PathVariable String orderCode) {
         boolean[] hasData = {false}; // Use an array to allow modification inside the lambda

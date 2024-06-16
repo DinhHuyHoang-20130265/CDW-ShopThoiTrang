@@ -1,10 +1,8 @@
-import React, { useEffect, useState } from 'react';
-import Snackbar from '@mui/material/Snackbar';
+import React, {useEffect, useState} from 'react';
 import IconButton from '@mui/material/IconButton';
-import CloseIcon from '@mui/icons-material/Close';
 import {Badge, Box, List, ListItem, ListItemText, Menu, MenuItem, Typography} from "@mui/material";
 import NotificationsIcon from '@mui/icons-material/Notifications';
-import { Stomp } from "@stomp/stompjs";
+import {Stomp} from "@stomp/stompjs";
 import SockJS from "sockjs-client";
 import {useNavigate} from "react-router-dom";
 
@@ -15,10 +13,10 @@ const Notification = () => {
 
     useEffect(() => {
         // Establish WebSocket connection
-        const socket = new SockJS('http://localhost:8080/ws');
+        const socket = new SockJS(`${process.env.REACT_APP_API_URL}/ws`);
         const stompClient = Stomp.over(socket);
 
-        stompClient.connect({}, (frame : any) => {
+        stompClient.connect({}, (frame: any) => {
 
             // Subscribe to the topic for new orders
             stompClient.subscribe('/topic/notifications', (message) => {
@@ -40,7 +38,7 @@ const Notification = () => {
 
     const getNotifications = async () => {
         try {
-            const response = await fetch(`http://localhost:8080/api/notification`, {
+            const response = await fetch(`${process.env.REACT_APP_API_URL}/notification`, {
                 method: 'GET',
                 headers: {
                     'Content-Type': 'application/json',
@@ -61,7 +59,7 @@ const Notification = () => {
 
     const markAllAsRead = async () => {
         try {
-            await fetch(`http://localhost:8080/api/notification/read-all`, {
+            await fetch(`${process.env.REACT_APP_API_URL}/notification/read-all`, {
                 method: 'PUT',
                 headers: {
                     'Content-Type': 'application/json',
@@ -69,7 +67,9 @@ const Notification = () => {
                 },
                 credentials: 'include'
             });
-            notifications.map((notification : any ) => { notification.read = true; });
+            notifications.map((notification: any) => {
+                notification.read = true;
+            });
         } catch (error) {
             console.error('Error marking all notifications as read:', error);
         }
@@ -77,7 +77,7 @@ const Notification = () => {
 
     const deleteAllNotifications = async () => {
         try {
-            await fetch(`http://localhost:8080/api/notification/delete-all`, {
+            await fetch(`${process.env.REACT_APP_API_URL}/notification/delete-all`, {
                 method: 'DELETE',
                 headers: {
                     'Content-Type': 'application/json',
@@ -91,7 +91,7 @@ const Notification = () => {
         }
     };
 
-    const handleClick = (event : any) => {
+    const handleClick = (event: any) => {
         setAnchorEl(event.currentTarget);
     };
 
@@ -99,16 +99,16 @@ const Notification = () => {
         setAnchorEl(null);
     };
 
-    const handleClickNotify = (resource : any, id : any, idNotify: any) => {
+    const handleClickNotify = (resource: any, id: any, idNotify: any) => {
         handleClose();
         readNotification(idNotify);
 
         navigate(`/${resource}/${id}`)
     }
 
-    const readNotification = async (id : any) => {
+    const readNotification = async (id: any) => {
         try {
-            await fetch(`http://localhost:8080/api/notification/read/${id}`, {
+            await fetch(`${process.env.REACT_APP_API_URL}/notification/read/${id}`, {
                 method: 'PUT',
                 headers: {
                     'Content-Type': 'application/json',
@@ -116,20 +116,20 @@ const Notification = () => {
                 },
                 credentials: 'include'
             });
-            notifications.map((notification : any) => {
+            notifications.map((notification: any) => {
                 if (notification.id === id) {
                     notification.read = true;
                 }
-            } )
+            })
         } catch (error) {
             console.error('Error reading notification:', error);
         }
     }
 
 
-    const calculateTime = (createdAt : string) => {
-        const createdDate : any = new Date(createdAt);
-        const currentDate : any = new Date();
+    const calculateTime = (createdAt: string) => {
+        const createdDate: any = new Date(createdAt);
+        const currentDate: any = new Date();
 
         const diffInMilliseconds = currentDate - createdDate;
 
@@ -150,14 +150,14 @@ const Notification = () => {
     }
 
     const countUnread = () => {
-        return notifications.filter((notification : any) => notification.read === false).length;
+        return notifications.filter((notification: any) => notification.read === false).length;
     }
 
     return (
         <>
             <IconButton color="inherit" onClick={handleClick}>
                 <Badge badgeContent={countUnread()} color="info">
-                    <NotificationsIcon />
+                    <NotificationsIcon/>
                 </Badge>
             </IconButton>
             <Menu
@@ -179,18 +179,21 @@ const Notification = () => {
                         overflow: 'auto',
                     }}
                 >
-                    <Box sx={{ display: 'flex', justifyContent: 'space-between', padding: '8px 16px', cursor: 'pointer' }}>
-                        <Typography variant="body2" color="primary" onClick={markAllAsRead}>Đánh dấu đã đọc tất cả</Typography>
-                        <Typography variant="body2" color="error" onClick={deleteAllNotifications}>Xóa tất cả</Typography>
+                    <Box
+                        sx={{display: 'flex', justifyContent: 'space-between', padding: '8px 16px', cursor: 'pointer'}}>
+                        <Typography variant="body2" color="primary" onClick={markAllAsRead}>Đánh dấu đã đọc tất
+                            cả</Typography>
+                        <Typography variant="body2" color="error" onClick={deleteAllNotifications}>Xóa tất
+                            cả</Typography>
                     </Box>
                     {notifications.length === 0 ? (
                         <MenuItem onClick={handleClose}>Chưa có thông báo mới</MenuItem>
                     ) : (
                         <List>
-                            {notifications.map((notification : any, index) => (
+                            {notifications.map((notification: any, index) => (
                                 <ListItem
                                     key={index}
-                                    button
+                                    button={true}
                                     onClick={() => handleClickNotify(notification.resource, notification.idResource, notification.id)}
                                     style={{
                                         cursor: 'pointer',

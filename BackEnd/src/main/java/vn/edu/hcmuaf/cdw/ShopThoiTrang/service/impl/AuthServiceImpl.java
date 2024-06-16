@@ -60,7 +60,7 @@ public class AuthServiceImpl implements AuthService {
     @Override
     public ResponseEntity<?> login(LoginDto loginDto) {
         User user = userRepository.findByUsername(loginDto.getUsername()).orElse(null);
-        if (user == null || !user.isEnabled()) {
+        if (user == null || !user.isEnabled() || user.isDeleted()) {
             Log.warn("username: " + loginDto.getUsername() + " not found");
             return new ResponseEntity<>("username not found", HttpStatus.NOT_FOUND);
         }
@@ -103,7 +103,7 @@ public class AuthServiceImpl implements AuthService {
     @Override
     public ResponseEntity<?> login_admin(LoginDto loginDto) {
         User user = userRepository.findByUsername(loginDto.getUsername()).orElse(null);
-        if (user == null || !user.isEnabled()) {
+        if (user == null || !user.isEnabled() || user.isDeleted()) {
             Log.warn("username not found");
             return new ResponseEntity<>("username not found", HttpStatus.NOT_FOUND);
         }
@@ -111,7 +111,8 @@ public class AuthServiceImpl implements AuthService {
             Log.warn("wrong password");
             return new ResponseEntity<>("wrong password", HttpStatus.EXPECTATION_FAILED);
         }
-        if (!user.getRole().getName().equals("ADMIN")) {
+        if (!(user.getRole().getName().equals("ADMIN") || user.getRole().getName().equals("SUPER_ADMIN"))) {
+            System.out.println(user.getRole().getName());
             Log.warn("unauthorized");
             return new ResponseEntity<>("unauthorized ", HttpStatus.NOT_ACCEPTABLE);
         }

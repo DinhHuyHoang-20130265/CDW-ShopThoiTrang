@@ -4,12 +4,14 @@ import {
     DateField,
     EditButton,
     RecordContextProvider,
-    useListContext, TextField, ImageField, FunctionField, ChipField, NumberField
+    useListContext, TextField, ImageField, FunctionField, ChipField, NumberField, DeleteButton, UpdateButton
 } from 'react-admin';
 
 import {Product} from '../types';
+import {checkPermission} from "../helpers";
+import RestoreIcon from "@mui/icons-material/Restore";
 
-const MobileProductGrid = () => {
+const MobileProductGrid = ({permissions}: any) => {
     const {data, isLoading} = useListContext<Product>();
 
     if (isLoading || data.length === 0) {
@@ -28,7 +30,26 @@ const MobileProductGrid = () => {
                                     <DateField source="releaseDate" label={"Ngày tạo"}/>
                                 </>
                             }
-                            action={<EditButton/>}
+                            action={<div style={{
+                                display: 'flex',
+                                justifyContent: 'space-evenly',
+                                alignItems: 'center',
+                                width: '100%'
+                            }}>
+                                {permissions && checkPermission(permissions, "PRODUCT_UPDATE") &&
+                                    <EditButton/>}
+                                {permissions && checkPermission(permissions, "PRODUCT_DELETE") && !record.deleted &&
+                                    <DeleteButton mutationMode={'pessimistic'}/>}
+                                {permissions && checkPermission(permissions, "PRODUCT_UPDATE") && record.deleted &&
+                                    <UpdateButton resource={'user/deleted'} label="Restore"
+                                                  data={{deleted: false}}
+                                                  sx={{
+                                                      color: 'green',
+                                                      borderColor: 'green',
+                                                  }}>
+                                        <RestoreIcon/>
+                                    </UpdateButton>}
+                            </div>}
                         />
                         <CardContent sx={{pt: 0, display: "flex", alignItems: "center"}}>
                             <ImageField sx={{m: "auto"}} className={"cent"} source="imageUrl" label="Ảnh"/>

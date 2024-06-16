@@ -28,7 +28,7 @@ public class Category {
     @Column(name = "parent_id")
     private Long parentId;
 
-    @NotNull(message = "Category description is required")
+    @NotNull(message = "Category status is required")
     private boolean status;
 
     @Column(name = "released_date")

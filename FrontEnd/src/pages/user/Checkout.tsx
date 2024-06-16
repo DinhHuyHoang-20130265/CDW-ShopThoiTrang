@@ -13,6 +13,22 @@ import toast from "react-hot-toast";
 import {ClipLoader} from "react-spinners";
 import {deleteAllFromCart} from "../../store/actions/cartActions";
 
+function formatNumber(number: any) {
+    let numberStr = number.toString();
+
+    let [integerPart, decimalPart] = numberStr.split(".");
+
+    if (decimalPart === undefined) {
+        decimalPart = "00";
+    } else if (decimalPart.length === 1) {
+        decimalPart = decimalPart + "0";
+    }
+
+    integerPart = integerPart.replace(/\B(?=(\d{3})+(?!\d))/g, ".");
+
+    return integerPart + "." + decimalPart;
+}
+
 const Checkout = ({cartItems, deleteAllFromCart}: any) => {
     let cartTotalPrice = 0;
     const [isLoading, setIsLoading]: any = useState(false);
@@ -31,6 +47,9 @@ const Checkout = ({cartItems, deleteAllFromCart}: any) => {
     const [email, setEmail] = useState("");
     const [userId, setUserId] = useState(-1);
 
+    const [coupon, setCoupon]: any = useState(null);
+    const [couponCode, setCouponCode] = useState("");
+    const [couponCheck, setCouponCheck] = useState(false);
     const [fee, setFee] = useState(0);
     const [paymentType, setPaymentType] = useState('cod');
     const navigate = useNavigate();
@@ -65,6 +84,37 @@ const Checkout = ({cartItems, deleteAllFromCart}: any) => {
 
     const RETURN_URL = "https://a262-42-112-74-243.ngrok-free.app/api/payos";
     const CANCEL_URL = "https://a262-42-112-74-243.ngrok-free.app/api/payos";
+
+    const handleCheckCoupon = async () => {
+        if (couponCode === "") {
+            toast.error("Vui lòng nhập mã giảm giá");
+            return;
+        }
+        setCouponCheck(true);
+        setTimeout(async () => {
+            await axios.get(`${process.env.REACT_APP_API_ENDPOINT}coupon/check/${couponCode}`, {
+                headers: {
+                    Accept: 'application/json',
+                    "Content-Type": "application/json",
+                },
+                withCredentials: true
+            }).then((response) => {
+                if (response.data) {
+                    if (response.data.status === false || response.data.quantity === 0 || response.data.expiredDate < new Date().toISOString()) {
+                        toast.error("Mã giảm giá đã hết hạn");
+                        return;
+                    }
+                    setCoupon(response.data);
+                    toast.success("Mã giảm giá hợp lệ");
+                } else {
+                    toast.error("Mã giảm giá không hợp lệ");
+                }
+            }).catch((error) => {
+                toast.error(error);
+            })
+            setCouponCheck(false);
+        }, 1000)
+    }
 
     const getDistricts = async (provinceId: any) => {
         await axios.get(process.env.REACT_APP_GHN_API + `district?province_id=${provinceId}`, {
@@ -149,7 +199,7 @@ const Checkout = ({cartItems, deleteAllFromCart}: any) => {
                 length: 1,
                 width: 19,
                 height: 10,
-                cod_amount: payment_type === 'cod' ? (fee + cartTotalPrice) : 0,
+                cod_amount: payment_type === 'cod' ? (fee + cartTotalPrice - (coupon ? coupon.price : 0)) : 0,
                 service_id: 0,
                 service_type_id: 2,
                 pick_shift: [2],
@@ -213,6 +263,7 @@ const Checkout = ({cartItems, deleteAllFromCart}: any) => {
                 paymentMethod: paymentType,
                 paymentCode: "",
                 paymentDate: "",
+                coupon: coupon ? coupon.couponCode : "",
                 paymentStatus: "no",
                 shippingFee: fee,
                 shippingCode: "",
@@ -248,7 +299,7 @@ const Checkout = ({cartItems, deleteAllFromCart}: any) => {
                     break;
                 case 'vnpay':
                     const data = {
-                        amount: cartTotalPrice + fee,
+                        amount: cartTotalPrice + fee - (coupon ? coupon.price : 0),
                         orderInfo: unixTimestamp
                     };
                     await postOrderGHN(paymentType).then(async (response: any) => {
@@ -303,7 +354,7 @@ const Checkout = ({cartItems, deleteAllFromCart}: any) => {
                         console.log(error);
                     });
                     if (shipping_create_status) {
-                        let amount = cartTotalPrice + fee;
+                        let amount = cartTotalPrice + fee - (coupon ? coupon.price : 0);
                         let description = "DON HANG " + unixTimestamp;
                         let data_checksum = `amount=${amount}&cancelUrl=${CANCEL_URL}&description=${description}&orderCode=${unixTimestamp}&returnUrl=${RETURN_URL}`;
                         console.log(data_checksum);
@@ -558,12 +609,12 @@ const Checkout = ({cartItems, deleteAllFromCart}: any) => {
                                                               <span className="order-middle-left">
                                                                 {cartItem.name} X {cartItem.quantity}
                                                               </span>{" "}<span className="order-price">
-                                                                {discountedPrice !== null ? "đ" + (
+                                                                {formatNumber(discountedPrice !== null ? (
                                                                     finalDiscountedPrice *
                                                                     cartItem.quantity
-                                                                ).toFixed(2) : "đ" + (
+                                                                ).toFixed(2) : (
                                                                     finalProductPrice * cartItem.quantity
-                                                                ).toFixed(2)}
+                                                                ).toFixed(2))} đ
                                                               </span>
                                                             </li>
                                                         );
@@ -573,18 +624,90 @@ const Checkout = ({cartItems, deleteAllFromCart}: any) => {
                                             <div className="your-order-bottom">
                                                 <ul>
                                                     <li className="your-order-shipping">Tạm tính</li>
-                                                    <li>{"đ" + cartTotalPrice.toFixed(2)}</li>
+                                                    <li>{formatNumber(cartTotalPrice.toFixed(2))} đ</li>
                                                 </ul>
                                                 <ul>
                                                     <li className="your-order-shipping">Phí vận chuyển</li>
-                                                    <li>{fee !== 0 && fee.toFixed(2)} đ</li>
+                                                    <li>{fee !== 0 && formatNumber(fee.toFixed(2))} đ</li>
                                                 </ul>
+                                                {coupon ? <>
+                                                    <ul>
+                                                        <li className="discount-code">Giảm giá</li>
+                                                        <li>
+                                                            -{formatNumber(coupon.price.toFixed(2)) + " đ"}
+                                                        </li>
+
+                                                    </ul>
+                                                    <ul style={{paddingTop: '5px'}}>
+                                                        <li className="discount-code"></li>
+                                                        <li>
+                                                            <button className="btn-hover" style={
+                                                                {
+                                                                    backgroundColor: '#FFFFFF',
+                                                                    color: '#000',
+                                                                    border: 'none',
+                                                                    padding: '5px 10px',
+                                                                    fontSize: '14px',
+                                                                    boxShadow: 'rgba(149, 157, 165, 0.2) 0px 8px 24px'
+                                                                }
+                                                            }
+                                                                    onClick={() => setCoupon(null)}>Hủy mã giảm giá
+                                                            </button>
+                                                        </li>
+                                                    </ul>
+                                                </> : <>
+                                                    <ul>
+                                                        <li className="discount-code">Mã giảm giá</li>
+                                                        <li>
+                                                            <input type="text" style={{
+                                                                float: 'right',
+                                                            }}
+                                                                   placeholder={"Nhập mã giảm giá"}
+                                                                   onChange={(e: any) => setCouponCode(e.target.value)}/>
+                                                        </li>
+
+                                                    </ul>
+                                                    <ul style={{paddingTop: '5px'}}>
+                                                        <li></li>
+                                                        <li>
+                                                            {couponCheck ? (
+                                                                <button
+                                                                    style={
+                                                                        {
+                                                                            backgroundColor: '#FFFFFF',
+                                                                            color: '#000',
+                                                                            border: 'none',
+                                                                            padding: '5px 10px',
+                                                                            fontSize: '14px',
+                                                                            boxShadow: 'rgba(149, 157, 165, 0.2) 0px 8px 24px'
+                                                                        }
+                                                                    }
+                                                                    className="btn-hover d-flex justify-content-center">
+                                                                    <ClipLoader color="#36d7b7" size={14}/>
+                                                                </button>
+                                                            ) : (
+                                                                <button className="btn-hover" style={
+                                                                    {
+                                                                        backgroundColor: '#FFFFFF',
+                                                                        color: '#000',
+                                                                        border: 'none',
+                                                                        padding: '5px 10px',
+                                                                        fontSize: '14px',
+                                                                        boxShadow: 'rgba(149, 157, 165, 0.2) 0px 8px 24px'
+                                                                    }
+                                                                }
+                                                                        onClick={handleCheckCoupon}>Kiểm tra
+                                                                </button>
+                                                            )}
+                                                        </li>
+                                                    </ul>
+                                                </>}
                                             </div>
                                             <div className="your-order-total">
                                                 <ul>
                                                     <li className="order-total">Tổng tiền</li>
                                                     <li>
-                                                        {"đ" + (fee + cartTotalPrice).toFixed(2)}
+                                                        {formatNumber((fee + cartTotalPrice - (coupon ? coupon.price : 0)).toFixed(2)) + " đ"}
                                                     </li>
                                                 </ul>
                                             </div>

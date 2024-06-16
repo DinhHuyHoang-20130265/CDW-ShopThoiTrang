@@ -17,6 +17,7 @@ public class CreateOrderRequest {
     private String ward;
     private String address;
     private String note;
+    private String coupon;
     private String status;
     private Double shippingFee;
     private String shippingCode;
