@@ -31,6 +31,8 @@ const ProductGridForShopItem = ({
                 }
             }).then((response: any) => {
                 setReviews(response.data);
+            }).catch((error: any) => {
+                setReviews([])
             })
         }
         fectch();

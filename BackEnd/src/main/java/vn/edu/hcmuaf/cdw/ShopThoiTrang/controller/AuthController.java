@@ -21,7 +21,6 @@ public class AuthController {
     @Autowired
     private AuthService authService;
 
-
     @Autowired
     private GoogleService googleService;
     @Autowired

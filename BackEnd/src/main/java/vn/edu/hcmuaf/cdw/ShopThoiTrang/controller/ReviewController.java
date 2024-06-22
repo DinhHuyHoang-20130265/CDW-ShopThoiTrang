@@ -39,7 +39,6 @@ public class ReviewController {
         return ResponseEntity.ok(reviewEntity);
     }
 
-    @PreAuthorize("hasAuthority('ROLE_ADMIN') or @securityService.isSuperAdmin()")
     @GetMapping("/product/{productId}")
     public ResponseEntity<List<Review>> getReviewsByProductId(@PathVariable Long productId) {
         List<Review> reviews = reviewService.getReviewsByProductId(productId);
