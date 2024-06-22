@@ -5,7 +5,7 @@ import Breadcrumb from "../../wrappers/breadcrumb/Breadcrumb";
 import {Button, Col, Container, Form, Modal, Row, Table} from "react-bootstrap";
 import axios from "axios";
 import {useToasts} from "react-toast-notifications";
-import {Navigate} from "react-router-dom";
+import {Navigate, useNavigate} from "react-router-dom";
 import {Rating, TextField} from "@mui/material";
 import "../../assets/css/review.css";
 import {getBase64, imgProvider} from "../../imgProvider/imgProvider";
@@ -39,13 +39,7 @@ const MyAccount = () => {
     }
 
     const [userProfile, setUserProfile]: any = useState(null);
-    const checkUser = () => {
-        if (!user)
-            return <Navigate to={'/login-register'}/>
-    }
-
-    checkUser();
-
+    const navigate = useNavigate();
     useEffect(() => {
         const fetchUserProfile = async () => {
             await axios.get(`${process.env.REACT_APP_API_ENDPOINT}user/${idUser}`, {
@@ -60,7 +54,11 @@ const MyAccount = () => {
                 setEmail(response.data.userInfo.email);
             })
         }
-        fetchUserProfile().then();
+        if (!user || !idUser)
+            navigate('/login-register');
+        else
+            fetchUserProfile().then();
+
     }, []);
 
 
@@ -641,7 +639,7 @@ const OrderDetailModal = ({order}: any) => {
 
                     {order.status.id === 1 && order.paymentMethod === "cod" && (
                         <Button variant="danger" className={"mt-25"}
-                        onClick={() => cancelOrder()}>Hủy đơn hàng</Button>
+                                onClick={() => cancelOrder()}>Hủy đơn hàng</Button>
                     )}
 
                 </Col>

@@ -34,6 +34,9 @@ public class SecurityConfiguration {
     UserDetailsServiceImpl userDetailsService;
 
     @Autowired
+    private FrontendProperties frontendProperties;
+
+    @Autowired
     private AuthEntryPointJwt unauthorizedHandler;
 
     @Bean
@@ -72,6 +75,7 @@ public class SecurityConfiguration {
                 .authorizeHttpRequests(auth ->
                         auth.requestMatchers("/api/auth/**").permitAll()
                                 .requestMatchers("/api/order-status").permitAll()
+                                .requestMatchers("/api/review/product/").permitAll()
                                 .requestMatchers("/api/blog/", "/api/blog/user", "/api/blog").permitAll()
                                 .requestMatchers("/api/contact/**").permitAll()
                                 .requestMatchers("/api/coupon").permitAll()
@@ -89,7 +93,7 @@ public class SecurityConfiguration {
     @Bean
     CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration configuration = new CorsConfiguration();
-        configuration.setAllowedOrigins(Arrays.asList("http://localhost:3000", "http://localhost:3001")); // specify the allowed origin here
+        configuration.setAllowedOrigins(Arrays.asList(frontendProperties.getUrl(), frontendProperties.getAdmin(), "http://localhost:3000", "http://localhost:3001")); // specify the allowed origin here
         configuration.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "DELETE"));
         configuration.setAllowCredentials(true);
         configuration.setAllowedHeaders(Arrays.asList("Authorization", "Cache-Control", "Content-Type"));

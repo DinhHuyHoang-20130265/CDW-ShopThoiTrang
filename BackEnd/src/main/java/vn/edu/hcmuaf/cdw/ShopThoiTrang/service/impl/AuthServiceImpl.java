@@ -13,6 +13,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import vn.edu.hcmuaf.cdw.ShopThoiTrang.JWT.JwtUtils;
+import vn.edu.hcmuaf.cdw.ShopThoiTrang.config.FrontendProperties;
 import vn.edu.hcmuaf.cdw.ShopThoiTrang.entity.RefreshToken;
 import vn.edu.hcmuaf.cdw.ShopThoiTrang.entity.Role;
 import vn.edu.hcmuaf.cdw.ShopThoiTrang.entity.User;
@@ -52,6 +53,8 @@ public class AuthServiceImpl implements AuthService {
     @Autowired
     RefreshTokenService refreshTokenService;
 
+    @Autowired
+    private FrontendProperties frontendProperties;
 
     private final Map<String, String> otpMap = new HashMap<>();
 
@@ -148,7 +151,8 @@ public class AuthServiceImpl implements AuthService {
 
         try {
             String requestOrigin = request.getHeader("origin");
-            String jwtName = requestOrigin.equals("http://localhost:3000") ? "shop2h" : requestOrigin.equals("http://localhost:3001") ? "shop2h_admin" : null;
+            String jwtName = (requestOrigin.equals(frontendProperties.getUrl()) || requestOrigin.equals("http://localhost:3000")) ? "shop2h" :
+                    (requestOrigin.equals(frontendProperties.getAdmin()) || requestOrigin.equals("http://localhost:3001")) ? "shop2h_admin" : null;
             if (jwtName == null)
                 throw new RuntimeException("Unknown site");
             String refreshToken = jwtUtils.getJwtRefreshFromCookies(request, jwtName + "_refresh");
@@ -222,7 +226,8 @@ public class AuthServiceImpl implements AuthService {
         Log.info("logout");
         try {
             String requestOrigin = request.getHeader("origin");
-            String jwtName = requestOrigin.equals("http://localhost:3000") ? "shop2h" : requestOrigin.equals("http://localhost:3001") ? "shop2h_admin" : null;
+            String jwtName = (requestOrigin.equals(frontendProperties.getUrl()) || requestOrigin.equals("http://localhost:3000")) ? "shop2h" :
+                    (requestOrigin.equals(frontendProperties.getAdmin()) || requestOrigin.equals("http://localhost:3001")) ? "shop2h_admin" : null;
             Object principle = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
             if (!Objects.equals(principle.toString(), "anonymousUser")) {
                 Long userId = ((UserDetailsImpl) principle).getId();

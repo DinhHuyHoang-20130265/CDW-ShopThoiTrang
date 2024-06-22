@@ -16,71 +16,76 @@ import {logout} from "./components/auth/Logout";
 
 const Render = () => {
     let retryCount = 0;
+
+    const handleLogout = () => {
+        googleLogout();
+        logout();
+        toast.error("Hết phiên đăng nhập, vui lòng đăng nhập lại!");
+        localStorage.removeItem('user');
+        window.location.href = "/login-register";
+    };
+
     axios.interceptors.response.use(
-        response => {
-            return response
-        },
-        async function (error) {
-            console.log(error)
-            let originalRequest = error.config
-            if (error.response.status === 400 && originalRequest._retry) {
-                retryCount = 0;
-                googleLogout();
-                logout();
-                toast.error("Hết phiên đăng nhập, vui lòng đăng nhập lại!")
-                localStorage.removeItem('user');
-                window.location.href = "/login-register"
-                return Promise.reject(error)
+        response => response,
+        async (error) => {
+            const originalRequest = error.config;
+
+            if (!originalRequest) {
+                toast.error("Đã có lỗi xảy ra, vui lòng thử lại sau!");
+                return Promise.reject(error);
             }
 
-            if ((error.response.status === 401 || error.response.status === 403) && !originalRequest._retry) {
-                originalRequest._retry = true
+            if (error.response) {
+                const {status} = error.response;
 
-                if (retryCount >= 1) {
-                    googleLogout();
-                    logout();
-                    toast.error("Hết phiên đăng nhập, vui lòng đăng nhập lại!")
-                    localStorage.removeItem('user');
-                    window.location.href = "/login-register"
+                if (status === 400 && originalRequest._retry) {
+                    retryCount = 0;
+                    handleLogout();
                     return Promise.reject(error);
                 }
-                retryCount++;
-                await axios
-                    .post(`${process.env.REACT_APP_API_ENDPOINT}auth/refresh-token`,
-                        {}, {
+
+                if ((status === 401 || (status === 403 && error.response.data !== "")) && !originalRequest._retry) {
+                    originalRequest._retry = true;
+                    if (retryCount >= 1) {
+                        retryCount = 0;
+                        handleLogout();
+                        return Promise.reject(error);
+                    }
+
+                    retryCount++;
+
+                    try {
+                        const res = await axios.post(`${process.env.REACT_APP_API_ENDPOINT}auth/refresh-token`, {}, {
                             headers: {
                                 Accept: 'application/json',
                                 "Content-Type": "application/json",
                             },
-                            withCredentials: true
-                        }).then(res => {
+                            withCredentials: true,
+                        });
+
                         if (res.status === 200) {
                             retryCount = 0;
                             return axios(originalRequest);
                         } else {
-                            googleLogout();
                             retryCount = 0;
-                            logout();
-                            toast.error("Hết phiên đăng nhập, vui lòng đăng nhập lại!")
-                            localStorage.removeItem('user');
-                            window.location.href = "/login-register"
-                            return Promise.reject(error)
+                            handleLogout();
                         }
-                    }).catch((error) => {
+                    } catch (error) {
                         retryCount = 0;
-                        googleLogout();
-                        logout();
-                        toast.error("Hết phiên đăng nhập, vui lòng đăng nhập lại!")
-                        localStorage.removeItem('user');
-                        window.location.href = "/login-register"
-                        return Promise.reject(error)
-                    });
-            } else if (error.response.status === 406) {
-                return Promise.reject(error)
+                        handleLogout();
+                    }
+                } else if (status === 406) {
+                    toast.error("Dữ liệu không hợp lệ, vui lòng kiểm tra lại!");
+                } else if (status === 403 && error.response.data !== "") {
+                    toast.error("Unauthorized:" + error);
+                } else {
+                    toast.error("Đã có lỗi xảy ra, vui lòng thử lại sau!");
+                }
             } else {
-                toast.error("Đã có lỗi xảy ra, vui lòng thử lại sau! :" + error)
-                return Promise.reject(error)
+                toast.error("Đã có lỗi xảy ra, vui lòng thử lại sau!");
             }
+
+            return Promise.reject(error);
         }
     );
     const store = legacy_createStore(

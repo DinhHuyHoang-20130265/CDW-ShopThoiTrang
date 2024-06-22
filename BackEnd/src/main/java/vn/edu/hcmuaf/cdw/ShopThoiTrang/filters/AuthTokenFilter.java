@@ -17,6 +17,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.web.authentication.WebAuthenticationDetailsSource;
 import org.springframework.web.filter.OncePerRequestFilter;
 import vn.edu.hcmuaf.cdw.ShopThoiTrang.JWT.JwtUtils;
+import vn.edu.hcmuaf.cdw.ShopThoiTrang.config.FrontendProperties;
 import vn.edu.hcmuaf.cdw.ShopThoiTrang.entity.RefreshToken;
 import vn.edu.hcmuaf.cdw.ShopThoiTrang.exception.TokenRefreshException;
 import vn.edu.hcmuaf.cdw.ShopThoiTrang.service.RefreshTokenService;
@@ -27,6 +28,9 @@ import vn.edu.hcmuaf.cdw.ShopThoiTrang.service.impl.UserDetailsServiceImpl;
 public class AuthTokenFilter extends OncePerRequestFilter {
     @Autowired
     private JwtUtils jwtUtils;
+
+    @Autowired
+    private FrontendProperties frontendProperties;
 
     @Autowired
     private UserDetailsServiceImpl userDetailsService;
@@ -40,7 +44,8 @@ public class AuthTokenFilter extends OncePerRequestFilter {
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
         try {
             String requestOrigin = request.getHeader("origin");
-            String jwtName = requestOrigin.equals("http://localhost:3000") ? "shop2h" : requestOrigin.equals("http://localhost:3001") ? "shop2h_admin" : null;
+            String jwtName = (requestOrigin.equals(frontendProperties.getUrl()) || requestOrigin.equals("http://localhost:3000")) ? "shop2h" :
+                    (requestOrigin.equals(frontendProperties.getAdmin()) || requestOrigin.equals("http://localhost:3001")) ? "shop2h_admin" : null;
             if (jwtName == null)
                 throw new RuntimeException("Unknown site");
             String jwt = parseJwt(request, jwtName);
