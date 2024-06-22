@@ -8,6 +8,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import vn.edu.hcmuaf.cdw.ShopThoiTrang.JWT.JwtUtils;
+import vn.edu.hcmuaf.cdw.ShopThoiTrang.config.FrontendProperties;
 import vn.edu.hcmuaf.cdw.ShopThoiTrang.entity.Product;
 import vn.edu.hcmuaf.cdw.ShopThoiTrang.entity.User;
 import vn.edu.hcmuaf.cdw.ShopThoiTrang.model.dto.CreateUserDTO;
@@ -30,6 +31,8 @@ public class UserController {
     private HttpServletRequest request;
 
     @Autowired
+    private FrontendProperties frontendProperties;
+    @Autowired
     UserInfoService userInfoService;
 
     @Autowired
@@ -38,7 +41,8 @@ public class UserController {
     @GetMapping("/info")
     public ResponseEntity<?> userInfo() {
         String requestOrigin = request.getHeader("origin");
-        String jwtName = requestOrigin.equals("http://localhost:3000") ? "shop2h" : requestOrigin.equals("http://localhost:3001") ? "shop2h_admin" : null;
+        String jwtName = (requestOrigin.equals(frontendProperties.getUrl()) || requestOrigin.equals("http://localhost:3000")) ? "shop2h" :
+                (requestOrigin.equals(frontendProperties.getAdmin()) || requestOrigin.equals("http://localhost:3001")) ? "shop2h_admin" : null;
         String jwt = jwtUtils.getJwtFromCookies(request, jwtName);
         if (jwt == null) {
             return ResponseEntity.badRequest().body("Token is null");
@@ -51,7 +55,8 @@ public class UserController {
     @GetMapping("/get-authorities")
     public ResponseEntity<?> getAuthorities() {
         String requestOrigin = request.getHeader("origin");
-        String jwtName = requestOrigin.equals("http://localhost:3000") ? "shop2h" : requestOrigin.equals("http://localhost:3001") ? "shop2h_admin" : null;
+        String jwtName = (requestOrigin.equals(frontendProperties.getUrl()) || requestOrigin.equals("http://localhost:3000")) ? "shop2h" :
+                (requestOrigin.equals(frontendProperties.getAdmin()) || requestOrigin.equals("http://localhost:3001")) ? "shop2h_admin" : null;
         String jwt = jwtUtils.getJwtFromCookies(request, jwtName);
         if (jwt == null) {
             return ResponseEntity.badRequest().body("Token is null");
