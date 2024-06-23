@@ -684,7 +684,7 @@ vn.edu.hcmuaf.cdw.ShopThoiTrang.exception.TokenRefreshException: Failed for []: 
 2024-06-17 00:38:48 INFO  ReviewServiceImpl:180 - Review updated: Review(id=9, content=Vải đẹp!, rating=4, status=true, isDeleted=false, type=2, reviewedDate=2024-05-28)
 2024-06-17 00:38:58 INFO  ReviewServiceImpl:180 - Review updated: Review(id=9, content=Vải đẹp!, rating=4, status=true, isDeleted=false, type=2, reviewedDate=2024-05-28)
 2024-06-17 00:45:21 INFO  ReviewServiceImpl:196 - Review deleted: Review(id=9, content=Vải đẹp!, rating=4, status=true, isDeleted=true, type=2, reviewedDate=2024-05-28)
-2024-06-17 00:51:06 ERROR ReviewServiceImpl:143 - Error in getAllReviews: 
+2024-06-17 00:51:06 ERROR ReviewServiceImpl:143 - Error in getAllReviews:
 org.springframework.dao.InvalidDataAccessApiUsageException: Unable to locate Attribute with the given name [deleted] on this ManagedType [vn.edu.hcmuaf.cdw.ShopThoiTrang.entity.Review]
 	at org.springframework.orm.jpa.EntityManagerFactoryUtils.convertJpaAccessExceptionIfPossible(EntityManagerFactoryUtils.java:371)
 	at org.springframework.orm.jpa.vendor.HibernateJpaDialect.translateExceptionIfPossible(HibernateJpaDialect.java:246)
@@ -851,7 +851,7 @@ Caused by: java.lang.IllegalArgumentException: Unable to locate Attribute with t
 	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:184)
 	at org.springframework.dao.support.PersistenceExceptionTranslationInterceptor.invoke(PersistenceExceptionTranslationInterceptor.java:137)
 	... 123 more
-2024-06-17 00:51:09 ERROR ReviewServiceImpl:143 - Error in getAllReviews: 
+2024-06-17 00:51:09 ERROR ReviewServiceImpl:143 - Error in getAllReviews:
 org.springframework.dao.InvalidDataAccessApiUsageException: Unable to locate Attribute with the given name [deleted] on this ManagedType [vn.edu.hcmuaf.cdw.ShopThoiTrang.entity.Review]
 	at org.springframework.orm.jpa.EntityManagerFactoryUtils.convertJpaAccessExceptionIfPossible(EntityManagerFactoryUtils.java:371)
 	at org.springframework.orm.jpa.vendor.HibernateJpaDialect.translateExceptionIfPossible(HibernateJpaDialect.java:246)
