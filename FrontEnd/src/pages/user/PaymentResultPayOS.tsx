@@ -16,13 +16,14 @@ const PaymentResultPayOS = ({deleteAllFromCart}: any) => {
     const currentTimestamp = Date.now();
     const formattedTimestamp = moment(currentTimestamp).format('YYYY-MM-DD HH:mm:ss.SSS');
     const navigate = useNavigate();
+    const status = queryParams.get('status');
     useEffect(() => {
         let order: any = localStorage.getItem("order");
         let orderBody: any = localStorage.getItem("orderbody");
         if (order === null || code === null) {
             navigate("/home");
         }
-        if (success === "true" && order !== null) {
+        if ((success === "true" || status === "PAID") && order !== null) {
             try {
                 let parsedOrder = JSON.parse(order);
                 parsedOrder = {
@@ -89,7 +90,7 @@ const PaymentResultPayOS = ({deleteAllFromCart}: any) => {
                         <div className="col-md-12">
                             <div className=" text-center">
                                 <div className="error-text">
-                                    <h2>PAYOS {code === "00" ? "Huỷ" : ""} thanh toán thành công đơn hàng</h2>
+                                    <h2>PAYOS {status === "PAID" ? "" : "Huỷ"} thanh toán thành công đơn hàng</h2>
 
                                     <div className="d-flex justify-content-center text-left">
                                         <table className="table table-hover" style={{width: "50%"}}>

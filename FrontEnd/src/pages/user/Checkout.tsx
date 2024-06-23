@@ -82,8 +82,8 @@ const Checkout = ({cartItems, deleteAllFromCart}: any) => {
         }
     }, [navigate]);
 
-    const RETURN_URL = "https://a262-42-112-74-243.ngrok-free.app/api/payos";
-    const CANCEL_URL = "https://a262-42-112-74-243.ngrok-free.app/api/payos";
+    const RETURN_URL = `${process.env.REACT_APP_API_ENDPOINT}payos`;
+    const CANCEL_URL = `${process.env.REACT_APP_API_ENDPOINT}payos`;
 
     const handleCheckCoupon = async () => {
         if (couponCode === "") {

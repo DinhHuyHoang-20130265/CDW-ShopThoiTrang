@@ -224,7 +224,7 @@ const Notification = () => {
                                 >
                                     <ListItemText
                                         primary={
-                                            notification.resource === 'order' ? `Đơn hàng mới: #${notification.idResource}` : notification.message
+                                            notification.resource === 'order' ? `Đơn hàng mới: #${notification.idResource}` : (notification.resource === 'review' ? `Đánh giá mới` : `Liên hệ mới`)
                                         }
                                         secondary={calculateTime(notification.createdAt)}
                                     />
