@@ -163,41 +163,6 @@ const UserCreate = () => {
                             <Box mt="1em"/>
 
                             <Typography variant="h6" gutterBottom>
-                                Địa chỉ
-                            </Typography>
-                            <TextInput
-                                source="address"
-                                multiline
-                                fullWidth
-                                helperText={false}
-                            />
-                            <Box display={{xs: 'block', sm: 'flex'}}>
-                                <Box flex={2} mr={{xs: 0, sm: '0.5em'}}>
-                                    <TextInput
-                                        source="province"
-                                        fullWidth
-                                        helperText={false}
-                                    />
-                                </Box>
-                                <Box flex={1} mr={{xs: 0, sm: '0.5em'}}>
-                                    <TextInput
-                                        source="district"
-                                        fullWidth
-                                        helperText={false}
-                                    />
-                                </Box>
-                                <Box flex={2}>
-                                    <TextInput
-                                        source="ward"
-                                        fullWidth
-                                        helperText={false}
-                                    />
-                                </Box>
-                            </Box>
-
-                            <Box mt="1em"/>
-
-                            <Typography variant="h6" gutterBottom>
                                 Mật khẩu
                             </Typography>
                             <Box display={{xs: 'block', sm: 'flex'}}>

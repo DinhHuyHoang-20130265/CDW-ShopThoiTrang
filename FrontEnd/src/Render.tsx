@@ -100,7 +100,8 @@ const Render = () => {
                 headers: {
                     Accept: 'application/json',
                     "Content-Type": "application/json"
-                }
+                },
+                withCredentials: true,
             }).then(response => {
                 store.dispatch(fetchProducts(response.data));
                 setIsLoaded(true);

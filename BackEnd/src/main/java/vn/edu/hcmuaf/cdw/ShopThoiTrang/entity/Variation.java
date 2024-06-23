@@ -50,7 +50,6 @@ public class Variation {
     @JsonIgnore
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "product_id")
-    @NotNull(message = "Please provide a product")
     private Product product;
 
     @OneToMany(mappedBy = "variation", fetch = FetchType.LAZY, cascade = CascadeType.ALL)

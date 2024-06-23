@@ -234,6 +234,7 @@ const DashBoard = () => {
         return loyalCustomers.sort((a: any, b: any) => b.totalAmount - a.totalAmount).slice(0, 10);
     };
 
+
     const loyalCustomers = useMemo(() => getLoyalCustomers(users, orders), [users, orders]);
 
     return isXSmall ? (
