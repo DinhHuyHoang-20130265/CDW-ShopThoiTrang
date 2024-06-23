@@ -22,7 +22,6 @@ public class ImageProduct {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
-    @NotNull(message = "Product is required")
     @ManyToOne
     @JoinColumn(name = "product_id")
     @JsonBackReference

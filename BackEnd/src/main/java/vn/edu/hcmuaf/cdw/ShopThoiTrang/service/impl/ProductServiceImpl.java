@@ -211,20 +211,25 @@ public class ProductServiceImpl implements ProductService {
                 return ResponseEntity.badRequest().body("Token is null");
             }
             String username = jwtUtils.getUserNameFromJwtToken(jwt);
+            List<ImageProduct> imageProductsCopy = product.getImgProducts();
+            Product productCopy = new Product();
+
+            productCopy.setName(product.getName());
+            productCopy.setDescription(product.getDescription());
+            productCopy.setContent(product.getContent());
+            productCopy.setStatus(product.isStatus());
+            productCopy.setImageUrl(product.getImageUrl());
+            productCopy.setCategories(product.getCategories());
+
+            productCopy = productRepository.save(productCopy);
             // save price
-            Price price = product.getPrice();
-            price.setProduct(product);
-            priceRepository.save(price);
+            Price price = new Price();
+            price.setPrice(product.getPrice().getPrice());
+            price.setProduct(productCopy);
+            productCopy.setPrice(price);
+            price = savePrice(price);
+            productCopy = productRepository.save(productCopy);
 
-            for (ImageProduct imageProduct : product.getImgProducts()) {
-                imageProduct.setReleaseDate(currentDate);
-                imageProduct.setUpdateDate(currentDate);
-                imageProduct.setReleaseBy(userRepository.findByUsername(username).orElse(null));
-                imageProduct.setUpdateBy(userRepository.findByUsername(username).orElse(null));
-                imageProduct.setProduct(product);
-                imageProductRepository.save(imageProduct);
-
-            }
             // save variations
             List<Variation> viariations = new ArrayList<>();
             for (Variation variation : product.getVariations()) {
@@ -232,7 +237,7 @@ public class ProductServiceImpl implements ProductService {
                 variation.setUpdateDate(currentDate);
                 variation.setReleaseBy(variation.getReleaseBy());
                 variation.setUpdateBy(variation.getUpdateBy());
-                variation.setProduct(product);
+                variation.setProduct(productCopy);
 
                 List<Size> sizes = new ArrayList<>();
                 for (Size size : variation.getSizes()) {
@@ -251,34 +256,40 @@ public class ProductServiceImpl implements ProductService {
                 variationRepository.save(variation);
                 viariations.add(variation);
             }
-            product.setUpdateDate(currentDate);
-            product.setReleaseDate(currentDate);
-            product.setReleaseBy(userRepository.findByUsername(username).orElse(null));
-            product.setUpdateBy(userRepository.findByUsername(username).orElse(null));
-            product.setVariations(viariations);
+            productCopy.setUpdateDate(currentDate);
+            productCopy.setReleaseDate(currentDate);
+            productCopy.setReleaseBy(userRepository.findByUsername(username).orElse(null));
+            productCopy.setUpdateBy(userRepository.findByUsername(username).orElse(null));
+            productCopy.setVariations(viariations);
 
             if (product.getImgProducts() == null) {
-                product.setImgProducts(new ArrayList<>());
+                productCopy.setImgProducts(new ArrayList<>());
             }
 
             List<ImageProduct> imageProducts = new ArrayList<>();
-            for (ImageProduct imageProduct : product.getImgProducts()) {
+            for (ImageProduct imageProduct : imageProductsCopy) {
                 imageProduct.setUrl(imageProduct.getUrl());
                 imageProduct.setReleaseDate(currentDate);
                 imageProduct.setUpdateDate(currentDate);
                 imageProduct.setReleaseBy(userRepository.findByUsername(username).orElse(null));
                 imageProduct.setUpdateBy(userRepository.findByUsername(username).orElse(null));
-                imageProduct.setProduct(product);
+                imageProduct.setProduct(productCopy);
                 imageProductRepository.save(imageProduct);
                 imageProducts.add(imageProduct);
             }
-            product.setImgProducts(imageProducts);
-            Log.info(product.getReleaseBy().getUsername() + "added product: " + product.getName());
-            return ResponseEntity.ok(productRepository.save(product));
+
+            productCopy.setImgProducts(imageProducts);
+            Log.info(productCopy.getReleaseBy().getUsername() + "added product: " + productCopy.getName());
+            return ResponseEntity.ok(productRepository.save(productCopy));
         } catch (Exception e) {
             Log.error("Error save product", e);
             throw new RuntimeException(e);
         }
+    }
+
+    @Transactional
+    public Price savePrice(Price price) {
+        return priceRepository.save(price);
     }
 
     @Override
@@ -351,7 +362,7 @@ public class ProductServiceImpl implements ProductService {
                     existingVariation.setColorCode(updatedVariation.getColorCode());
                     existingVariation.setUpdateDate(currentDate);
                     existingVariation.setUpdateBy(userRepository.findByUsername(username).orElse(null));
-                    updateSizes(existingVariation, updatedVariation.getSizes());
+                    updateSizes(existingVariation, updatedVariation.getSizes(), username);
                     updatedVariations.add(existingVariation);
                 } else {
                     // Thêm mới biến thể
@@ -412,6 +423,16 @@ public class ProductServiceImpl implements ProductService {
             }
             existingProduct.setVariations(updatedVariations);
 
+            // Cập nhật giá
+            Price price = priceRepository.findById(productUpdate.getPrice().getId())
+                    .orElseThrow(() -> new IllegalArgumentException("Price not found with id: " + productUpdate.getPrice().getId()));
+
+            price.setProduct(existingProduct);
+            price.setPrice(productUpdate.getPrice().getPrice());
+            price = priceRepository.save(price);
+            existingProduct.setPrice(price);
+
+
             Log.info(existingProduct.getReleaseBy().getUsername() + "updated product: " + existingProduct.getName());
             return ResponseEntity.ok(productRepository.save(existingProduct));
         } catch (IllegalArgumentException e) {
@@ -420,7 +441,7 @@ public class ProductServiceImpl implements ProductService {
         }
     }
 
-    private void updateSizes(Variation existingVariation, List<Size> updatedSizes) {
+    private void updateSizes(Variation existingVariation, List<Size> updatedSizes, String username) {
         try {
             Date currentDate = new Date(System.currentTimeMillis());
             for (Size updatedSize : updatedSizes) {
@@ -466,7 +487,7 @@ public class ProductServiceImpl implements ProductService {
                 existingVariation.getSizes().remove(size);
                 sizeRepository.delete(size);
             }
-            Log.info(existingVariation.getReleaseBy().getUsername() + "updated variation: " + existingVariation.getColor());
+            Log.info(username + "updated variation: " + existingVariation.getColor());
             variationRepository.save(existingVariation);
         } catch (Exception e) {
             Log.error("Error update sizes", e);

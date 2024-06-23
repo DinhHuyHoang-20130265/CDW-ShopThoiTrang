@@ -14,9 +14,7 @@ const Notification = () => {
 
     useEffect(() => {
         // Establish WebSocket connection
-        const socket = new SockJS(`${process.env.REACT_APP_API_URL_SOCKET}/ws`, null, {
-            transports: ['websocket'],
-        });
+        const socket = new SockJS(`${process.env.REACT_APP_API_URL_SOCKET}/ws`);
         const stompClient = Stomp.over(socket);
 
         stompClient.connect({}, (frame: any) => {
@@ -25,7 +23,7 @@ const Notification = () => {
             stompClient.subscribe('/topic/notifications', (message) => {
                 const notification = JSON.parse(message.body);
                 // Update notifications state with new notification
-                setNotifications((prevNotifications): any => [...prevNotifications, notification]);
+                setNotifications((prevNotifications): any => [notification, ...prevNotifications]);
             });
 
         });
