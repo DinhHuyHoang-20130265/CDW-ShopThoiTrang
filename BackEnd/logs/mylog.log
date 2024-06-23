@@ -10047,3 +10047,4 @@ java.lang.IllegalArgumentException: Page size must not be less than one
 	at org.apache.tomcat.util.threads.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:659)
 	at org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:63)
 	at java.base/java.lang.Thread.run(Thread.java:842)
+2024-06-23 13:25:18 INFO  ReviewServiceImpl:68 - Review created: Review(id=0, content=123, rating=5, status=true, isDeleted=false, type=0, reviewedDate=2024-06-23)
