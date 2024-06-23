@@ -20,7 +20,8 @@ const PostDetail = () => {
                 headers: {
                     Accept: 'application/json',
                     "Content-Type": "application/json"
-                }
+                },
+                withCredentials: true
             }).then(response => {
                 setPost(response.data);
             })
@@ -37,7 +38,7 @@ const PostDetail = () => {
                         <div className="col-lg-9">
                             <div className="blog-details-wrapper ml-20">
                                 <Post post={post}/>
-                                <PostComment post={post} />
+                                <PostComment post={post}/>
                             </div>
                         </div>
                         <div className="col-lg-3">

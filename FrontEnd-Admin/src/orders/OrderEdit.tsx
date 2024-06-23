@@ -100,7 +100,8 @@ const OrderForm = () => {
                     headers: {
                         'Content-Type': 'application/json',
                         Accept: 'application/json',
-                    }
+                    },
+                    withCredentials: true
                 })
                 if (data) {
                     setStatuses(data);
@@ -116,7 +117,8 @@ const OrderForm = () => {
                 headers: {
                     'Content-Type': 'application/json',
                     Accept: 'application/json',
-                }
+                },
+                withCredentials: true
             }).then((res) => {
                 addNotify('Cập nhật trạng thái đơn hàng thành công', {type: 'success'});
             });
@@ -133,7 +135,8 @@ const OrderForm = () => {
                     'Content-Type': 'application/json',
                     Accept: 'application/json',
                 },
-                responseType: 'blob'
+                responseType: 'blob',
+                withCredentials: true
             });
 
             const url = window.URL.createObjectURL(new Blob([response.data]));
@@ -232,7 +235,12 @@ const OrderForm = () => {
                             <Total/>
                         </div>
                     </CardContent>
-                    <Toolbar>
+                    <Toolbar sx={{
+                        display: 'flex',
+                        flexDirection: 'row',
+                        justifyContent: 'space-between',
+
+                    }}>
                         <Button onClick={() => exportOrder(record.id)} color="primary" variant="contained">
                             Xuất đơn hàng
                         </Button>

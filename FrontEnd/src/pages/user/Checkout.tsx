@@ -594,10 +594,10 @@ const Checkout = ({cartItems, deleteAllFromCart}: any) => {
                                                         );
                                                         const finalProductPrice = (
                                                             cartItem.price.price
-                                                        ).toFixed(2);
+                                                        ).toFixed(0);
                                                         const finalDiscountedPrice: any = (
                                                             discountedPrice === null ? cartItem.price.price : discountedPrice
-                                                        ).toFixed(2);
+                                                        ).toFixed(0);
 
                                                         discountedPrice != null
                                                             ? (cartTotalPrice +=
@@ -612,9 +612,9 @@ const Checkout = ({cartItems, deleteAllFromCart}: any) => {
                                                                 {formatNumber(discountedPrice !== null ? (
                                                                     finalDiscountedPrice *
                                                                     cartItem.quantity
-                                                                ).toFixed(2) : (
+                                                                ).toFixed(0) : (
                                                                     finalProductPrice * cartItem.quantity
-                                                                ).toFixed(2))} đ
+                                                                ).toFixed(0))} đ
                                                               </span>
                                                             </li>
                                                         );
@@ -624,17 +624,17 @@ const Checkout = ({cartItems, deleteAllFromCart}: any) => {
                                             <div className="your-order-bottom">
                                                 <ul>
                                                     <li className="your-order-shipping">Tạm tính</li>
-                                                    <li>{formatNumber(cartTotalPrice.toFixed(2))} đ</li>
+                                                    <li>{formatNumber(cartTotalPrice.toFixed(0))} đ</li>
                                                 </ul>
                                                 <ul>
                                                     <li className="your-order-shipping">Phí vận chuyển</li>
-                                                    <li>{fee !== 0 && formatNumber(fee.toFixed(2))} đ</li>
+                                                    <li>{fee !== 0 && formatNumber(fee.toFixed(0))} đ</li>
                                                 </ul>
                                                 {coupon ? <>
                                                     <ul>
                                                         <li className="discount-code">Giảm giá</li>
                                                         <li>
-                                                            -{formatNumber(coupon.price.toFixed(2)) + " đ"}
+                                                            -{formatNumber(coupon.price.toFixed(0)) + " đ"}
                                                         </li>
 
                                                     </ul>
@@ -707,7 +707,7 @@ const Checkout = ({cartItems, deleteAllFromCart}: any) => {
                                                 <ul>
                                                     <li className="order-total">Tổng tiền</li>
                                                     <li>
-                                                        {formatNumber((fee + cartTotalPrice - (coupon ? coupon.price : 0)).toFixed(2)) + " đ"}
+                                                        {formatNumber((fee + cartTotalPrice - (coupon ? coupon.price : 0)).toFixed(0)) + " đ"}
                                                     </li>
                                                 </ul>
                                             </div>

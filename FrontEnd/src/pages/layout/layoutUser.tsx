@@ -1,4 +1,4 @@
-import React, {Fragment} from "react";
+import React, {Fragment, useEffect} from "react";
 import Header from "../../wrappers/header/Header";
 import Footer from "../../wrappers/footer/Footer";
 import {BreadcrumbsItem} from "react-breadcrumbs-dynamic";
@@ -57,6 +57,13 @@ const LayoutUser = ({
         }
 
     ]
+
+    useEffect(() => {
+        const offCanvas: NodeListOf<Element> = document.querySelectorAll(".button-list-header .same-style");
+        offCanvas.forEach((element: any) => {
+            element.lastElementChild.classList.remove('active');
+        });
+    }, [children, location.pathname]);
 
     return (
         <Fragment>

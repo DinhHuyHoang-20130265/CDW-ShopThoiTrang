@@ -30,7 +30,8 @@ const LoginRegister = () => {
                 headers: {
                     Accept: 'application/json',
                     'Content-Type': 'application/json'
-                }
+                },
+                withCredentials: true
             }).then((response) => {
             if (response.status === 200) {
                 localStorage.setItem('user', JSON.stringify(response.data));

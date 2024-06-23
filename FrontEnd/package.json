@@ -24,6 +24,7 @@
     "animate.css": "^4.1.1",
     "axios": "^1.6.8",
     "crypto-js": "^4.2.0",
+    "firebase-tools": "^13.11.0",
     "html-react-parser": "^5.1.10",
     "lightgallery": "^2.7.2",
     "lightgallery.js": "^1.4.0",

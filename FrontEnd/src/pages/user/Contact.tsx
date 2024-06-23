@@ -34,6 +34,7 @@ const Contact = () => {
                     Accept: 'application/json',
                     "Content-Type": "application/json"
                 },
+                withCredentials: true,
                 params: {
                     name: formData.name,
                     email: formData.email,
