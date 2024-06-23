@@ -6,12 +6,14 @@ import {Button, Col, Container, Form, Modal, Row, Table} from "react-bootstrap";
 import axios from "axios";
 import {useToasts} from "react-toast-notifications";
 import {Navigate, useNavigate} from "react-router-dom";
-import {Rating, TextField} from "@mui/material";
+import {IconButton, Rating, TextField, Tooltip} from "@mui/material";
 import "../../assets/css/review.css";
 import {getBase64, imgProvider} from "../../imgProvider/imgProvider";
 import toast from "react-hot-toast";
 import {ClipLoader} from "react-spinners";
-
+import ThumbDownOffAltIcon from '@mui/icons-material/ThumbDownOffAlt';
+import ThumbUpOffAltIcon from '@mui/icons-material/ThumbUpOffAlt';
+import SyncIcon from '@mui/icons-material/Sync';
 
 const MyAccount = () => {
     const {addToast} = useToasts();
@@ -57,8 +59,9 @@ const MyAccount = () => {
         }
         if (!user || !idUser)
             navigate('/login-register');
-        else
+        else {
             fetchUserProfile().then();
+        }
 
     }, [showOrderDetailModal, showOrderStatusModal, showOrderReviewModal]);
 
@@ -335,11 +338,11 @@ const MyAccount = () => {
                                                     </tr>
                                                     </thead>
                                                     <tbody>
-                                                    {userProfile.orders.map((order: any, index: number) => (
+                                                    {userProfile.orders.sort((a: any, b: any) => a.id - b.id).map((order: any, index: number) => (
                                                         <tr key={index}>
                                                             <td>{index + 1}</td>
                                                             <td>{order.id}</td>
-                                                            <td>{formatPrice(order.totalAmount + order.shippingFee)}</td>
+                                                            <td>{formatPrice(order.totalAmount + order.shippingFee - order.coupon ? order.coupon.price : 0)}</td>
                                                             <td>{formatStatus(order.status)}</td>
                                                             <td>
                                                                 <Button variant="primary" onClick={() => {
@@ -708,7 +711,7 @@ const OrderReviewModal = ({order, addToast, setshowOrderReviewModal}: any) => {
                         <h4>Đánh giá đơn hàng</h4>
                         <Table striped>
                             <thead>
-                            <tr>
+                            <tr style={{textAlign: "center"}}>
                                 <th>#</th>
                                 <th>Tên sản phẩm</th>
                                 <th>Trạng thái</th>
@@ -716,7 +719,9 @@ const OrderReviewModal = ({order, addToast, setshowOrderReviewModal}: any) => {
                             </thead>
                             <tbody className={"mb-20"}>
                             {order.orderDetails.map((orderDetail: any, index: number) => (
-                                <tr key={index}>
+                                <tr key={index} style={{
+                                    verticalAlign: "middle"
+                                }}>
                                     <td>{index + 1}</td>
                                     <td>{orderDetail.productId.name} /
                                         ({orderDetail.variation.color} / {orderDetail.size.size})
@@ -733,7 +738,7 @@ const OrderReviewModal = ({order, addToast, setshowOrderReviewModal}: any) => {
                                         {orderDetail.review != null && (
                                             <>
                                                 <Rating name="read-only" value={orderDetail.review.rating} readOnly
-                                                        style={{textAlign: 'center'}}/>
+                                                        style={{textAlign: 'center', marginRight: '10px'}}/>
                                                 <TextField
                                                     id="outlined-multiline-static"
                                                     multiline
@@ -741,7 +746,26 @@ const OrderReviewModal = ({order, addToast, setshowOrderReviewModal}: any) => {
                                                     variant="outlined"
                                                     disabled
                                                     fullWidth
+                                                    style={{marginRight: '10px'}}
                                                 />
+                                                {orderDetail.review.type === 0 && <Tooltip
+                                                    title="Nhận xét của bạn đã bị shop từ chối và sẽ không hiển thị ở đánh giá sản phẩm">
+                                                    <IconButton>
+                                                        <ThumbDownOffAltIcon color={'error'}/>
+                                                    </IconButton>
+                                                </Tooltip>}
+                                                {orderDetail.review.type === 2 && <Tooltip
+                                                    title="Nhận xét của bạn được phê duyệt và sẽ hiển thị công khai ở đánh giá sản phẩm">
+                                                    <IconButton>
+                                                        <ThumbUpOffAltIcon color={'success'}/>
+                                                    </IconButton>
+                                                </Tooltip>}
+                                                {orderDetail.review.type === 1 && <Tooltip
+                                                    title="Nhận xét của bạn đang đợi phê duyệt, sẽ chưa hiển thị ở đánh giá sản phẩm">
+                                                    <IconButton>
+                                                        <SyncIcon color={'warning'}/>
+                                                    </IconButton>
+                                                </Tooltip>}
                                             </>
                                         )}
                                     </td>
