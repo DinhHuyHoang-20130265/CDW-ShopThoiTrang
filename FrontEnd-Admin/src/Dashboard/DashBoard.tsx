@@ -219,7 +219,10 @@ const DashBoard = () => {
     // get loyal customers
     const getLoyalCustomers = (users: any, orders: any) => {
         if (!users || !orders) return [];
-        const loyalCustomers = users.map((user: any) => {
+
+        const usersWithOrders = users.filter((user: any) => orders.some((order: any) => order.user.id === user.id));
+
+        const loyalCustomers = usersWithOrders.map((user: any) => {
             const userOrders = orders.filter((order: any) => order.user.id === user.id);
             return {
                 user,
@@ -227,6 +230,7 @@ const DashBoard = () => {
                 totalAmount: userOrders.reduce((acc: number, order: any) => acc + order.totalAmount, 0),
             };
         });
+
         return loyalCustomers.sort((a: any, b: any) => b.totalAmount - a.totalAmount).slice(0, 10);
     };
 
