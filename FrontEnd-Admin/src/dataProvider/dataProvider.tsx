@@ -247,7 +247,12 @@ export const dataProvider: DataProvider = {
                         resource: resourceUser.find((resource: any) => resource.id === item.resource.id),
                         permissions: item.permissions.map((item: any) => permissions.find((cat: any) => cat.id === item.id))
                     })) : []
-                } : params.data;
+                } : {
+                    ...params.data, userInfo: {
+                        ...params.data.userInfo,
+                        avtUrl: (avtUrl !== null ? avtUrl : null)
+                    }
+                };
                 break;
             case 'import-invoice':
                 payload = params.data.importInvoiceDetails;
@@ -468,7 +473,10 @@ export const dataProvider: DataProvider = {
                 },
                 withCredentials: true
             }).then((response: any) => {
-            result = response.data;
+            if (response.data.statusCodeValue && response.data.statusCodeValue === 200) {
+                result = response.data.body;
+            } else
+                result = response.data;
         })
         return Promise.resolve({data: result});
     },

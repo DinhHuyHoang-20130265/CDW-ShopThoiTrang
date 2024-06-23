@@ -122,7 +122,6 @@ const PromotionList = () => {
                                     flexDirection: 'row',
                                     justifyContent: 'space-evenly'
                                 }}>
-                                    <LinkToProducts/>
                                     {permissions && checkPermission(permissions, "PROMOTION_UPDATE") &&
                                         <EditButton sx={{lineHeight: '1.75 !important'}}/>}
                                     {permissions && checkPermission(permissions, "PROMOTION_DELETE") &&
