@@ -262,7 +262,7 @@ public class OrderServiceImpl implements OrderService {
                 PdfWriter writer = PdfWriter.getInstance(document, byteArrayOutputStream);
                 document.open();
 
-                BaseFont bf = BaseFont.createFont("src/main/java/vn/edu/hcmuaf/cdw/ShopThoiTrang/font/arial.ttf", BaseFont.IDENTITY_H, BaseFont.EMBEDDED);
+                BaseFont bf = BaseFont.createFont("src/main/resources/arial.ttf", BaseFont.IDENTITY_H, BaseFont.EMBEDDED);
                 Font boldFont = new Font(bf, 20, Font.BOLD);
                 Font regularFont = new Font(bf, 12, Font.NORMAL);
 
