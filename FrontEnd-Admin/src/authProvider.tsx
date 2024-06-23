@@ -26,6 +26,13 @@ httpClient.interceptors.response.use(
                     authProvider.logout();
                     window.location.href = '/#/login';
                     return Promise.reject({message: "Your session is expired. Please login again."});
+                } else if (error.response.status === 401) {
+                    // @ts-ignore
+                    authProvider.logout();
+                    window.location.href = '/#/login';
+                    return Promise.reject({message: "Your session is expired. Please login again."});
+                } else {
+                    return Promise.reject({message: "There was an error. Please try again."});
                 }
             });
         } else {

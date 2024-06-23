@@ -46,7 +46,8 @@ const MyAccount = () => {
                 headers: {
                     Accept: 'application/json',
                     "Content-Type": "application/json"
-                }
+                },
+                withCredentials: true
             }).then(response => {
                 setUserProfile(response.data);
                 setFullName(response.data.userInfo.fullName);
@@ -59,7 +60,7 @@ const MyAccount = () => {
         else
             fetchUserProfile().then();
 
-    }, []);
+    }, [showOrderDetailModal, showOrderStatusModal, showOrderReviewModal]);
 
 
     const displaySelectedImage = (event: any) => {
@@ -163,6 +164,7 @@ const MyAccount = () => {
                 Accept: 'application/json',
                 "Content-Type": "application/json"
             },
+            withCredentials: true,
             params: {
                 id: userProfile.id,
                 oldPassword: oldPassword,
@@ -391,7 +393,7 @@ const MyAccount = () => {
                     </Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
-                    <OrderDetailModal order={orderDetail}/>
+                    <OrderDetailModal order={orderDetail} setshowOrderDetailModal={setshowOrderDetailModal}/>
                 </Modal.Body>
                 <Modal.Footer>
                     <Button variant="primary" onClick={() => {
@@ -438,7 +440,8 @@ const MyAccount = () => {
                     </Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
-                    <OrderReviewModal order={orderDetail} addToast={addToast}/>
+                    <OrderReviewModal order={orderDetail} addToast={addToast}
+                                      setshowOrderReviewModal={setshowOrderReviewModal}/>
                 </Modal.Body>
             </Modal>
 
@@ -487,21 +490,24 @@ const formatPrice = (price: any) => {
     return price.toLocaleString('it-IT', {style: 'currency', currency: 'VND'});
 }
 
-const OrderDetailModal = ({order}: any) => {
+const OrderDetailModal = ({order, setshowOrderDetailModal}: any) => {
     const {addToast} = useToasts();
 
-    const cancelOrder = () => {
-        axios.put(`${process.env.REACT_APP_API_ENDPOINT}order/${order.id}/cancel`, null, {
+    const cancelOrder = async () => {
+        await axios.put(`${process.env.REACT_APP_API_ENDPOINT}order/${order.id}/cancel`, null, {
             headers: {
                 Accept: 'application/json',
                 "Content-Type": "application/json"
-            }
+            },
+            withCredentials: true
         }).then(response => {
             addToast("Hủy đơn hàng thành công", {
                 appearance: 'success',
                 autoDismiss: true,
                 autoDismissTimeout: 3000
             });
+            setshowOrderDetailModal(false);
+
         }).catch(error => {
             addToast("Hủy đơn hàng thất bại", {
                 appearance: 'error',
@@ -649,7 +655,7 @@ const OrderDetailModal = ({order}: any) => {
 
 }
 
-const OrderReviewModal = ({order, addToast}: any) => {
+const OrderReviewModal = ({order, addToast, setshowOrderReviewModal}: any) => {
     const user: any = localStorage.getItem('user');
 
     const idUser: any = JSON.parse(user) ? JSON.parse(user).id : null;
@@ -661,7 +667,7 @@ const OrderReviewModal = ({order, addToast}: any) => {
     const [product, setProduct] = useState(null);
 
 
-    const submitReview = () => {
+    const submitReview = async () => {
         if (rating === 0 || comment === '') {
             addToast("Vui lòng nhập đầy đủ thông tin", {
                 appearance: 'error',
@@ -671,7 +677,7 @@ const OrderReviewModal = ({order, addToast}: any) => {
             return;
         }
 
-        axios.post(`${process.env.REACT_APP_API_ENDPOINT}review`, {
+        await axios.post(`${process.env.REACT_APP_API_ENDPOINT}review`, {
             content: comment,
             rating: rating,
             product: product,
@@ -681,8 +687,10 @@ const OrderReviewModal = ({order, addToast}: any) => {
             headers: {
                 Accept: 'application/json',
                 "Content-Type": "application/json"
-            }
+            },
+            withCredentials: true
         }).then(response => {
+            setshowOrderReviewModal(false);
             addToast("Đánh giá thành công", {
                 appearance: 'success',
                 autoDismiss: true,

@@ -32,8 +32,8 @@ const VoucherItemHome = (props: any) => {
                     <p>VND</p>
                 </div>
                 <div className="coupon_copy_paste">
-                    <span className="code">Nhập mã: {props.item.coupon_code}</span>
-                    <button className="btn btn-main btn-sm coupon_copy" data-code={`${props.item.coupon_code}`}
+                    <span className="code">Nhập mã: {props.item.couponCode}</span>
+                    <button className="btn btn-main btn-sm coupon_copy" data-code={`${props.item.couponCode}`}
                             onClick={(e: any) => {
                                 navigator.clipboard.writeText(e.currentTarget.getAttribute('data-code'));
                                 toast.success('Voucher đã được sao chép vào bộ nhớ tạm của bạn', {

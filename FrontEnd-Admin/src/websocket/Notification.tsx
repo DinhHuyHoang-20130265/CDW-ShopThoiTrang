@@ -5,6 +5,7 @@ import NotificationsIcon from '@mui/icons-material/Notifications';
 import {Stomp} from "@stomp/stompjs";
 import SockJS from "sockjs-client";
 import {useNavigate} from "react-router-dom";
+import axios from "axios";
 
 const Notification = () => {
     const [anchorEl, setAnchorEl] = useState(null);
@@ -13,7 +14,9 @@ const Notification = () => {
 
     useEffect(() => {
         // Establish WebSocket connection
-        const socket = new SockJS(`${process.env.REACT_APP_API_URL}/ws`);
+        const socket = new SockJS(`${process.env.REACT_APP_API_URL}/ws`, null, {
+            transports: ['websocket'],
+        });
         const stompClient = Stomp.over(socket);
 
         stompClient.connect({}, (frame: any) => {
@@ -25,16 +28,34 @@ const Notification = () => {
                 setNotifications((prevNotifications): any => [...prevNotifications, notification]);
             });
 
-            // Fetch initial notifications from API
-            getNotifications();
         });
+
+        // Fetch initial notifications from API
+        const getNotifications = async () => {
+            await axios.get(`${process.env.REACT_APP_API_URL}/notification`, {
+                headers: {
+                    'Content-Type': 'application/json',
+                    Accept: 'application/json',
+                },
+                withCredentials: true
+            }).then((response) => {
+                const data = response.data
+                setNotifications(data.content);
+                console.log('Fetched notifications:', data.content);
+                console.log(Array.isArray(notifications));
+            }).catch(error => {
+                console.error('Error fetching notifications:', error);
+            });
+        };
+
+        getNotifications();
 
         return () => {
             if (stompClient) {
                 stompClient.disconnect();
             }
         };
-    }, []);
+    }, [navigate]);
 
     const getNotifications = async () => {
         try {

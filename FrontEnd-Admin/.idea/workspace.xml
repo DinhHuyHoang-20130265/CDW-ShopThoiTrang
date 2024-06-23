@@ -5,7 +5,37 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="89893dc3-088e-47ef-a82c-f709754202c6" name="Changes" comment="updated: finished authorities admin frontend, added contact management">
+      <change afterPath="$PROJECT_DIR$/.firebase/hosting.YnVpbGQ.cache" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.firebaserc" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/firebase.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/logomain.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../FrontEnd/.firebaserc" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../FrontEnd/.gitignore" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../FrontEnd/firebase.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../BackEnd/logs/mylog.log" beforeDir="false" afterPath="$PROJECT_DIR$/../BackEnd/logs/mylog.log" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../BackEnd/src/main/java/vn/edu/hcmuaf/cdw/ShopThoiTrang/JWT/JwtUtils.java" beforeDir="false" afterPath="$PROJECT_DIR$/../BackEnd/src/main/java/vn/edu/hcmuaf/cdw/ShopThoiTrang/JWT/JwtUtils.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../BackEnd/src/main/java/vn/edu/hcmuaf/cdw/ShopThoiTrang/config/SecurityConfiguration.java" beforeDir="false" afterPath="$PROJECT_DIR$/../BackEnd/src/main/java/vn/edu/hcmuaf/cdw/ShopThoiTrang/config/SecurityConfiguration.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../BackEnd/src/main/java/vn/edu/hcmuaf/cdw/ShopThoiTrang/controller/UserController.java" beforeDir="false" afterPath="$PROJECT_DIR$/../BackEnd/src/main/java/vn/edu/hcmuaf/cdw/ShopThoiTrang/controller/UserController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../BackEnd/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/../BackEnd/src/main/resources/application.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.env" beforeDir="false" afterPath="$PROJECT_DIR$/.env" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/public/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Dashboard/DashBoard.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/Dashboard/DashBoard.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/authProvider.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/authProvider.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/orders/OrderEdit.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/orders/OrderEdit.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/websocket/Notification.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/websocket/Notification.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../FrontEnd/.env" beforeDir="false" afterPath="$PROJECT_DIR$/../FrontEnd/.env" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../FrontEnd/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/../FrontEnd/package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../FrontEnd/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/../FrontEnd/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../FrontEnd/public/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/../FrontEnd/public/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../FrontEnd/src/pages/user/Checkout.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/../FrontEnd/src/pages/user/Checkout.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../FrontEnd/src/pages/user/Contact.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/../FrontEnd/src/pages/user/Contact.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../FrontEnd/src/pages/user/LoginRegister.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/../FrontEnd/src/pages/user/LoginRegister.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../FrontEnd/src/pages/user/MyAccount.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/../FrontEnd/src/pages/user/MyAccount.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../FrontEnd/src/pages/user/PostDetail.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/../FrontEnd/src/pages/user/PostDetail.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../FrontEnd/yarn.lock" beforeDir="false" afterPath="$PROJECT_DIR$/../FrontEnd/yarn.lock" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -55,7 +85,7 @@
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "git-widget-placeholder": "DinhHuyHoang",
     "ignore.virus.scanning.warn.message": "true",
-    "last_opened_file_path": "E:/FrontEnd-Admin",
+    "last_opened_file_path": "D:/CDW-ShopThoiTrang/FrontEnd",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
@@ -70,6 +100,7 @@
 }]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="D:\CDW-ShopThoiTrang\FrontEnd-Admin\public" />
       <recent name="D:\ChuyenDeWeb\CDW-ShopThoiTrang\FrontEnd-Admin\src\orders" />
       <recent name="D:\ChuyenDeWeb\CDW-ShopThoiTrang\FrontEnd-Admin\src\products" />
       <recent name="D:\ChuyenDeWeb\CDW-ShopThoiTrang\FrontEnd-Admin\src\categories" />
@@ -178,6 +209,9 @@
       <workItem from="1718519683170" duration="1511000" />
       <workItem from="1718524294350" duration="3905000" />
       <workItem from="1718544279943" duration="8788000" />
+      <workItem from="1719055287500" duration="61000" />
+      <workItem from="1719074047558" duration="687000" />
+      <workItem from="1719077306396" duration="4244000" />
     </task>
     <task id="LOCAL-00001" summary="update product for admin (50%&#10;)">
       <option name="closed" value="true" />

@@ -29,7 +29,8 @@ const ProductDetail = () => {
                 headers: {
                     Accept: 'application/json',
                     "Content-Type": "application/json"
-                }
+                },
+                withCredentials: true
             }).then((response: any) => {
                 setReviews(response.data);
             })

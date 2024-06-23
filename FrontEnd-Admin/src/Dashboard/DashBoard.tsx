@@ -46,7 +46,7 @@ const DashBoard = () => {
     // get orders
     const {data: orders} = useGetList<Order>('order', {
         sort: {field: "OrderDate", order: "DESC"},
-        pagination: {page: 1, perPage: 50}
+        pagination: {page: 1, perPage: -1}
     })
 
     // get users
@@ -63,7 +63,7 @@ const DashBoard = () => {
     // get prducts
     const {data: products} = useGetList<Product>('product', {
         sort: {field: 'name', order: 'DESC'},
-        pagination: {page: 1, perPage: 100},
+        pagination: {page: 1, perPage: -1},
     });
 
 
