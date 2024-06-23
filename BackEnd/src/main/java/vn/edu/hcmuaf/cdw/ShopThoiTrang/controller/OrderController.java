@@ -57,9 +57,10 @@ public class OrderController {
         return response;
     }
 
-    @PreAuthorize("(hasAuthority('ROLE_ADMIN') and hasAuthority('ORDER_UPDATE')) or @securityService.isSuperAdmin()")
+    @PreAuthorize("(hasAuthority('ROLE_ADMIN') and hasAuthority('ORDER_UPDATE')) or hasAuthority('ROLE_SUPER_ADMIN')")
     @PutMapping("/{id}/status/{statusId}")
     public ResponseEntity<?> updateOrderStatus(@PathVariable Long id, @PathVariable Long statusId) {
+        System.out.println("Update order status");
         return orderService.updateOrderStatus(id, statusId);
     }
 

@@ -24,7 +24,6 @@ public class Category {
     @NotNull(message = "Category name is required")
     private String name;
 
-    @NotNull(message = "Category description is required")
     @Column(name = "parent_id")
     private Long parentId;
 
