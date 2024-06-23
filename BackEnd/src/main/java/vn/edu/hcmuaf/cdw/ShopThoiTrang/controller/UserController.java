@@ -84,11 +84,26 @@ public class UserController {
         return ResponseEntity.ok(users);
     }
 
-    @PreAuthorize("@securityService.isSuperAdmin() or hasAuthority('ROLE_ADMIN')")
+    @PreAuthorize("@securityService.isSuperAdmin() or hasAuthority('ROLE_ADMIN') or @securityService.isUser() or hasAuthority('ROLE_USER')")
     @GetMapping("/{id}")
-    public ResponseEntity<UserDto> getUserById(@PathVariable Long id) {
-        UserDto user = userService.getUserById(id);
-        return ResponseEntity.ok(user);
+    public ResponseEntity<?> getUserById(@PathVariable Long id) {
+        String requestOrigin = request.getHeader("origin");
+        String jwtName = (requestOrigin.equals(frontendProperties.getUrl()) || requestOrigin.equals("http://localhost:3000")) ? "shop2h" :
+                (requestOrigin.equals(frontendProperties.getAdmin()) || requestOrigin.equals("http://localhost:3001")) ? "shop2h_admin" : null;
+        String jwt = jwtUtils.getJwtFromCookies(request, jwtName);
+        System.out.println(jwtName);
+        System.out.println(jwt);
+        if (jwtName == "shop2h_admin" ){
+            return ResponseEntity.ok(userService.getUserById(id));
+        }else if (jwtName == "shop2h"){
+            String username = jwtUtils.getUserNameFromJwtToken(jwt);
+            User user = userService.getUserByUsername(username);
+            System.out.println(username);
+            if (user.getId() == id){
+                return ResponseEntity.ok(userService.getUserById(id));
+            }
+        }
+        return ResponseEntity.badRequest().body("You don't have permission to access this user");
     }
 
     @PreAuthorize("(hasAuthority('ROLE_ADMIN') and hasAuthority('USER_CREATE')) or @securityService.isSuperAdmin()")
