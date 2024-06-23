@@ -75,8 +75,8 @@ public class SecurityConfiguration {
                 .authorizeHttpRequests(auth ->
                         auth.requestMatchers("/api/auth/**").permitAll()
                                 .requestMatchers("/api/order-status").permitAll()
-                                .requestMatchers("/api/review/product/").permitAll()
-                                .requestMatchers("/api/blog/", "/api/blog/user", "/api/blog").permitAll()
+                                .requestMatchers("/api/review/product/{productId}").permitAll()
+                                .requestMatchers("/api/blog/{id}", "/api/blog/user").permitAll()
                                 .requestMatchers("/api/contact/**").permitAll()
                                 .requestMatchers("/api/coupon").permitAll()
                                 .requestMatchers("/api/product/user").permitAll()
