@@ -119,13 +119,13 @@ public class OrderServiceImpl implements OrderService {
             };
 
             if (sortBy.equals("price")) {
-                return orderRepository.findAll(specification, PageRequest.of(page, perPage, Sort.by(direction, "totalAmount")));
+                return orderRepository.findAll(specification, PageRequest.of(page, perPage == -1 ? Integer.MAX_VALUE : perPage, Sort.by(direction, "totalAmount")));
             }
             if (sortBy.equals("OrderDate")) {
-                return orderRepository.findAll(specification, PageRequest.of(page, perPage, Sort.by(direction, "orderDate")));
+                return orderRepository.findAll(specification, PageRequest.of(page, perPage == -1 ? Integer.MAX_VALUE : perPage, Sort.by(direction, "orderDate")));
             }
 
-            return orderRepository.findAll(specification, PageRequest.of(page, perPage, Sort.by(direction, sortBy)));
+            return orderRepository.findAll(specification, PageRequest.of(page, perPage == -1 ? Integer.MAX_VALUE : perPage, Sort.by(direction, sortBy)));
         } catch (RuntimeException e) {
             Log.error("Error in getAllOrders: ", e);
             throw new RuntimeException(e);
