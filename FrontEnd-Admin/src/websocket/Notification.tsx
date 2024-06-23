@@ -19,10 +19,13 @@ const Notification = () => {
 
         stompClient.connect({}, (frame: any) => {
 
+            console.log('Connected:', frame);
+
             // Subscribe to the topic for new orders
             stompClient.subscribe('/topic/notifications', (message) => {
                 const notification = JSON.parse(message.body);
                 // Update notifications state with new notification
+                console.log("line 26: " + notification)
                 setNotifications((prevNotifications): any => [notification, ...prevNotifications]);
             });
 

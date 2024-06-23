@@ -178,24 +178,6 @@ const ShoppingCart = ({
                             </div>
 
                             <div className="row">
-                                <div className="col-lg-6 col-md-6">
-                                    <div className="discount-code-wrapper">
-                                        <div className="title-wrap">
-                                            <h4 className="cart-bottom-title section-bg-gray">
-                                                Áp dụng mã giảm giá
-                                            </h4>
-                                        </div>
-                                        <div className="discount-code">
-                                            <p>Nhâp mã giảm giá tại đây</p>
-                                            <form>
-                                                <input type="text" required name="name"/>
-                                                <button className="cart-btn-2" type="submit">
-                                                    Áp dụng
-                                                </button>
-                                            </form>
-                                        </div>
-                                    </div>
-                                </div>
 
                                 <div className="col-lg-6 col-md-12">
                                     <div className="grand-totall">
