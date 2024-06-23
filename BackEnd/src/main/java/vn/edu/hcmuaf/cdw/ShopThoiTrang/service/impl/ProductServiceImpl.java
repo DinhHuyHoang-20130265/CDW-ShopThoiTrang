@@ -145,13 +145,13 @@ public class ProductServiceImpl implements ProductService {
 
             return switch (sortBy) {
                 case "price" ->
-                        productRepository.findAll(specification, PageRequest.of(page, perPage, Sort.by(direction, "price")));
+                        productRepository.findAll(specification, PageRequest.of(page, perPage == -1 ? Integer.MAX_VALUE : perPage, Sort.by(direction, "price")));
                 case "name" ->
-                        productRepository.findAll(specification, PageRequest.of(page, perPage, Sort.by(direction, "name")));
+                        productRepository.findAll(specification, PageRequest.of(page, perPage == -1 ? Integer.MAX_VALUE : perPage, Sort.by(direction, "name")));
                 case "status" ->
-                        productRepository.findAll(specification, PageRequest.of(page, perPage, Sort.by(direction, "status")));
+                        productRepository.findAll(specification, PageRequest.of(page, perPage == -1 ? Integer.MAX_VALUE : perPage, Sort.by(direction, "status")));
                 default ->
-                        productRepository.findAll(specification, PageRequest.of(page, perPage, Sort.by(direction, sortBy)));
+                        productRepository.findAll(specification, PageRequest.of(page, perPage == -1 ? Integer.MAX_VALUE : perPage, Sort.by(direction, sortBy)));
             };
         } catch (RuntimeException e) {
             Log.error("Error get all products", e);

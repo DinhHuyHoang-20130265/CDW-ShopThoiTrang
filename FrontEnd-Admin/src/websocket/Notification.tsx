@@ -14,7 +14,7 @@ const Notification = () => {
 
     useEffect(() => {
         // Establish WebSocket connection
-        const socket = new SockJS(`${process.env.REACT_APP_API_URL}/ws`, null, {
+        const socket = new SockJS(`${process.env.REACT_APP_API_URL_SOCKET}/ws`, null, {
             transports: ['websocket'],
         });
         const stompClient = Stomp.over(socket);
