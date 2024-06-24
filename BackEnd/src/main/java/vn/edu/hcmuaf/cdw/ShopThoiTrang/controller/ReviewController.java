@@ -8,6 +8,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
+import vn.edu.hcmuaf.cdw.ShopThoiTrang.entity.Notification;
 import vn.edu.hcmuaf.cdw.ShopThoiTrang.entity.Review;
 import vn.edu.hcmuaf.cdw.ShopThoiTrang.model.dto.ReviewRequest;
 import vn.edu.hcmuaf.cdw.ShopThoiTrang.service.NotificationService;
@@ -33,8 +34,8 @@ public class ReviewController {
     public ResponseEntity<Review> createReview(@RequestBody ReviewRequest review) {
         Review reviewEntity = reviewService.createReview(review);
         if (reviewEntity != null) {
-            notificationService.createNotification("New review has been created", reviewEntity.getId(), "review");
-            messagingTemplate.convertAndSend("/topic/notifications", reviewEntity);
+            Notification notification = notificationService.createNotification("New review has been created", reviewEntity.getId(), "review");
+            messagingTemplate.convertAndSend("/topic/notifications", notification);
         }
         return ResponseEntity.ok(reviewEntity);
     }

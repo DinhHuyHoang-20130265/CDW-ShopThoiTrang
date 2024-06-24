@@ -46,6 +46,7 @@ public class RoleServiceImpl implements RoleService {
                 if (filterJson.has("name")) {
                     predicate = criteriaBuilder.and(predicate, criteriaBuilder.like(root.get("name"), "%" + filterJson.get("name").asText() + "%"));
                 }
+                predicate = criteriaBuilder.and(predicate, criteriaBuilder.notEqual(root.get("name"), "SUPER_ADMIN"));
                 return predicate;
             };
 
@@ -72,7 +73,8 @@ public class RoleServiceImpl implements RoleService {
             if (filterJson.has("ids")) {
                 List<Long> idsList = new ArrayList<>();
                 for (JsonNode idNode : filterJson.get("ids")) {
-                    idsList.add(idNode.asLong());
+                    if (idNode.asLong() != 3)
+                        idsList.add(idNode.asLong());
                 }
                 Iterable<Long> itr = List.of(Stream.of(idsList).flatMap(List::stream).toArray(Long[]::new));
                 return roleRepository.findAllById(itr);

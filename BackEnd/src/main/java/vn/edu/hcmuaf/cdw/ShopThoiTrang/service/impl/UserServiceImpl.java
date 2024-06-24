@@ -91,10 +91,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public String updateInfo(Long id, String name, String phone, String email, String avtUrl) {
         try {
-            UserInfo userInfo = userInfoRepository.findById(id).orElseThrow(() -> {
-                Log.warn("UserId " + id + " tried to update info but user info not found");
-                return new RuntimeException("User info not found");
-            });
+            UserInfo userInfo = userInfoRepository.findByUserId(id);
             userInfo.setFullName(name);
             userInfo.setPhone(phone);
             userInfo.setEmail(email);

@@ -22,6 +22,9 @@ const Notification = () => {
             // Subscribe to the topic for new orders
             stompClient.subscribe('/topic/notifications', (message) => {
                 const notification = JSON.parse(message.body);
+                console.log('Received notification:', notification)
+                console.log("message", message)
+                console.log("frame", frame)
                 // Update notifications state with new notification
                 setNotifications((prevNotifications): any => [notification, ...prevNotifications]);
             });

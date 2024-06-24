@@ -4,10 +4,13 @@ import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
+import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import vn.edu.hcmuaf.cdw.ShopThoiTrang.entity.Contact;
+import vn.edu.hcmuaf.cdw.ShopThoiTrang.entity.Notification;
 import vn.edu.hcmuaf.cdw.ShopThoiTrang.service.ContactService;
+import vn.edu.hcmuaf.cdw.ShopThoiTrang.service.NotificationService;
 
 import java.util.LinkedHashMap;
 
@@ -19,6 +22,12 @@ public class ContactController {
 
     @Autowired
     private HttpServletRequest request;
+
+    @Autowired
+    private NotificationService notificationService;
+
+    @Autowired
+    private SimpMessagingTemplate messagingTemplate;
 
     @PreAuthorize("hasAuthority('ROLE_ADMIN') or @securityService.isSuperAdmin()")
     @GetMapping
@@ -40,7 +49,11 @@ public class ContactController {
     @PreAuthorize("@securityService.isUser()")
     @PostMapping
     public ResponseEntity<?> saveContact(@RequestParam String name, @RequestParam String email, @RequestParam String message) {
-        contactService.saveContact(name, email, message);
+        Contact contact = contactService.saveContact(name, email, message);
+        if (contact != null) {
+            Notification notification = notificationService.createNotification("New contact has been created", contact.getId(), "contact");
+            messagingTemplate.convertAndSend("/topic/notifications", notification);
+        }
         return ResponseEntity.ok("Success");
     }
 

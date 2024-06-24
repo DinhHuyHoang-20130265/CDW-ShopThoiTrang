@@ -56,7 +56,7 @@ public class ReviewServiceImpl implements ReviewService {
             review.setContent(reviewRequest.getContent());
             review.setRating(reviewRequest.getRating());
             review.setStatus(true);
-            review.setType(0);
+            review.setType(1);
             review.setProduct(productRepository.findById(reviewRequest.getProduct()).orElse(null));
             review.setReviewedDate(date);
             review.setDeleted(false);

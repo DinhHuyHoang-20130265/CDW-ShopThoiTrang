@@ -306,7 +306,7 @@ public class AuthServiceImpl implements AuthService {
             user.getUserInfo().setEmail(signupDto.getEmail());
             user.getUserInfo().setFullName(signupDto.getFullName());
             user.setPasswordEncrypted(passwordEncoder.encode(signupDto.getPassword()));
-            user.setRole(new Role(2L, "USER"));
+            user.setRole(new Role(1L, "USER"));
             user.setEnabled(true);
             user.setUsername(signupDto.getUsername());
             user.getUserInfo().setUser(user);
