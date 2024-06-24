@@ -5,19 +5,13 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="89893dc3-088e-47ef-a82c-f709754202c6" name="Changes" comment="updated: fixed bugs in admin subcribe webstorm">
-      <change beforePath="$PROJECT_DIR$/../BackEnd/src/main/java/vn/edu/hcmuaf/cdw/ShopThoiTrang/controller/RoleController.java" beforeDir="false" afterPath="$PROJECT_DIR$/../BackEnd/src/main/java/vn/edu/hcmuaf/cdw/ShopThoiTrang/controller/RoleController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../BackEnd/src/main/java/vn/edu/hcmuaf/cdw/ShopThoiTrang/service/impl/RoleServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/../BackEnd/src/main/java/vn/edu/hcmuaf/cdw/ShopThoiTrang/service/impl/RoleServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../BackEnd/logs/mylog.log" beforeDir="false" afterPath="$PROJECT_DIR$/../BackEnd/logs/mylog.log" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../BackEnd/src/main/java/vn/edu/hcmuaf/cdw/ShopThoiTrang/JWT/JwtUtils.java" beforeDir="false" afterPath="$PROJECT_DIR$/../BackEnd/src/main/java/vn/edu/hcmuaf/cdw/ShopThoiTrang/JWT/JwtUtils.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.firebase/hosting.YnVpbGQ.cache" beforeDir="false" afterPath="$PROJECT_DIR$/.firebase/hosting.YnVpbGQ.cache" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/orders/OrderList.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/orders/OrderList.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/orders/Total.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/orders/Total.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/websocket/Notification.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/websocket/Notification.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../FrontEnd/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/../FrontEnd/package-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../FrontEnd/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/../FrontEnd/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../FrontEnd/src/Render.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/../FrontEnd/src/Render.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../FrontEnd/src/components/auth/Logout.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/../FrontEnd/src/components/auth/Logout.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../FrontEnd/src/pages/user/MyAccount.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/../FrontEnd/src/pages/user/MyAccount.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../FrontEnd/src/pages/user/ShoppingCart.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/../FrontEnd/src/pages/user/ShoppingCart.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../FrontEnd/yarn.lock" beforeDir="false" afterPath="$PROJECT_DIR$/../FrontEnd/yarn.lock" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -68,7 +62,7 @@
     "git-widget-placeholder": "DinhHuyHoang",
     "ignore.virus.scanning.warn.message": "true",
     "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "D:/CDW-ShopThoiTrang/FrontEnd",
+    "last_opened_file_path": "D:/CDW-ShopThoiTrang/FrontEnd-Admin",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
@@ -204,6 +198,9 @@
       <workItem from="1719162267261" duration="2219000" />
       <workItem from="1719165612724" duration="349000" />
       <workItem from="1719166143920" duration="39000" />
+      <workItem from="1719189158035" duration="1313000" />
+      <workItem from="1719190769505" duration="127000" />
+      <workItem from="1719191713534" duration="268000" />
     </task>
     <task id="LOCAL-00001" summary="update product for admin (50%&#10;)">
       <option name="closed" value="true" />

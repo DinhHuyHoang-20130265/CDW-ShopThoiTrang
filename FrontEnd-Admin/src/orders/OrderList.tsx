@@ -192,7 +192,8 @@ export const OrderList = () => {
                     <FunctionField render={(record: any) => record?.orderDetails?.length} label="SL Sản Phẩm"/>
                     <FunctionField
                         render={(record: any) => {
-                            return (record?.totalAmount + record?.shippingFee - (record?.coupon ? record?.coupon.price : 0)).toLocaleString(undefined, {
+                            return (record?.totalAmount + record?.shippingFee - (record?.coupon !== null && record?.coupon !== undefined
+                                ? record?.coupon.price : 0)).toLocaleString(undefined, {
                                 style: 'currency',
                                 currency: 'VND',
                             })
