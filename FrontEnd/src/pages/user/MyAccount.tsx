@@ -342,7 +342,7 @@ const MyAccount = () => {
                                                         <tr key={index}>
                                                             <td>{index + 1}</td>
                                                             <td>{order.id}</td>
-                                                            <td>{formatPrice(order.totalAmount + order.shippingFee - order.coupon ? order.coupon.price : 0)}</td>
+                                                            <td>{order && formatPrice(order.totalAmount + order.shippingFee - (order.coupon !== null && order.coupon !== undefined ? order.coupon.price : 0))}</td>
                                                             <td>{formatStatus(order.status)}</td>
                                                             <td>
                                                                 <Button variant="primary" onClick={() => {
@@ -592,7 +592,7 @@ const OrderDetailModal = ({order, setshowOrderDetailModal}: any) => {
                         </tr>
                         <tr>
                             <th colSpan={3}>Giảm giá</th>
-                            <td style={{color: 'red'}}> - {formatPrice(order.coupon ? order.coupon.price : 0)}</td>
+                            <td style={{color: 'red'}}> - {order && formatPrice(order.coupon !== null && order.coupon !== undefined ? order.coupon.price : 0)}</td>
                         </tr>
                         <tr>
                             <th colSpan={3}>Tổng tiền</th>
