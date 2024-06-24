@@ -128,6 +128,10 @@ public class ImportInvoiceServiceImpl implements ImportInvoiceService {
                 importInvoiceDetailRepository.save(newImportInvoiceDetail);
                 newImportInvoice.getImportInvoiceDetails().add(newImportInvoiceDetail);
                 totalPrice += newImportInvoiceDetail.getImportPrice() * newImportInvoiceDetail.getQuantity();
+
+                Size size = sizeRepository.findById(importInvoiceDetailRequest.getSize()).get();
+                size.setStock(size.getStock() + importInvoiceDetailRequest.getQuantity());
+                sizeRepository.save(size);
             }
             newImportInvoice.setTotalPrice(totalPrice);
             importInvoiceRepository.save(newImportInvoice);

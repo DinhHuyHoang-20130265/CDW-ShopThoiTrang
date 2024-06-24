@@ -11,7 +11,6 @@ import com.itextpdf.text.pdf.PdfPTable;
 import com.itextpdf.text.pdf.PdfWriter;
 import jakarta.persistence.criteria.Join;
 import jakarta.persistence.criteria.Predicate;
-import jakarta.servlet.http.HttpServletRequest;
 import jakarta.transaction.Transactional;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -262,11 +261,12 @@ public class OrderServiceImpl implements OrderService {
                 PdfWriter writer = PdfWriter.getInstance(document, byteArrayOutputStream);
                 document.open();
 
-                BaseFont bf = BaseFont.createFont("src/main/java/vn/edu/hcmuaf/cdw/ShopThoiTrang/font/arial.ttf", BaseFont.IDENTITY_H, BaseFont.EMBEDDED);
+                Font.FontFamily bf = Font.FontFamily.TIMES_ROMAN;
+
                 Font boldFont = new Font(bf, 20, Font.BOLD);
                 Font regularFont = new Font(bf, 12, Font.NORMAL);
 
-                Paragraph title = new Paragraph("Hóa đơn #" + orderId, boldFont);
+                Paragraph title = new Paragraph("Order #" + orderId, boldFont);
                 title.setAlignment(Element.ALIGN_CENTER);
                 document.add(title);
 
@@ -287,25 +287,25 @@ public class OrderServiceImpl implements OrderService {
                 tableInfo.setWidths(new int[]{1, 1});
 
 
-                tableInfo.addCell(new PdfPCell(new Phrase("Khách hàng", regularFont)));
+                tableInfo.addCell(new PdfPCell(new Phrase("Khach hang", regularFont)));
                 tableInfo.addCell(new PdfPCell(new Phrase(order.getName(), regularFont)));
 
-                tableInfo.addCell(new PdfPCell(new Phrase("Số điện thoại", regularFont)));
+                tableInfo.addCell(new PdfPCell(new Phrase("So dien thoai", regularFont)));
                 tableInfo.addCell(new PdfPCell(new Phrase(order.getPhone(), regularFont)));
 
-                tableInfo.addCell(new PdfPCell(new Phrase("Địa chỉ", regularFont)));
+                tableInfo.addCell(new PdfPCell(new Phrase("Dia chi", regularFont)));
                 tableInfo.addCell(new PdfPCell(new Phrase(order.getAddress(), regularFont)));
 
-                tableInfo.addCell(new PdfPCell(new Phrase("Ghi chú", regularFont)));
+                tableInfo.addCell(new PdfPCell(new Phrase("Ghi chu", regularFont)));
                 tableInfo.addCell(new PdfPCell(new Phrase(order.getNote(), regularFont)));
 
-                tableInfo.addCell(new PdfPCell(new Phrase("Ngày đặt hàng", regularFont)));
+                tableInfo.addCell(new PdfPCell(new Phrase("Ngay dat hang", regularFont)));
                 tableInfo.addCell(new PdfPCell(new Phrase(order.getOrderDate().toString(), regularFont)));
 
-                tableInfo.addCell(new PdfPCell(new Phrase("Phương thức thanh toán", regularFont)));
+                tableInfo.addCell(new PdfPCell(new Phrase("Phuong thuc thanh toan", regularFont)));
                 tableInfo.addCell(new PdfPCell(new Phrase(order.getPaymentMethod(), regularFont)));
 
-                tableInfo.addCell(new PdfPCell(new Phrase("Trạng thái thanh toán", regularFont)));
+                tableInfo.addCell(new PdfPCell(new Phrase("Trang thai thanh toan", regularFont)));
                 tableInfo.addCell(new PdfPCell(new Phrase(order.getPaymentStatus(), regularFont)));
 
                 document.add(tableInfo);
@@ -329,21 +329,21 @@ public class OrderServiceImpl implements OrderService {
                     table.addCell(new PdfPCell(new Phrase(String.valueOf(formatPrice(orderDetail.getPrice())), regularFont)));
                 }
 
-                PdfPCell cellTotal1 = new PdfPCell(new Phrase("Tạm tính", regularFont));
+                PdfPCell cellTotal1 = new PdfPCell(new Phrase("Tam tinh", regularFont));
                 cellTotal1.setColspan(3);
                 table.addCell(cellTotal1);
 
                 PdfPCell cellTotal2 = new PdfPCell(new Phrase(String.valueOf(formatPrice(order.getTotalAmount())), regularFont));
                 table.addCell(cellTotal2);
 
-                PdfPCell cellShippingFee = new PdfPCell(new Phrase("Phí vận chuyển", regularFont));
+                PdfPCell cellShippingFee = new PdfPCell(new Phrase("Phi van chuyen", regularFont));
                 cellShippingFee.setColspan(3);
                 table.addCell(cellShippingFee);
 
                 PdfPCell cellShippingFeeValue = new PdfPCell(new Phrase(String.valueOf(formatPrice(order.getShippingFee())), regularFont));
                 table.addCell(cellShippingFeeValue);
 
-                PdfPCell cellTotal = new PdfPCell(new Phrase("Tổng tiền", new Font(bf, 16, Font.BOLD)));
+                PdfPCell cellTotal = new PdfPCell(new Phrase("Tong tien", new Font(bf, 16, Font.BOLD)));
                 cellTotal.setColspan(3);
                 table.addCell(cellTotal);
 

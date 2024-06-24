@@ -38,7 +38,7 @@ public class ContactServiceImpl implements ContactService {
     private UserRepository userRepository;
 
     @Override
-    public void saveContact(String name, String email, String message) {
+    public Contact saveContact(String name, String email, String message) {
         try {
             Contact contact = new Contact();
             contact.setName(name);
@@ -47,7 +47,7 @@ public class ContactServiceImpl implements ContactService {
             contact.setCreatedDate(new java.sql.Timestamp(System.currentTimeMillis()));
             contact.setStatus(false);
             Log.info("Save contact: " + contact.getId());
-            contactRepository.save(contact);
+            return contactRepository.save(contact);
         } catch (Exception e) {
             Log.error("Error save contact: " + e.getMessage());
             throw new RuntimeException(e);
