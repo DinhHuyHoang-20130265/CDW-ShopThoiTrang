@@ -1,15 +1,15 @@
 import * as React from 'react';
-import { Table, TableBody, TableCell, TableRow } from '@mui/material';
-import { useRecordContext, useTranslate } from 'react-admin';
+import {Table, TableBody, TableCell, TableRow} from '@mui/material';
+import {useRecordContext, useTranslate} from 'react-admin';
 
-import { Order } from '../types';
+import {Order} from '../types';
 import {styled} from "@mui/material/styles";
 
 const Total = () => {
     const record = useRecordContext<Order>();
 
     return (
-        <Table sx={{ minWidth: '35em' }}>
+        <Table sx={{minWidth: '35em'}}>
             <TableBody>
                 <TableRow>
                     <TableCell>
@@ -34,11 +34,23 @@ const Total = () => {
                     </TableCellRight>
                 </TableRow>
                 <TableRow>
-                    <TableCell sx={{ fontWeight: 'bold' }}>
+                    <TableCell>
+                        Giảm giá
+                    </TableCell>
+                    <TableCellRight>
+                        {record.coupon ? record.coupon.price.toLocaleString(undefined, {
+                            style: 'currency',
+                            currency: 'VND',
+                        }) : 0}
+                    </TableCellRight>
+                </TableRow>
+                <TableRow>
+                    <TableCell sx={{fontWeight: 'bold'}}>
                         Tổng cộng
                     </TableCell>
-                    <TableCellRight sx={{ fontWeight: 'bold' }}>
-                        {(record?.totalAmount + record?.shippingFee).toLocaleString(undefined, {
+                    <TableCellRight sx={{fontWeight: 'bold'}}>
+                        {(record?.totalAmount + record?.shippingFee - ((record?.coupon !== null && record?.coupon !== undefined)
+                            ? record?.coupon.price : 0)).toLocaleString(undefined, {
                             style: 'currency',
                             currency: 'VND',
                         })}
@@ -49,6 +61,6 @@ const Total = () => {
     );
 };
 
-const TableCellRight = styled(TableCell)({ textAlign: 'right' });
+const TableCellRight = styled(TableCell)({textAlign: 'right'});
 
 export default Total;

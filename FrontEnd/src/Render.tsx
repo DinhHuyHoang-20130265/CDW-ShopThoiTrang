@@ -78,8 +78,9 @@ const Render = () => {
                     toast.error("Dữ liệu không hợp lệ, vui lòng kiểm tra lại!");
                 } else if (status === 403 && error.response.data !== "") {
                     toast.error("Unauthorized:" + error);
-                } else {
-                    toast.error("Đã có lỗi xảy ra, vui lòng thử lại sau!");
+                } else if (status === 403 && error.response.data == "") {
+                    toast.error("Đã có lỗi xảy ra hoặc tài khoản của bạn không có quyền truy cập!");
+                    window.location.href = "/login-register";
                 }
             } else {
                 toast.error("Đã có lỗi xảy ra, vui lòng thử lại sau!");

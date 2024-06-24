@@ -190,7 +190,14 @@ export const OrderList = () => {
                     <NumberField source="id" label="ID"/>
                     <TextField source="name" label="Tên"/>
                     <FunctionField render={(record: any) => record?.orderDetails?.length} label="SL Sản Phẩm"/>
-                    <NumberField source="totalAmount" label="Tổng tiền"/>
+                    <FunctionField
+                        render={(record: any) => {
+                            return (record?.totalAmount + record?.shippingFee - (record?.coupon ? record?.coupon.price : 0)).toLocaleString(undefined, {
+                                style: 'currency',
+                                currency: 'VND',
+                            })
+                        }}
+                        label="Tổng tiền"/>
                     <ArrayField label="Người mua">
                         <LinkToUser/>
                     </ArrayField>

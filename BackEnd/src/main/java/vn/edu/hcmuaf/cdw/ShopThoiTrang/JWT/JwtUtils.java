@@ -53,7 +53,7 @@ public class JwtUtils {
     }
 
     public ResponseCookie getCleanJwtCookie(String jwtCookie_name) {
-        return ResponseCookie.from(jwtCookie_name, null).path("/api").build();
+        return ResponseCookie.from(jwtCookie_name, null).path("/api").secure(true).sameSite("None").build();
     }
 
     public String generateTokenFromUsername(String username) {
@@ -91,7 +91,7 @@ public class JwtUtils {
     }
 
     public ResponseCookie getCleanJwtRefreshCookie(String jwtRefreshCookie_name) {
-        return ResponseCookie.from(jwtRefreshCookie_name, null).path("/api").build();
+        return ResponseCookie.from(jwtRefreshCookie_name, null).path("/api").secure(true).sameSite("None").build();
     }
 
     private String getCookieValueByName(HttpServletRequest request, String name) {
